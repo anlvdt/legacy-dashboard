@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công cụ Tải ảnh và Đồng bộ</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #121212; color: #e0e0e0; max-width: 800px; margin: 2rem auto; padding: 1rem 2rem; }
+        h1, h3 { color: #f39c12; }
+        #drop-zone { border: 2px dashed #555; border-radius: 8px; padding: 40px; text-align: center; cursor: pointer; transition: background-color 0.2s; }
+        #drop-zone.dragover { background-color: #333; }
+        #file-input { display: none; }
+        input[type="text"] { width: 100%; box-sizing: border-box; background: #222; border: 1px solid #555; color: #fff; padding: 0.8rem; border-radius: 5px; margin-bottom: 1rem; font-size: 1rem; }
+        button { background-color: #f39c12; color: #000; border: none; padding: 12px 20px; border-radius: 5px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 1rem; }
+        button:disabled { background-color: #555; cursor: not-allowed; }
+        #log { width: 100%; height: 200px; box-sizing: border-box; background-color: #1e1e1e; border: 1px solid #444; border-radius: 5px; padding: 10px; margin-top: 1rem; font-family: monospace; overflow-y: scroll; white-space: pre-wrap; }
+        .progress-bar { width: 100%; background-color: #333; border-radius: 5px; overflow: hidden; height: 20px; margin-top: 1rem; display: none; }
+        .progress-bar-inner { width: 0%; height: 100%; background-color: #3498db; transition: width 0.3s; text-align: center; line-height: 20px; font-size: 0.8rem; color: #fff; }
+    </style>
+</head>
+<body>
+    <h1>Công cụ Tải ảnh & Đồng bộ</h1>
+    <p>Công cụ này sẽ tải hàng loạt ảnh lên Imgur và tự động gửi danh sách link đến URL đồng bộ của bạn.</p>
+
+    <h3>Bước 1: Nhập URL Đồng bộ (từ KVdb.io)</h3>
+    <input type="text" id="sync-url-input" placeholder="Dán URL từ KVdb.io của bạn vào đây">
+
+    <h3>Bước 2: Chọn Ảnh</h3>
+    <div id="drop-zone">
+        Kéo và thả toàn bộ album ảnh vào đây, hoặc <strong>nhấn để chọn file</strong>
+    </div>
+    <input type="file" id="file-input" multiple accept="image/*">
+    <p id="file-count">Chưa chọn file nào.</p>
+
+    <button id="upload-btn" disabled>Upload và Đồng bộ</button>
+
+    <div class="progress-bar" id="progress-bar">
+        <div class="progress-bar-inner" id="progress-bar-inner">0%</div>
+    </div>
+
+    <h3>Nhật ký:</h3>
+    <div id="log"></div>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const fileCountEl = document.getElementById('file-count');
+        const uploadBtn = document.getElementById('upload-btn');
+        const logEl = document.getElementById('log');
+        const progressBar = document.getElementById('progress-bar');
+        const progressBarInner = document.getElementById('progress-bar-inner');
+        const syncUrlInput = document.getElementById('sync-url-input');
+        
+        const IMGUR_CLIENT_ID = 'a7a3c3c0b3f274a';
+        let filesToUpload = [];
+
+        // Load saved sync URL
+        syncUrlInput.value = localStorage.getItem('dashboardSyncUrl') || '';
+
+        syncUrlInput.addEventListener('input', () => {
+            localStorage.setItem('dashboardSyncUrl', syncUrlInput.value.trim());
+        });
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+        fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+        uploadBtn.addEventListener('click', startUploadAndSync);
+
+        function handleFiles(files) {
+            filesToUpload = Array.from(files);
+            fileCountEl.textContent = `${filesToUpload.length} file đã được chọn.`;
+            uploadBtn.disabled = filesToUpload.length === 0;
+        }
+
+        function log(message) {
+            logEl.innerHTML += message + '\n';
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        async function uploadFile(file) {
+            log(`Đang tải lên: ${file.name}...`);
+            const formData = new FormData();
+            formData.append('image', file);
+            try {
+                const response = await fetch('https://api.imgur.com/3/image', {
+                    method: 'POST',
+                    headers: { Authorization: `Client-ID ${IMGUR_CLIENT_ID}` },
+                    body: formData,
+                });
+                const data = await response.json();
+                if (data.success) {
+                    log(`Thành công: ${data.data.link}`);
+                    return data.data.link;
+                }
+                log(`Lỗi: ${data.data.error || 'Unknown error'}`);
+                return null;
+            } catch (error) {
+                log(`Lỗi mạng: ${error.message}`);
+                return null;
+            }
+        }
+
+        async function syncToKV(urls) {
+            const baseUrl = syncUrlInput.value.trim();
+            if (!baseUrl) {
+                log('\nLỖI: Vui lòng nhập URL Đồng bộ để tiếp tục.');
+                return false;
+            }
+            const syncUrl = baseUrl.endsWith('/') ? `${baseUrl}images` : `${baseUrl}/images`;
+            log(`\nĐang gửi ${urls.length} link đến URL đồng bộ...`);
+            try {
+                const response = await fetch(syncUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(urls)
+                });
+                if (!response.ok) throw new Error(`Máy chủ trả về lỗi: ${response.status}`);
+                log('Đồng bộ thành công!');
+                return true;
+            } catch (error) {
+                log(`Lỗi đồng bộ: ${error.message}`);
+                return false;
+            }
+        }
+
+        async function startUploadAndSync() {
+            uploadBtn.disabled = true;
+            logEl.innerHTML = '';
+            progressBar.style.display = 'block';
+            
+            const uploadedUrls = [];
+            let successCount = 0;
+
+            for (let i = 0; i < filesToUpload.length; i++) {
+                const url = await uploadFile(filesToUpload[i]);
+                if (url) {
+                    uploadedUrls.push(url);
+                    successCount++;
+                }
+                const progress = Math.round(((i + 1) / filesToUpload.length) * 100);
+                progressBarInner.style.width = `${progress}%`;
+                progressBarInner.textContent = `${progress}%`;
+            }
+            
+            log(`\nHoàn tất upload! Đã tải lên thành công ${successCount}/${filesToUpload.length} ảnh.`);
+
+            if (uploadedUrls.length > 0) {
+                await syncToKV(uploadedUrls);
+            } else {
+                log('Không có ảnh nào để đồng bộ.');
+            }
+            uploadBtn.disabled = false;
+        }
+    </script>
+</body>
+</html>
