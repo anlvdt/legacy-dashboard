@@ -249,47 +249,27 @@
         function changeImage() { if (images.length <= 1) return; els.slideshowImage.style.opacity = 0; setTimeout(function() { currentImageIndex = (currentImageIndex + 1) % images.length; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; }, 1500); }
         function startSlideshow() { if(slideshowInterval) clearInterval(slideshowInterval); if (images.length === 0) { els.slideshowImage.style.display = 'none'; els.initialMessage.style.display = 'table'; return; } els.initialMessage.style.display = 'none'; els.slideshowImage.style.display = 'block'; currentImageIndex = 0; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; if (images.length > 1) { slideshowInterval = setInterval(changeImage, 7000); } }
         
-        // CẢI TIẾN CUỐI CÙNG: Hàm "Chờ và Phóng to" đáng tin cậy nhất
-        function adjustClockOnlySize() {
+        function performResize() {
             var container = els.infoColumn;
             var clock = els.clock;
+            var containerWidth = container.clientWidth * 0.95;
+            var containerHeight = container.clientHeight * 0.95;
 
-            // Bước 1: Nếu không ở chế độ chỉ giờ, xóa style và thoát
-            if (!settings.clockOnly) {
-                clock.style.fontSize = '';
-                return;
-            }
+            if (containerWidth < 100) return;
 
-            // Bước 2: Thực hiện thuật toán phóng to
-            var runResize = function() {
-                // Lấy kích thước cuối cùng của khung chứa
-                var containerWidth = container.clientWidth * 0.95;
-                var containerHeight = container.clientHeight * 0.95;
-                
-                // Nếu khung chứa chưa được vẽ, không làm gì cả
-                if (containerWidth === 0) return;
-
-                // Bắt đầu từ cỡ chữ nhỏ và phóng to dần
-                var fontSize = 10;
-                clock.style.fontSize = fontSize + 'px';
-                
-                while (true) {
-                    var nextFontSize = fontSize + 2;
-                    clock.style.fontSize = nextFontSize + 'px';
-
-                    // Khi bị tràn, quay lại cỡ chữ trước đó và dừng lại
-                    if (clock.scrollWidth > containerWidth || clock.scrollHeight > containerHeight) {
-                        clock.style.fontSize = fontSize + 'px';
-                        break;
-                    }
-                    
-                    fontSize = nextFontSize;
-                    if (fontSize > 1000) { break; } // Điều kiện an toàn
-                }
-            };
+            var fontSize = 10;
+            clock.style.fontSize = fontSize + 'px';
             
-            // Bước 3: Chờ cho CSS transition hoàn tất rồi mới chạy thuật toán
-            setTimeout(runResize, 500); // 500ms > 0.4s transition
+            while (true) {
+                var nextFontSize = fontSize + 2;
+                clock.style.fontSize = nextFontSize + 'px';
+                if (clock.scrollWidth > containerWidth || clock.scrollHeight > containerHeight) {
+                    clock.style.fontSize = fontSize + 'px';
+                    break;
+                }
+                fontSize = nextFontSize;
+                if (fontSize > 1000) break;
+            }
         }
         
         function updateDynamicLayout() {
@@ -305,12 +285,16 @@
         function saveSettings() { try { localStorage.setItem('dashboardSettings', JSON.stringify(settings)); } catch (e) { console.error("Không thể lưu cài đặt:", e); } }
         
         function applySettings() {
+            var wasClockOnly = els.container.classList.contains('clock-only');
+            
             els.container.className = "container"; 
             if (settings.slideshowHidden) els.container.classList.add('slideshow-hidden');
             if (settings.shopHidden) els.container.classList.add('shop-hidden');
             if (settings.qrHidden) els.container.classList.add('qr-hidden');
             if (settings.clockOnly) {
                 els.container.classList.add('clock-only');
+            } else {
+                els.clock.style.fontSize = ''; 
             }
             
             els.slideshowToggleBtn.textContent = settings.slideshowHidden ? 'Hiện ảnh' : 'Ẩn ảnh';
@@ -325,8 +309,15 @@
             
             updateDynamicLayout();
             
-            // CẢI TIẾN QUAN TRỌNG: Gọi hàm phóng to sau khi đã áp dụng class
-            adjustClockOnlySize();
+            if (settings.clockOnly && !wasClockOnly) {
+                var handler = function() {
+                    performResize();
+                    els.infoColumn.removeEventListener('webkitTransitionEnd', handler);
+                    els.infoColumn.removeEventListener('transitionend', handler);
+                };
+                els.infoColumn.addEventListener('webkitTransitionEnd', handler);
+                els.infoColumn.addEventListener('transitionend', handler);
+            }
         }
         
         function loadSettings() { try { var savedSettings = localStorage.getItem('dashboardSettings'); if (savedSettings) { settings = JSON.parse(savedSettings); } } catch (e) { console.error("Không thể tải cài đặt:", e); } applySettings(); }
@@ -335,8 +326,9 @@
             var isVertical = window.innerWidth <= 800; 
             els.container.classList[isVertical ? 'add' : 'remove']('layout-vertical'); 
             renderCalendar(); 
-            // CẢI TIẾN QUAN TRỌNG: Gọi hàm phóng to khi xoay màn hình
-            adjustClockOnlySize(); 
+            if (settings.clockOnly) {
+                setTimeout(performResize, 100);
+            }
         }
 
         function renderCalendar() { var isVertical = !els.container.classList.contains('layout-vertical'); var calendarFn = isVertical ? generateMonthlyCalendar : generateWeeklyCalendar; calendarFn(currentDateForCalendar); }
