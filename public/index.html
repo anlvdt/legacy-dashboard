@@ -3,46 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Màn hình Tổ Ấm</title>
+    <title></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
     <style>
+        :root { --base-padding: 2.5vmin; --border-radius: 1.5vmin; }
         html { font-size: 1.5vmin; }
         @media (max-width: 480px) { html { font-size: 10px; } }
         html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
-        body { background-color: #000; color: #fff; font-family: 'Nunito', sans-serif; display: -webkit-box; display: flex; box-sizing: border-box; padding: 2rem; }
-        .container { display: -webkit-box; display: flex; width: 100%; height: 100%; gap: 2rem; }
+        body { background-color: #000; color: #fff; font-family: 'Nunito', sans-serif; display: -webkit-box; display: flex; box-sizing: border-box; padding: var(--base-padding); -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
+        .container { display: -webkit-box; display: flex; width: 100%; height: 100%; gap: var(--base-padding); -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
         .info-column, .slideshow-column { -webkit-box-flex: 1; flex: 1 1 50%; display: -webkit-box; display: flex; height: 100%; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; overflow: hidden; }
         .content-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; -webkit-justify-content: space-evenly; justify-content: space-evenly; width: 100%; height: 100%; text-align: center; }
-        .container.slideshow-hidden .info-column { -webkit-box-flex: 2; flex-grow: 2; }
-        .container.slideshow-hidden .slideshow-column { -webkit-box-flex: 0; flex-basis: 0; opacity: 0; padding: 0; }
-        .container.layout-vertical { -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; }
-        .container.layout-vertical .info-column, .container.layout-vertical .slideshow-column { width: 100%; height: 50%; }
+        
+        /* --- Bố cục Tự động --- */
+        .layout-vertical { -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; }
+        .layout-vertical .info-column, .layout-vertical .slideshow-column { width: 100%; height: 50%; }
+
+        /* --- Đồng hồ --- */
         #digital-clock { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; gap: 1vmin; margin: 1rem 0; }
-        .clock-segment { background: #1c1c1c; background-image: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.2)); border-radius: 1vmin; padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.4); }
-        .clock-segment::after { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background-color: rgba(0,0,0,0.5); }
-        .clock-segment span { font-family: 'Oswald', sans-serif; font-size: 13vmin; font-weight: 700; color: #e0e0e0; letter-spacing: 0.05em; -webkit-transition: font-size 0.3s ease; transition: font-size 0.3s ease; }
-        .clock-separator { font-family: 'Oswald', sans-serif; font-size: 10vmin; font-weight: 700; color: #e0e0e0; -webkit-transition: font-size 0.3s ease; transition: font-size 0.3s ease; }
+        .clock-segment { background: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius); padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); }
+        .clock-segment span { font-family: 'Oswald', sans-serif; font-size: 13vmin; font-weight: 700; color: #e0e0e0; letter-spacing: 0.05em; text-shadow: 0 0 1vmin rgba(255,255,255,0.2); -webkit-transition: font-size 0.3s ease; transition: font-size 0.3s ease; }
+        .clock-separator { font-family: 'Oswald', sans-serif; font-size: 10vmin; font-weight: 700; color: #e0e0e0; -webkit-transition: font-size 0.3s ease, opacity 0.3s ease; transition: font-size 0.3s ease, opacity 0.3s ease; }
         #digital-clock.seconds-visible .clock-segment span { font-size: 8vmin; }
         #digital-clock.seconds-visible .clock-separator { font-size: 7vmin; }
-        @-webkit-keyframes blink { 50% { opacity: 0; } }
-        @keyframes blink { 50% { opacity: 0; } }
-        #digital-clock.blinking-active .clock-separator:first-of-type { -webkit-animation: blink 1s step-end infinite; animation: blink 1s step-end infinite; }
         .clock-seconds { display: none; }
         #digital-clock.seconds-visible .clock-seconds { display: contents; }
-        .date-container { font-size: 2.5vmin; font-weight: 400; text-align: center; margin: 1rem 0; }
-        .date-container.hidden { display: none; }
+        @-webkit-keyframes blink { 50% { opacity: 0.3; } }
+        @keyframes blink { 50% { opacity: 0.3; } }
+        #digital-clock.blinking-active .clock-separator:first-of-type { -webkit-animation: blink 1s step-end infinite; animation: blink 1s step-end infinite; }
+
+        /* --- Thông tin Ngày & Thời tiết --- */
+        .date-container, #weather-container, #calendar-container { -webkit-transition: opacity 0.5s ease, max-height 0.5s ease, transform 0.5s ease; transition: opacity 0.5s ease, max-height 0.5s ease, transform 0.5s ease; }
         .date-container p { margin: 1vmin 0; }
         #lunar-date { color: #f39c12; }
         #lunar-event { color: #e67e22; font-weight: bold; min-height: 1em; }
         #weather-container { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; gap: 1rem; margin: 1rem 0; font-size: 2.5vmin; min-height: 4vmin; }
         #weather-icon { font-size: 4vmin; }
         #weather-temp { font-weight: 700; }
-        #weather-desc { color: #ccc; }
         #weather-location { font-weight: bold; color: #2980b9; }
-        #calendar-container { background-color: #1a1a1a; padding: 1.5vmin; border-radius: 1vmin; width: 100%; max-width: 50vmin; box-sizing: border-box; margin: 0 auto; }
-        #calendar-container.hidden { display: none; }
+
+        /* --- Lịch --- */
+        #calendar-container { background-color: rgba(26, 26, 26, 0.7); border: 1px solid rgba(255,255,255,0.1); padding: 1.5vmin; border-radius: var(--border-radius); width: 100%; max-width: 50vmin; box-sizing: border-box; margin: 0 auto; }
         #calendar-header { display: table; width: 100%; margin-bottom: 1vmin; font-size: 2vmin; font-weight: 700; text-align: center; }
         .calendar-nav, #calendar-title { display: table-cell; vertical-align: middle; }
         #calendar-title { width: 70%; }
@@ -59,25 +62,38 @@
         .other-month { opacity: 0.3; }
         .today .calendar-cell-inner { background-color: #f39c12; color: #000; border-radius: 0.8vmin; font-weight: 700; }
         .today .lunar-day { color: #000; }
-        .slideshow-column { position: relative; background-color: #1a1a1a; border-radius: 0.8rem; }
+
+        /* --- Trình chiếu ảnh --- */
+        .slideshow-column { position: relative; background-color: #1a1a1a; border-radius: var(--border-radius); }
         #slideshow-image, #initial-message { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        #slideshow-image { object-fit: cover; border-radius: 0.8rem; opacity: 1; -webkit-transition: opacity 1.5s ease-in-out; transition: opacity 1.5s ease-in-out; }
+        #slideshow-image { object-fit: cover; border-radius: var(--border-radius); opacity: 1; -webkit-transition: opacity 1.5s ease-in-out; transition: opacity 1.5s ease-in-out; }
         #initial-message { display: table; color: #888; }
         #initial-message p { display: table-cell; vertical-align: middle; text-align: center; font-size: 1.2rem; }
+
+        /* --- Các chế độ hiển thị --- */
+        .hidden { display: none !important; }
+        .container.weather-hidden #weather-container { opacity: 0; max-height: 0; margin: 0; transform: scale(0.9); }
+        .container.clock-only .date-container, .container.clock-only #weather-container, .container.clock-only #calendar-container, .container.clock-only #qr-code-container { opacity: 0; max-height: 0; margin: 0; padding: 0; transform: scale(0.9); pointer-events: none; }
+        .container.clock-only .info-column { -webkit-box-pack: center; justify-content: center; }
+
+        /* --- Mã QR --- */
+        #qr-code-container { text-align: center; margin-top: 2vmin; }
+        #qr-code-btn { background: rgba(243, 156, 18, 0.7); border: 1px solid rgba(255,255,255,0.1); color: #fff; cursor: pointer; font-size: 2vmin; padding: 1vmin 2vmin; border-radius: var(--border-radius); }
+        .dialog-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; }
+        .dialog-overlay.show { display: -webkit-box; display: flex; }
+        .dialog-box { background: #1e1e1e; padding: 2rem; border-radius: var(--border-radius); border: 1px solid #444; text-align: center; }
+        #qr-code-image { max-width: 80vmin; max-height: 60vh; border-radius: 1vmin; }
+        #bank-info { margin-top: 1.5rem; }
+        #bank-info p { margin: 0.5rem 0; font-size: 1.2rem; }
+        #bank-account-name { font-weight: bold; color: #f39c12; }
+
+        /* --- Cài đặt --- */
         #settings-container { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; }
         #settings-toggle { cursor: pointer; width: 2.5rem; height: 2.5rem; background: none; border: none; padding: 0; }
-        #settings-panel { display: block; position: absolute; top: 3.5rem; right: 0; background: #1e1e1e; border: 1px solid #444; border-radius: 0.5rem; padding: 0.7rem; width: 15rem; opacity: 0; -webkit-transform: translateY(-10px); transform: translateY(-10px); pointer-events: none; -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease; transition: opacity 0.2s ease, transform 0.2s ease; }
+        #settings-panel { display: block; position: absolute; top: 3.5rem; right: 0; background: #1e1e1e; border: 1px solid #444; border-radius: 0.5rem; padding: 0.7rem; width: 16rem; opacity: 0; -webkit-transform: translateY(-10px); transform: translateY(-10px); pointer-events: none; -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease; transition: opacity 0.2s ease, transform 0.2s ease; }
         #settings-panel.show { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); pointer-events: auto; }
         .settings-btn { display: block; width: 100%; background: #333; color: #fff; border: none; padding: 0.7rem; margin-bottom: 0.4rem; border-radius: 0.3rem; cursor: pointer; font-size: 1rem; text-align: left;}
         #reset-settings-btn { background-color: #c0392b; }
-        @media (max-width: 800px) {
-            body { padding: 1rem; }
-            .container { -webkit-box-orient: vertical; flex-direction: column; gap: 1rem; }
-            .info-column, .slideshow-column { width: 100%; height: 50%; }
-            .clock-segment span { font-size: 15vmin; }
-            #digital-clock.seconds-visible .clock-segment span { font-size: 10vmin; }
-            .date-container, #weather-container { font-size: 3vmin; }
-        }
     </style>
 </head>
 <body>
@@ -88,12 +104,13 @@
                     <div class="clock-segment"><span id="clock-hours">00</span></div><div class="clock-separator">:</div><div class="clock-segment"><span id="clock-minutes">00</span></div>
                     <div class="clock-seconds"><div class="clock-separator">:</div><div class="clock-segment"><span id="clock-seconds">00</span></div></div>
                 </div>
-                <div class="date-container" id="date-container"><p id="gregorian-date"></p><p id="lunar-date"></p><p id="lunar-event"></p></div>
+                <div class="date-container"><p id="gregorian-date"></p><p id="lunar-date"></p><p id="lunar-event"></p></div>
                 <div id="weather-container"><span id="weather-location"></span><span id="weather-icon"></span><span id="weather-temp"></span><span id="weather-desc">Đang tải thời tiết...</span></div>
                 <div id="calendar-container">
                     <div id="calendar-header"><div class="calendar-nav" id="prev-btn">&lt;</div><div id="calendar-title"></div><div class="calendar-nav" id="next-btn">&gt;</div></div>
                     <div id="calendar-grid"></div>
                 </div>
+                <div id="qr-code-container"><button id="qr-code-btn" class="hidden">Quét mã QR</button></div>
             </div>
         </div>
         <div class="slideshow-column">
@@ -101,147 +118,335 @@
              <div id="initial-message"><p>Đang tải ảnh...</p></div>
         </div>
     </div>
+    
     <div id="settings-container">
         <button id="settings-toggle"><svg viewBox="0 0 100 80" width="100%" height="100%" fill="#fff"><rect width="100" height="15" rx="8"></rect><rect y="35" width="100" height="15" rx="8"></rect><rect y="70" width="100" height="15" rx="8"></rect></svg></button>
         <div id="settings-panel">
-            <button class="settings-btn" id="refresh-photos-btn">Làm mới Ảnh nền</button><hr style="border-color: #444; margin: 10px 0;">
-            <button class="settings-btn" id="fullscreen-toggle">Toàn màn hình</button><button class="settings-btn" id="layout-toggle">Bố cục Dọc</button><button class="settings-btn" id="slideshow-toggle">Ẩn ảnh</button><button class="settings-btn" id="seconds-toggle">Hiện giây</button><button class="settings-btn" id="blink-toggle">Tắt nháy giây</button><button class="settings-btn" id="date-toggle">Ẩn Ngày tháng</button><button class="settings-btn" id="calendar-toggle">Ẩn Lịch</button><hr style="border-color: #444; margin: 10px 0;">
+            <button class="settings-btn" id="clock-only-toggle">Chế độ Chỉ Giờ</button><hr style="border-color: #444; margin: 10px 0;">
+            <button class="settings-btn" id="slideshow-toggle">Ẩn ảnh</button>
+            <button class="settings-btn" id="seconds-toggle">Hiện giây</button>
+            <button class="settings-btn" id="date-toggle">Ẩn Ngày tháng</button>
+            <button class="settings-btn" id="calendar-toggle">Ẩn Lịch</button>
+            <button class="settings-btn" id="weather-toggle">Ẩn Thời tiết</button><hr style="border-color: #444; margin: 10px 0;">
             <button class="settings-btn" id="reset-settings-btn">Đặt lại Cài đặt</button>
+        </div>
+    </div>
+
+    <div id="qr-dialog" class="dialog-overlay">
+        <div class="dialog-box">
+            <img id="qr-code-image" src="" alt="Mã QR thanh toán">
+            <div id="bank-info">
+                <p id="bank-account-name"></p>
+                <p id="bank-account-number"></p>
+            </div>
         </div>
     </div>
     
     <script>
-    // --- BỘ TÍNH LỊCH ÂM (ĐÃ SỬA LỖI SCOPE) ---
-    // Các hàm được đưa ra ngoài scope toàn cục để có thể truy cập ở mọi nơi
+    // --- BỘ TÍNH LỊCH ÂM ---
     var LUNAR_INFO=[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0xd4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5d0,0x14573,0x052d0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b5a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04970,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0xd4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04bd7,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0];
-    var CAN_STR=["Canh","Tân","Nhâm","Quý","Giáp","Ất","Bính","Đinh","Mậu","Kỷ"];
-    var CHI_STR=["Thân","Dậu","Tuất","Hợi","Tý","Sửu","Dần","Mão","Thìn","Tỵ","Ngọ","Mùi"];
-    function getLunarMonthDays(y,m){return(LUNAR_INFO[y-1900]&(0x10000>>m))?30:29}
-    function getLeapMonth(y){return LUNAR_INFO[y-1900]&0xf}
+    var CAN_STR=["Canh","Tân","Nhâm","Quý","Giáp","Ất","Bính","Đinh","Mậu","Kỷ"]; var CHI_STR=["Thân","Dậu","Tuất","Hợi","Tý","Sửu","Dần","Mão","Thìn","Tỵ","Ngọ","Mùi"];
+    function getLunarMonthDays(y,m){return(LUNAR_INFO[y-1900]&(0x10000>>m))?30:29} function getLeapMonth(y){return LUNAR_INFO[y-1900]&0xf}
     function getLunarYearDays(y){var i,sum=348;for(i=0x8000;i>0x8;i>>=1)sum+=LUNAR_INFO[y-1900]&i?1:0;return sum+getLunarMonthDays(y,getLeapMonth(y))}
     function solarToLunar(dd,mm,yy){var date=new Date(yy,mm-1,dd);var offset=Math.floor((date.getTime()-new Date(1900,0,31).getTime())/864e5);var day=offset;var lunarYear,lunarMonth,lunarDay,isLeap;var i,temp=0;for(i=1900;i<2101&&day>0;i++){temp=getLunarYearDays(i);day-=temp}if(day<0){day+=temp;i--}lunarYear=i;var leap=getLeapMonth(lunarYear);isLeap=false;for(i=1;i<13&&day>0;i++){if(leap>0&&i==leap+1&&!isLeap){--i;isLeap=true;temp=getLunarMonthDays(lunarYear,0)}else{temp=getLunarMonthDays(lunarYear,i)}if(isLeap&&i==leap+1)isLeap=false;day-=temp}if(day==0&&leap>0&&i==leap+1){if(isLeap){isLeap=false}else{isLeap=true;--i}}if(day<0){day+=temp;--i}lunarMonth=i;lunarDay=day+1;var monthNames=["","Giêng","Hai","Ba","Tư","Năm","Sáu","Bảy","Tám","Chín","Mười","Một","Chạp"];return{day:lunarDay,lunarMonth:lunarMonth,lunarYear:lunarYear,monthName:"tháng "+monthNames[lunarMonth]+(isLeap?" nhuận":""),yearName:"năm "+CAN_STR[(lunarYear-4)%10]+" "+CHI_STR[(lunarYear-4)%12],dayCanChi:"Ngày "+CAN_STR[(offset+4)%10]+" "+CHI_STR[(offset+0)%12]}}
     
     document.addEventListener("DOMContentLoaded", function() {
         const WEATHER_PROXY_URL = '/.netlify/functions/weather';
         const REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
-        var els = { container: document.getElementById('main-container'), clock: document.getElementById('digital-clock'), clockHours: document.getElementById('clock-hours'), clockMinutes: document.getElementById('clock-minutes'), clockSeconds: document.getElementById('clock-seconds'), dateContainer: document.getElementById('date-container'), gregorianDate: document.getElementById('gregorian-date'), lunarDate: document.getElementById('lunar-date'), lunarEvent: document.getElementById('lunar-event'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), calendarContainer: document.getElementById('calendar-container'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), fullscreenBtn: document.getElementById('fullscreen-toggle'), layoutToggleBtn: document.getElementById('layout-toggle'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), blinkBtn: document.getElementById('blink-toggle'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), slideshowImage: document.getElementById('slideshow-image'), initialMessage: document.getElementById('initial-message'), refreshPhotosBtn: document.getElementById('refresh-photos-btn') };
-        var images = [], currentImageIndex = 0, slideshowInterval = null, currentDateForCalendar = new Date(), lastTime = {}, isMonthView = false;
-        var settings = { layoutVertical: false, slideshowHidden: false, secondsVisible: false, blinkEnabled: true, dateHidden: false, calendarHidden: false };
+        const REMOTE_CONFIG_URL = '<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Màn hình Tổ Ấm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --base-padding: 2.5vmin; --border-radius: 1.5vmin; }
+        html { font-size: 1.5vmin; }
+        @media (max-width: 480px) { html { font-size: 10px; } }
+        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+        body { background-color: #000; color: #fff; font-family: 'Nunito', sans-serif; display: -webkit-box; display: flex; box-sizing: border-box; padding: var(--base-padding); -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
+        .container { display: -webkit-box; display: flex; width: 100%; height: 100%; gap: var(--base-padding); -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
+        .info-column, .slideshow-column { -webkit-box-flex: 1; flex: 1 1 50%; display: -webkit-box; display: flex; height: 100%; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; overflow: hidden; }
+        .content-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; -webkit-justify-content: space-evenly; justify-content: space-evenly; width: 100%; height: 100%; text-align: center; }
+        
+        /* --- Bố cục Tự động --- */
+        .layout-vertical { -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; }
+        .layout-vertical .info-column, .layout-vertical .slideshow-column { width: 100%; height: 50%; }
+
+        /* --- Đồng hồ --- */
+        #digital-clock { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; gap: 1vmin; margin: 1rem 0; }
+        .clock-segment { background: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius); padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); }
+        .clock-segment span { font-family: 'Oswald', sans-serif; font-size: 13vmin; font-weight: 700; color: #e0e0e0; letter-spacing: 0.05em; text-shadow: 0 0 1vmin rgba(255,255,255,0.2); -webkit-transition: font-size 0.3s ease; transition: font-size 0.3s ease; }
+        .clock-separator { font-family: 'Oswald', sans-serif; font-size: 10vmin; font-weight: 700; color: #e0e0e0; -webkit-transition: font-size 0.3s ease, opacity 0.3s ease; transition: font-size 0.3s ease, opacity 0.3s ease; }
+        #digital-clock.seconds-visible .clock-segment span { font-size: 8vmin; }
+        #digital-clock.seconds-visible .clock-separator { font-size: 7vmin; }
+        .clock-seconds { display: none; }
+        #digital-clock.seconds-visible .clock-seconds { display: contents; }
+        @-webkit-keyframes blink { 50% { opacity: 0.3; } }
+        @keyframes blink { 50% { opacity: 0.3; } }
+        #digital-clock.blinking-active .clock-separator:first-of-type { -webkit-animation: blink 1s step-end infinite; animation: blink 1s step-end infinite; }
+
+        /* --- Thông tin Ngày & Thời tiết --- */
+        .date-container, #weather-container, #calendar-container { -webkit-transition: opacity 0.5s ease, max-height 0.5s ease, transform 0.5s ease; transition: opacity 0.5s ease, max-height 0.5s ease, transform 0.5s ease; }
+        .date-container p { margin: 1vmin 0; }
+        #lunar-date { color: #f39c12; }
+        #lunar-event { color: #e67e22; font-weight: bold; min-height: 1em; }
+        #weather-container { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; gap: 1rem; margin: 1rem 0; font-size: 2.5vmin; min-height: 4vmin; }
+        #weather-icon { font-size: 4vmin; }
+        #weather-temp { font-weight: 700; }
+        #weather-location { font-weight: bold; color: #2980b9; }
+
+        /* --- Lịch --- */
+        #calendar-container { background-color: rgba(26, 26, 26, 0.7); border: 1px solid rgba(255,255,255,0.1); padding: 1.5vmin; border-radius: var(--border-radius); width: 100%; max-width: 50vmin; box-sizing: border-box; margin: 0 auto; }
+        #calendar-header { display: table; width: 100%; margin-bottom: 1vmin; font-size: 2vmin; font-weight: 700; text-align: center; }
+        .calendar-nav, #calendar-title { display: table-cell; vertical-align: middle; }
+        #calendar-title { width: 70%; }
+        .calendar-nav { width: 15%; cursor: pointer; font-size: 2.5vmin; -webkit-user-select: none; user-select: none; }
+        .calendar-nav:hover { color: #f39c12; }
+        #calendar-grid::after { content: ""; display: table; clear: both; }
+        .calendar-cell { float: left; width: 14.28%; box-sizing: border-box; position: relative; }
+        .calendar-cell::before { content: ''; display: block; padding-top: 100%; }
+        .calendar-cell-inner { position: absolute; top: 0.2rem; right: 0.2rem; bottom: 0.2rem; left: 0.2rem; }
+        .cell-content { text-align: center; padding: 0.3rem 0; }
+        .day-name .cell-content { font-weight: 700; color: #f39c12; font-size: 1.8vmin; padding: 0; }
+        .solar-day { font-size: 2vmin; font-weight: 700; display: block; }
+        .lunar-day { font-size: 1.5vmin; display: block; color: #f39c12; opacity: 0.8; }
+        .other-month { opacity: 0.3; }
+        .today .calendar-cell-inner { background-color: #f39c12; color: #000; border-radius: 0.8vmin; font-weight: 700; }
+        .today .lunar-day { color: #000; }
+
+        /* --- Trình chiếu ảnh --- */
+        .slideshow-column { position: relative; background-color: #1a1a1a; border-radius: var(--border-radius); }
+        #slideshow-image, #initial-message { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        #slideshow-image { object-fit: cover; border-radius: var(--border-radius); opacity: 1; -webkit-transition: opacity 1.5s ease-in-out; transition: opacity 1.5s ease-in-out; }
+        #initial-message { display: table; color: #888; }
+        #initial-message p { display: table-cell; vertical-align: middle; text-align: center; font-size: 1.2rem; }
+
+        /* --- Các chế độ hiển thị --- */
+        .hidden { display: none !important; }
+        .container.weather-hidden #weather-container { opacity: 0; max-height: 0; margin: 0; transform: scale(0.9); }
+        .container.clock-only .date-container, .container.clock-only #weather-container, .container.clock-only #calendar-container, .container.clock-only #qr-code-container { opacity: 0; max-height: 0; margin: 0; padding: 0; transform: scale(0.9); pointer-events: none; }
+        .container.clock-only .info-column { -webkit-box-pack: center; justify-content: center; }
+
+        /* --- Mã QR --- */
+        #qr-code-container { text-align: center; margin-top: 2vmin; }
+        #qr-code-btn { background: rgba(243, 156, 18, 0.7); border: 1px solid rgba(255,255,255,0.1); color: #fff; cursor: pointer; font-size: 2vmin; padding: 1vmin 2vmin; border-radius: var(--border-radius); }
+        .dialog-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; }
+        .dialog-overlay.show { display: -webkit-box; display: flex; }
+        .dialog-box { background: #1e1e1e; padding: 2rem; border-radius: var(--border-radius); border: 1px solid #444; text-align: center; }
+        #qr-code-image { max-width: 80vmin; max-height: 60vh; border-radius: 1vmin; }
+        #bank-info { margin-top: 1.5rem; }
+        #bank-info p { margin: 0.5rem 0; font-size: 1.2rem; }
+        #bank-account-name { font-weight: bold; color: #f39c12; }
+
+        /* --- Cài đặt --- */
+        #settings-container { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; }
+        #settings-toggle { cursor: pointer; width: 2.5rem; height: 2.5rem; background: none; border: none; padding: 0; }
+        #settings-panel { display: block; position: absolute; top: 3.5rem; right: 0; background: #1e1e1e; border: 1px solid #444; border-radius: 0.5rem; padding: 0.7rem; width: 16rem; opacity: 0; -webkit-transform: translateY(-10px); transform: translateY(-10px); pointer-events: none; -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease; transition: opacity 0.2s ease, transform 0.2s ease; }
+        #settings-panel.show { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); pointer-events: auto; }
+        .settings-btn { display: block; width: 100%; background: #333; color: #fff; border: none; padding: 0.7rem; margin-bottom: 0.4rem; border-radius: 0.3rem; cursor: pointer; font-size: 1rem; text-align: left;}
+        #reset-settings-btn { background-color: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <div class="info-column">
+            <div class="content-wrapper">
+                <div id="digital-clock">
+                    <div class="clock-segment"><span id="clock-hours">00</span></div><div class="clock-separator">:</div><div class="clock-segment"><span id="clock-minutes">00</span></div>
+                    <div class="clock-seconds"><div class="clock-separator">:</div><div class="clock-segment"><span id="clock-seconds">00</span></div></div>
+                </div>
+                <div class="date-container"><p id="gregorian-date"></p><p id="lunar-date"></p><p id="lunar-event"></p></div>
+                <div id="weather-container"><span id="weather-location"></span><span id="weather-icon"></span><span id="weather-temp"></span><span id="weather-desc">Đang tải thời tiết...</span></div>
+                <div id="calendar-container">
+                    <div id="calendar-header"><div class="calendar-nav" id="prev-btn">&lt;</div><div id="calendar-title"></div><div class="calendar-nav" id="next-btn">&gt;</div></div>
+                    <div id="calendar-grid"></div>
+                </div>
+                <div id="qr-code-container"><button id="qr-code-btn" class="hidden">Quét mã QR</button></div>
+            </div>
+        </div>
+        <div class="slideshow-column">
+             <img id="slideshow-image" src="" alt="Trình chiếu ảnh" style="display: none;">
+             <div id="initial-message"><p>Đang tải ảnh...</p></div>
+        </div>
+    </div>
+    
+    <div id="settings-container">
+        <button id="settings-toggle"><svg viewBox="0 0 100 80" width="100%" height="100%" fill="#fff"><rect width="100" height="15" rx="8"></rect><rect y="35" width="100" height="15" rx="8"></rect><rect y="70" width="100" height="15" rx="8"></rect></svg></button>
+        <div id="settings-panel">
+            <button class="settings-btn" id="clock-only-toggle">Chế độ Chỉ Giờ</button><hr style="border-color: #444; margin: 10px 0;">
+            <button class="settings-btn" id="slideshow-toggle">Ẩn ảnh</button>
+            <button class="settings-btn" id="seconds-toggle">Hiện giây</button>
+            <button class="settings-btn" id="date-toggle">Ẩn Ngày tháng</button>
+            <button class="settings-btn" id="calendar-toggle">Ẩn Lịch</button>
+            <button class="settings-btn" id="weather-toggle">Ẩn Thời tiết</button><hr style="border-color: #444; margin: 10px 0;">
+            <button class="settings-btn" id="reset-settings-btn">Đặt lại Cài đặt</button>
+        </div>
+    </div>
+
+    <div id="qr-dialog" class="dialog-overlay">
+        <div class="dialog-box">
+            <img id="qr-code-image" src="" alt="Mã QR thanh toán">
+            <div id="bank-info">
+                <p id="bank-account-name"></p>
+                <p id="bank-account-number"></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    // --- BỘ TÍNH LỊCH ÂM ---
+    var LUNAR_INFO=[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0xd4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5d0,0x14573,0x052d0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b5a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04970,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0xd4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04bd7,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0];
+    var CAN_STR=["Canh","Tân","Nhâm","Quý","Giáp","Ất","Bính","Đinh","Mậu","Kỷ"]; var CHI_STR=["Thân","Dậu","Tuất","Hợi","Tý","Sửu","Dần","Mão","Thìn","Tỵ","Ngọ","Mùi"];
+    function getLunarMonthDays(y,m){return(LUNAR_INFO[y-1900]&(0x10000>>m))?30:29} function getLeapMonth(y){return LUNAR_INFO[y-1900]&0xf}
+    function getLunarYearDays(y){var i,sum=348;for(i=0x8000;i>0x8;i>>=1)sum+=LUNAR_INFO[y-1900]&i?1:0;return sum+getLunarMonthDays(y,getLeapMonth(y))}
+    function solarToLunar(dd,mm,yy){var date=new Date(yy,mm-1,dd);var offset=Math.floor((date.getTime()-new Date(1900,0,31).getTime())/864e5);var day=offset;var lunarYear,lunarMonth,lunarDay,isLeap;var i,temp=0;for(i=1900;i<2101&&day>0;i++){temp=getLunarYearDays(i);day-=temp}if(day<0){day+=temp;i--}lunarYear=i;var leap=getLeapMonth(lunarYear);isLeap=false;for(i=1;i<13&&day>0;i++){if(leap>0&&i==leap+1&&!isLeap){--i;isLeap=true;temp=getLunarMonthDays(lunarYear,0)}else{temp=getLunarMonthDays(lunarYear,i)}if(isLeap&&i==leap+1)isLeap=false;day-=temp}if(day==0&&leap>0&&i==leap+1){if(isLeap){isLeap=false}else{isLeap=true;--i}}if(day<0){day+=temp;--i}lunarMonth=i;lunarDay=day+1;var monthNames=["","Giêng","Hai","Ba","Tư","Năm","Sáu","Bảy","Tám","Chín","Mười","Một","Chạp"];return{day:lunarDay,lunarMonth:lunarMonth,lunarYear:lunarYear,monthName:"tháng "+monthNames[lunarMonth]+(isLeap?" nhuận":""),yearName:"năm "+CAN_STR[(lunarYear-4)%10]+" "+CHI_STR[(lunarYear-4)%12],dayCanChi:"Ngày "+CAN_STR[(offset+4)%10]+" "+CHI_STR[(offset+0)%12]}}
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        const WEATHER_PROXY_URL = '/.netlify/functions/weather';
+        const REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
+        const REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/cd99ca1e5a00255816af95ca3bc519461188f6ab/config.json'; // <-- THAY URL CỦA BẠN VÀO ĐÂY
+
+        var els = { container: document.getElementById('main-container'), clock: document.getElementById('digital-clock'), clockHours: document.getElementById('clock-hours'), clockMinutes: document.getElementById('clock-minutes'), clockSeconds: document.getElementById('clock-seconds'), dateContainer: document.getElementById('date-container'), gregorianDate: document.getElementById('gregorian-date'), lunarDate: document.getElementById('lunar-date'), lunarEvent: document.getElementById('lunar-event'), weatherContainer: document.getElementById('weather-container'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), calendarContainer: document.getElementById('calendar-container'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), slideshowImage: document.getElementById('slideshow-image'), initialMessage: document.getElementById('initial-message'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), qrCodeBtn: document.getElementById('qr-code-btn'), qrDialog: document.getElementById('qr-dialog'), qrCodeImage: document.getElementById('qr-code-image'), bankAccountName: document.getElementById('bank-account-name'), bankAccountNumber: document.getElementById('bank-account-number') };
+        var images = [], currentImageIndex = 0, slideshowInterval = null, currentDateForCalendar = new Date(), lastTime = {};
+        var settings = { slideshowHidden: false, secondsVisible: false, dateHidden: false, calendarHidden: false, weatherHidden: false, clockOnly: false };
         var remoteImagesCache = '[]';
+        var remoteConfig = null;
 
         function updateClock() { var now = new Date(); var h = ('0' + now.getHours()).slice(-2); var m = ('0' + now.getMinutes()).slice(-2); var s = ('0' + now.getSeconds()).slice(-2); if (lastTime.h !== h) { els.clockHours.textContent = h; lastTime.h = h; } if (lastTime.m !== m) { els.clockMinutes.textContent = m; lastTime.m = m; } if (settings.secondsVisible) { els.clockSeconds.textContent = s; } }
         function updateMainDate() { var now = new Date(); var dayOfWeek = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; els.gregorianDate.innerText = dayOfWeek[now.getDay()] + ', ' + now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear(); var lunar = solarToLunar(now.getDate(), now.getMonth() + 1, now.getFullYear()); els.lunarDate.innerText = lunar.dayCanChi + ', ' + lunar.day + ' ' + lunar.monthName; var eventText = ""; var daysInMonth = getLunarMonthDays(lunar.lunarYear, lunar.lunarMonth); if (lunar.day === 1) eventText = "Mồng 1"; else if (lunar.day === 15) eventText = "Ngày Rằm"; else if (lunar.day === 16) eventText = "Ngày 16"; else if (lunar.day === daysInMonth) eventText = "Ngày cuối tháng"; els.lunarEvent.innerText = eventText; }
-        
-        function makeRequest(url, callback) {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    if (xhr.status >= 200 && xhr.status < 300) { try { callback(null, JSON.parse(xhr.responseText)); } catch(e) { callback(e); } } 
-                    else { callback(new Error('Yêu cầu mạng thất bại: ' + xhr.status)); }
-                }
-            };
-            xhr.open('GET', url, true);
-            xhr.send();
-        }
+        function makeRequest(url, callback) { var xhr = new XMLHttpRequest(); xhr.onreadystatechange = function() { if (xhr.readyState === 4) { if (xhr.status >= 200 && xhr.status < 300) { try { callback(null, JSON.parse(xhr.responseText)); } catch(e) { callback(e); } } else { callback(new Error('Yêu cầu mạng thất bại: ' + xhr.status)); } } }; xhr.open('GET', url, true); xhr.send(); }
         function getWeatherInfo(code) { var weatherMap = { 0:{d:"Trời quang",i:"☀️"},1:{d:"Gần quang",i:"🌤️"},2:{d:"Mây rải rác",i:"🌥️"},3:{d:"Nhiều mây",i:"☁️"},45:{d:"Sương mù",i:"🌫️"},48:{d:"Sương mù lạnh",i:"🌫️"},51:{d:"Mưa phùn nhẹ",i:"🌦️"},53:{d:"Mưa phùn",i:"🌦️"},55:{d:"Mưa phùn dày",i:"🌦️"},61:{d:"Mưa nhẹ",i:"🌧️"},63:{d:"Mưa vừa",i:"🌧️"},65:{d:"Mưa lớn",i:"🌧️"},80:{d:"Mưa rào nhẹ",i:"🌧️"},81:{d:"Mưa rào",i:"🌧️"},82:{d:"Mưa rào lớn",i:"🌧️"},95:{d:"Dông",i:"⚡"}}; var info = weatherMap[code] || {d:"Không xác định",i:"🤷"}; return { desc: info.d, icon: info.i }; }
-        function fetchWeatherByProxy(lat, lon) {
-            var url = WEATHER_PROXY_URL + '?lat=' + lat + '&lon=' + lon;
-            makeRequest(url, function(err, data) {
-                if (err) { console.error("Lỗi tải thời tiết qua proxy:", err); els.weatherDesc.textContent = "Lỗi tải thời tiết"; return; }
-                if (data && data.weather && data.location) {
-                    els.weatherLocation.textContent = data.location;
-                    var temp = Math.round(data.weather.temperature_2m);
-                    var weatherCode = data.weather.weather_code;
-                    var weatherInfo = getWeatherInfo(weatherCode);
-                    els.weatherIcon.textContent = weatherInfo.icon;
-                    els.weatherTemp.textContent = temp + "°C";
-                    els.weatherDesc.textContent = weatherInfo.desc;
-                }
-            });
-        }
+        function fetchWeatherByProxy(lat, lon) { var url = WEATHER_PROXY_URL + '?lat=' + lat + '&lon=' + lon; makeRequest(url, function(err, data) { if (err) { console.error("Lỗi tải thời tiết qua proxy:", err); els.weatherDesc.textContent = "Lỗi tải thời tiết"; return; } if (data && data.weather && data.location) { els.weatherLocation.textContent = data.location; var temp = Math.round(data.weather.temperature_2m); var weatherCode = data.weather.weather_code; var weatherInfo = getWeatherInfo(weatherCode); els.weatherIcon.textContent = weatherInfo.icon; els.weatherTemp.textContent = temp + "°C"; els.weatherDesc.textContent = weatherInfo.desc; } }); }
         function loadWeather() { if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(function(pos) { fetchWeatherByProxy(pos.coords.latitude, pos.coords.longitude); }, function(err) { console.error("Lỗi định vị:", err.message); els.weatherDesc.textContent = "Không thể lấy vị trí"; }); } else { els.weatherDesc.textContent = "Định vị không được hỗ trợ"; } }
+        function fetchAndUpdateRemoteImages() { makeRequest(REMOTE_IMAGE_MANIFEST_URL + '?t=' + new Date().getTime(), function(err, data) { if (err) { console.error("Lỗi tải danh sách ảnh từ xa:", err); return; } if (Array.isArray(data) && data.length > 0) { var newImagesJson = JSON.stringify(data); if (newImagesJson !== remoteImagesCache) { remoteImagesCache = newImagesJson; images = data.slice(); currentImageIndex = 0; startSlideshow(); } } }); }
         
-        function fetchAndUpdateRemoteImages(isForced) {
-            makeRequest(REMOTE_IMAGE_MANIFEST_URL + '?t=' + new Date().getTime(), function(err, data) {
-                if (err) { console.error("Lỗi tải danh sách ảnh từ xa:", err); return; }
-                if (Array.isArray(data) && data.length > 0) {
-                    var newImagesJson = JSON.stringify(data);
-                    if (newImagesJson !== remoteImagesCache || isForced) {
-                        console.log("Phát hiện danh sách ảnh mới. Đang cập nhật...");
-                        remoteImagesCache = newImagesJson;
-                        images = data.slice();
-                        currentImageIndex = 0;
-                        startSlideshow();
-                    }
-                }
-            });
-        }
+        // --- LOGIC MỚI CHO QR ---
+        function fetchRemoteConfig() { if (!REMOTE_CONFIG_URL || REMOTE_CONFIG_URL.includes("URL_RAW_GIST_CONFIG.JSON_CUA_BAN")) { console.warn("URL cấu hình QR chưa được thiết lập."); return; } makeRequest(REMOTE_CONFIG_URL + '?t=' + new Date().getTime(), function(err, data) { if (err) { console.error("Lỗi tải cấu hình từ xa:", err); return; } if (data && data.qrImageUrl) { remoteConfig = data; els.qrCodeBtn.classList.remove('hidden'); } }); }
         
-        function renderCalendar() { if (settings.layoutVertical || window.innerWidth <= 800) { isMonthView = false; generateWeeklyCalendar(currentDateForCalendar); } else { isMonthView = true; generateMonthlyCalendar(currentDateForCalendar); } }
-        function stopSlideshow() { if (slideshowInterval) { clearInterval(slideshowInterval); slideshowInterval = null; } }
-        function changeImage(isSkipping) { if (images.length <= 1) return; els.slideshowImage.style.opacity = 0; setTimeout(function() { if (!isSkipping) { currentImageIndex = (currentImageIndex + 1) % images.length; } els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; }, 1500); }
-        function startSlideshow() { stopSlideshow(); if (images.length === 0) { els.slideshowImage.style.display = 'none'; els.initialMessage.style.display = 'table'; return; } els.initialMessage.style.display = 'none'; els.slideshowImage.style.display = 'block'; currentImageIndex = 0; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; if (images.length > 1) { slideshowInterval = setInterval(changeImage, 7000); } }
-        
-        function saveSettings() { try { localStorage.setItem('dashboardSettings', JSON.stringify(settings)); } catch (e) { console.error("Could not save settings:", e); } }
+        function changeImage() { if (images.length <= 1) return; els.slideshowImage.style.opacity = 0; setTimeout(function() { currentImageIndex = (currentImageIndex + 1) % images.length; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; }, 1500); }
+        function startSlideshow() { if(slideshowInterval) clearInterval(slideshowInterval); if (images.length === 0) { els.slideshowImage.style.display = 'none'; els.initialMessage.style.display = 'table'; return; } els.initialMessage.style.display = 'none'; els.slideshowImage.style.display = 'block'; currentImageIndex = 0; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; if (images.length > 1) { slideshowInterval = setInterval(changeImage, 7000); } }
+        function saveSettings() { try { localStorage.setItem('dashboardSettings', JSON.stringify(settings)); } catch (e) { console.error("Không thể lưu cài đặt:", e); } }
         function applySettings() {
-            els.container.classList[settings.layoutVertical ? 'add' : 'remove']('layout-vertical'); els.layoutToggleBtn.textContent = settings.layoutVertical ? 'Bố cục Ngang' : 'Bố cục Dọc';
             els.container.classList[settings.slideshowHidden ? 'add' : 'remove']('slideshow-hidden'); els.slideshowToggleBtn.textContent = settings.slideshowHidden ? 'Hiện ảnh' : 'Ẩn ảnh';
             els.clock.classList[settings.secondsVisible ? 'add' : 'remove']('seconds-visible'); els.secondsBtn.textContent = settings.secondsVisible ? 'Ẩn giây' : 'Hiện giây';
             els.dateContainer.classList[settings.dateHidden ? 'add' : 'remove']('hidden'); els.dateToggleBtn.textContent = settings.dateHidden ? 'Hiện Ngày tháng' : 'Ẩn Ngày tháng';
             els.calendarContainer.classList[settings.calendarHidden ? 'add' : 'remove']('hidden'); els.calendarToggleBtn.textContent = settings.calendarHidden ? 'Hiện Lịch' : 'Ẩn Lịch';
-            els.blinkBtn.textContent = settings.blinkEnabled ? 'Tắt nháy giây' : 'Bật nháy giây';
-            if (settings.blinkEnabled && !settings.secondsVisible) { els.clock.classList.add('blinking-active'); } 
-            else { els.clock.classList.remove('blinking-active'); }
-            renderCalendar();
+            els.container.classList[settings.weatherHidden ? 'add' : 'remove']('weather-hidden'); els.weatherToggleBtn.textContent = settings.weatherHidden ? 'Hiện Thời tiết' : 'Ẩn Thời tiết';
+            els.container.classList[settings.clockOnly ? 'add' : 'remove']('clock-only'); els.clockOnlyToggleBtn.textContent = settings.clockOnly ? 'Chế độ Đầy đủ' : 'Chế độ Chỉ Giờ';
+            els.clock.classList[settings.secondsVisible ? 'remove' : 'add']('blinking-active');
         }
-        function loadSettings() { try { var savedSettings = localStorage.getItem('dashboardSettings'); if (savedSettings) { settings = JSON.parse(savedSettings); } } catch (e) { console.error("Could not load settings:", e); } applySettings(); }
-        
-        function generateWeeklyCalendar(baseDate) { var grid = document.getElementById('calendar-grid'); var title = document.getElementById('calendar-title'); grid.innerHTML = ''; var today = new Date(); var dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']; var weekStart = new Date(baseDate); weekStart.setDate(baseDate.getDate() - baseDate.getDay()); var weekEnd = new Date(weekStart); weekEnd.setDate(weekStart.getDate() + 6); title.textContent = 'Tuần: ' + weekStart.getDate() + '/' + (weekStart.getMonth() + 1) + ' - ' + weekEnd.getDate() + '/' + (weekEnd.getMonth() + 1); dayNames.forEach(function(name) { var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell day-name'; dayEl.innerHTML = '<div class="cell-content">' + name + '</div>'; grid.appendChild(dayEl); }); for (var i = 0; i < 7; i++) { var currentDay = new Date(weekStart); currentDay.setDate(weekStart.getDate() + i); var solarDay = currentDay.getDate(); var lunar = solarToLunar(solarDay, currentDay.getMonth() + 1, currentDay.getFullYear()); var lunarDisplay = lunar.day === 1 ? lunar.day + '/' + lunar.lunarMonth : lunar.day; var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell'; if (currentDay.getMonth() !== baseDate.getMonth()) { dayEl.classList.add('other-month'); } if (currentDay.getDate() === today.getDate() && currentDay.getMonth() === today.getMonth() && currentDay.getFullYear() === today.getFullYear()) { dayEl.classList.add('today'); } dayEl.innerHTML = '<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">' + solarDay + '</span><span class="lunar-day">' + lunarDisplay + '</span></div></div>'; grid.appendChild(dayEl); } }
+        function loadSettings() { try { var savedSettings = localStorage.getItem('dashboardSettings'); if (savedSettings) { settings = JSON.parse(savedSettings); } } catch (e) { console.error("Không thể tải cài đặt:", e); } applySettings(); }
+        function updateLayout() { var isVertical = window.innerHeight > window.innerWidth; els.container.classList[isVertical ? 'add' : 'remove']('layout-vertical'); renderCalendar(); }
+        function renderCalendar() { var isMonthView = !els.container.classList.contains('layout-vertical'); var calendarFn = isMonthView ? generateMonthlyCalendar : generateWeeklyCalendar; calendarFn(currentDateForCalendar); }
+        function generateWeeklyCalendar(baseDate) { var grid = document.getElementById('calendar-grid'); var title = document.getElementById('calendar-title'); grid.innerHTML = ''; var today = new Date(); var dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']; var weekStart = new Date(baseDate); weekStart.setDate(baseDate.getDate() - baseDate.getDay()); var weekEnd = new Date(weekStart); weekEnd.setDate(weekStart.getDate() + 6); title.textContent = 'Tuần: ' + weekStart.getDate() + '/' + (weekStart.getMonth() + 1) + ' - ' + weekEnd.getDate() + '/' + (weekEnd.getMonth() + 1); dayNames.forEach(function(name) { var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell day-name'; dayEl.innerHTML = '<div class="cell-content">' + name + '</div>'; grid.appendChild(dayEl); }); for (var i = 0; i < 7; i++) { var currentDay = new Date(weekStart); currentDay.setDate(weekStart.getDate() + i); var solarDay = currentDay.getDate(); var lunar = solarToLunar(solarDay, currentDay.getMonth() + 1, currentDay.getFullYear()); var lunarDisplay = lunar.day === 1 ? lunar.day + '/' + lunar.lunarMonth : lunar.day; var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell'; if (currentDay.getDate() === today.getDate() && currentDay.getMonth() === today.getMonth() && currentDay.getFullYear() === today.getFullYear()) { dayEl.classList.add('today'); } dayEl.innerHTML = '<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">' + solarDay + '</span><span class="lunar-day">' + lunarDisplay + '</span></div></div>'; grid.appendChild(dayEl); } }
         function generateMonthlyCalendar(baseDate) { var grid = document.getElementById('calendar-grid'); var title = document.getElementById('calendar-title'); grid.innerHTML = ''; var today = new Date(); var year = baseDate.getFullYear(); var month = baseDate.getMonth(); title.textContent = 'Tháng ' + (month + 1) + ' ' + year; var firstDayOfMonth = new Date(year, month, 1).getDay(); var daysInMonth = new Date(year, month + 1, 0).getDate(); var dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']; dayNames.forEach(function(name) { var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell day-name'; dayEl.innerHTML = '<div class="cell-content">' + name + '</div>'; grid.appendChild(dayEl); }); for (var i = 0; i < firstDayOfMonth; i++) { var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell other-month'; grid.appendChild(dayEl); } for (var i = 1; i <= daysInMonth; i++) { var currentDay = new Date(year, month, i); var solarDay = i; var lunar = solarToLunar(solarDay, month + 1, year); var lunarDisplay = lunar.day === 1 ? lunar.day + '/' + lunar.lunarMonth : lunar.day; var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell'; if (solarDay === today.getDate() && month === today.getMonth() && year === today.getFullYear()) { dayEl.classList.add('today'); } dayEl.innerHTML = '<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">' + solarDay + '</span><span class="lunar-day">' + lunarDisplay + '</span></div></div>'; grid.appendChild(dayEl); } }
 
         // --- Event Listeners ---
-        els.prevBtn.addEventListener('click', function() { if (isMonthView) { currentDateForCalendar.setMonth(currentDateForCalendar.getMonth() - 1); } else { currentDateForCalendar.setDate(currentDateForCalendar.getDate() - 7); } renderCalendar(); });
-        els.nextBtn.addEventListener('click', function() { if (isMonthView) { currentDateForCalendar.setMonth(currentDateForCalendar.getMonth() + 1); } else { currentDateForCalendar.setDate(currentDateForCalendar.getDate() + 7); } renderCalendar(); });
-        var resizeTimeout; window.addEventListener('resize', function() { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(renderCalendar, 200); });
+        els.prevBtn.addEventListener('click', function() { currentDateForCalendar.setMonth(currentDateForCalendar.getMonth() - 1); renderCalendar(); });
+        els.nextBtn.addEventListener('click', function() { currentDateForCalendar.setMonth(currentDateForCalendar.getMonth() + 1); renderCalendar(); });
+        window.addEventListener('resize', function() { setTimeout(updateLayout, 200); });
         els.settingsToggle.addEventListener('click', function() { els.settingsPanel.classList.toggle('show'); });
-        els.fullscreenBtn.addEventListener('click', function() { var docElm = document.documentElement; if (docElm.requestFullscreen || docElm.webkitRequestFullscreen) { var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) || (document.webkitFullscreenElement && document.webkitFullscreenElement !== null); if (!isInFullScreen) { if (docElm.requestFullscreen) { docElm.requestFullscreen(); } else if (docElm.webkitRequestFullscreen) { docElm.webkitRequestFullscreen(); } } else { if (document.exitFullscreen) { document.exitFullscreen(); } else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); } } } else { alert('Tính năng này không được hỗ trợ.'); } });
-        els.layoutToggleBtn.addEventListener('click', function() { settings.layoutVertical = !settings.layoutVertical; saveSettings(); applySettings(); });
         els.slideshowToggleBtn.addEventListener('click', function() { settings.slideshowHidden = !settings.slideshowHidden; saveSettings(); applySettings(); });
         els.secondsBtn.addEventListener('click', function() { settings.secondsVisible = !settings.secondsVisible; saveSettings(); applySettings(); });
-        els.blinkBtn.addEventListener('click', function() { settings.blinkEnabled = !settings.blinkEnabled; saveSettings(); applySettings(); });
         els.dateToggleBtn.addEventListener('click', function() { settings.dateHidden = !settings.dateHidden; saveSettings(); applySettings(); });
         els.calendarToggleBtn.addEventListener('click', function() { settings.calendarHidden = !settings.calendarHidden; saveSettings(); applySettings(); });
+        els.weatherToggleBtn.addEventListener('click', function() { settings.weatherHidden = !settings.weatherHidden; saveSettings(); applySettings(); });
+        els.clockOnlyToggleBtn.addEventListener('click', function() { settings.clockOnly = !settings.clockOnly; saveSettings(); applySettings(); });
         els.resetSettingsBtn.addEventListener('click', function() { if (confirm('Bạn có chắc muốn đặt lại tất cả cài đặt?')) { localStorage.removeItem('dashboardSettings'); window.location.reload(); } });
-        els.refreshPhotosBtn.addEventListener('click', function() { fetchAndUpdateRemoteImages(true); els.settingsPanel.classList.remove('show'); });
-        els.slideshowImage.onerror = function() {
-            var failedImage = images[currentImageIndex];
-            console.warn("Lỗi tải ảnh:", failedImage);
-            images.splice(currentImageIndex, 1);
-            if (images.length > 0) {
-                currentImageIndex = currentImageIndex % images.length;
-                changeImage(true);
-            } else {
-                startSlideshow();
-            }
-        };
+        els.slideshowImage.onerror = function() { var failedImage = images[currentImageIndex]; console.warn("Lỗi tải ảnh:", failedImage); images.splice(currentImageIndex, 1); if (images.length > 0) { currentImageIndex = currentImageIndex % images.length; changeImage(); } else { startSlideshow(); } };
         
+        // --- LOGIC MỚI CHO QR ---
+        els.qrCodeBtn.addEventListener('click', function() { if (!remoteConfig) return; els.qrCodeImage.src = remoteConfig.qrImageUrl; els.bankAccountName.textContent = remoteConfig.accountName; els.bankAccountNumber.textContent = 'STK: ' + remoteConfig.accountNumber; els.qrDialog.classList.add('show'); });
+        
+        els.qrDialog.addEventListener('click', function() { els.qrDialog.classList.remove('show'); });
+
         // --- Application Initialization ---
         loadSettings(); 
         updateClock(); 
-        updateMainDate(); 
+        updateMainDate();
+        updateLayout();
         loadWeather(); 
-        fetchAndUpdateRemoteImages(false);
+        fetchAndUpdateRemoteImages();
+        fetchRemoteConfig();
         setInterval(updateClock, 1000); 
         setInterval(loadWeather, 1800000); // 30 phút
-        setInterval(function() { fetchAndUpdateRemoteImages(false); }, 3600000); // 1 giờ
-        setInterval(function() {
-            var now = new Date();
-            if (now.getMinutes() === 0) { // Cập nhật chính vào mỗi đầu giờ
-                updateMainDate();
-                currentDateForCalendar = new Date();
-                renderCalendar();
-            }
-        }, 60000);
+        setInterval(fetchAndUpdateRemoteImages, 3600000); // 1 giờ
+        setInterval(function() { var now = new Date(); if (now.getMinutes() === 0) { updateMainDate(); currentDateForCalendar = new Date(); renderCalendar(); } }, 60000);
+    });
+    </script>
+</body>
+</html>'; // <-- THAY URL CỦA BẠN VÀO ĐÂY
+
+        var els = { container: document.getElementById('main-container'), clock: document.getElementById('digital-clock'), clockHours: document.getElementById('clock-hours'), clockMinutes: document.getElementById('clock-minutes'), clockSeconds: document.getElementById('clock-seconds'), dateContainer: document.getElementById('date-container'), gregorianDate: document.getElementById('gregorian-date'), lunarDate: document.getElementById('lunar-date'), lunarEvent: document.getElementById('lunar-event'), weatherContainer: document.getElementById('weather-container'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), calendarContainer: document.getElementById('calendar-container'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), slideshowImage: document.getElementById('slideshow-image'), initialMessage: document.getElementById('initial-message'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), qrCodeBtn: document.getElementById('qr-code-btn'), qrDialog: document.getElementById('qr-dialog'), qrCodeImage: document.getElementById('qr-code-image'), bankAccountName: document.getElementById('bank-account-name'), bankAccountNumber: document.getElementById('bank-account-number') };
+        var images = [], currentImageIndex = 0, slideshowInterval = null, currentDateForCalendar = new Date(), lastTime = {};
+        var settings = { slideshowHidden: false, secondsVisible: false, dateHidden: false, calendarHidden: false, weatherHidden: false, clockOnly: false };
+        var remoteImagesCache = '[]';
+        var remoteConfig = null;
+
+        function updateClock() { var now = new Date(); var h = ('0' + now.getHours()).slice(-2); var m = ('0' + now.getMinutes()).slice(-2); var s = ('0' + now.getSeconds()).slice(-2); if (lastTime.h !== h) { els.clockHours.textContent = h; lastTime.h = h; } if (lastTime.m !== m) { els.clockMinutes.textContent = m; lastTime.m = m; } if (settings.secondsVisible) { els.clockSeconds.textContent = s; } }
+        function updateMainDate() { var now = new Date(); var dayOfWeek = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; els.gregorianDate.innerText = dayOfWeek[now.getDay()] + ', ' + now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear(); var lunar = solarToLunar(now.getDate(), now.getMonth() + 1, now.getFullYear()); els.lunarDate.innerText = lunar.dayCanChi + ', ' + lunar.day + ' ' + lunar.monthName; var eventText = ""; var daysInMonth = getLunarMonthDays(lunar.lunarYear, lunar.lunarMonth); if (lunar.day === 1) eventText = "Mồng 1"; else if (lunar.day === 15) eventText = "Ngày Rằm"; else if (lunar.day === 16) eventText = "Ngày 16"; else if (lunar.day === daysInMonth) eventText = "Ngày cuối tháng"; els.lunarEvent.innerText = eventText; }
+        function makeRequest(url, callback) { var xhr = new XMLHttpRequest(); xhr.onreadystatechange = function() { if (xhr.readyState === 4) { if (xhr.status >= 200 && xhr.status < 300) { try { callback(null, JSON.parse(xhr.responseText)); } catch(e) { callback(e); } } else { callback(new Error('Yêu cầu mạng thất bại: ' + xhr.status)); } } }; xhr.open('GET', url, true); xhr.send(); }
+        function getWeatherInfo(code) { var weatherMap = { 0:{d:"Trời quang",i:"☀️"},1:{d:"Gần quang",i:"🌤️"},2:{d:"Mây rải rác",i:"🌥️"},3:{d:"Nhiều mây",i:"☁️"},45:{d:"Sương mù",i:"🌫️"},48:{d:"Sương mù lạnh",i:"🌫️"},51:{d:"Mưa phùn nhẹ",i:"🌦️"},53:{d:"Mưa phùn",i:"🌦️"},55:{d:"Mưa phùn dày",i:"🌦️"},61:{d:"Mưa nhẹ",i:"🌧️"},63:{d:"Mưa vừa",i:"🌧️"},65:{d:"Mưa lớn",i:"🌧️"},80:{d:"Mưa rào nhẹ",i:"🌧️"},81:{d:"Mưa rào",i:"🌧️"},82:{d:"Mưa rào lớn",i:"🌧️"},95:{d:"Dông",i:"⚡"}}; var info = weatherMap[code] || {d:"Không xác định",i:"🤷"}; return { desc: info.d, icon: info.i }; }
+        function fetchWeatherByProxy(lat, lon) { var url = WEATHER_PROXY_URL + '?lat=' + lat + '&lon=' + lon; makeRequest(url, function(err, data) { if (err) { console.error("Lỗi tải thời tiết qua proxy:", err); els.weatherDesc.textContent = "Lỗi tải thời tiết"; return; } if (data && data.weather && data.location) { els.weatherLocation.textContent = data.location; var temp = Math.round(data.weather.temperature_2m); var weatherCode = data.weather.weather_code; var weatherInfo = getWeatherInfo(weatherCode); els.weatherIcon.textContent = weatherInfo.icon; els.weatherTemp.textContent = temp + "°C"; els.weatherDesc.textContent = weatherInfo.desc; } }); }
+        function loadWeather() { if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(function(pos) { fetchWeatherByProxy(pos.coords.latitude, pos.coords.longitude); }, function(err) { console.error("Lỗi định vị:", err.message); els.weatherDesc.textContent = "Không thể lấy vị trí"; }); } else { els.weatherDesc.textContent = "Định vị không được hỗ trợ"; } }
+        function fetchAndUpdateRemoteImages() { makeRequest(REMOTE_IMAGE_MANIFEST_URL + '?t=' + new Date().getTime(), function(err, data) { if (err) { console.error("Lỗi tải danh sách ảnh từ xa:", err); return; } if (Array.isArray(data) && data.length > 0) { var newImagesJson = JSON.stringify(data); if (newImagesJson !== remoteImagesCache) { remoteImagesCache = newImagesJson; images = data.slice(); currentImageIndex = 0; startSlideshow(); } } }); }
+        
+        // --- LOGIC MỚI CHO QR ---
+        function fetchRemoteConfig() { if (!REMOTE_CONFIG_URL || REMOTE_CONFIG_URL.includes("URL_RAW_GIST_CONFIG.JSON_CUA_BAN")) { console.warn("URL cấu hình QR chưa được thiết lập."); return; } makeRequest(REMOTE_CONFIG_URL + '?t=' + new Date().getTime(), function(err, data) { if (err) { console.error("Lỗi tải cấu hình từ xa:", err); return; } if (data && data.qrImageUrl) { remoteConfig = data; els.qrCodeBtn.classList.remove('hidden'); } }); }
+        
+        function changeImage() { if (images.length <= 1) return; els.slideshowImage.style.opacity = 0; setTimeout(function() { currentImageIndex = (currentImageIndex + 1) % images.length; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; }, 1500); }
+        function startSlideshow() { if(slideshowInterval) clearInterval(slideshowInterval); if (images.length === 0) { els.slideshowImage.style.display = 'none'; els.initialMessage.style.display = 'table'; return; } els.initialMessage.style.display = 'none'; els.slideshowImage.style.display = 'block'; currentImageIndex = 0; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; if (images.length > 1) { slideshowInterval = setInterval(changeImage, 7000); } }
+        function saveSettings() { try { localStorage.setItem('dashboardSettings', JSON.stringify(settings)); } catch (e) { console.error("Không thể lưu cài đặt:", e); } }
+        function applySettings() {
+            els.container.classList[settings.slideshowHidden ? 'add' : 'remove']('slideshow-hidden'); els.slideshowToggleBtn.textContent = settings.slideshowHidden ? 'Hiện ảnh' : 'Ẩn ảnh';
+            els.clock.classList[settings.secondsVisible ? 'add' : 'remove']('seconds-visible'); els.secondsBtn.textContent = settings.secondsVisible ? 'Ẩn giây' : 'Hiện giây';
+            els.dateContainer.classList[settings.dateHidden ? 'add' : 'remove']('hidden'); els.dateToggleBtn.textContent = settings.dateHidden ? 'Hiện Ngày tháng' : 'Ẩn Ngày tháng';
+            els.calendarContainer.classList[settings.calendarHidden ? 'add' : 'remove']('hidden'); els.calendarToggleBtn.textContent = settings.calendarHidden ? 'Hiện Lịch' : 'Ẩn Lịch';
+            els.container.classList[settings.weatherHidden ? 'add' : 'remove']('weather-hidden'); els.weatherToggleBtn.textContent = settings.weatherHidden ? 'Hiện Thời tiết' : 'Ẩn Thời tiết';
+            els.container.classList[settings.clockOnly ? 'add' : 'remove']('clock-only'); els.clockOnlyToggleBtn.textContent = settings.clockOnly ? 'Chế độ Đầy đủ' : 'Chế độ Chỉ Giờ';
+            els.clock.classList[settings.secondsVisible ? 'remove' : 'add']('blinking-active');
+        }
+        function loadSettings() { try { var savedSettings = localStorage.getItem('dashboardSettings'); if (savedSettings) { settings = JSON.parse(savedSettings); } } catch (e) { console.error("Không thể tải cài đặt:", e); } applySettings(); }
+        function updateLayout() { var isVertical = window.innerHeight > window.innerWidth; els.container.classList[isVertical ? 'add' : 'remove']('layout-vertical'); renderCalendar(); }
+        function renderCalendar() { var isMonthView = !els.container.classList.contains('layout-vertical'); var calendarFn = isMonthView ? generateMonthlyCalendar : generateWeeklyCalendar; calendarFn(currentDateForCalendar); }
+        function generateWeeklyCalendar(baseDate) { var grid = document.getElementById('calendar-grid'); var title = document.getElementById('calendar-title'); grid.innerHTML = ''; var today = new Date(); var dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']; var weekStart = new Date(baseDate); weekStart.setDate(baseDate.getDate() - baseDate.getDay()); var weekEnd = new Date(weekStart); weekEnd.setDate(weekStart.getDate() + 6); title.textContent = 'Tuần: ' + weekStart.getDate() + '/' + (weekStart.getMonth() + 1) + ' - ' + weekEnd.getDate() + '/' + (weekEnd.getMonth() + 1); dayNames.forEach(function(name) { var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell day-name'; dayEl.innerHTML = '<div class="cell-content">' + name + '</div>'; grid.appendChild(dayEl); }); for (var i = 0; i < 7; i++) { var currentDay = new Date(weekStart); currentDay.setDate(weekStart.getDate() + i); var solarDay = currentDay.getDate(); var lunar = solarToLunar(solarDay, currentDay.getMonth() + 1, currentDay.getFullYear()); var lunarDisplay = lunar.day === 1 ? lunar.day + '/' + lunar.lunarMonth : lunar.day; var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell'; if (currentDay.getDate() === today.getDate() && currentDay.getMonth() === today.getMonth() && currentDay.getFullYear() === today.getFullYear()) { dayEl.classList.add('today'); } dayEl.innerHTML = '<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">' + solarDay + '</span><span class="lunar-day">' + lunarDisplay + '</span></div></div>'; grid.appendChild(dayEl); } }
+        function generateMonthlyCalendar(baseDate) { var grid = document.getElementById('calendar-grid'); var title = document.getElementById('calendar-title'); grid.innerHTML = ''; var today = new Date(); var year = baseDate.getFullYear(); var month = baseDate.getMonth(); title.textContent = 'Tháng ' + (month + 1) + ' ' + year; var firstDayOfMonth = new Date(year, month, 1).getDay(); var daysInMonth = new Date(year, month + 1, 0).getDate(); var dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']; dayNames.forEach(function(name) { var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell day-name'; dayEl.innerHTML = '<div class="cell-content">' + name + '</div>'; grid.appendChild(dayEl); }); for (var i = 0; i < firstDayOfMonth; i++) { var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell other-month'; grid.appendChild(dayEl); } for (var i = 1; i <= daysInMonth; i++) { var currentDay = new Date(year, month, i); var solarDay = i; var lunar = solarToLunar(solarDay, month + 1, year); var lunarDisplay = lunar.day === 1 ? lunar.day + '/' + lunar.lunarMonth : lunar.day; var dayEl = document.createElement('div'); dayEl.className = 'calendar-cell'; if (solarDay === today.getDate() && month === today.getMonth() && year === today.getFullYear()) { dayEl.classList.add('today'); } dayEl.innerHTML = '<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">' + solarDay + '</span><span class="lunar-day">' + lunarDisplay + '</span></div></div>'; grid.appendChild(dayEl); } }
+
+        // --- Event Listeners ---
+        els.prevBtn.addEventListener('click', function() { currentDateForCalendar.setMonth(currentDateForCalendar.getMonth() - 1); renderCalendar(); });
+        els.nextBtn.addEventListener('click', function() { currentDateForCalendar.setMonth(currentDateForCalendar.getMonth() + 1); renderCalendar(); });
+        window.addEventListener('resize', function() { setTimeout(updateLayout, 200); });
+        els.settingsToggle.addEventListener('click', function() { els.settingsPanel.classList.toggle('show'); });
+        els.slideshowToggleBtn.addEventListener('click', function() { settings.slideshowHidden = !settings.slideshowHidden; saveSettings(); applySettings(); });
+        els.secondsBtn.addEventListener('click', function() { settings.secondsVisible = !settings.secondsVisible; saveSettings(); applySettings(); });
+        els.dateToggleBtn.addEventListener('click', function() { settings.dateHidden = !settings.dateHidden; saveSettings(); applySettings(); });
+        els.calendarToggleBtn.addEventListener('click', function() { settings.calendarHidden = !settings.calendarHidden; saveSettings(); applySettings(); });
+        els.weatherToggleBtn.addEventListener('click', function() { settings.weatherHidden = !settings.weatherHidden; saveSettings(); applySettings(); });
+        els.clockOnlyToggleBtn.addEventListener('click', function() { settings.clockOnly = !settings.clockOnly; saveSettings(); applySettings(); });
+        els.resetSettingsBtn.addEventListener('click', function() { if (confirm('Bạn có chắc muốn đặt lại tất cả cài đặt?')) { localStorage.removeItem('dashboardSettings'); window.location.reload(); } });
+        els.slideshowImage.onerror = function() { var failedImage = images[currentImageIndex]; console.warn("Lỗi tải ảnh:", failedImage); images.splice(currentImageIndex, 1); if (images.length > 0) { currentImageIndex = currentImageIndex % images.length; changeImage(); } else { startSlideshow(); } };
+        
+        // --- LOGIC MỚI CHO QR ---
+        els.qrCodeBtn.addEventListener('click', function() { if (!remoteConfig) return; els.qrCodeImage.src = remoteConfig.qrImageUrl; els.bankAccountName.textContent = remoteConfig.accountName; els.bankAccountNumber.textContent = 'STK: ' + remoteConfig.accountNumber; els.qrDialog.classList.add('show'); });
+        
+        els.qrDialog.addEventListener('click', function() { els.qrDialog.classList.remove('show'); });
+
+        // --- Application Initialization ---
+        loadSettings(); 
+        updateClock(); 
+        updateMainDate();
+        updateLayout();
+        loadWeather(); 
+        fetchAndUpdateRemoteImages();
+        fetchRemoteConfig();
+        setInterval(updateClock, 1000); 
+        setInterval(loadWeather, 1800000); // 30 phút
+        setInterval(fetchAndUpdateRemoteImages, 3600000); // 1 giờ
+        setInterval(function() { var now = new Date(); if (now.getMinutes() === 0) { updateMainDate(); currentDateForCalendar = new Date(); renderCalendar(); } }, 60000);
     });
     </script>
 </body>
