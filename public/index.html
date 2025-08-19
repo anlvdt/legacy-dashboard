@@ -101,8 +101,12 @@
         .container.clock-only #digital-clock { flex-wrap: nowrap; }
         .container.clock-only .clock-seconds { display: -webkit-box !important; display: flex !important; max-width: none !important; opacity: 1 !important; }
         .container.clock-only #digital-clock .clock-separator:first-of-type { animation: none; }
-        .container.clock-only .clock-segment span { font-size: 1em; } 
-        .container.clock-only .clock-separator { font-size: 0.8em; }
+        
+        /* BƯỚC 1: Thêm quy tắc CSS này */
+        .container.clock-only .clock-segment span,
+        .container.clock-only .clock-separator {
+            font-size: inherit !important;
+        }
         
         .container.slideshow-hidden .slideshow-column { flex-grow: 0; flex-basis: 0; margin-right: 0; }
         
@@ -249,14 +253,11 @@
         function changeImage() { if (images.length <= 1) return; els.slideshowImage.style.opacity = 0; setTimeout(function() { currentImageIndex = (currentImageIndex + 1) % images.length; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; }, 1500); }
         function startSlideshow() { if(slideshowInterval) clearInterval(slideshowInterval); if (images.length === 0) { els.slideshowImage.style.display = 'none'; els.initialMessage.style.display = 'table'; return; } els.initialMessage.style.display = 'none'; els.slideshowImage.style.display = 'block'; currentImageIndex = 0; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; if (images.length > 1) { slideshowInterval = setInterval(changeImage, 7000); } }
         
-        /************************************************************/
-        /********** THAY THẾ TOÀN BỘ HÀM CŨ BẰNG HÀM NÀY ***********/
+        // BƯỚC 2: Thay thế toàn bộ hàm cũ bằng hàm này
         function performResize() {
             var container = els.infoColumn;
             var clock = els.clock;
             
-            clock.style.fontSize = ''; 
-        
             var baseFontSize = 100;
             clock.style.fontSize = baseFontSize + 'px';
         
@@ -279,7 +280,6 @@
         
             clock.style.fontSize = finalFontSize + 'px';
         }
-        /************************************************************/
 
         function updateDynamicLayout() {
             var dateWeatherHidden = settings.dateHidden && settings.weatherHidden;
@@ -300,6 +300,8 @@
             if (settings.slideshowHidden) els.container.classList.add('slideshow-hidden');
             if (settings.shopHidden) els.container.classList.add('shop-hidden');
             if (settings.qrHidden) els.container.classList.add('qr-hidden');
+            
+            // Xóa style cũ khi không ở chế độ clock-only
             if (settings.clockOnly) {
                 els.container.classList.add('clock-only');
             } else {
