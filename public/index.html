@@ -22,7 +22,8 @@
 
         .content-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; width: 100%; height: 100%; text-align: center; overflow: hidden; }
         
-        .flex-grow-item { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-box-pack: center; justify-content: center; min-height: 0; -webkit-transition: all 0.4s ease; transition: all 0.4s ease; }
+        /* IMPROVED: Added align-items to perfectly center the clock in normal mode */
+        .flex-grow-item { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; min-height: 0; -webkit-transition: all 0.4s ease; transition: all 0.4s ease; }
         #digital-clock-wrapper { flex-grow: 1.2; }
         #date-weather-group { flex-grow: 1; flex-direction: column; justify-content: center; gap: 3vmin; }
         #calendar-wrapper { flex-grow: 1.5; }
@@ -97,12 +98,13 @@
         .container.shop-hidden .slideshow-column { margin-right: 0; }
         .container.qr-hidden .qr-code-image { display: none; }
 
-        /* IMPROVED: CSS for clock-only mode is simplified, JS will handle the sizing */
+        /* IMPROVED: 'Clock Only' mode uses refined 'vmin' values for a robust, auto-fitting display */
         .container.clock-only #date-weather-group, .container.clock-only #calendar-wrapper, .container.clock-only .shop-info-mobile,
         .container.clock-only .slideshow-column, .container.clock-only .qr-column { display: none; }
         .container.clock-only .info-column { -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; flex-grow: 1; margin-right: 0; }
         .container.clock-only .clock-segment { background: rgba(28, 28, 28, 0.4); border: 1px solid rgba(255,255,255,0.05); }
-        .container.clock-only #digital-clock { flex-wrap: nowrap; } /* Prevent wrapping on narrow screens */
+        .container.clock-only .clock-segment span { font-size: 28vmin; }
+        .container.clock-only .clock-separator { font-size: 22vmin; }
         .container.clock-only .clock-seconds { display: -webkit-box !important; display: flex !important; width: auto !important; opacity: 1 !important; }
         .container.clock-only #digital-clock .clock-separator:first-of-type { animation: none; }
         
@@ -260,45 +262,17 @@
             document.getElementById('weather-container').classList[settings.weatherHidden ? 'add' : 'remove']('hidden-force');
             els.dateWeatherGroup.classList[dateWeatherHidden ? 'add' : 'remove']('hidden-force');
         }
-
-        // NEW: Dynamic sizing engine for clock-only mode
-        function resizeClockOnlyMode() {
-            if (!settings.clockOnly) return;
-            var screenW = els.infoColumn.offsetWidth;
-            var screenH = els.infoColumn.offsetHeight;
-            // The approximate aspect ratio of the "HH:MM:SS" block with Oswald font
-            var clockAspectRatio = 3.8; // 8 chars * ~0.475 width/height ratio
-            var maxSizeByWidth = screenW / clockAspectRatio;
-            var maxSizeByHeight = screenH * 0.9; // Use 90% of height for padding
-            var optimalSize = Math.min(maxSizeByWidth, maxSizeByHeight);
-
-            var clockSpans = els.clock.querySelectorAll('.clock-segment span');
-            var clockSeparators = els.clock.querySelectorAll('.clock-separator');
-            for(var i=0; i < clockSpans.length; i++) {
-                clockSpans[i].style.fontSize = optimalSize + 'px';
-            }
-            for(var j=0; j < clockSeparators.length; j++) {
-                clockSeparators[j].style.fontSize = (optimalSize * 0.8) + 'px';
-            }
-        }
-
+        
         function saveSettings() { try { localStorage.setItem('dashboardSettings', JSON.stringify(settings)); } catch (e) { console.error("Không thể lưu cài đặt:", e); } }
         function applySettings() {
-            els.container.className = "container"; // Reset classes
+            els.container.className = "container"; 
             if (settings.slideshowHidden) els.container.classList.add('slideshow-hidden');
             if (settings.shopHidden) els.container.classList.add('shop-hidden');
             if (settings.qrHidden) els.container.classList.add('qr-hidden');
             if (settings.clockOnly) {
                 els.container.classList.add('clock-only');
-                resizeClockOnlyMode(); // Apply dynamic size immediately
-            } else {
-                // Clear dynamic styles when exiting clock-only mode
-                var clockSpans = els.clock.querySelectorAll('.clock-segment span');
-                var clockSeparators = els.clock.querySelectorAll('.clock-separator');
-                for(var i=0; i < clockSpans.length; i++) { clockSpans[i].style.fontSize = ''; }
-                for(var j=0; j < clockSeparators.length; j++) { clockSeparators[j].style.fontSize = ''; }
             }
-
+            
             els.slideshowToggleBtn.textContent = settings.slideshowHidden ? 'Hiện ảnh' : 'Ẩn ảnh';
             els.shopToggleBtn.textContent = settings.shopHidden ? 'Hiện Shop' : 'Ẩn Shop';
             els.qrToggleBtn.textContent = settings.qrHidden ? 'Hiện Mã QR' : 'Ẩn Mã QR';
@@ -319,7 +293,10 @@
         
         els.prevBtn.addEventListener('click', function() { currentDateForCalendar.setMonth(currentDateForCalendar.getMonth() - 1); renderCalendar(); });
         els.nextBtn.addEventListener('click', function() { currentDateForCalendar.setMonth(currentDateForCalendar.getMonth() + 1); renderCalendar(); });
-        var resizeTimeout; window.addEventListener('resize', function() { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(function(){ updateLayout(); resizeClockOnlyMode(); }, 200); });
+        
+        // Removed the complex resize handler and rely on CSS vmin which is more robust
+        window.addEventListener('resize', function() { setTimeout(updateLayout, 200); });
+
         els.settingsToggle.addEventListener('click', function() { els.settingsPanel.classList.toggle('show'); });
         els.resetSettingsBtn.addEventListener('click', function() { if (confirm('Bạn có chắc muốn đặt lại tất cả cài đặt?')) { localStorage.removeItem('dashboardSettings'); window.location.reload(); } });
         els.fullscreenBtn.addEventListener('click', function() { var docElm = document.documentElement; if (docElm.requestFullscreen) { if (!document.fullscreenElement) { docElm.requestFullscreen(); } else { document.exitFullscreen(); } } else if (docElm.webkitRequestFullscreen) { if (!document.webkitFullscreenElement) { docElm.webkitRequestFullscreen(); } else { document.webkitExitFullscreen(); } } });
