@@ -13,18 +13,19 @@
         html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
         body { background-color: #000; color: #fff; font-family: 'Nunito', sans-serif; display: -webkit-box; display: flex; box-sizing: border-box; padding: 2.5vmin; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
         
-        .container { display: -webkit-box; display: flex; width: 100%; height: 100%; gap: 2.5vmin; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
+        /* IMPROVED: Removed 'gap' and using 'margin' for old browser compatibility (iPadOS 9) */
+        .container { display: -webkit-box; display: flex; width: 100%; height: 100%; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
         
         .info-column, .slideshow-column, .qr-column { -webkit-box-flex: 1; flex: 1 1 0; display: -webkit-box; display: flex; height: 100%; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; overflow: hidden; }
-        .info-column { flex-grow: 1.2; }
-        .slideshow-column { flex-grow: 1.5; }
+        .info-column { flex-grow: 1.2; margin-right: 2.5vmin; }
+        .slideshow-column { flex-grow: 1.5; margin-right: 2.5vmin; }
         .qr-column { flex-grow: 0.8; }
 
         .content-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-justify-content: space-around; justify-content: space-around; width: 100%; height: 100%; text-align: center; overflow: hidden; gap: 1.5vmin; }
         .content-wrapper > * { margin: 0; flex-shrink: 0; }
         
-        #digital-clock { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; gap: 1vmin; }
-        .clock-segment { background: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5vmin; padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); }
+        #digital-clock { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; }
+        .clock-segment { background: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5vmin; padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); margin: 0 0.5vmin; }
         .clock-segment span { font-family: 'Oswald', sans-serif; font-size: 13vmin; font-weight: 700; color: #e0e0e0; letter-spacing: 0.05em; text-shadow: 0 0 1vmin rgba(255,255,255,0.2); -webkit-transition: font-size 0.3s ease; transition: font-size 0.3s ease; }
         .clock-separator { font-family: 'Oswald', sans-serif; font-size: 10vmin; font-weight: 700; color: #e0e0e0; -webkit-transition: font-size 0.3s ease, opacity 0.3s ease; transition: font-size 0.3s ease, opacity 0.3s ease; }
         
@@ -35,8 +36,8 @@
         
         @-webkit-keyframes blink { 50% { opacity: 0.3; } }
         @keyframes blink { 50% { opacity: 0.3; } }
-        /* IMPROVED: CSS-only solution for blinking, no more JS class needed */
-        #digital-clock:not(.seconds-visible) .clock-separator:first-of-type { -webkit-animation: blink 1s step-end infinite; animation: blink 1s step-end infinite; }
+        /* IMPROVED: Blinking is now controlled by a dedicated class managed by JS for timing */
+        #digital-clock.blinking-active .clock-separator:first-of-type { -webkit-animation: blink 1s step-end infinite; animation: blink 1s step-end infinite; }
 
         .date-container { font-size: 2.8vmin; }
         .date-container p { margin: 1vmin 0; }
@@ -48,7 +49,6 @@
         #weather-temp { font-weight: 700; }
         #weather-location { font-weight: bold; color: #2980b9; display: none; }
 
-        /* IMPROVED: Made calendar cells rectangular to reduce overall height */
         #calendar-container { background-color: rgba(26, 26, 26, 0.7); border: 1px solid rgba(255,255,255,0.1); padding: 1.5vmin; border-radius: 1.5vmin; width: 100%; max-width: 48vmin; box-sizing: border-box; margin: 0 auto; }
         #calendar-header { display: table; width: 100%; }
         .calendar-nav, #calendar-title { display: table-cell; vertical-align: middle; }
@@ -57,7 +57,7 @@
         #calendar-grid { margin-top: 1vmin; }
         #calendar-grid::after { content: ""; display: table; clear: both; }
         .calendar-cell { float: left; width: 14.28%; box-sizing: border-box; position: relative; }
-        .calendar-cell::before { content: ''; display: block; padding-top: 85%; /* This makes cells rectangular, not square */ }
+        .calendar-cell::before { content: ''; display: block; padding-top: 85%; }
         .calendar-cell-inner { position: absolute; top: 0.2rem; right: 0.2rem; bottom: 0.2rem; left: 0.2rem; display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-box-pack: center; justify-content: center;}
         .cell-content { text-align: center; padding: 0.2rem 0; }
         .day-name .cell-content { font-weight: 700; color: #f39c12; font-size: 1.6vmin; }
@@ -84,7 +84,7 @@
         
         .hidden-force { opacity: 0 !important; max-height: 0 !important; margin: 0 !important; padding: 0 !important; transform: scale(0.9) !important; overflow: hidden !important; border: none !important; }
         .container.clock-only .date-container, .container.clock-only #weather-container, .container.clock-only #calendar-container, .container.clock-only .shop-info-mobile { display: none; }
-        .container.clock-only .qr-column, .container.slideshow-hidden .slideshow-column { flex-basis: 0; flex-grow: 0; padding: 0; }
+        .container.clock-only .qr-column, .container.slideshow-hidden .slideshow-column { flex-basis: 0; flex-grow: 0; padding: 0; margin-right: 0; }
         .container.clock-only .info-column { -webkit-box-pack: center; justify-content: center; flex-grow: 1; }
         .container.clock-only .slideshow-column { flex-grow: 2; }
         
@@ -103,8 +103,8 @@
         .dialog-box li { margin-bottom: 10px; }
 
         @media (max-width: 800px) {
-            body { padding: 1rem; }
-            .container { flex-direction: column; gap: 1rem; }
+            .info-column, .slideshow-column { margin-right: 0; }
+            .container { flex-direction: column; }
             .info-column, .slideshow-column { width: 100%; height: 50%; flex-basis: auto; }
             .slideshow-column { height: 40%; }
             .info-column { height: 60%; }
@@ -131,7 +131,6 @@
 </head>
 <body>
     <div class="container" id="main-container">
-        <!-- Main Info Column -->
         <div class="info-column">
             <div class="content-wrapper">
                 <div id="digital-clock">
@@ -146,7 +145,6 @@
                     <div id="calendar-header"><div class="calendar-nav" id="prev-btn">&lt;</div><div id="calendar-title"></div><div class="calendar-nav" id="next-btn">&gt;</div></div>
                     <div id="calendar-grid"></div>
                 </div>
-                <!-- Shop Info & QR for mobile -->
                 <div class="shop-info-mobile">
                     <img class="qr-code-image" id="qr-code-image-mobile" src="" alt="Mã QR">
                     <div class="shop-info">
@@ -157,13 +155,11 @@
             </div>
         </div>
         
-        <!-- Slideshow Column -->
         <div class="slideshow-column">
              <img id="slideshow-image" src="" alt="Trình chiếu ảnh" style="display: none;">
              <div id="initial-message"><p>Đang tải ảnh...</p></div>
         </div>
 
-        <!-- QR Code Column (Desktop) -->
         <div class="qr-column">
             <div class="qr-wrapper" id="qr-wrapper-desktop">
                 <img class="qr-code-image" id="qr-code-image-desktop" src="" alt="Mã QR">
@@ -209,7 +205,6 @@
     document.addEventListener("DOMContentLoaded", function() {
         const WEATHER_PROXY_URL = '/.netlify/functions/weather';
         const REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
-        // UPDATED: Pointing to the new config Gist URL as requested
         const REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
 
         var els = { container: document.getElementById('main-container'), clock: document.getElementById('digital-clock'), clockHours: document.getElementById('clock-hours'), clockMinutes: document.getElementById('clock-minutes'), clockSeconds: document.getElementById('clock-seconds'), dateContainer: document.getElementById('date-container'), gregorianDate: document.getElementById('gregorian-date'), lunarDate: document.getElementById('lunar-date'), lunarEvent: document.getElementById('lunar-event'), weatherContainer: document.getElementById('weather-container'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), calendarContainer: document.getElementById('calendar-container'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), slideshowImage: document.getElementById('slideshow-image'), initialMessage: document.getElementById('initial-message'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), fullscreenBtn: document.getElementById('fullscreen-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), photoGuideBtn: document.getElementById('photo-guide-btn'), alwaysOnGuideBtn: document.getElementById('always-on-guide-btn'), guideDialog: document.getElementById('guide-dialog'), guideTitle: document.getElementById('guide-title'), guideContent: document.getElementById('guide-content') };
@@ -235,7 +230,7 @@
             els.weatherContainer.classList[settings.weatherHidden ? 'add' : 'remove']('hidden-force'); els.weatherToggleBtn.textContent = settings.weatherHidden ? 'Hiện Thời tiết' : 'Ẩn Thời tiết';
             els.container.classList[settings.clockOnly ? 'add' : 'remove']('clock-only'); els.clockOnlyToggleBtn.textContent = settings.clockOnly ? 'Chế độ Đầy đủ' : 'Chế độ Chỉ Giờ';
         }
-        function loadSettings() { try { var savedSettings = localStorage.getItem('dashboardSettings'); if (savedSettings) { settings = JSON.parse(savedSettings); } } catch (e) { console.error("Không thể tải cài đặt:", e); } applySettings(); }
+        function loadSettings() { try { var savedSettings = localStorage.getItem('dashboardSettings'); if (savedSettings) { settings = JSON.parse(savedSettings); } } catch (e) { console.error("Không thể tải cài đặt:", e); } if (!settings.secondsVisible) { els.clock.classList.add('blinking-active'); } applySettings(); }
         function updateLayout() { var isVertical = window.innerWidth <= 800; els.container.classList[isVertical ? 'add' : 'remove']('layout-vertical'); renderCalendar(); }
         function renderCalendar() { var isMonthView = !els.container.classList.contains('layout-vertical'); var calendarFn = isMonthView ? generateMonthlyCalendar : generateWeeklyCalendar; calendarFn(currentDateForCalendar); }
         function generateWeeklyCalendar(baseDate) { var grid=document.getElementById('calendar-grid');grid.innerHTML='';var today=new Date();var dayNames=['CN','T2','T3','T4','T5','T6','T7'];var weekStart=new Date(baseDate);weekStart.setDate(baseDate.getDate()-baseDate.getDay());var weekEnd=new Date(weekStart);weekEnd.setDate(weekStart.getDate()+6);document.getElementById('calendar-title').textContent='Tuần: '+weekStart.getDate()+'/'+(weekStart.getMonth()+1)+' - '+weekEnd.getDate()+'/'+(weekEnd.getMonth()+1);dayNames.forEach(function(name){var dayEl=document.createElement('div');dayEl.className='calendar-cell day-name';dayEl.innerHTML='<div class="cell-content">'+name+'</div>';grid.appendChild(dayEl);});for(var i=0;i<7;i++){var currentDay=new Date(weekStart);currentDay.setDate(weekStart.getDate()+i);var solarDay=currentDay.getDate();var lunar=solarToLunar(solarDay,currentDay.getMonth()+1,currentDay.getFullYear());var lunarDisplay=lunar.day===1?lunar.day+'/'+lunar.lunarMonth:lunar.day;var dayEl=document.createElement('div');dayEl.className='calendar-cell';if(currentDay.getDate()===today.getDate()&&currentDay.getMonth()===today.getMonth()&&currentDay.getFullYear()===today.getFullYear()){dayEl.classList.add('today');}dayEl.innerHTML='<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">'+solarDay+'</span><span class="lunar-day">'+lunarDisplay+'</span></div></div>';grid.appendChild(dayEl);} }
@@ -248,8 +243,28 @@
         els.settingsToggle.addEventListener('click', function() { els.settingsPanel.classList.toggle('show'); });
         els.resetSettingsBtn.addEventListener('click', function() { if (confirm('Bạn có chắc muốn đặt lại tất cả cài đặt?')) { localStorage.removeItem('dashboardSettings'); window.location.reload(); } });
         els.fullscreenBtn.addEventListener('click', function() { var docElm = document.documentElement; if (docElm.requestFullscreen) { if (!document.fullscreenElement) { docElm.requestFullscreen(); } else { document.exitFullscreen(); } } else if (docElm.webkitRequestFullscreen) { if (!document.webkitFullscreenElement) { docElm.webkitRequestFullscreen(); } else { document.webkitExitFullscreen(); } } });
-        var toggleButtons = { slideshowToggleBtn: 'slideshowHidden', secondsBtn: 'secondsVisible', dateToggleBtn: 'dateHidden', calendarToggleBtn: 'calendarHidden', weatherToggleBtn: 'weatherHidden', clockOnlyToggleBtn: 'clockOnly' };
-        for (var btnId in toggleButtons) { (function(id, settingKey) { if(els[id]) { els[id].addEventListener('click', function() { settings[settingKey] = !settings[settingKey]; saveSettings(); applySettings(); }); } })(btnId, toggleButtons[btnId]); }
+
+        // IMPROVED: Decoupled logic for a glitch-free seconds toggle
+        els.secondsBtn.addEventListener('click', function() {
+            settings.secondsVisible = !settings.secondsVisible;
+            if (settings.secondsVisible) {
+                // Stop blinking immediately before transition starts
+                els.clock.classList.remove('blinking-active');
+            } else {
+                // Start blinking only after the hiding transition is complete
+                setTimeout(function() {
+                    if (!settings.secondsVisible) { // Check again in case user toggled back quickly
+                         els.clock.classList.add('blinking-active');
+                    }
+                }, 400); // This duration must match the CSS transition duration
+            }
+            saveSettings();
+            applySettings();
+        });
+        
+        var otherToggleButtons = { slideshowToggleBtn: 'slideshowHidden', dateToggleBtn: 'dateHidden', calendarToggleBtn: 'calendarHidden', weatherToggleBtn: 'weatherHidden', clockOnlyToggleBtn: 'clockOnly' };
+        for (var btnId in otherToggleButtons) { (function(id, settingKey) { if(els[id]) { els[id].addEventListener('click', function() { settings[settingKey] = !settings[settingKey]; saveSettings(); applySettings(); }); } })(btnId, otherToggleButtons[btnId]); }
+
         els.photoGuideBtn.addEventListener('click', function() { showGuide('photo'); });
         els.alwaysOnGuideBtn.addEventListener('click', function() { showGuide('alwaysOn'); });
         els.guideDialog.addEventListener('click', function() { els.guideDialog.classList.remove('show'); });
