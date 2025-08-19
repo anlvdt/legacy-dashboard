@@ -31,8 +31,8 @@
         .info-column.visible-blocks-1 { font-size: 2.2vmin; }
         .info-column.visible-blocks-1 #digital-clock-wrapper { font-size: 2.5vmin; }
 
-        /* IMPROVED: Added justify-content to fix the left-align issue on seconds toggle */
-        #digital-clock { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; width: 100%; }
+        /* CẢI TIẾN: Thuộc tính justify-content: center là giải pháp đúng để giữ đồng hồ luôn ở giữa, ngay cả khi hiển thị/ẩn giây. */
+        #digital-clock { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; width: 100%; line-height: 1; }
         .clock-segment { background: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5vmin; padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); margin: 0 0.5vmin; }
         
         .clock-segment span, .clock-separator { font-family: 'Oswald', sans-serif; font-weight: 700; color: #e0e0e0; text-shadow: 0 0 1vmin rgba(255,255,255,0.2); -webkit-transition: font-size 0.3s ease; transition: font-size 0.3s ease; }
@@ -92,13 +92,14 @@
         .shop-address { font-size: 2vmin; line-height: 1.4; margin: 1vmin 0 0 0; }
         .shop-info-mobile { display: none; }
         
-        .hidden-force { opacity: 0 !important; max-height: 0 !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; border: none !important; -webkit-box-flex: 0 !important; flex-grow: 0 !important; flex-basis: 0 !important; }
+        /* CẢI TIẾN: Thêm hiệu ứng chuyển động mượt mà khi ẩn/hiện các khối. */
+        .hidden-force { transition: opacity 0.4s ease, max-height 0.4s ease, margin 0.4s ease, padding 0.4s ease, flex-basis 0.4s ease; opacity: 0 !important; max-height: 0 !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; border: none !important; -webkit-box-flex: 0 !important; flex-grow: 0 !important; flex-basis: 0 !important; }
 
         .container.shop-hidden .qr-column { flex-grow: 0; flex-basis: 0; }
         .container.shop-hidden .slideshow-column { margin-right: 0; }
         .container.qr-hidden .qr-code-image { display: none; }
         
-        /* IMPROVED: CSS for clock-only mode relies on JS for sizing, ensuring it never overflows */
+        /* CẢI TIẾN: Chế độ chỉ giờ (clock-only) sẽ do Javascript toàn quyền kiểm soát kích thước để đảm bảo vừa khít màn hình. */
         .container.clock-only #date-weather-group, .container.clock-only #calendar-wrapper, .container.clock-only .shop-info-mobile,
         .container.clock-only .slideshow-column, .container.clock-only .qr-column { display: none; }
         .container.clock-only .info-column { -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; flex-grow: 1; margin-right: 0; }
@@ -106,6 +107,9 @@
         .container.clock-only #digital-clock { flex-wrap: nowrap; }
         .container.clock-only .clock-seconds { display: -webkit-box !important; display: flex !important; width: auto !important; opacity: 1 !important; }
         .container.clock-only #digital-clock .clock-separator:first-of-type { animation: none; }
+        /* CẢI TIẾN: Kích thước chữ trong chế độ clock-only sẽ được JS đặt trực tiếp lên #digital-clock */
+        .container.clock-only .clock-segment span { font-size: inherit; } 
+        .container.clock-only .clock-separator { font-size: 0.8em; /* Giữ tỷ lệ với số */ }
         
         .container.slideshow-hidden .slideshow-column { flex-grow: 0; flex-basis: 0; margin-right: 0; }
         
@@ -137,6 +141,7 @@
             .shop-info-mobile .shop-name { font-size: 2rem; }
             .shop-info-mobile .shop-address { font-size: 1.2rem; }
             
+            /* CSS gốc cho kích thước đồng hồ trên mobile sẽ được giữ làm phương án dự phòng */
             .clock-segment span { font-size: 20vw; }
             #digital-clock.seconds-visible .clock-segment span { font-size: 15vw; }
             .clock-separator { font-size: 18vw; }
@@ -201,7 +206,7 @@
     </div>
     
     <div id="settings-container">
-        <button id="settings-toggle"><span>&#9776;</span></button>
+        <button id="settings-toggle" aria-label="Mở hoặc đóng bảng cài đặt"><span>&#9776;</span></button>
         <div id="settings-panel">
             <button class="settings-btn" id="clock-only-toggle">Chế độ Chỉ Giờ</button>
             <button class="settings-btn" id="fullscreen-toggle">Toàn màn hình</button><hr style="border-color: #444; margin: 10px 0;">
@@ -252,6 +257,27 @@
         function changeImage() { if (images.length <= 1) return; els.slideshowImage.style.opacity = 0; setTimeout(function() { currentImageIndex = (currentImageIndex + 1) % images.length; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; }, 1500); }
         function startSlideshow() { if(slideshowInterval) clearInterval(slideshowInterval); if (images.length === 0) { els.slideshowImage.style.display = 'none'; els.initialMessage.style.display = 'table'; return; } els.initialMessage.style.display = 'none'; els.slideshowImage.style.display = 'block'; currentImageIndex = 0; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; if (images.length > 1) { slideshowInterval = setInterval(changeImage, 7000); } }
         
+        // CẢI TIẾN: Hàm mới để tự động điều chỉnh kích thước đồng hồ cho vừa khít màn hình
+        function adjustClockOnlySize() {
+            if (!settings.clockOnly) {
+                els.clock.style.fontSize = ''; // Xóa style inline khi không ở chế độ chỉ giờ
+                return;
+            }
+            const container = els.infoColumn;
+            const clock = els.clock;
+            const containerWidth = container.clientWidth * 0.95; // 95% chiều rộng để có khoảng đệm
+            const containerHeight = container.clientHeight * 0.95; // 95% chiều cao
+            
+            let fontSize = Math.min(containerHeight, containerWidth / 3); // Bắt đầu với một kích thước lớn ước tính
+            clock.style.fontSize = fontSize + 'px';
+
+            // Vòng lặp để giảm dần font-size cho đến khi đồng hồ nằm gọn trong container
+            while ((clock.scrollWidth > containerWidth || clock.scrollHeight > containerHeight) && fontSize > 10) {
+                fontSize -= 2;
+                clock.style.fontSize = fontSize + 'px';
+            }
+        }
+        
         function updateDynamicLayout() {
             var dateWeatherHidden = settings.dateHidden && settings.weatherHidden;
             var visibleBlocks = 1 + (dateWeatherHidden ? 0 : 1) + (settings.calendarHidden ? 0 : 1);
@@ -282,9 +308,13 @@
             els.weatherToggleBtn.textContent = settings.weatherHidden ? 'Hiện Thời tiết' : 'Ẩn Thời tiết';
             els.clockOnlyToggleBtn.textContent = settings.clockOnly ? 'Chế độ Đầy đủ' : 'Chế độ Chỉ Giờ';
             updateDynamicLayout();
+
+            // CẢI TIẾN: Gọi hàm điều chỉnh kích thước đồng hồ sau khi áp dụng cài đặt
+            // Dùng setTimeout để đảm bảo DOM đã cập nhật xong class 'clock-only'
+            setTimeout(adjustClockOnlySize, 50);
         }
         function loadSettings() { try { var savedSettings = localStorage.getItem('dashboardSettings'); if (savedSettings) { settings = JSON.parse(savedSettings); } } catch (e) { console.error("Không thể tải cài đặt:", e); } applySettings(); }
-        function updateLayout() { var isVertical = window.innerWidth <= 800; els.container.classList[isVertical ? 'add' : 'remove']('layout-vertical'); renderCalendar(); }
+        function updateLayout() { var isVertical = window.innerWidth <= 800; els.container.classList[isVertical ? 'add' : 'remove']('layout-vertical'); renderCalendar(); if (settings.clockOnly) { adjustClockOnlySize(); } }
         function renderCalendar() { var isMonthView = !els.container.classList.contains('layout-vertical'); var calendarFn = isMonthView ? generateMonthlyCalendar : generateWeeklyCalendar; calendarFn(currentDateForCalendar); }
         function generateWeeklyCalendar(baseDate) { var grid=document.getElementById('calendar-grid');grid.innerHTML='';var today=new Date();var dayNames=['CN','T2','T3','T4','T5','T6','T7'];var weekStart=new Date(baseDate);weekStart.setDate(baseDate.getDate()-baseDate.getDay());var weekEnd=new Date(weekStart);weekEnd.setDate(weekStart.getDate()+6);document.getElementById('calendar-title').textContent='Tuần: '+weekStart.getDate()+'/'+(weekStart.getMonth()+1)+' - '+weekEnd.getDate()+'/'+(weekEnd.getMonth()+1);dayNames.forEach(function(name){var dayEl=document.createElement('div');dayEl.className='calendar-cell day-name';dayEl.innerHTML='<div class="cell-content">'+name+'</div>';grid.appendChild(dayEl);});for(var i=0;i<7;i++){var currentDay=new Date(weekStart);currentDay.setDate(weekStart.getDate()+i);var solarDay=currentDay.getDate();var lunar=solarToLunar(solarDay,currentDay.getMonth()+1,currentDay.getFullYear());var lunarDisplay=lunar.day===1?lunar.day+'/'+lunar.lunarMonth:lunar.day;var dayEl=document.createElement('div');dayEl.className='calendar-cell';if(currentDay.getDate()===today.getDate()&&currentDay.getMonth()===today.getMonth()&&currentDay.getFullYear()===today.getFullYear()){dayEl.classList.add('today');}dayEl.innerHTML='<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">'+solarDay+'</span><span class="lunar-day">'+lunarDisplay+'</span></div></div>';grid.appendChild(dayEl);} }
         function generateMonthlyCalendar(baseDate) { var grid=document.getElementById('calendar-grid');grid.innerHTML='';var today=new Date();var year=baseDate.getFullYear();var month=baseDate.getMonth();document.getElementById('calendar-title').textContent='Tháng '+(month+1)+' '+year;var firstDayOfMonth=new Date(year,month,1).getDay();var daysInMonth=new Date(year,month+1,0).getDate();var dayNames=['CN','T2','T3','T4','T5','T6','T7'];dayNames.forEach(function(name){var dayEl=document.createElement('div');dayEl.className='calendar-cell day-name';dayEl.innerHTML='<div class="cell-content">'+name+'</div>';grid.appendChild(dayEl);});for(var i=0;i<firstDayOfMonth;i++){var dayEl=document.createElement('div');dayEl.className='calendar-cell other-month';grid.appendChild(dayEl);}for(var i=1;i<=daysInMonth;i++){var solarDay=i;var lunar=solarToLunar(solarDay,month+1,year);var lunarDisplay=lunar.day===1?lunar.day+'/'+lunar.lunarMonth:lunar.day;var dayEl=document.createElement('div');dayEl.className='calendar-cell';if(solarDay===today.getDate()&&month===today.getMonth()&&year===today.getFullYear()){dayEl.classList.add('today');}dayEl.innerHTML='<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">'+solarDay+'</span><span class="lunar-day">'+lunarDisplay+'</span></div></div>';grid.appendChild(dayEl);} }
