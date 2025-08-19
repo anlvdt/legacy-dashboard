@@ -254,12 +254,9 @@
             var clock = els.clock;
             var containerWidth = container.clientWidth * 0.95;
             var containerHeight = container.clientHeight * 0.95;
-
             if (containerWidth < 100) return;
-
             var fontSize = 10;
             clock.style.fontSize = fontSize + 'px';
-            
             while (true) {
                 var nextFontSize = fontSize + 2;
                 clock.style.fontSize = nextFontSize + 'px';
@@ -310,13 +307,7 @@
             updateDynamicLayout();
             
             if (settings.clockOnly && !wasClockOnly) {
-                var handler = function() {
-                    performResize();
-                    els.infoColumn.removeEventListener('webkitTransitionEnd', handler);
-                    els.infoColumn.removeEventListener('transitionend', handler);
-                };
-                els.infoColumn.addEventListener('webkitTransitionEnd', handler);
-                els.infoColumn.addEventListener('transitionend', handler);
+                setTimeout(performResize, 500); 
             }
         }
         
