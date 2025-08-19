@@ -8,33 +8,33 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --base-padding: 2.5vmin; --border-radius: 1.5vmin; }
+        /* CSS variables replaced with static values for better compatibility with old browsers like iPadOS 9 */
         html { font-size: 1.5vmin; }
         @media (max-width: 480px) { html { font-size: 10px; } }
         html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
-        body { background-color: #000; color: #fff; font-family: 'Nunito', sans-serif; display: -webkit-box; display: flex; box-sizing: border-box; padding: var(--base-padding); -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
+        body { background-color: #000; color: #fff; font-family: 'Nunito', sans-serif; display: -webkit-box; display: flex; box-sizing: border-box; padding: 2.5vmin; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
         
-        .container { display: -webkit-box; display: flex; width: 100%; height: 100%; gap: var(--base-padding); -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
+        .container { display: -webkit-box; display: flex; width: 100%; height: 100%; gap: 2.5vmin; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
         
         .info-column, .slideshow-column, .qr-column { -webkit-box-flex: 1; flex: 1 1 0; display: -webkit-box; display: flex; height: 100%; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; overflow: hidden; }
         .info-column { flex-grow: 1.2; }
         .slideshow-column { flex-grow: 1.5; }
         .qr-column { flex-grow: 0.8; }
 
-        .content-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-justify-content: flex-start; justify-content: flex-start; width: 100%; height: 100%; text-align: center; overflow-y: auto; gap: 2vmin; padding-right: 1vmin; }
-        .content-wrapper::-webkit-scrollbar { width: 4px; }
-        .content-wrapper::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
-        .content-wrapper > * { margin-bottom: 2vmin; flex-shrink: 0; }
-        .content-wrapper > *:last-child { margin-bottom: 0; }
-
+        .content-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-justify-content: space-around; justify-content: space-around; width: 100%; height: 100%; text-align: center; overflow: hidden; gap: 1.5vmin; }
+        .content-wrapper > * { margin: 0; flex-shrink: 0; }
+        
         #digital-clock { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; gap: 1vmin; }
-        .clock-segment { background: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius); padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); }
+        .clock-segment { background: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5vmin; padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); }
         .clock-segment span { font-family: 'Oswald', sans-serif; font-size: 13vmin; font-weight: 700; color: #e0e0e0; letter-spacing: 0.05em; text-shadow: 0 0 1vmin rgba(255,255,255,0.2); -webkit-transition: font-size 0.3s ease; transition: font-size 0.3s ease; }
         .clock-separator { font-family: 'Oswald', sans-serif; font-size: 10vmin; font-weight: 700; color: #e0e0e0; -webkit-transition: font-size 0.3s ease, opacity 0.3s ease; transition: font-size 0.3s ease, opacity 0.3s ease; }
+        
+        /* Improved seconds toggle transition */
+        .clock-seconds { display: flex; align-items: center; max-width: 0; opacity: 0; overflow: hidden; transform: scale(0.8); transition: max-width 0.4s ease, opacity 0.4s ease, transform 0.4s ease; }
         #digital-clock.seconds-visible .clock-segment span { font-size: 8vmin; }
         #digital-clock.seconds-visible .clock-separator { font-size: 7vmin; }
-        .clock-seconds { display: none; }
-        #digital-clock.seconds-visible .clock-seconds { display: contents; }
+        #digital-clock.seconds-visible .clock-seconds { max-width: 30vmin; opacity: 1; transform: scale(1); }
+        
         @-webkit-keyframes blink { 50% { opacity: 0.3; } }
         @keyframes blink { 50% { opacity: 0.3; } }
         #digital-clock.blinking-active .clock-separator:first-of-type { -webkit-animation: blink 1s step-end infinite; animation: blink 1s step-end infinite; }
@@ -49,7 +49,7 @@
         #weather-temp { font-weight: 700; }
         #weather-location { font-weight: bold; color: #2980b9; }
 
-        #calendar-container { background-color: rgba(26, 26, 26, 0.7); border: 1px solid rgba(255,255,255,0.1); padding: 1.5vmin; border-radius: var(--border-radius); width: 100%; max-width: 50vmin; box-sizing: border-box; margin: 0 auto; }
+        #calendar-container { background-color: rgba(26, 26, 26, 0.7); border: 1px solid rgba(255,255,255,0.1); padding: 1.5vmin; border-radius: 1.5vmin; width: 100%; max-width: 50vmin; box-sizing: border-box; margin: 0 auto; }
         #calendar-header { display: table; width: 100%; }
         .calendar-nav, #calendar-title { display: table-cell; vertical-align: middle; }
         #calendar-title { width: 70%; font-size: 2vmin; font-weight: 700; }
@@ -67,13 +67,13 @@
         .today .calendar-cell-inner { background-color: #f39c12; color: #000; border-radius: 0.8vmin; font-weight: 700; }
         .today .lunar-day { color: #000; }
         
-        .slideshow-column { position: relative; background-color: #1a1a1a; border-radius: var(--border-radius); }
+        .slideshow-column { position: relative; background-color: #1a1a1a; border-radius: 1.5vmin; }
         #slideshow-image, #initial-message { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        #slideshow-image { object-fit: cover; border-radius: var(--border-radius); opacity: 1; -webkit-transition: opacity 1.5s ease-in-out; transition: opacity 1.5s ease-in-out; }
+        #slideshow-image { object-fit: cover; border-radius: 1.5vmin; opacity: 1; -webkit-transition: opacity 1.5s ease-in-out; transition: opacity 1.5s ease-in-out; }
         #initial-message { display: table; color: #888; }
         #initial-message p { display: table-cell; vertical-align: middle; text-align: center; font-size: 1.2rem; }
 
-        .qr-column { background-color: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius); padding: var(--base-padding); box-sizing: border-box; }
+        .qr-column { background-color: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5vmin; padding: 2.5vmin; box-sizing: border-box; }
         .qr-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; width: 100%; height: 100%; gap: 2vmin; opacity: 0; transition: opacity 0.5s ease; }
         .qr-wrapper.loaded { opacity: 1; }
         .qr-code-image { width: 100%; max-width: 300px; height: auto; border-radius: 1vmin; border: 2px solid #fff; }
@@ -97,7 +97,7 @@
         
         .dialog-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; }
         .dialog-overlay.show { display: -webkit-box; display: flex; }
-        .dialog-box { background: #1e1e1e; padding: 2rem; border-radius: var(--border-radius); border: 1px solid #444; text-align: left; max-width: 500px; width: 90%; }
+        .dialog-box { background: #1e1e1e; padding: 2rem; border-radius: 1.5vmin; border: 1px solid #444; text-align: left; max-width: 500px; width: 90%; }
         .dialog-box h3 { margin-top: 0; color: #f39c12; }
         .dialog-box ul { padding-left: 20px; }
         .dialog-box li { margin-bottom: 10px; }
@@ -135,7 +135,9 @@
             <div class="content-wrapper">
                 <div id="digital-clock">
                     <div class="clock-segment"><span id="clock-hours">00</span></div><div class="clock-separator">:</div><div class="clock-segment"><span id="clock-minutes">00</span></div>
-                    <div class="clock-seconds"><div class="clock-separator">:</div><div class="clock-segment"><span id="clock-seconds">00</span></div></div>
+                    <div class="clock-seconds">
+                        <div class="clock-separator">:</div><div class="clock-segment"><span id="clock-seconds">00</span></div>
+                    </div>
                 </div>
                 <div class="date-container" id="date-container"><p id="gregorian-date"></p><p id="lunar-date"></p><p id="lunar-event"></p></div>
                 <div id="weather-container"><span id="weather-location"></span><span id="weather-icon"></span><span id="weather-temp"></span><span id="weather-desc">Đang tải thời tiết...</span></div>
@@ -216,10 +218,10 @@
         function updateMainDate() { var now = new Date(); var dayOfWeek = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; els.gregorianDate.innerText = dayOfWeek[now.getDay()] + ', ' + now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear(); var lunar = solarToLunar(now.getDate(), now.getMonth() + 1, now.getFullYear()); els.lunarDate.innerText = lunar.dayCanChi + ', ' + lunar.day + ' ' + lunar.monthName; var eventText = ""; var daysInMonth = getLunarMonthDays(lunar.lunarYear, lunar.lunarMonth); if (lunar.day === 1) eventText = "Mồng 1"; else if (lunar.day === 15) eventText = "Ngày Rằm"; else if (lunar.day === 16) eventText = "Ngày 16"; else if (lunar.day === daysInMonth) eventText = "Ngày cuối tháng"; els.lunarEvent.innerText = eventText; }
         function makeRequest(url, callback) { var xhr = new XMLHttpRequest(); xhr.onreadystatechange = function() { if (xhr.readyState === 4) { if (xhr.status >= 200 && xhr.status < 300) { try { callback(null, JSON.parse(xhr.responseText)); } catch(e) { callback(e); } } else { callback(new Error('Yêu cầu mạng thất bại: ' + xhr.status)); } } }; xhr.open('GET', url, true); xhr.send(); }
         function getWeatherInfo(code) { var weatherMap = { 0:{d:"Trời quang",i:"☀️"},1:{d:"Gần quang",i:"🌤️"},2:{d:"Mây rải rác",i:"🌥️"},3:{d:"Nhiều mây",i:"☁️"},45:{d:"Sương mù",i:"🌫️"},48:{d:"Sương mù lạnh",i:"🌫️"},51:{d:"Mưa phùn nhẹ",i:"🌦️"},53:{d:"Mưa phùn",i:"🌦️"},55:{d:"Mưa phùn dày",i:"🌦️"},61:{d:"Mưa nhẹ",i:"🌧️"},63:{d:"Mưa vừa",i:"🌧️"},65:{d:"Mưa lớn",i:"🌧️"},80:{d:"Mưa rào nhẹ",i:"🌧️"},81:{d:"Mưa rào",i:"🌧️"},82:{d:"Mưa rào lớn",i:"🌧️"},95:{d:"Dông",i:"⚡"}}; var info = weatherMap[code] || {d:"Không xác định",i:"🤷"}; return { desc: info.d, icon: info.i }; }
-        function fetchWeatherByProxy(lat, lon) { var url = WEATHER_PROXY_URL + '?lat=' + lat + '&lon=' + lon; makeRequest(url, function(err, data) { if (err) { console.error("Lỗi tải thời tiết qua proxy:", err); els.weatherDesc.textContent = "Lỗi tải thời tiết"; return; } if (data && data.weather && data.location && data.location !== "Null") { els.weatherLocation.textContent = data.location; } else { els.weatherLocation.textContent = ""; } if (data && data.weather) { var temp = Math.round(data.weather.temperature_2m); var weatherCode = data.weather.weather_code; var weatherInfo = getWeatherInfo(weatherCode); els.weatherIcon.textContent = weatherInfo.icon; els.weatherTemp.textContent = temp + "°C"; els.weatherDesc.textContent = weatherInfo.desc; } }); }
+        function fetchWeatherByProxy(lat, lon) { var url = WEATHER_PROXY_URL + '?lat=' + lat + '&lon=' + lon; makeRequest(url, function(err, data) { if (err) { console.error("Lỗi tải thời tiết qua proxy:", err); els.weatherDesc.textContent = "Lỗi tải thời tiết"; return; } if (data && data.location && data.location !== "Null" && data.location.length > 0) { els.weatherLocation.textContent = data.location; els.weatherLocation.style.display = 'inline'; } else { els.weatherLocation.style.display = 'none'; } if (data && data.weather) { var temp = Math.round(data.weather.temperature_2m); var weatherCode = data.weather.weather_code; var weatherInfo = getWeatherInfo(weatherCode); els.weatherIcon.textContent = weatherInfo.icon; els.weatherTemp.textContent = temp + "°C"; els.weatherDesc.textContent = weatherInfo.desc; } }); }
         function loadWeather() { if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(function(pos) { fetchWeatherByProxy(pos.coords.latitude, pos.coords.longitude); }, function(err) { console.error("Lỗi định vị:", err.message); els.weatherContainer.classList.add('hidden-force'); }); } else { els.weatherContainer.classList.add('hidden-force'); } }
         function fetchAndUpdateRemoteImages() { makeRequest(REMOTE_IMAGE_MANIFEST_URL + '?t=' + new Date().getTime(), function(err, data) { if (err) { console.error("Lỗi tải danh sách ảnh từ xa:", err); return; } if (Array.isArray(data) && data.length > 0) { images = data.slice(); currentImageIndex = 0; startSlideshow(); } }); }
-        function fetchRemoteConfig() { makeRequest(REMOTE_CONFIG_URL + '?t=' + new Date().getTime(), function(err, data) { if (err || !data || !data.qrImageUrl) { console.error("Lỗi tải hoặc thiếu cấu hình QR từ xa."); return; } document.getElementById('qr-code-image-desktop').src = data.qrImageUrl; document.getElementById('shop-name-desktop').textContent = data.shopName; document.getElementById('shop-address-desktop').textContent = data.shopAddress; document.getElementById('qr-code-image-mobile').src = data.qrImageUrl; document.getElementById('shop-name-mobile').textContent = data.shopName; document.getElementById('shop-address-mobile').textContent = data.shopAddress; document.getElementById('qr-wrapper-desktop').classList.add('loaded'); document.querySelector('.shop-info-mobile').classList.add('loaded'); }); }
+        function fetchRemoteConfig() { makeRequest(REMOTE_CONFIG_URL + '?t=' + new Date().getTime(), function(err, data) { if (err || !data) { console.error("Lỗi tải hoặc thiếu cấu hình QR từ xa.", err); data = {}; } var qrUrl = data.qrImageUrl || ""; var shopName = data.shopName || "Tên Cửa Hàng"; var shopAddress = data.shopAddress || "Địa chỉ của hàng"; document.getElementById('qr-code-image-desktop').src = qrUrl; document.getElementById('shop-name-desktop').textContent = shopName; document.getElementById('shop-address-desktop').textContent = shopAddress; document.getElementById('qr-code-image-mobile').src = qrUrl; document.getElementById('shop-name-mobile').textContent = shopName; document.getElementById('shop-address-mobile').textContent = shopAddress; document.getElementById('qr-wrapper-desktop').classList.add('loaded'); document.querySelector('.shop-info-mobile').classList.add('loaded'); }); }
         function changeImage() { if (images.length <= 1) return; els.slideshowImage.style.opacity = 0; setTimeout(function() { currentImageIndex = (currentImageIndex + 1) % images.length; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; }, 1500); }
         function startSlideshow() { if(slideshowInterval) clearInterval(slideshowInterval); if (images.length === 0) { els.slideshowImage.style.display = 'none'; els.initialMessage.style.display = 'table'; return; } els.initialMessage.style.display = 'none'; els.slideshowImage.style.display = 'block'; currentImageIndex = 0; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; if (images.length > 1) { slideshowInterval = setInterval(changeImage, 7000); } }
         function saveSettings() { try { localStorage.setItem('dashboardSettings', JSON.stringify(settings)); } catch (e) { console.error("Không thể lưu cài đặt:", e); } }
@@ -254,7 +256,7 @@
         
         loadSettings(); updateClock(); updateMainDate(); updateLayout(); loadWeather(); fetchAndUpdateRemoteImages(); fetchRemoteConfig();
         setInterval(updateClock, 1000); setInterval(loadWeather, 1800000); setInterval(fetchAndUpdateRemoteImages, 3600000);
-        setInterval(function() { var now = new Date(); if (now.getMinutes() === 0) { updateMainDate(); currentDateForCalendar = new Date(); renderCalendar(); } }, 60000);
+        setInterval(function() { var now = new Date(); if (now.getMinutes() === 0 && now.getSeconds() < 2) { updateMainDate(); currentDateForCalendar = new Date(); renderCalendar(); } }, 1000);
     });
     </script>
 </body>
