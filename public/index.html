@@ -28,7 +28,6 @@
         .clock-segment span { font-family: 'Oswald', sans-serif; font-size: 13vmin; font-weight: 700; color: #e0e0e0; letter-spacing: 0.05em; text-shadow: 0 0 1vmin rgba(255,255,255,0.2); -webkit-transition: font-size 0.3s ease; transition: font-size 0.3s ease; }
         .clock-separator { font-family: 'Oswald', sans-serif; font-size: 10vmin; font-weight: 700; color: #e0e0e0; -webkit-transition: font-size 0.3s ease, opacity 0.3s ease; transition: font-size 0.3s ease, opacity 0.3s ease; }
         
-        /* IMPROVED: Smooth transition for seconds display */
         .clock-seconds { display: -webkit-box; display: flex; -webkit-box-align: center; align-items: center; width: 0; opacity: 0; overflow: hidden; -webkit-transition: width 0.4s ease, opacity 0.4s ease; transition: width 0.4s ease, opacity 0.4s ease; }
         #digital-clock.seconds-visible .clock-segment span { font-size: 8vmin; }
         #digital-clock.seconds-visible .clock-separator { font-size: 7vmin; }
@@ -36,7 +35,8 @@
         
         @-webkit-keyframes blink { 50% { opacity: 0.3; } }
         @keyframes blink { 50% { opacity: 0.3; } }
-        #digital-clock.blinking-active .clock-separator:first-of-type { -webkit-animation: blink 1s step-end infinite; animation: blink 1s step-end infinite; }
+        /* IMPROVED: CSS-only solution for blinking, no more JS class needed */
+        #digital-clock:not(.seconds-visible) .clock-separator:first-of-type { -webkit-animation: blink 1s step-end infinite; animation: blink 1s step-end infinite; }
 
         .date-container { font-size: 2.8vmin; }
         .date-container p { margin: 1vmin 0; }
@@ -46,10 +46,10 @@
         #weather-container { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; gap: 1rem; font-size: 2.5vmin; min-height: 4vmin; }
         #weather-icon { font-size: 4vmin; }
         #weather-temp { font-weight: 700; }
-        #weather-location { font-weight: bold; color: #2980b9; display: none; /* IMPROVED: Hide by default */ }
+        #weather-location { font-weight: bold; color: #2980b9; display: none; }
 
-        /* IMPROVED: Reduced calendar size to prevent clipping */
-        #calendar-container { background-color: rgba(26, 26, 26, 0.7); border: 1px solid rgba(255,255,255,0.1); padding: 1.5vmin; border-radius: 1.5vmin; width: 100%; max-width: 45vmin; box-sizing: border-box; margin: 0 auto; }
+        /* IMPROVED: Made calendar cells rectangular to reduce overall height */
+        #calendar-container { background-color: rgba(26, 26, 26, 0.7); border: 1px solid rgba(255,255,255,0.1); padding: 1.5vmin; border-radius: 1.5vmin; width: 100%; max-width: 48vmin; box-sizing: border-box; margin: 0 auto; }
         #calendar-header { display: table; width: 100%; }
         .calendar-nav, #calendar-title { display: table-cell; vertical-align: middle; }
         #calendar-title { width: 70%; font-size: 2vmin; font-weight: 700; }
@@ -57,8 +57,8 @@
         #calendar-grid { margin-top: 1vmin; }
         #calendar-grid::after { content: ""; display: table; clear: both; }
         .calendar-cell { float: left; width: 14.28%; box-sizing: border-box; position: relative; }
-        .calendar-cell::before { content: ''; display: block; padding-top: 100%; }
-        .calendar-cell-inner { position: absolute; top: 0.2rem; right: 0.2rem; bottom: 0.2rem; left: 0.2rem; }
+        .calendar-cell::before { content: ''; display: block; padding-top: 85%; /* This makes cells rectangular, not square */ }
+        .calendar-cell-inner { position: absolute; top: 0.2rem; right: 0.2rem; bottom: 0.2rem; left: 0.2rem; display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-box-pack: center; justify-content: center;}
         .cell-content { text-align: center; padding: 0.2rem 0; }
         .day-name .cell-content { font-weight: 700; color: #f39c12; font-size: 1.6vmin; }
         .solar-day { font-size: 1.8vmin; font-weight: 700; display: block; }
@@ -131,12 +131,11 @@
 </head>
 <body>
     <div class="container" id="main-container">
-        <!-- Cột Thông tin Chính -->
+        <!-- Main Info Column -->
         <div class="info-column">
             <div class="content-wrapper">
                 <div id="digital-clock">
                     <div class="clock-segment"><span id="clock-hours">00</span></div><div class="clock-separator">:</div><div class="clock-segment"><span id="clock-minutes">00</span></div>
-                    <!-- IMPROVED: Moved separator inside for smoother transition -->
                     <div class="clock-seconds">
                         <div class="clock-separator">:</div><div class="clock-segment"><span id="clock-seconds">00</span></div>
                     </div>
@@ -147,7 +146,7 @@
                     <div id="calendar-header"><div class="calendar-nav" id="prev-btn">&lt;</div><div id="calendar-title"></div><div class="calendar-nav" id="next-btn">&gt;</div></div>
                     <div id="calendar-grid"></div>
                 </div>
-                <!-- Thông tin Shop & QR cho màn hình dọc -->
+                <!-- Shop Info & QR for mobile -->
                 <div class="shop-info-mobile">
                     <img class="qr-code-image" id="qr-code-image-mobile" src="" alt="Mã QR">
                     <div class="shop-info">
@@ -158,13 +157,13 @@
             </div>
         </div>
         
-        <!-- Cột Trình chiếu ảnh -->
+        <!-- Slideshow Column -->
         <div class="slideshow-column">
              <img id="slideshow-image" src="" alt="Trình chiếu ảnh" style="display: none;">
              <div id="initial-message"><p>Đang tải ảnh...</p></div>
         </div>
 
-        <!-- Cột QR Code (Desktop) -->
+        <!-- QR Code Column (Desktop) -->
         <div class="qr-column">
             <div class="qr-wrapper" id="qr-wrapper-desktop">
                 <img class="qr-code-image" id="qr-code-image-desktop" src="" alt="Mã QR">
@@ -210,8 +209,8 @@
     document.addEventListener("DOMContentLoaded", function() {
         const WEATHER_PROXY_URL = '/.netlify/functions/weather';
         const REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
-        // IMPORTANT: Replace this URL with your own config file URL from GitHub Gist
-        const REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/4cc94eb48ec9aecd6c3c11b03b3e649474997547/config.json';
+        // UPDATED: Pointing to the new config Gist URL as requested
+        const REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
 
         var els = { container: document.getElementById('main-container'), clock: document.getElementById('digital-clock'), clockHours: document.getElementById('clock-hours'), clockMinutes: document.getElementById('clock-minutes'), clockSeconds: document.getElementById('clock-seconds'), dateContainer: document.getElementById('date-container'), gregorianDate: document.getElementById('gregorian-date'), lunarDate: document.getElementById('lunar-date'), lunarEvent: document.getElementById('lunar-event'), weatherContainer: document.getElementById('weather-container'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), calendarContainer: document.getElementById('calendar-container'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), slideshowImage: document.getElementById('slideshow-image'), initialMessage: document.getElementById('initial-message'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), fullscreenBtn: document.getElementById('fullscreen-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), photoGuideBtn: document.getElementById('photo-guide-btn'), alwaysOnGuideBtn: document.getElementById('always-on-guide-btn'), guideDialog: document.getElementById('guide-dialog'), guideTitle: document.getElementById('guide-title'), guideContent: document.getElementById('guide-content') };
         var images = [], currentImageIndex = 0, slideshowInterval = null, currentDateForCalendar = new Date(), lastTime = {};
@@ -235,7 +234,6 @@
             els.calendarContainer.classList[settings.calendarHidden ? 'add' : 'remove']('hidden-force'); els.calendarToggleBtn.textContent = settings.calendarHidden ? 'Hiện Lịch' : 'Ẩn Lịch';
             els.weatherContainer.classList[settings.weatherHidden ? 'add' : 'remove']('hidden-force'); els.weatherToggleBtn.textContent = settings.weatherHidden ? 'Hiện Thời tiết' : 'Ẩn Thời tiết';
             els.container.classList[settings.clockOnly ? 'add' : 'remove']('clock-only'); els.clockOnlyToggleBtn.textContent = settings.clockOnly ? 'Chế độ Đầy đủ' : 'Chế độ Chỉ Giờ';
-            els.clock.classList[settings.secondsVisible ? 'remove' : 'add']('blinking-active');
         }
         function loadSettings() { try { var savedSettings = localStorage.getItem('dashboardSettings'); if (savedSettings) { settings = JSON.parse(savedSettings); } } catch (e) { console.error("Không thể tải cài đặt:", e); } applySettings(); }
         function updateLayout() { var isVertical = window.innerWidth <= 800; els.container.classList[isVertical ? 'add' : 'remove']('layout-vertical'); renderCalendar(); }
@@ -259,7 +257,7 @@
         
         loadSettings(); updateClock(); updateMainDate(); updateLayout(); loadWeather(); fetchAndUpdateRemoteImages(); fetchRemoteConfig();
         setInterval(updateClock, 1000); setInterval(loadWeather, 1800000); setInterval(fetchAndUpdateRemoteImages, 3600000);
-        setInterval(function() { var now = new Date(); if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() < 2) { updateMainDate(); currentDateForCalendar = new Date(); renderCalendar(); } }, 1000);
+        setInterval(function() { var now = new Date(); if (now.getMinutes() === 0 && now.getSeconds() < 2) { updateMainDate(); currentDateForCalendar = new Date(); renderCalendar(); } }, 1000);
     });
     </script>
 </body>
