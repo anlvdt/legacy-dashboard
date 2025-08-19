@@ -1,4 +1,4 @@
-const https = require('https://');
+const https = require('https');
 
 const fetch = (url) => new Promise((resolve, reject) => {
     https.get(url, (res) => {
