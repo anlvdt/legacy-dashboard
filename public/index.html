@@ -101,14 +101,8 @@
         .container.clock-only #digital-clock { flex-wrap: nowrap; }
         .container.clock-only .clock-seconds { display: -webkit-box !important; display: flex !important; max-width: none !important; opacity: 1 !important; }
         .container.clock-only #digital-clock .clock-separator:first-of-type { animation: none; }
-        
-        /******************************************************************/
-        /********** GIẢI PHÁP CUỐI CÙNG: CHỈ CẦN THÊM ĐOẠN NÀY ***********/
-        .container.clock-only .clock-segment span,
-        .container.clock-only .clock-separator {
-            font-size: inherit !important;
-        }
-        /******************************************************************/
+        .container.clock-only .clock-segment span { font-size: 1em; } 
+        .container.clock-only .clock-separator { font-size: 0.8em; }
         
         .container.slideshow-hidden .slideshow-column { flex-grow: 0; flex-basis: 0; margin-right: 0; }
         
@@ -255,26 +249,38 @@
         function changeImage() { if (images.length <= 1) return; els.slideshowImage.style.opacity = 0; setTimeout(function() { currentImageIndex = (currentImageIndex + 1) % images.length; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; }, 1500); }
         function startSlideshow() { if(slideshowInterval) clearInterval(slideshowInterval); if (images.length === 0) { els.slideshowImage.style.display = 'none'; els.initialMessage.style.display = 'table'; return; } els.initialMessage.style.display = 'none'; els.slideshowImage.style.display = 'block'; currentImageIndex = 0; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; if (images.length > 1) { slideshowInterval = setInterval(changeImage, 7000); } }
         
+        /************************************************************/
+        /********** THAY THẾ TOÀN BỘ HÀM CŨ BẰNG HÀM NÀY ***********/
         function performResize() {
             var container = els.infoColumn;
             var clock = els.clock;
-            var containerWidth = container.clientWidth * 0.95;
-            var containerHeight = container.clientHeight * 0.95;
-            if (containerWidth < 100) return;
-            var fontSize = 10;
-            clock.style.fontSize = fontSize + 'px';
-            while (true) {
-                var nextFontSize = fontSize + 2;
-                clock.style.fontSize = nextFontSize + 'px';
-                if (clock.scrollWidth > containerWidth || clock.scrollHeight > containerHeight) {
-                    clock.style.fontSize = fontSize + 'px';
-                    break;
-                }
-                fontSize = nextFontSize;
-                if (fontSize > 1000) break;
-            }
-        }
+            
+            clock.style.fontSize = ''; 
         
+            var baseFontSize = 100;
+            clock.style.fontSize = baseFontSize + 'px';
+        
+            var clockWidthAtBase = clock.scrollWidth;
+            var clockHeightAtBase = clock.scrollHeight;
+            
+            var containerWidth = container.clientWidth;
+            var containerHeight = container.clientHeight;
+        
+            if (clockWidthAtBase === 0 || clockHeightAtBase === 0) {
+                return;
+            }
+        
+            var widthRatio = containerWidth / clockWidthAtBase;
+            var heightRatio = containerHeight / clockHeightAtBase;
+        
+            var optimalRatio = Math.min(widthRatio, heightRatio);
+        
+            var finalFontSize = baseFontSize * optimalRatio * 0.95;
+        
+            clock.style.fontSize = finalFontSize + 'px';
+        }
+        /************************************************************/
+
         function updateDynamicLayout() {
             var dateWeatherHidden = settings.dateHidden && settings.weatherHidden;
             var visibleBlocks = 1 + (dateWeatherHidden ? 0 : 1) + (settings.calendarHidden ? 0 : 1);
