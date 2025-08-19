@@ -102,11 +102,13 @@
         .container.clock-only .clock-seconds { display: -webkit-box !important; display: flex !important; max-width: none !important; opacity: 1 !important; }
         .container.clock-only #digital-clock .clock-separator:first-of-type { animation: none; }
         
-        /*** SỬA LỖI TRIỆT ĐỂ (1/2): Thêm quy tắc CSS này ***/
+        /******************************************************************/
+        /********** GIẢI PHÁP CUỐI CÙNG: CHỈ CẦN THÊM ĐOẠN NÀY ***********/
         .container.clock-only .clock-segment span,
         .container.clock-only .clock-separator {
-            font-size: inherit !important; /* Quan trọng: Ép kế thừa kích thước từ #digital-clock */
+            font-size: inherit !important;
         }
+        /******************************************************************/
         
         .container.slideshow-hidden .slideshow-column { flex-grow: 0; flex-basis: 0; margin-right: 0; }
         
@@ -256,10 +258,6 @@
         function performResize() {
             var container = els.infoColumn;
             var clock = els.clock;
-            
-            /*** SỬA LỖI TRIỆT ĐỂ (2/2): Reset style trước khi tính toán ***/
-            clock.style.fontSize = ''; 
-
             var containerWidth = container.clientWidth * 0.95;
             var containerHeight = container.clientHeight * 0.95;
             if (containerWidth < 100) return;
