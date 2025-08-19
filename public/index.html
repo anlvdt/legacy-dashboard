@@ -96,6 +96,23 @@
         
         .container.slideshow-hidden .slideshow-column { flex-grow: 0; flex-basis: 0; margin-right: 0; }
         
+        /* Clock Only Mode Styles */
+        .container.clock-only-mode { padding: 0; }
+        .container.clock-only-mode .info-column { flex-grow: 1; margin-right: 0; }
+        .container.clock-only-mode .slideshow-column,
+        .container.clock-only-mode .qr-column,
+        .container.clock-only-mode #date-weather-group,
+        .container.clock-only-mode #calendar-wrapper,
+        .container.clock-only-mode .shop-info-mobile,
+        .container.clock-only-mode #settings-container { display: none; }
+        .container.clock-only-mode #digital-clock-wrapper { flex-grow: 1; }
+        .container.clock-only-mode .clock-segment span { font-size: 28vmin; }
+        .container.clock-only-mode .clock-separator { font-size: 22vmin; }
+        .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 20vmin; }
+        .container.clock-only-mode #digital-clock.seconds-visible .clock-separator { font-size: 16vmin; }
+        .container.clock-only-mode #digital-clock.seconds-visible .clock-seconds { max-width: 50vmin; }
+
+
         #settings-container { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; }
         #settings-toggle { cursor: pointer; width: 2.5rem; height: 2.5rem; background: none; border: none; padding: 0; font-size: 2rem; line-height: 1; color: #fff; }
         #settings-panel { display: block; position: absolute; top: 3.5rem; right: 0; background: #1e1e1e; border: 1px solid #444; border-radius: 0.5rem; padding: 0.7rem; width: 16rem; opacity: 0; -webkit-transform: translateY(-10px); transform: translateY(-10px); pointer-events: none; -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease; transition: opacity 0.2s ease, transform 0.2s ease; }
@@ -134,6 +151,13 @@
             #weather-container { font-size: 1.4rem; }
             #calendar-container { font-size: 1.2rem; max-width: 90%; }
             .content-wrapper { padding-right: 0.5rem; }
+
+            /* Clock Only Mode Responsive */
+            .container.clock-only-mode .info-column { height: 100%; }
+            .container.clock-only-mode .clock-segment span { font-size: 30vw; }
+            .container.clock-only-mode .clock-separator { font-size: 25vw; }
+            .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 22vw; }
+            .container.clock-only-mode #digital-clock.seconds-visible .clock-separator { font-size: 18vw; }
         }
     </style>
 </head>
@@ -190,6 +214,7 @@
     <div id="settings-container">
         <button id="settings-toggle" aria-label="Mở hoặc đóng bảng cài đặt"><span>&#9776;</span></button>
         <div id="settings-panel">
+            <button class="settings-btn" id="clock-only-toggle">Chế độ Đồng hồ</button>
             <button class="settings-btn" id="fullscreen-toggle">Toàn màn hình</button><hr style="border-color: #444; margin: 10px 0;">
             <button class="settings-btn" id="slideshow-toggle">Ẩn ảnh</button>
             <button class="settings-btn" id="shop-toggle-btn">Ẩn Shop</button>
@@ -224,9 +249,9 @@
         var REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
         var REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
 
-        var els = { container: document.getElementById('main-container'), infoColumn: document.getElementById('info-column'), clock: document.getElementById('digital-clock'), dateWeatherGroup: document.getElementById('date-weather-group'), calendarWrapper: document.getElementById('calendar-wrapper'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), slideshowImage: document.getElementById('slideshow-image'), initialMessage: document.getElementById('initial-message'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), shopToggleBtn: document.getElementById('shop-toggle-btn'), qrToggleBtn: document.getElementById('qr-toggle-btn'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), fullscreenBtn: document.getElementById('fullscreen-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), refreshPhotosBtn: document.getElementById('refresh-photos-btn'), photoGuideBtn: document.getElementById('photo-guide-btn'), alwaysOnGuideBtn: document.getElementById('always-on-guide-btn'), guideDialog: document.getElementById('guide-dialog'), guideTitle: document.getElementById('guide-title'), guideContent: document.getElementById('guide-content') };
+        var els = { container: document.getElementById('main-container'), infoColumn: document.getElementById('info-column'), clock: document.getElementById('digital-clock'), dateWeatherGroup: document.getElementById('date-weather-group'), calendarWrapper: document.getElementById('calendar-wrapper'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), slideshowImage: document.getElementById('slideshow-image'), initialMessage: document.getElementById('initial-message'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), shopToggleBtn: document.getElementById('shop-toggle-btn'), qrToggleBtn: document.getElementById('qr-toggle-btn'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), fullscreenBtn: document.getElementById('fullscreen-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), refreshPhotosBtn: document.getElementById('refresh-photos-btn'), photoGuideBtn: document.getElementById('photo-guide-btn'), alwaysOnGuideBtn: document.getElementById('always-on-guide-btn'), guideDialog: document.getElementById('guide-dialog'), guideTitle: document.getElementById('guide-title'), guideContent: document.getElementById('guide-content'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle') };
         var images = [], currentImageIndex = 0, slideshowInterval = null, currentDateForCalendar = new Date(), lastTime = {};
-        var settings = { slideshowHidden: false, shopHidden: false, qrHidden: false, secondsVisible: false, dateHidden: false, calendarHidden: false, weatherHidden: false };
+        var settings = { slideshowHidden: false, shopHidden: false, qrHidden: false, secondsVisible: false, dateHidden: false, calendarHidden: false, weatherHidden: false, clockOnlyMode: false };
         
         function updateClock() { var now = new Date(); var h = ('0' + now.getHours()).slice(-2); var m = ('0' + now.getMinutes()).slice(-2); var s = ('0' + now.getSeconds()).slice(-2); if (lastTime.h !== h) { document.getElementById('clock-hours').textContent = h; lastTime.h = h; } if (lastTime.m !== m) { document.getElementById('clock-minutes').textContent = m; lastTime.m = m; } if (settings.secondsVisible) { document.getElementById('clock-seconds').textContent = s; } }
         function updateMainDate() { var now = new Date(); var dayOfWeek = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]; document.getElementById('gregorian-date').innerText = dayOfWeek[now.getDay()] + ', ' + now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear(); var lunar = solarToLunar(now.getDate(), now.getMonth() + 1, now.getFullYear()); document.getElementById('lunar-date').innerText = lunar.dayCanChi + ', ' + lunar.day + ' ' + lunar.monthName; var eventText = ""; var daysInMonth = getLunarMonthDays(lunar.lunarYear, lunar.lunarMonth); if (lunar.day === 1) eventText = "Mồng 1"; else if (lunar.day === 15) eventText = "Ngày Rằm"; else if (lunar.day === 16) eventText = "Ngày 16"; else if (lunar.day === daysInMonth) eventText = "Ngày cuối tháng"; document.getElementById('lunar-event').innerText = eventText; }
@@ -256,6 +281,7 @@
             if (settings.slideshowHidden) els.container.classList.add('slideshow-hidden');
             if (settings.shopHidden) els.container.classList.add('shop-hidden');
             if (settings.qrHidden) els.container.classList.add('qr-hidden');
+            if (settings.clockOnlyMode) els.container.classList.add('clock-only-mode');
             
             els.slideshowToggleBtn.textContent = settings.slideshowHidden ? 'Hiện ảnh' : 'Ẩn ảnh';
             els.shopToggleBtn.textContent = settings.shopHidden ? 'Hiện Shop' : 'Ẩn Shop';
@@ -265,6 +291,7 @@
             els.calendarWrapper.classList[settings.calendarHidden ? 'add' : 'remove']('hidden-force'); els.calendarToggleBtn.textContent = settings.calendarHidden ? 'Hiện Lịch' : 'Ẩn Lịch';
             els.dateToggleBtn.textContent = settings.dateHidden ? 'Hiện Ngày tháng' : 'Ẩn Ngày tháng';
             els.weatherToggleBtn.textContent = settings.weatherHidden ? 'Hiện Thời tiết' : 'Ẩn Thời tiết';
+            els.clockOnlyToggleBtn.textContent = settings.clockOnlyMode ? 'Thoát CĐ Đồng hồ' : 'Chế độ Đồng hồ';
             
             updateDynamicLayout();
         }
@@ -289,7 +316,7 @@
         els.resetSettingsBtn.addEventListener('click', function() { if (confirm('Bạn có chắc muốn đặt lại tất cả cài đặt?')) { localStorage.removeItem('dashboardSettings'); window.location.reload(); } });
         els.fullscreenBtn.addEventListener('click', function() { var docElm = document.documentElement; if (docElm.requestFullscreen) { if (!document.fullscreenElement) { docElm.requestFullscreen(); } else { document.exitFullscreen(); } } else if (docElm.webkitRequestFullscreen) { if (!document.webkitFullscreenElement) { docElm.webkitRequestFullscreen(); } else { document.webkitExitFullscreen(); } } });
         
-        var toggleButtons = { slideshowToggleBtn: 'slideshowHidden', shopToggleBtn: 'shopHidden', qrToggleBtn: 'qrHidden', dateToggleBtn: 'dateHidden', calendarToggleBtn: 'calendarHidden', weatherToggleBtn: 'weatherHidden', secondsBtn: 'secondsVisible' };
+        var toggleButtons = { slideshowToggleBtn: 'slideshowHidden', shopToggleBtn: 'shopHidden', qrToggleBtn: 'qrHidden', dateToggleBtn: 'dateHidden', calendarToggleBtn: 'calendarHidden', weatherToggleBtn: 'weatherHidden', secondsBtn: 'secondsVisible', clockOnlyToggleBtn: 'clockOnlyMode' };
         for (var btnId in toggleButtons) { (function(id, settingKey) { if(els[id]) { els[id].addEventListener('click', function() { settings[settingKey] = !settings[settingKey]; saveSettings(); applySettings(); }); } })(btnId, toggleButtons[btnId]); }
 
         els.refreshPhotosBtn.addEventListener('click', function() {
