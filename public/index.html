@@ -24,7 +24,7 @@
         
         .flex-grow-item { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; min-height: 0; -webkit-transition: all 0.4s ease; transition: all 0.4s ease; }
         #digital-clock-wrapper { flex-grow: 1.2; }
-        #date-weather-group { flex-grow: 1; flex-direction: column; justify-content: center; /* gap: 3vmin; */ }
+        #date-weather-group { flex-grow: 1; flex-direction: column; justify-content: center; }
         #calendar-wrapper { flex-grow: 1.5; }
 
         .info-column.visible-blocks-2 { font-size: 1.8vmin; }
@@ -38,7 +38,6 @@
         .clock-segment span { font-size: 13vmin; letter-spacing: 0.05em; }
         .clock-separator { font-size: 10vmin; }
         
-        /* CẢI TIẾN: Dùng max-width thay cho width để fix lỗi nháy và lệch khi hiện giây */
         .clock-seconds { display: -webkit-box; display: flex; -webkit-box-align: center; align-items: center; max-width: 0; opacity: 0; overflow: hidden; -webkit-transition: max-width 0.5s ease, opacity 0.5s ease; transition: max-width 0.5s ease, opacity 0.5s ease; }
         #digital-clock.seconds-visible .clock-segment span { font-size: 8vmin; }
         #digital-clock.seconds-visible .clock-separator { font-size: 7vmin; }
@@ -54,7 +53,6 @@
         #lunar-date { color: #f39c12; }
         #lunar-event { color: #e67e22; font-weight: bold; min-height: 1em; }
         
-        /* CẢI TIẾN (Tương thích): Thay 'gap' bằng margin để hỗ trợ trình duyệt cũ */
         #weather-container { display:flex; justify-content: center; align-items: center; }
         #weather-container > span { margin: 0 0.5rem; }
         #weather-icon { font-size: 4vmin; }
@@ -86,7 +84,7 @@
         #initial-message p { display: table-cell; vertical-align: middle; text-align: center; font-size: 1.2rem; }
 
         .qr-column { background-color: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5vmin; padding: 2.5vmin; box-sizing: border-box; }
-        .qr-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; width: 100%; height: 100%; /* gap: 2vmin; */ opacity: 0; transition: opacity 0.5s ease; }
+        .qr-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s ease; }
         .qr-wrapper.loaded { opacity: 1; }
         .qr-code-image { width: 100%; max-width: 300px; height: auto; border-radius: 1vmin; border: 2px solid #fff; margin-bottom: 2vmin; }
         .shop-info { text-align: center; }
@@ -107,7 +105,7 @@
         .container.clock-only #digital-clock { flex-wrap: nowrap; }
         .container.clock-only .clock-seconds { display: -webkit-box !important; display: flex !important; max-width: 30vmin !important; opacity: 1 !important; }
         .container.clock-only #digital-clock .clock-separator:first-of-type { animation: none; }
-        .container.clock-only .clock-segment span { font-size: inherit; } 
+        .container.clock-only .clock-segment span { font-size: 1em; } 
         .container.clock-only .clock-separator { font-size: 0.8em; }
         
         .container.slideshow-hidden .slideshow-column { flex-grow: 0; flex-basis: 0; margin-right: 0; }
@@ -229,7 +227,6 @@
     </div>
     
     <script>
-    // CẢI TIẾN (ES5): Dùng var thay cho const/let để tương thích với trình duyệt cũ như iPadOS 9
     var LUNAR_INFO=[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0xd4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5d0,0x14573,0x052d0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b5a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04970,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0xd4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0xea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04bd7,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0];
     var CAN_STR=["Canh","Tân","Nhâm","Quý","Giáp","Ất","Bính","Đinh","Mậu","Kỷ"]; var CHI_STR=["Thân","Dậu","Tuất","Hợi","Tý","Sửu","Dần","Mão","Thìn","Tỵ","Ngọ","Mùi"];
     function getLunarMonthDays(y,m){return(LUNAR_INFO[y-1900]&(0x10000>>m))?30:29} function getLeapMonth(y){return LUNAR_INFO[y-1900]&0xf}
@@ -261,18 +258,23 @@
                 els.clock.style.fontSize = '';
                 return;
             }
-            var container = els.infoColumn;
-            var clock = els.clock;
-            var containerWidth = container.clientWidth * 0.95; 
-            var containerHeight = container.clientHeight * 0.95;
-            
-            var fontSize = Math.min(containerHeight, containerWidth / 3.5); // Chia 3.5 để có ước tính ban đầu tốt hơn
-            clock.style.fontSize = fontSize + 'px';
-
-            while ((clock.scrollWidth > containerWidth || clock.scrollHeight > containerHeight) && fontSize > 10) {
-                fontSize -= 2;
-                clock.style.fontSize = fontSize + 'px';
-            }
+            setTimeout(function() {
+                var container = els.infoColumn;
+                var clock = els.clock;
+                var containerWidth = container.clientWidth * 0.95;
+                var containerHeight = container.clientHeight * 0.95;
+                var fontSize = 10;
+                while (true) {
+                    var nextFontSize = fontSize + 2;
+                    clock.style.fontSize = nextFontSize + 'px';
+                    if (clock.scrollWidth > containerWidth || clock.scrollHeight > containerHeight) {
+                        clock.style.fontSize = fontSize + 'px';
+                        break;
+                    }
+                    fontSize = nextFontSize;
+                    if (fontSize > 1000) { break; }
+                }
+            }, 200);
         }
         
         function updateDynamicLayout() {
@@ -305,11 +307,10 @@
             els.weatherToggleBtn.textContent = settings.weatherHidden ? 'Hiện Thời tiết' : 'Ẩn Thời tiết';
             els.clockOnlyToggleBtn.textContent = settings.clockOnly ? 'Chế độ Đầy đủ' : 'Chế độ Chỉ Giờ';
             updateDynamicLayout();
-
-            setTimeout(adjustClockOnlySize, 50);
+            adjustClockOnlySize();
         }
         function loadSettings() { try { var savedSettings = localStorage.getItem('dashboardSettings'); if (savedSettings) { settings = JSON.parse(savedSettings); } } catch (e) { console.error("Không thể tải cài đặt:", e); } applySettings(); }
-        function updateLayout() { var isVertical = window.innerWidth <= 800; els.container.classList[isVertical ? 'add' : 'remove']('layout-vertical'); renderCalendar(); if (settings.clockOnly) { adjustClockOnlySize(); } }
+        function updateLayout() { var isVertical = window.innerWidth <= 800; els.container.classList[isVertical ? 'add' : 'remove']('layout-vertical'); renderCalendar(); adjustClockOnlySize(); }
         function renderCalendar() { var isVertical = !els.container.classList.contains('layout-vertical'); var calendarFn = isVertical ? generateMonthlyCalendar : generateWeeklyCalendar; calendarFn(currentDateForCalendar); }
         function generateWeeklyCalendar(baseDate) { var grid=document.getElementById('calendar-grid');grid.innerHTML='';var today=new Date();var dayNames=['CN','T2','T3','T4','T5','T6','T7'];var weekStart=new Date(baseDate);weekStart.setDate(baseDate.getDate()-baseDate.getDay());var weekEnd=new Date(weekStart);weekEnd.setDate(weekStart.getDate()+6);document.getElementById('calendar-title').textContent='Tuần: '+weekStart.getDate()+'/'+(weekStart.getMonth()+1)+' - '+weekEnd.getDate()+'/'+(weekEnd.getMonth()+1);dayNames.forEach(function(name){var dayEl=document.createElement('div');dayEl.className='calendar-cell day-name';dayEl.innerHTML='<div class="cell-content">'+name+'</div>';grid.appendChild(dayEl);});for(var i=0;i<7;i++){var currentDay=new Date(weekStart);currentDay.setDate(weekStart.getDate()+i);var solarDay=currentDay.getDate();var lunar=solarToLunar(solarDay,currentDay.getMonth()+1,currentDay.getFullYear());var lunarDisplay=lunar.day===1?lunar.day+'/'+lunar.lunarMonth:lunar.day;var dayEl=document.createElement('div');dayEl.className='calendar-cell';if(currentDay.getDate()===today.getDate()&&currentDay.getMonth()===today.getMonth()&&currentDay.getFullYear()===today.getFullYear()){dayEl.classList.add('today');}dayEl.innerHTML='<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">'+solarDay+'</span><span class="lunar-day">'+lunarDisplay+'</span></div></div>';grid.appendChild(dayEl);} }
         function generateMonthlyCalendar(baseDate) { var grid=document.getElementById('calendar-grid');grid.innerHTML='';var today=new Date();var year=baseDate.getFullYear();var month=baseDate.getMonth();document.getElementById('calendar-title').textContent='Tháng '+(month+1)+' '+year;var firstDayOfMonth=new Date(year,month,1).getDay();var daysInMonth=new Date(year,month+1,0).getDate();var dayNames=['CN','T2','T3','T4','T5','T6','T7'];dayNames.forEach(function(name){var dayEl=document.createElement('div');dayEl.className='calendar-cell day-name';dayEl.innerHTML='<div class="cell-content">'+name+'</div>';grid.appendChild(dayEl);});for(var i=0;i<firstDayOfMonth;i++){var dayEl=document.createElement('div');dayEl.className='calendar-cell other-month';grid.appendChild(dayEl);}for(var i=1;i<=daysInMonth;i++){var solarDay=i;var lunar=solarToLunar(solarDay,month+1,year);var lunarDisplay=lunar.day===1?lunar.day+'/'+lunar.lunarMonth:lunar.day;var dayEl=document.createElement('div');dayEl.className='calendar-cell';if(solarDay===today.getDate()&&month===today.getMonth()&&year===today.getFullYear()){dayEl.classList.add('today');}dayEl.innerHTML='<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">'+solarDay+'</span><span class="lunar-day">'+lunarDisplay+'</span></div></div>';grid.appendChild(dayEl);} }
@@ -327,7 +328,7 @@
 
         els.photoGuideBtn.addEventListener('click', function() { showGuide('photo'); });
         els.alwaysOnGuideBtn.addEventListener('click', function() { showGuide('alwaysOn'); });
-        els.guideDialog.addEventListener('click', function() { els.guideDialog.classList.remove('show'); });
+        els.guideDialog.addEventListener('click', function(e) { if(e.target === els.guideDialog) { els.guideDialog.classList.remove('show'); } });
         els.slideshowImage.onerror = function() { var failedImage = images[currentImageIndex]; console.warn("Lỗi tải ảnh:", failedImage); images.splice(currentImageIndex, 1); if (images.length > 0) { currentImageIndex = currentImageIndex % images.length; changeImage(); } else { startSlideshow(); } };
         
         loadSettings(); updateClock(); updateMainDate(); updateLayout(); loadWeather(); fetchAndUpdateRemoteImages(); fetchRemoteConfig();
