@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Màn hình Tổ Ấm</title>
+    <title>Legacy Frame by An Le - Make old device great again!</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
@@ -14,12 +14,19 @@
         html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
         body { background-color: #000; color: #fff; font-family: 'Nunito', sans-serif; display: -webkit-box; display: flex; box-sizing: border-box; padding: var(--base-padding); -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
         .container { display: -webkit-box; display: flex; width: 100%; height: 100%; gap: var(--base-padding); -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
-        .info-column, .slideshow-column { -webkit-box-flex: 1; flex: 1 1 50%; display: -webkit-box; display: flex; height: 100%; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; overflow: hidden; }
+        
+        /* --- Bố cục 3 Cột --- */
+        .info-column, .slideshow-column, .qr-column { -webkit-box-flex: 1; flex: 1 1 0; display: -webkit-box; display: flex; height: 100%; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; overflow: hidden; }
+        .info-column { flex-grow: 1.2; }
+        .slideshow-column { flex-grow: 1.5; }
+        .qr-column { flex-grow: 0.8; }
+
         .content-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; -webkit-justify-content: space-evenly; justify-content: space-evenly; width: 100%; height: 100%; text-align: center; }
         
-        /* --- Bố cục Tự động --- */
+        /* --- Bố cục Dọc Tự động --- */
         .layout-vertical { -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; }
         .layout-vertical .info-column, .layout-vertical .slideshow-column { width: 100%; height: 50%; }
+        .layout-vertical .qr-column { display: none; } /* Ẩn cột QR riêng khi màn hình dọc */
 
         /* --- Đồng hồ --- */
         #digital-clock { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; gap: 1vmin; margin: 1rem 0; }
@@ -35,7 +42,7 @@
         #digital-clock.blinking-active .clock-separator:first-of-type { -webkit-animation: blink 1s step-end infinite; animation: blink 1s step-end infinite; }
 
         /* --- Thông tin Ngày & Thời tiết --- */
-        .date-container, #weather-container, #calendar-container { -webkit-transition: opacity 0.5s ease, max-height 0.5s ease, transform 0.5s ease, padding 0.5s ease, margin 0.5s ease; transition: opacity 0.5s ease, max-height 0.5s ease, transform 0.5s ease, padding 0.5s ease, margin 0.5s ease; }
+        .date-container, #weather-container, #calendar-container, .shop-info-mobile { -webkit-transition: opacity 0.5s ease, max-height 0.5s ease, transform 0.5s ease, padding 0.5s ease, margin 0.5s ease; transition: opacity 0.5s ease, max-height 0.5s ease, transform 0.5s ease, padding 0.5s ease, margin 0.5s ease; }
         .date-container p { margin: 1vmin 0; }
         #lunar-date { color: #f39c12; }
         #lunar-event { color: #e67e22; font-weight: bold; min-height: 1em; }
@@ -62,7 +69,7 @@
         .other-month { opacity: 0.3; }
         .today .calendar-cell-inner { background-color: #f39c12; color: #000; border-radius: 0.8vmin; font-weight: 700; }
         .today .lunar-day { color: #000; }
-
+        
         /* --- Trình chiếu ảnh --- */
         .slideshow-column { position: relative; background-color: #1a1a1a; border-radius: var(--border-radius); }
         #slideshow-image, #initial-message { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
@@ -70,22 +77,23 @@
         #initial-message { display: table; color: #888; }
         #initial-message p { display: table-cell; vertical-align: middle; text-align: center; font-size: 1.2rem; }
 
+        /* --- Cột QR & Shop Info --- */
+        .qr-column { background-color: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius); padding: var(--base-padding); box-sizing: border-box; }
+        .qr-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; width: 100%; height: 100%; gap: 2vmin; }
+        .qr-code-image { width: 100%; max-width: 300px; height: auto; border-radius: 1vmin; border: 2px solid #fff; }
+        .shop-info { text-align: center; }
+        .shop-name { font-family: 'Oswald', sans-serif; font-size: 3.5vmin; font-weight: 700; color: #f39c12; margin: 0; }
+        .shop-address { font-size: 2vmin; line-height: 1.4; margin: 1vmin 0 0 0; }
+        .shop-info-mobile { display: none; } /* Ẩn mặc định, chỉ hiện khi màn hình dọc */
+        .layout-vertical .shop-info-mobile { display: block; margin-top: 2vmin; padding: 1vmin; background-color: rgba(26, 26, 26, 0.7); border-radius: var(--border-radius); }
+
         /* --- Các chế độ hiển thị --- */
         .hidden { display: none !important; }
         .container.weather-hidden #weather-container { opacity: 0; max-height: 0; margin: 0; padding: 0; transform: scale(0.9); }
-        .container.clock-only .date-container, .container.clock-only #weather-container, .container.clock-only #calendar-container, .container.clock-only #qr-code-container { opacity: 0; max-height: 0; margin: 0; padding: 0; transform: scale(0.9); pointer-events: none; overflow: hidden; }
-        .container.clock-only .info-column { -webkit-box-pack: center; justify-content: center; }
-
-        /* --- Mã QR --- */
-        #qr-code-container { text-align: center; margin-top: 2vmin; }
-        #qr-code-btn { background: rgba(243, 156, 18, 0.7); border: 1px solid rgba(255,255,255,0.1); color: #fff; cursor: pointer; font-size: 2vmin; padding: 1vmin 2vmin; border-radius: var(--border-radius); }
-        .dialog-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; }
-        .dialog-overlay.show { display: -webkit-box; display: flex; }
-        .dialog-box { background: #1e1e1e; padding: 2rem; border-radius: var(--border-radius); border: 1px solid #444; text-align: center; }
-        #qr-code-image { max-width: 80vmin; max-height: 60vh; border-radius: 1vmin; }
-        #bank-info { margin-top: 1.5rem; }
-        #bank-info p { margin: 0.5rem 0; font-size: 1.2rem; }
-        #bank-account-name { font-weight: bold; color: #f39c12; }
+        .container.clock-only .date-container, .container.clock-only #weather-container, .container.clock-only #calendar-container, .container.clock-only .shop-info-mobile { opacity: 0; max-height: 0; margin: 0; padding: 0; transform: scale(0.9); pointer-events: none; overflow: hidden; }
+        .container.clock-only .qr-column { display: none; }
+        .container.clock-only .info-column { -webkit-box-pack: center; justify-content: center; flex-grow: 1; }
+        .container.clock-only .slideshow-column { flex-grow: 2; }
 
         /* --- Cài đặt --- */
         #settings-container { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; }
@@ -98,6 +106,7 @@
 </head>
 <body>
     <div class="container" id="main-container">
+        <!-- Cột Thông tin Chính -->
         <div class="info-column">
             <div class="content-wrapper">
                 <div id="digital-clock">
@@ -106,16 +115,36 @@
                 </div>
                 <div class="date-container" id="date-container"><p id="gregorian-date"></p><p id="lunar-date"></p><p id="lunar-event"></p></div>
                 <div id="weather-container"><span id="weather-location"></span><span id="weather-icon"></span><span id="weather-temp"></span><span id="weather-desc">Đang tải thời tiết...</span></div>
-                <div id="calendar-container" id="calendar-container">
+                <div id="calendar-container">
                     <div id="calendar-header"><div class="calendar-nav" id="prev-btn">&lt;</div><div id="calendar-title"></div><div class="calendar-nav" id="next-btn">&gt;</div></div>
                     <div id="calendar-grid"></div>
                 </div>
-                <div id="qr-code-container"><button id="qr-code-btn" class="hidden">Quét mã QR</button></div>
+                <!-- Thông tin Shop & QR cho màn hình dọc -->
+                <div class="shop-info-mobile">
+                    <img class="qr-code-image" id="qr-code-image-mobile" src="" alt="Mã QR">
+                    <div class="shop-info">
+                        <p class="shop-name" id="shop-name-mobile"></p>
+                        <p class="shop-address" id="shop-address-mobile"></p>
+                    </div>
+                </div>
             </div>
         </div>
+        
+        <!-- Cột Trình chiếu ảnh -->
         <div class="slideshow-column">
              <img id="slideshow-image" src="" alt="Trình chiếu ảnh" style="display: none;">
              <div id="initial-message"><p>Đang tải ảnh...</p></div>
+        </div>
+
+        <!-- Cột QR Code (Desktop) -->
+        <div class="qr-column">
+            <div class="qr-wrapper">
+                <img class="qr-code-image" id="qr-code-image-desktop" src="" alt="Mã QR">
+                <div class="shop-info">
+                    <p class="shop-name" id="shop-name-desktop"></p>
+                    <p class="shop-address" id="shop-address-desktop"></p>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -128,16 +157,6 @@
             <button class="settings-btn" id="calendar-toggle">Ẩn Lịch</button>
             <button class="settings-btn" id="weather-toggle">Ẩn Thời tiết</button><hr style="border-color: #444; margin: 10px 0;">
             <button class="settings-btn" id="reset-settings-btn">Đặt lại Cài đặt</button>
-        </div>
-    </div>
-
-    <div id="qr-dialog" class="dialog-overlay">
-        <div class="dialog-box">
-            <img id="qr-code-image" src="" alt="Mã QR thanh toán">
-            <div id="bank-info">
-                <p id="bank-account-name"></p>
-                <p id="bank-account-number"></p>
-            </div>
         </div>
     </div>
     
@@ -154,7 +173,7 @@
         const REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
         const REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/cd99ca1e5a00255816af95ca3bc519461188f6ab/config.json';
 
-        var els = { container: document.getElementById('main-container'), clock: document.getElementById('digital-clock'), clockHours: document.getElementById('clock-hours'), clockMinutes: document.getElementById('clock-minutes'), clockSeconds: document.getElementById('clock-seconds'), dateContainer: document.getElementById('date-container'), gregorianDate: document.getElementById('gregorian-date'), lunarDate: document.getElementById('lunar-date'), lunarEvent: document.getElementById('lunar-event'), weatherContainer: document.getElementById('weather-container'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), calendarContainer: document.getElementById('calendar-container'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), secondsBtn: document.getElementById('seconds-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), slideshowImage: document.getElementById('slideshow-image'), initialMessage: document.getElementById('initial-message'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), qrCodeBtn: document.getElementById('qr-code-btn'), qrDialog: document.getElementById('qr-dialog'), qrCodeImage: document.getElementById('qr-code-image'), bankAccountName: document.getElementById('bank-account-name'), bankAccountNumber: document.getElementById('bank-account-number') };
+        var els = { container: document.getElementById('main-container'), clock: document.getElementById('digital-clock'), clockHours: document.getElementById('clock-hours'), clockMinutes: document.getElementById('clock-minutes'), clockSeconds: document.getElementById('clock-seconds'), dateContainer: document.getElementById('date-container'), gregorianDate: document.getElementById('gregorian-date'), lunarDate: document.getElementById('lunar-date'), lunarEvent: document.getElementById('lunar-event'), weatherContainer: document.getElementById('weather-container'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), calendarContainer: document.getElementById('calendar-container'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), secondsBtn: document.getElementById('seconds-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), slideshowImage: document.getElementById('slideshow-image'), initialMessage: document.getElementById('initial-message'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), weatherToggleBtn: document.getElementById('weather-toggle') };
         var images = [], currentImageIndex = 0, slideshowInterval = null, currentDateForCalendar = new Date(), lastTime = {};
         var settings = { slideshowHidden: false, secondsVisible: false, calendarHidden: false, weatherHidden: false, clockOnly: false };
         var remoteImagesCache = '[]';
@@ -167,16 +186,21 @@
         function fetchWeatherByProxy(lat, lon) { var url = WEATHER_PROXY_URL + '?lat=' + lat + '&lon=' + lon; makeRequest(url, function(err, data) { if (err) { console.error("Lỗi tải thời tiết qua proxy:", err); els.weatherDesc.textContent = "Lỗi tải thời tiết"; return; } if (data && data.weather && data.location) { els.weatherLocation.textContent = data.location; var temp = Math.round(data.weather.temperature_2m); var weatherCode = data.weather.weather_code; var weatherInfo = getWeatherInfo(weatherCode); els.weatherIcon.textContent = weatherInfo.icon; els.weatherTemp.textContent = temp + "°C"; els.weatherDesc.textContent = weatherInfo.desc; } }); }
         function loadWeather() { if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(function(pos) { fetchWeatherByProxy(pos.coords.latitude, pos.coords.longitude); }, function(err) { console.error("Lỗi định vị:", err.message); els.weatherDesc.textContent = "Không thể lấy vị trí"; }); } else { els.weatherDesc.textContent = "Định vị không được hỗ trợ"; } }
         function fetchAndUpdateRemoteImages() { makeRequest(REMOTE_IMAGE_MANIFEST_URL + '?t=' + new Date().getTime(), function(err, data) { if (err) { console.error("Lỗi tải danh sách ảnh từ xa:", err); return; } if (Array.isArray(data) && data.length > 0) { var newImagesJson = JSON.stringify(data); if (newImagesJson !== remoteImagesCache) { remoteImagesCache = newImagesJson; images = data.slice(); currentImageIndex = 0; startSlideshow(); } } }); }
-        function fetchRemoteConfig() { makeRequest(REMOTE_CONFIG_URL + '?t=' + new Date().getTime(), function(err, data) { if (err) { console.error("Lỗi tải cấu hình từ xa:", err); return; } if (data && data.qrImageUrl) { remoteConfig = data; els.qrCodeBtn.classList.remove('hidden'); } }); }
+        function fetchRemoteConfig() { makeRequest(REMOTE_CONFIG_URL + '?t=' + new Date().getTime(), function(err, data) { if (err) { console.error("Lỗi tải cấu hình từ xa:", err); return; } if (data && data.qrImageUrl) { remoteConfig = data; document.getElementById('qr-code-image-desktop').src = data.qrImageUrl; document.getElementById('shop-name-desktop').textContent = data.shopName; document.getElementById('shop-address-desktop').textContent = data.shopAddress; document.getElementById('qr-code-image-mobile').src = data.qrImageUrl; document.getElementById('shop-name-mobile').textContent = data.shopName; document.getElementById('shop-address-mobile').textContent = data.shopAddress; } }); }
         function changeImage() { if (images.length <= 1) return; els.slideshowImage.style.opacity = 0; setTimeout(function() { currentImageIndex = (currentImageIndex + 1) % images.length; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; }, 1500); }
         function startSlideshow() { if(slideshowInterval) clearInterval(slideshowInterval); if (images.length === 0) { els.slideshowImage.style.display = 'none'; els.initialMessage.style.display = 'table'; return; } els.initialMessage.style.display = 'none'; els.slideshowImage.style.display = 'block'; currentImageIndex = 0; els.slideshowImage.src = images[currentImageIndex]; els.slideshowImage.style.opacity = 1; if (images.length > 1) { slideshowInterval = setInterval(changeImage, 7000); } }
         function saveSettings() { try { localStorage.setItem('dashboardSettings', JSON.stringify(settings)); } catch (e) { console.error("Không thể lưu cài đặt:", e); } }
         function applySettings() {
-            els.container.classList[settings.slideshowHidden ? 'add' : 'remove']('slideshow-hidden'); els.slideshowToggleBtn.textContent = settings.slideshowHidden ? 'Hiện ảnh' : 'Ẩn ảnh';
-            els.clock.classList[settings.secondsVisible ? 'add' : 'remove']('seconds-visible'); els.secondsBtn.textContent = settings.secondsVisible ? 'Ẩn giây' : 'Hiện giây';
-            els.calendarContainer.classList[settings.calendarHidden ? 'add' : 'remove']('hidden'); els.calendarToggleBtn.textContent = settings.calendarHidden ? 'Hiện Lịch' : 'Ẩn Lịch';
-            els.container.classList[settings.weatherHidden ? 'add' : 'remove']('weather-hidden'); els.weatherToggleBtn.textContent = settings.weatherHidden ? 'Hiện Thời tiết' : 'Ẩn Thời tiết';
-            els.container.classList[settings.clockOnly ? 'add' : 'remove']('clock-only'); els.clockOnlyToggleBtn.textContent = settings.clockOnly ? 'Chế độ Đầy đủ' : 'Chế độ Chỉ Giờ';
+            els.container.classList[settings.slideshowHidden ? 'add' : 'remove']('slideshow-hidden');
+            els.slideshowToggleBtn.textContent = settings.slideshowHidden ? 'Hiện ảnh' : 'Ẩn ảnh';
+            els.clock.classList[settings.secondsVisible ? 'add' : 'remove']('seconds-visible');
+            els.secondsBtn.textContent = settings.secondsVisible ? 'Ẩn giây' : 'Hiện giây';
+            els.calendarContainer.classList[settings.calendarHidden ? 'add' : 'remove']('hidden');
+            els.calendarToggleBtn.textContent = settings.calendarHidden ? 'Hiện Lịch' : 'Ẩn Lịch';
+            els.container.classList[settings.weatherHidden ? 'add' : 'remove']('weather-hidden');
+            els.weatherToggleBtn.textContent = settings.weatherHidden ? 'Hiện Thời tiết' : 'Ẩn Thời tiết';
+            els.container.classList[settings.clockOnly ? 'add' : 'remove']('clock-only');
+            els.clockOnlyToggleBtn.textContent = settings.clockOnly ? 'Chế độ Đầy đủ' : 'Chế độ Chỉ Giờ';
             els.clock.classList[settings.secondsVisible ? 'remove' : 'add']('blinking-active');
         }
         function loadSettings() { try { var savedSettings = localStorage.getItem('dashboardSettings'); if (savedSettings) { settings = JSON.parse(savedSettings); } } catch (e) { console.error("Không thể tải cài đặt:", e); } applySettings(); }
@@ -197,9 +221,7 @@
         els.clockOnlyToggleBtn.addEventListener('click', function() { settings.clockOnly = !settings.clockOnly; saveSettings(); applySettings(); });
         els.resetSettingsBtn.addEventListener('click', function() { if (confirm('Bạn có chắc muốn đặt lại tất cả cài đặt?')) { localStorage.removeItem('dashboardSettings'); window.location.reload(); } });
         els.slideshowImage.onerror = function() { var failedImage = images[currentImageIndex]; console.warn("Lỗi tải ảnh:", failedImage); images.splice(currentImageIndex, 1); if (images.length > 0) { currentImageIndex = currentImageIndex % images.length; changeImage(); } else { startSlideshow(); } };
-        els.qrCodeBtn.addEventListener('click', function() { if (!remoteConfig) return; els.qrCodeImage.src = remoteConfig.qrImageUrl; els.bankAccountName.textContent = remoteConfig.accountName; els.bankAccountNumber.textContent = 'STK: ' + remoteConfig.accountNumber; els.qrDialog.classList.add('show'); });
-        els.qrDialog.addEventListener('click', function() { els.qrDialog.classList.remove('show'); });
-
+        
         // --- Application Initialization ---
         loadSettings(); 
         updateClock(); 
@@ -209,8 +231,8 @@
         fetchAndUpdateRemoteImages();
         fetchRemoteConfig();
         setInterval(updateClock, 1000); 
-        setInterval(loadWeather, 1800000); // 30 phút
-        setInterval(fetchAndUpdateRemoteImages, 3600000); // 1 giờ
+        setInterval(loadWeather, 1800000); 
+        setInterval(fetchAndUpdateRemoteImages, 3600000);
         setInterval(function() { var now = new Date(); if (now.getMinutes() === 0) { updateMainDate(); currentDateForCalendar = new Date(); renderCalendar(); } }, 60000);
     });
     </script>
