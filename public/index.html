@@ -13,7 +13,6 @@
         html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
         body { background-color: #000; color: #fff; font-family: 'Nunito', sans-serif; display: -webkit-box; display: flex; box-sizing: border-box; padding: 2.5vmin; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
         
-        /* IMPROVED: Removed 'gap' and using 'margin' for old browser compatibility (iPadOS 9) */
         .container { display: -webkit-box; display: flex; width: 100%; height: 100%; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; }
         
         .info-column, .slideshow-column, .qr-column { -webkit-box-flex: 1; flex: 1 1 0; display: -webkit-box; display: flex; height: 100%; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; overflow: hidden; }
@@ -21,9 +20,24 @@
         .slideshow-column { flex-grow: 1.5; margin-right: 2.5vmin; }
         .qr-column { flex-grow: 0.8; }
 
-        .content-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; -webkit-justify-content: space-around; justify-content: space-around; width: 100%; height: 100%; text-align: center; overflow: hidden; gap: 1.5vmin; }
-        .content-wrapper > * { margin: 0; flex-shrink: 0; }
+        /* IMPROVED: Changed to a flexible column layout */
+        .content-wrapper { display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; width: 100%; height: 100%; text-align: center; overflow: hidden; }
         
+        /* NEW: Class for items that should grow to fill space */
+        .flex-grow-item {
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-orient: vertical;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-flex: 1;
+            flex-grow: 1; /* This is the magic property */
+            min-height: 0; /* Important for flexbox calculations */
+            -webkit-transition: all 0.4s ease; /* Smooth transition when resizing */
+            transition: all 0.4s ease;
+        }
+
         #digital-clock { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; }
         .clock-segment { background: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5vmin; padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); margin: 0 0.5vmin; }
         .clock-segment span { font-family: 'Oswald', sans-serif; font-size: 13vmin; font-weight: 700; color: #e0e0e0; letter-spacing: 0.05em; text-shadow: 0 0 1vmin rgba(255,255,255,0.2); -webkit-transition: font-size 0.3s ease; transition: font-size 0.3s ease; }
@@ -36,15 +50,13 @@
         
         @-webkit-keyframes blink { 50% { opacity: 0.3; } }
         @keyframes blink { 50% { opacity: 0.3; } }
-        /* IMPROVED: Blinking is now controlled by a dedicated class managed by JS for timing */
         #digital-clock.blinking-active .clock-separator:first-of-type { -webkit-animation: blink 1s step-end infinite; animation: blink 1s step-end infinite; }
 
-        .date-container { font-size: 2.8vmin; }
         .date-container p { margin: 1vmin 0; }
         #lunar-date { color: #f39c12; }
         #lunar-event { color: #e67e22; font-weight: bold; min-height: 1em; }
         
-        #weather-container { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; gap: 1rem; font-size: 2.5vmin; min-height: 4vmin; }
+        #weather-container { -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; gap: 1rem; }
         #weather-icon { font-size: 4vmin; }
         #weather-temp { font-weight: 700; }
         #weather-location { font-weight: bold; color: #2980b9; display: none; }
@@ -82,7 +94,20 @@
         .shop-address { font-size: 2vmin; line-height: 1.4; margin: 1vmin 0 0 0; }
         .shop-info-mobile { display: none; }
         
-        .hidden-force { opacity: 0 !important; max-height: 0 !important; margin: 0 !important; padding: 0 !important; transform: scale(0.9) !important; overflow: hidden !important; border: none !important; }
+        /* IMPROVED: Enhanced hidden class for flexbox compatibility */
+        .hidden-force {
+            opacity: 0 !important;
+            max-height: 0 !important;
+            min-height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+            border: none !important;
+            -webkit-box-flex: 0 !important;
+            flex-grow: 0 !important;
+            flex-basis: 0 !important;
+        }
+
         .container.clock-only .date-container, .container.clock-only #weather-container, .container.clock-only #calendar-container, .container.clock-only .shop-info-mobile { display: none; }
         .container.clock-only .qr-column, .container.slideshow-hidden .slideshow-column { flex-basis: 0; flex-grow: 0; padding: 0; margin-right: 0; }
         .container.clock-only .info-column { -webkit-box-pack: center; justify-content: center; flex-grow: 1; }
@@ -110,7 +135,7 @@
             .info-column { height: 60%; }
             .qr-column { display: none; }
             
-            .shop-info-mobile { display: block; margin-top: auto; padding-top: 2rem; opacity: 0; transition: opacity 0.5s ease; }
+            .shop-info-mobile { display: block; opacity: 0; transition: opacity 0.5s ease; }
             .shop-info-mobile.loaded { opacity: 1; }
             .shop-info-mobile .qr-code-image { max-width: 150px; }
             .shop-info-mobile .shop-name { font-size: 2rem; }
@@ -133,19 +158,28 @@
     <div class="container" id="main-container">
         <div class="info-column">
             <div class="content-wrapper">
-                <div id="digital-clock">
-                    <div class="clock-segment"><span id="clock-hours">00</span></div><div class="clock-separator">:</div><div class="clock-segment"><span id="clock-minutes">00</span></div>
-                    <div class="clock-seconds">
-                        <div class="clock-separator">:</div><div class="clock-segment"><span id="clock-seconds">00</span></div>
+                <!-- Added flex-grow-item class to all main components -->
+                <div id="digital-clock-wrapper" class="flex-grow-item">
+                    <div id="digital-clock">
+                        <div class="clock-segment"><span id="clock-hours">00</span></div><div class="clock-separator">:</div><div class="clock-segment"><span id="clock-minutes">00</span></div>
+                        <div class="clock-seconds">
+                            <div class="clock-separator">:</div><div class="clock-segment"><span id="clock-seconds">00</span></div>
+                        </div>
                     </div>
                 </div>
-                <div class="date-container" id="date-container"><p id="gregorian-date"></p><p id="lunar-date"></p><p id="lunar-event"></p></div>
-                <div id="weather-container"><span id="weather-location"></span><span id="weather-icon"></span><span id="weather-temp"></span><span id="weather-desc">Đang tải thời tiết...</span></div>
-                <div id="calendar-container">
-                    <div id="calendar-header"><div class="calendar-nav" id="prev-btn">&lt;</div><div id="calendar-title"></div><div class="calendar-nav" id="next-btn">&gt;</div></div>
-                    <div id="calendar-grid"></div>
+                <div id="date-container" class="flex-grow-item date-container"><p id="gregorian-date"></p><p id="lunar-date"></p><p id="lunar-event"></p></div>
+                <div id="weather-container" class="flex-grow-item weather-container">
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 1rem;">
+                        <span id="weather-location"></span><span id="weather-icon"></span><span id="weather-temp"></span><span id="weather-desc">Đang tải thời tiết...</span>
+                    </div>
                 </div>
-                <div class="shop-info-mobile">
+                <div id="calendar-wrapper" class="flex-grow-item">
+                     <div id="calendar-container">
+                        <div id="calendar-header"><div class="calendar-nav" id="prev-btn">&lt;</div><div id="calendar-title"></div><div class="calendar-nav" id="next-btn">&gt;</div></div>
+                        <div id="calendar-grid"></div>
+                    </div>
+                </div>
+                <div class="shop-info-mobile flex-grow-item">
                     <img class="qr-code-image" id="qr-code-image-mobile" src="" alt="Mã QR">
                     <div class="shop-info">
                         <p class="shop-name" id="shop-name-mobile"></p>
@@ -195,7 +229,6 @@
     </div>
     
     <script>
-    // --- LUNAR CALENDAR ENGINE ---
     var LUNAR_INFO=[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0xd4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5d0,0x14573,0x052d0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b5a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04970,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0xd4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04bd7,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0];
     var CAN_STR=["Canh","Tân","Nhâm","Quý","Giáp","Ất","Bính","Đinh","Mậu","Kỷ"]; var CHI_STR=["Thân","Dậu","Tuất","Hợi","Tý","Sửu","Dần","Mão","Thìn","Tỵ","Ngọ","Mùi"];
     function getLunarMonthDays(y,m){return(LUNAR_INFO[y-1900]&(0x10000>>m))?30:29} function getLeapMonth(y){return LUNAR_INFO[y-1900]&0xf}
@@ -207,12 +240,12 @@
         const REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
         const REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
 
-        var els = { container: document.getElementById('main-container'), clock: document.getElementById('digital-clock'), clockHours: document.getElementById('clock-hours'), clockMinutes: document.getElementById('clock-minutes'), clockSeconds: document.getElementById('clock-seconds'), dateContainer: document.getElementById('date-container'), gregorianDate: document.getElementById('gregorian-date'), lunarDate: document.getElementById('lunar-date'), lunarEvent: document.getElementById('lunar-event'), weatherContainer: document.getElementById('weather-container'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), calendarContainer: document.getElementById('calendar-container'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), slideshowImage: document.getElementById('slideshow-image'), initialMessage: document.getElementById('initial-message'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), fullscreenBtn: document.getElementById('fullscreen-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), photoGuideBtn: document.getElementById('photo-guide-btn'), alwaysOnGuideBtn: document.getElementById('always-on-guide-btn'), guideDialog: document.getElementById('guide-dialog'), guideTitle: document.getElementById('guide-title'), guideContent: document.getElementById('guide-content') };
+        var els = { container: document.getElementById('main-container'), clock: document.getElementById('digital-clock'), clockHours: document.getElementById('clock-hours'), clockMinutes: document.getElementById('clock-minutes'), clockSeconds: document.getElementById('clock-seconds'), dateContainer: document.getElementById('date-container'), weatherContainer: document.getElementById('weather-container'), calendarWrapper: document.getElementById('calendar-wrapper'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), slideshowImage: document.getElementById('slideshow-image'), initialMessage: document.getElementById('initial-message'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), fullscreenBtn: document.getElementById('fullscreen-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), photoGuideBtn: document.getElementById('photo-guide-btn'), alwaysOnGuideBtn: document.getElementById('always-on-guide-btn'), guideDialog: document.getElementById('guide-dialog'), guideTitle: document.getElementById('guide-title'), guideContent: document.getElementById('guide-content') };
         var images = [], currentImageIndex = 0, slideshowInterval = null, currentDateForCalendar = new Date(), lastTime = {};
         var settings = { slideshowHidden: false, secondsVisible: false, dateHidden: false, calendarHidden: false, weatherHidden: false, clockOnly: false };
         
         function updateClock() { var now = new Date(); var h = ('0' + now.getHours()).slice(-2); var m = ('0' + now.getMinutes()).slice(-2); var s = ('0' + now.getSeconds()).slice(-2); if (lastTime.h !== h) { els.clockHours.textContent = h; lastTime.h = h; } if (lastTime.m !== m) { els.clockMinutes.textContent = m; lastTime.m = m; } if (settings.secondsVisible) { els.clockSeconds.textContent = s; } }
-        function updateMainDate() { var now = new Date(); var dayOfWeek = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; els.gregorianDate.innerText = dayOfWeek[now.getDay()] + ', ' + now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear(); var lunar = solarToLunar(now.getDate(), now.getMonth() + 1, now.getFullYear()); els.lunarDate.innerText = lunar.dayCanChi + ', ' + lunar.day + ' ' + lunar.monthName; var eventText = ""; var daysInMonth = getLunarMonthDays(lunar.lunarYear, lunar.lunarMonth); if (lunar.day === 1) eventText = "Mồng 1"; else if (lunar.day === 15) eventText = "Ngày Rằm"; else if (lunar.day === 16) eventText = "Ngày 16"; else if (lunar.day === daysInMonth) eventText = "Ngày cuối tháng"; els.lunarEvent.innerText = eventText; }
+        function updateMainDate() { var now = new Date(); var dayOfWeek = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; document.getElementById('gregorian-date').innerText = dayOfWeek[now.getDay()] + ', ' + now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear(); var lunar = solarToLunar(now.getDate(), now.getMonth() + 1, now.getFullYear()); document.getElementById('lunar-date').innerText = lunar.dayCanChi + ', ' + lunar.day + ' ' + lunar.monthName; var eventText = ""; var daysInMonth = getLunarMonthDays(lunar.lunarYear, lunar.lunarMonth); if (lunar.day === 1) eventText = "Mồng 1"; else if (lunar.day === 15) eventText = "Ngày Rằm"; else if (lunar.day === 16) eventText = "Ngày 16"; else if (lunar.day === daysInMonth) eventText = "Ngày cuối tháng"; document.getElementById('lunar-event').innerText = eventText; }
         function makeRequest(url, callback) { var xhr = new XMLHttpRequest(); xhr.onreadystatechange = function() { if (xhr.readyState === 4) { if (xhr.status >= 200 && xhr.status < 300) { try { callback(null, JSON.parse(xhr.responseText)); } catch(e) { callback(e); } } else { callback(new Error('Yêu cầu mạng thất bại: ' + xhr.status)); } } }; xhr.open('GET', url, true); xhr.send(); }
         function getWeatherInfo(code) { var weatherMap = { 0:{d:"Trời quang",i:"☀️"},1:{d:"Gần quang",i:"🌤️"},2:{d:"Mây rải rác",i:"🌥️"},3:{d:"Nhiều mây",i:"☁️"},45:{d:"Sương mù",i:"🌫️"},48:{d:"Sương mù lạnh",i:"🌫️"},51:{d:"Mưa phùn nhẹ",i:"🌦️"},53:{d:"Mưa phùn",i:"🌦️"},55:{d:"Mưa phùn dày",i:"🌦️"},61:{d:"Mưa nhẹ",i:"🌧️"},63:{d:"Mưa vừa",i:"🌧️"},65:{d:"Mưa lớn",i:"🌧️"},80:{d:"Mưa rào nhẹ",i:"🌧️"},81:{d:"Mưa rào",i:"🌧️"},82:{d:"Mưa rào lớn",i:"🌧️"},95:{d:"Dông",i:"⚡"}}; var info = weatherMap[code] || {d:"Không xác định",i:"🤷"}; return { desc: info.d, icon: info.i }; }
         function fetchWeatherByProxy(lat, lon) { var url = WEATHER_PROXY_URL + '?lat=' + lat + '&lon=' + lon; makeRequest(url, function(err, data) { if (err) { console.error("Lỗi tải thời tiết qua proxy:", err); els.weatherDesc.textContent = "Lỗi tải thời tiết"; return; } var location = data ? data.location : null; if (location && location !== "Null" && location.toLowerCase() !== 'không rõ' && location.trim().length > 0) { els.weatherLocation.textContent = location; els.weatherLocation.style.display = 'inline'; } else { els.weatherLocation.style.display = 'none'; } if (data && data.weather) { var temp = Math.round(data.weather.temperature_2m); var weatherCode = data.weather.weather_code; var weatherInfo = getWeatherInfo(weatherCode); els.weatherIcon.textContent = weatherInfo.icon; els.weatherTemp.textContent = temp + "°C"; els.weatherDesc.textContent = weatherInfo.desc; } }); }
@@ -226,7 +259,7 @@
             els.container.classList[settings.slideshowHidden ? 'add' : 'remove']('slideshow-hidden'); els.slideshowToggleBtn.textContent = settings.slideshowHidden ? 'Hiện ảnh' : 'Ẩn ảnh';
             els.clock.classList[settings.secondsVisible ? 'add' : 'remove']('seconds-visible'); els.secondsBtn.textContent = settings.secondsVisible ? 'Ẩn giây' : 'Hiện giây';
             els.dateContainer.classList[settings.dateHidden ? 'add' : 'remove']('hidden-force'); els.dateToggleBtn.textContent = settings.dateHidden ? 'Hiện Ngày tháng' : 'Ẩn Ngày tháng';
-            els.calendarContainer.classList[settings.calendarHidden ? 'add' : 'remove']('hidden-force'); els.calendarToggleBtn.textContent = settings.calendarHidden ? 'Hiện Lịch' : 'Ẩn Lịch';
+            els.calendarWrapper.classList[settings.calendarHidden ? 'add' : 'remove']('hidden-force'); els.calendarToggleBtn.textContent = settings.calendarHidden ? 'Hiện Lịch' : 'Ẩn Lịch';
             els.weatherContainer.classList[settings.weatherHidden ? 'add' : 'remove']('hidden-force'); els.weatherToggleBtn.textContent = settings.weatherHidden ? 'Hiện Thời tiết' : 'Ẩn Thời tiết';
             els.container.classList[settings.clockOnly ? 'add' : 'remove']('clock-only'); els.clockOnlyToggleBtn.textContent = settings.clockOnly ? 'Chế độ Đầy đủ' : 'Chế độ Chỉ Giờ';
         }
@@ -244,19 +277,16 @@
         els.resetSettingsBtn.addEventListener('click', function() { if (confirm('Bạn có chắc muốn đặt lại tất cả cài đặt?')) { localStorage.removeItem('dashboardSettings'); window.location.reload(); } });
         els.fullscreenBtn.addEventListener('click', function() { var docElm = document.documentElement; if (docElm.requestFullscreen) { if (!document.fullscreenElement) { docElm.requestFullscreen(); } else { document.exitFullscreen(); } } else if (docElm.webkitRequestFullscreen) { if (!document.webkitFullscreenElement) { docElm.webkitRequestFullscreen(); } else { document.webkitExitFullscreen(); } } });
 
-        // IMPROVED: Decoupled logic for a glitch-free seconds toggle
         els.secondsBtn.addEventListener('click', function() {
             settings.secondsVisible = !settings.secondsVisible;
             if (settings.secondsVisible) {
-                // Stop blinking immediately before transition starts
                 els.clock.classList.remove('blinking-active');
             } else {
-                // Start blinking only after the hiding transition is complete
                 setTimeout(function() {
-                    if (!settings.secondsVisible) { // Check again in case user toggled back quickly
+                    if (!settings.secondsVisible) {
                          els.clock.classList.add('blinking-active');
                     }
-                }, 400); // This duration must match the CSS transition duration
+                }, 400);
             }
             saveSettings();
             applySettings();
