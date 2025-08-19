@@ -102,9 +102,11 @@
         .container.clock-only .clock-seconds { display: -webkit-box !important; display: flex !important; max-width: 30vmin !important; opacity: 1 !important; }
         .container.clock-only #digital-clock .clock-separator:first-of-type { animation: none; }
         
-        /* >>>>>>>>>>>> HÃY XÓA 2 DÒNG GÂY LỖI DƯỚI ĐÂY <<<<<<<<<<<< */
-        /* .container.clock-only .clock-segment span { font-size: 1em; } */ 
-        /* .container.clock-only .clock-separator { font-size: 0.8em; } */
+        /************************************************************/
+        /********** GIẢI PHÁP CUỐI CÙNG: THÊM !important ***********/
+        .container.clock-only .clock-segment span { font-size: 1em !important; } 
+        .container.clock-only .clock-separator { font-size: 0.8em !important; }
+        /************************************************************/
         
         .container.slideshow-hidden .slideshow-column { flex-grow: 0; flex-basis: 0; margin-right: 0; }
         
