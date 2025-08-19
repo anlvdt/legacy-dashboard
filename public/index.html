@@ -6,8 +6,8 @@
     <title>Legacy Frame by An Le - Make old device great again!</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- IMPROVED: Swapped Oswald for Orbitron for the digital clock look -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <!-- IMPROVED: Reverted font back to Oswald as requested -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
     <style>
         html { font-size: 1.5vmin; }
         @media (max-width: 480px) { html { font-size: 10px; } }
@@ -35,15 +35,15 @@
         #digital-clock { display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; }
         .clock-segment { background: rgba(28, 28, 28, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5vmin; padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); margin: 0 0.5vmin; }
         
-        /* IMPROVED: Applied new Orbitron font */
+        /* IMPROVED: Reverted font back to Oswald */
         .clock-segment span, .clock-separator {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Oswald', sans-serif;
             font-weight: 700;
             color: #e0e0e0;
             text-shadow: 0 0 1vmin rgba(255,255,255,0.2);
             -webkit-transition: font-size 0.3s ease; transition: font-size 0.3s ease;
         }
-        .clock-segment span { font-size: 13vmin; letter-spacing: -0.05em; }
+        .clock-segment span { font-size: 13vmin; letter-spacing: 0.05em; }
         .clock-separator { font-size: 10vmin; }
         
         .clock-seconds { display: -webkit-box; display: flex; -webkit-box-align: center; align-items: center; width: 0; opacity: 0; overflow: hidden; -webkit-transition: width 0.4s ease, opacity 0.4s ease; transition: width 0.4s ease, opacity 0.4s ease; }
@@ -105,14 +105,14 @@
         .container.shop-hidden .slideshow-column { margin-right: 0; }
         .container.qr-hidden .qr-code-image { display: none; }
 
-        /* IMPROVED: Overhauled 'Clock Only' mode for massive, full-screen display */
+        /* IMPROVED: 'Clock Only' mode uses 'vmin' for a perfectly fitted large display */
         .container.clock-only #date-weather-group, .container.clock-only #calendar-wrapper, .container.clock-only .shop-info-mobile,
         .container.clock-only .slideshow-column, .container.clock-only .qr-column { display: none; }
         .container.clock-only .info-column { -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; flex-grow: 1; margin-right: 0; }
-        .container.clock-only .clock-segment { background: transparent; border: none; box-shadow: none; padding: 0; margin: 0 1vw; }
-        .container.clock-only .clock-segment span { font-size: 75vh; line-height: 1; }
-        .container.clock-only .clock-separator { font-size: 60vh; line-height: 1; }
-        .container.clock-only .clock-seconds { display: none !important; } /* Seconds are not needed in this mode */
+        .container.clock-only .clock-segment { background: rgba(28, 28, 28, 0.4); border: 1px solid rgba(255,255,255,0.05); }
+        .container.clock-only .clock-segment span { font-size: 40vmin; }
+        .container.clock-only .clock-separator { font-size: 30vmin; }
+        .container.clock-only .clock-seconds { display: none !important; }
         
         .container.slideshow-hidden .slideshow-column { flex-grow: 0; flex-basis: 0; margin-right: 0; }
         
