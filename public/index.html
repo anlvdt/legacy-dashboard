@@ -277,7 +277,8 @@
         return INT(lon / 30);
     }
 
-    function getLunarMonth11(yy, timezone) {
+    // SỬA LỖI: Hàm này giờ trả về cả chỉ số k và ngày Julian (jd)
+    function getLunarMonth11Info(yy, timezone) {
         var k = INT((yy - 1900) * 12.3685);
         var nm;
         while (true) {
@@ -289,18 +290,18 @@
             }
         }
         while (getSunLongitude(nm, timezone) >= 10) {
-            nm = getNewMoonDay(--k, timezone);
+            k--;
+            nm = getNewMoonDay(k, timezone);
         }
-        return nm;
+        return { k: k, jd: nm };
     }
 
     function getLeapMonthOffset(k_a11, timezone) {
         var last = getSunLongitude(getNewMoonDay(k_a11, timezone), timezone);
-        var i = 1, diff;
+        var i = 1;
         while (i < 14) {
             var current_lon = getSunLongitude(getNewMoonDay(k_a11 + i, timezone), timezone);
-            diff = current_lon - last;
-            if (diff < 1) {
+            if (current_lon === last) {
                 return i;
             }
             last = current_lon;
@@ -309,23 +310,27 @@
         return 0;
     }
 
+    // SỬA LỖI: Toàn bộ hàm được viết lại để loại bỏ phép tính xấp xỉ
     function convertSolarToLunar(dd, mm, yy, timezone) {
         var jd = jdFromDate(dd, mm, yy);
+        
         var k = INT((jd - 2415021.076998695) / 29.530588861);
         var nm = getNewMoonDay(k, timezone);
-        
         while (nm < jd) {
             nm = getNewMoonDay(++k, timezone);
         }
         nm = getNewMoonDay(--k, timezone);
 
         var lunarDay = INT(jd - nm + 1);
-        var a11 = getLunarMonth11(yy, timezone);
-        if (yy > 1900 && jdFromDate(1, 1, yy) < a11) { 
-            a11 = getLunarMonth11(yy - 1, timezone);
+        
+        var solarYearOfA11 = yy;
+        var a11_info = getLunarMonth11Info(yy, timezone);
+        if (jd < a11_info.jd) { 
+            solarYearOfA11 = yy - 1;
+            a11_info = getLunarMonth11Info(solarYearOfA11, timezone);
         }
         
-        var k_a11 = INT((a11 - 2415021.076998695) / 29.530588861);
+        var k_a11 = a11_info.k;
         var leap = getLeapMonthOffset(k_a11, timezone);
         var monthOffset = k - k_a11;
         
@@ -335,13 +340,21 @@
             monthOffset--;
         }
 
-        var lunarMonth = (monthOffset + 11) % 12;
-        if (lunarMonth === 0) lunarMonth = 12;
-        
-        var lunarYear = yy - INT((12.5 - lunarMonth) / 12);
+        var lunarMonth = (monthOffset + 11);
+        while(lunarMonth > 12) {
+            lunarMonth -= 12;
+        }
+
+        var lunarYear;
+        if (lunarMonth < 11) {
+            lunarYear = solarYearOfA11 + 1;
+        } else {
+            lunarYear = solarYearOfA11;
+        }
 
         return { lunarDay: lunarDay, lunarMonth: lunarMonth, lunarYear: lunarYear, isLeap: isLeap };
     }
+
 
     function getCan(num) { return CAN[num % 10]; }
     function getChi(num) { return CHI[num % 12]; }
