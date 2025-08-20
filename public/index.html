@@ -349,8 +349,7 @@
         
         function getWeatherInfoFromWttr(code) { var map = { "395":{d:"Tuyết và dông",i:"🌨️"},"392":{d:"Tuyết nhẹ và dông",i:"🌨️"},"389":{d:"Mưa và dông",i:"⛈️"},"386":{d:"Mưa nhẹ và dông",i:"⛈️"},"377":{d:"Mưa đá",i:"🌨️"},"374":{d:"Mưa đá nhỏ",i:"🌨️"},"368":{d:"Mưa tuyết nhẹ",i:"🌨️"},"359":{d:"Mưa lớn",i:"🌧️"},"356":{d:"Mưa rào lớn",i:"🌧️"},"353":{d:"Mưa rào nhẹ",i:"🌦️"},"350":{d:"Mưa đá",i:"🌨️"},"338":{d:"Tuyết dày",i:"🌨️"},"335":{d:"Tuyết rơi dày",i:"🌨️"},"332":{d:"Tuyết",i:"❄️"},"329":{d:"Tuyết vừa",i:"❄️"},"326":{d:"Tuyết nhẹ",i:"❄️"},"323":{d:"Tuyết nhẹ",i:"❄️"},"320":{d:"Mưa tuyết",i:"🌨️"},"317":{d:"Mưa tuyết nhẹ",i:"🌨️"},"314":{d:"Mưa phùn lạnh",i:"🌨️"},"311":{d:"Mưa phùn lạnh",i:"🌨️"},"308":{d:"Mưa lớn",i:"🌧️"},"305":{d:"Mưa lớn",i:"🌧️"},"302":{d:"Mưa vừa",i:"🌧️"},"299":{d:"Mưa vừa",i:"🌧️"},"296":{d:"Mưa nhẹ",i:"🌦️"},"293":{d:"Mưa nhẹ",i:"🌦️"},"284":{d:"Mưa phùn lạnh",i:"🌨️"},"281":{d:"Mưa phùn lạnh",i:"🌨️"},"266":{d:"Mưa phùn nhẹ",i:"🌦️"},"263":{d:"Mưa phùn nhẹ",i:"🌦️"},"260":{d:"Sương mù",i:"🌫️"},"248":{d:"Sương mù",i:"🌫️"},"230":{d:"Bão tuyết",i:"🌨️"},"227":{d:"Tuyết bay",i:"🌨️"},"200":{d:"Dông",i:"⚡"},"185":{d:"Mưa phùn lạnh",i:"🌨️"},"182":{d:"Mưa tuyết nhẹ",i:"🌨️"},"179":{d:"Tuyết nhẹ",i:"❄️"},"176":{d:"Mưa rào",i:"🌦️"},"143":{d:"Sương mù",i:"🌫️"},"122":{d:"Nhiều mây",i:"☁️"},"119":{d:"Nhiều mây",i:"☁️"},"116":{d:"Mây rải rác",i:"🌥️"},"113":{d:"Trời quang",i:"☀️"}}; return map[code] || {d:"Không xác định", i:"🤷"}; }
         function loadAutomaticWeather() {
-            var IP_API_KEY = 'b15354256485899321e058017263590481d6364a938c38260b62111d';
-            makeRequest('https://api.ipdata.co?api-key=' + IP_API_KEY, function(err, data) {
+            makeRequest('https://ipinfo.io/json', function(err, data) {
                 if (err || !data || !data.city) {
                     console.error("Lỗi xác định vị trí:", err);
                     els.weatherDesc.textContent = "Lỗi vị trí";
@@ -375,9 +374,8 @@
         }
 
         function fetchOnlinePhoto(callback) {
-            var keywords = 'nature,landscape,water,sky,travel'; 
-            var apiUrl = 'https://source.unsplash.com/random/1920x1080?' + keywords;
-            var uniqueUrl = apiUrl + '&t=' + new Date().getTime();
+            var apiUrl = 'https://picsum.photos/1920/1080';
+            var uniqueUrl = apiUrl + '?t=' + new Date().getTime();
             
             var tempImg = new Image();
             tempImg.onload = function() {
@@ -385,7 +383,7 @@
                 if(callback) callback();
             };
             tempImg.onerror = function() { 
-                console.error("Lỗi tải ảnh từ Unsplash Source."); 
+                console.error("Lỗi tải ảnh từ Picsum Photos.");
                 if(callback) callback();
             };
             tempImg.src = uniqueUrl;
@@ -403,7 +401,7 @@
                         els.backgroundImage.src='';
                     } else {
                         images = data;
-                        currentImageIndex = -1; 
+                        currentImageIndex = -1;
                         changeImage();
                     }
                     if(callback) callback();
@@ -414,7 +412,6 @@
         
         function changeImage() {
             els.backgroundImage.classList.remove('loaded');
-            
             setTimeout(function() {
                 if (settings.useOnlinePhotos) {
                     fetchOnlinePhoto();
