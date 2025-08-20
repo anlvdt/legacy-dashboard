@@ -122,8 +122,10 @@
             .date-container, #weather-container { font-size: 1.8rem; }
             #calendar-container { font-size: 1.2rem; max-width: 90%; }
             /* <!-- SỬA LỖI BỐ CỤC CHẾ ĐỘ NHÌN XA TRÊN IPAD --> */
-            #clock-only-weather-container { display: none !important; }
-            #clock-only-date-container {
+            .container.clock-only-mode #clock-only-weather-container { 
+                display: none !important; 
+            }
+            .container.clock-only-mode #clock-only-date-container {
                 bottom: auto;
                 top: 50%;
                 -webkit-transform: translate(-50%, -50%);
@@ -239,13 +241,7 @@
     </div>
     
     <script>
-    /**
-     * ===================================================================
-     * LUNAR CALENDAR ALGORITHM - FINAL & CORRECT VERSION
-     * Based on the proven algorithm by Ho Ngoc Duc.
-     * This version uses a standard, complete, and correct implementation.
-     * ===================================================================
-     */
+    // ** PHẦN TÍNH TOÁN ÂM LỊCH NGUYÊN BẢN TỪ FILE index(8).html - KHÔNG THAY ĐỔI **
     var CAN = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
     var CHI = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
     var LUNAR_DATA = [
@@ -265,7 +261,6 @@
         0x05AA0, 0x076A3, 0x096D0, 0x04BD7, 0x04AD0, 0x0A4D0, 0x1D0B6, 0x0D250, 0x0D520, 0x0DD45,
         0x0B5A0, 0x056D0, 0x055B2, 0x049B0, 0x0A577, 0x0A4B0, 0x0AA50, 0x1B255, 0x06D20, 0x0ADA0
     ];
-
     function getLunarYearDays(lunarYear) {
         var i, sum = 348;
         for (i = 0x8000; i > 0x8; i >>= 1) {
@@ -273,11 +268,9 @@
         }
         return (sum + getLeapMonthDays(lunarYear));
     }
-    
     function getLeapMonth(lunarYear) {
         return (LUNAR_DATA[lunarYear - 1900] & 0xf);
     }
-    
     function getLeapMonthDays(lunarYear) {
         if (getLeapMonth(lunarYear) !== 0) {
             if ((LUNAR_DATA[lunarYear - 1900] & 0x10000)) return 30;
@@ -285,7 +278,6 @@
         }
         return 0;
     }
-
     function getLunarMonthDays(lunarYear, lunarMonth) {
         if ((lunarMonth > 12) || (lunarMonth < 1)) {
             return -1;
@@ -295,20 +287,17 @@
         }
         return 29;
     }
-    
     function jdFromDate(d, m, y) {
         var a = Math.floor((14 - m) / 12);
         var Y = y + 4800 - a;
         var M = m + 12 * a - 3;
         return d + Math.floor((153 * M + 2) / 5) + 365 * Y + Math.floor(Y / 4) - Math.floor(Y / 100) + Math.floor(Y / 400) - 32045;
     }
-
     function convertSolarToLunar(dd, mm, yy) {
         var i, leap, temp;
         var baseDate = new Date(1900, 0, 31);
         var currentDate = new Date(yy, mm - 1, dd);
         var daysDiff = Math.floor((currentDate - baseDate) / 86400000);
-
         var lunarYear = 1900;
         var daysInYear = getLunarYearDays(lunarYear);
         while (daysDiff >= daysInYear) {
@@ -316,11 +305,9 @@
             lunarYear++;
             daysInYear = getLunarYearDays(lunarYear);
         }
-
         var lunarMonth = 1;
         var isLeap = false;
         leap = getLeapMonth(lunarYear);
-        
         for (i = 1; i < 13 && daysDiff >= 0; i++) {
             if (leap > 0 && i === (leap + 1) && !isLeap) {
                 temp = getLeapMonthDays(lunarYear);
@@ -331,7 +318,6 @@
                 daysDiff -= temp;
                 isLeap = false; 
             }
-            
             temp = getLunarMonthDays(lunarYear, i);
             if (daysDiff < temp) {
                 lunarMonth = i;
@@ -339,12 +325,9 @@
             }
             daysDiff -= temp;
         }
-
         var lunarDay = daysDiff + 1;
-        
         return { lunarDay: lunarDay, lunarMonth: lunarMonth, lunarYear: lunarYear, isLeap: isLeap && (lunarMonth === leap) };
     }
-
     function solarToLunar(dd, mm, yy) {
         try {
             var jd = jdFromDate(dd, mm, yy);
@@ -367,7 +350,8 @@
             return { day: '?', lunarMonth: '?', lunarYear: '?', dayCanChi: 'Lỗi', monthName: 'Lỗi', yearName: 'Lỗi' };
         }
     }
-        
+    
+    // ** PHẦN CÒN LẠI CỦA SCRIPT **
     document.addEventListener("DOMContentLoaded", function() {
         var REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
         var REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
@@ -391,9 +375,11 @@
             var lunarText = 'Ngày ' + lunar.day + ' ' + lunar.monthName; 
             var lunarYearText = 'Năm ' + lunar.yearName; 
 
+            // Chế độ thường
             document.getElementById('gregorian-date-p').innerText = gregorianText; 
             document.getElementById('lunar-date-p').innerText = lunarText + " (" + lunar.dayCanChi + ")"; 
             
+            // Chế độ nhìn xa
             els.gregorianDateOverlay.innerText = gregorianText; 
             els.lunarDateOverlay.innerText = lunarText; 
             els.lunarYearOverlay.innerText = lunarYearText; 
@@ -408,7 +394,6 @@
         
         function getWeatherInfoFromWttr(code) { var map = { "395":{d:"Tuyết và dông",i:"🌨️"},"392":{d:"Tuyết nhẹ và dông",i:"🌨️"},"389":{d:"Mưa và dông",i:"⛈️"},"386":{d:"Mưa nhẹ và dông",i:"⛈️"},"377":{d:"Mưa đá",i:"🌨️"},"374":{d:"Mưa đá nhỏ",i:"🌨️"},"368":{d:"Mưa tuyết nhẹ",i:"🌨️"},"359":{d:"Mưa lớn",i:"🌧️"},"356":{d:"Mưa rào lớn",i:"🌧️"},"353":{d:"Mưa rào nhẹ",i:"🌦️"},"350":{d:"Mưa đá",i:"🌨️"},"338":{d:"Tuyết dày",i:"🌨️"},"335":{d:"Tuyết rơi dày",i:"🌨️"},"332":{d:"Tuyết",i:"❄️"},"329":{d:"Tuyết vừa",i:"❄️"},"326":{d:"Tuyết nhẹ",i:"❄️"},"323":{d:"Tuyết nhẹ",i:"❄️"},"320":{d:"Mưa tuyết",i:"🌨️"},"317":{d:"Mưa tuyết nhẹ",i:"🌨️"},"314":{d:"Mưa phùn lạnh",i:"🌨️"},"311":{d:"Mưa phùn lạnh",i:"🌨️"},"308":{d:"Mưa lớn",i:"🌧️"},"305":{d:"Mưa lớn",i:"🌧️"},"302":{d:"Mưa vừa",i:"🌧️"},"299":{d:"Mưa vừa",i:"🌧️"},"296":{d:"Mưa nhẹ",i:"🌦️"},"293":{d:"Mưa nhẹ",i:"🌦️"},"284":{d:"Mưa phùn lạnh",i:"🌨️"},"281":{d:"Mưa phùn lạnh",i:"🌨️"},"266":{d:"Mưa phùn nhẹ",i:"🌦️"},"263":{d:"Mưa phùn nhẹ",i:"🌦️"},"260":{d:"Sương mù",i:"🌫️"},"248":{d:"Sương mù",i:"🌫️"},"230":{d:"Bão tuyết",i:"🌨️"},"227":{d:"Tuyết bay",i:"🌨️"},"200":{d:"Dông",i:"⚡"},"185":{d:"Mưa phùn lạnh",i:"🌨️"},"182":{d:"Mưa tuyết nhẹ",i:"🌨️"},"179":{d:"Tuyết nhẹ",i:"❄️"},"176":{d:"Mưa rào",i:"🌦️"},"143":{d:"Sương mù",i:"🌫️"},"122":{d:"Nhiều mây",i:"☁️"},"119":{d:"Nhiều mây",i:"☁️"},"116":{d:"Mây rải rác",i:"🌥️"},"113":{d:"Trời quang",i:"☀️"}}; return map[code] || {d:"Không xác định", i:"🤷"}; }
         
-        // ** SỬA LỖI TƯƠNG THÍCH THỜI TIẾT **
         function loadAutomaticWeather() {
             var protocol = window.location.protocol === 'https:' ? 'https://' : 'http://';
             makeRequest(protocol + 'ipinfo.io/json', function(err, data) {
