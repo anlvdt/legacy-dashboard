@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Lato:wght@900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --text-primary: #F5F5FF5;
+            --text-primary: #F5F5F5;
             --text-secondary: #f39c12;
             --text-weather: #2980b9;
             --ui-blur: 20px;
@@ -26,20 +26,16 @@
             background-color: #000;
             color: var(--text-primary);
             font-family: 'Nunito', sans-serif;
-            transition: all 0.5s ease;
         }
 
         #background-container {
-            position: fixed;
-            top: 0; left: 0;
+            position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: -1;
             transition: opacity 0.5s ease;
         }
         
-        body.power-save-mode #background-container {
-            opacity: 0;
-        }
+        body.power-save-mode #background-container { opacity: 0; }
 
         #background-image {
             width: 100%; height: 100%;
@@ -47,17 +43,14 @@
             transition: opacity 1.5s ease-in-out;
             opacity: 0;
         }
-        #background-image.loaded {
-            opacity: 1;
-        }
+        #background-image.loaded { opacity: 1; }
 
         .container { 
             display: flex; 
-            width: 100%; 
-            height: 100%; 
-            position: relative;
+            width: 100%; height: 100%; 
             padding: 2.5vmin;
             box-sizing: border-box;
+            transition: opacity 0.5s ease;
         }
         
         .info-column, .qr-column {
@@ -70,7 +63,7 @@
         .info-column { flex-grow: 1.2; margin-right: 2.5vmin; }
         .qr-column { flex-grow: 0.8; }
 
-        .content-wrapper { display: flex; flex-direction: column; width: 100%; height: 100%; text-align: center; overflow: hidden; }
+        .content-wrapper { display: flex; flex-direction: column; width: 100%; height: 100%; text-align: center; }
         
         .flex-grow-item { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 0; transition: all 0.4s ease; }
         #digital-clock-wrapper { flex-grow: 1.2; }
@@ -82,22 +75,21 @@
             border: var(--ui-border);
             border-radius: var(--ui-radius);
             padding: 0.5vmin 2vmin;
-            position: relative;
             box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5);
             margin: 0 0.5vmin;
             backdrop-filter: blur(var(--ui-blur));
             -webkit-backdrop-filter: blur(var(--ui-blur));
         }
         
-        #digital-clock, #digital-clock-overlay { display: flex; justify-content: center; align-items: center; width: 100%; line-height: 1; }
+        #digital-clock { display: flex; justify-content: center; align-items: center; width: 100%; line-height: 1; }
         .clock-segment span, .clock-separator { font-family: 'Lato', sans-serif; font-weight: 900; color: var(--text-primary); text-shadow: 0 0 1vmin rgba(255,255,255,0.2); transition: font-size 0.3s ease; }
         .clock-segment span { font-size: 13vmin; letter-spacing: 0.05em; }
         .clock-separator { font-size: 10vmin; }
         
         .clock-seconds { display: flex; align-items: center; max-width: 0; opacity: 0; overflow: hidden; transition: max-width 0.5s ease, opacity 0.5s ease; }
-        .seconds-visible .clock-segment span { font-size: 8vmin; }
-        .seconds-visible .clock-separator { font-size: 7vmin; }
-        .seconds-visible .clock-seconds { max-width: 30vmin; opacity: 1; }
+        #digital-clock.seconds-visible .clock-segment span { font-size: 8vmin; }
+        #digital-clock.seconds-visible .clock-separator { font-size: 7vmin; }
+        #digital-clock.seconds-visible .clock-seconds { max-width: 30vmin; opacity: 1; }
         
         @-webkit-keyframes blink { 50% { opacity: 0.3; } }
         @keyframes blink { 50% { opacity: 0.3; } }
@@ -135,18 +127,16 @@
         #weather-icon { font-size: 5vmin; }
         #weather-location { color: var(--text-weather); margin-bottom: 1vmin; }
 
-        #calendar-container {
+        #calendar-container, #clock-only-date-container, #clock-only-weather-container {
             background: var(--ui-bg);
             border: var(--ui-border);
             padding: 1.5vmin;
             border-radius: var(--ui-radius);
-            width: 100%;
-            max-width: 48vmin;
-            box-sizing: border-box;
-            margin: 0 auto;
             backdrop-filter: blur(var(--ui-blur));
             -webkit-backdrop-filter: blur(var(--ui-blur));
         }
+        
+        #calendar-container { width: 100%; max-width: 48vmin; box-sizing: border-box; margin: 0 auto; }
         #calendar-header { display: table; width: 100%; }
         .calendar-nav, #calendar-title { display: table-cell; vertical-align: middle; }
         #calendar-title { width: 70%; font-size: 2vmin; font-weight: 700; }
@@ -166,12 +156,8 @@
         
         .qr-column {
             background: var(--ui-bg);
-            border: var(--ui-border);
             border-radius: var(--ui-radius);
-            padding: 2.5vmin;
-            box-sizing: border-box;
-            backdrop-filter: blur(var(--ui-blur));
-            -webkit-backdrop-filter: blur(var(--ui-blur));
+            padding: 2.5vmin; box-sizing: border-box;
         }
         .qr-wrapper { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s ease; }
         .qr-wrapper.loaded { opacity: 1; }
@@ -181,52 +167,35 @@
         .shop-address { font-size: 2vmin; line-height: 1.4; margin: 1vmin 0 0 0; }
         
         .hidden-force { transition: opacity 0.4s ease, max-height 0.4s ease, margin 0.4s ease, padding 0.4s ease, flex-basis 0.4s ease; opacity: 0 !important; max-height: 0 !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; border: none !important; flex-grow: 0 !important; flex-basis: 0 !important; }
-
-        .container.shop-hidden .qr-column, .container.slideshow-hidden .info-column, .container.slideshow-hidden .qr-column { flex-grow: 0; flex-basis: 0; margin: 0 !important; border: none !important; padding: 0 !important;}
-        .container.slideshow-hidden .info-column { margin-right: 0; }
-        .container.qr-hidden .qr-code-image { display: none; }
         
         #clock-only-overlay {
             display: none;
-            flex-direction: column;
-            justify-content: space-between; 
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            padding: 3vh 2.5vmin;
-            box-sizing: border-box;
-            position: fixed;
-            top: 0; left: 0;
+            flex-direction: column; justify-content: space-between; align-items: center;
+            width: 100%; height: 100%;
+            padding: 3vh 2.5vmin; box-sizing: border-box;
+            position: fixed; top: 0; left: 0;
         }
 
         #clock-only-date-container, #clock-only-weather-container { 
             width: auto;
             padding: 1.5vmin 3vmin;
-            text-align: center; 
-            font-size: 4vmin; 
-            font-weight: 700;
-            background: var(--ui-bg);
-            border: var(--ui-border);
-            border-radius: var(--ui-radius);
-            backdrop-filter: blur(var(--ui-blur));
-            -webkit-backdrop-filter: blur(var(--ui-blur));
-             visibility: hidden;
+            text-align: center; font-size: 4vmin; font-weight: 700;
+            visibility: hidden;
         }
         #clock-only-weather-container-line2 { display: flex; align-items: center; justify-content: center; }
         #weather-location-overlay { margin-bottom: 1vmin; font-size: 0.8em; }
         #clock-only-date-container p { margin: 0.5vmin 0; }
-        
+
         body.clock-only-mode .container { display: none; }
         body.clock-only-mode #clock-only-overlay { display: flex; }
         body.clock-only-mode #settings-container { display: none; }
-
         body.clock-only-mode.show-dates #clock-only-date-container { visibility: visible; }
         body.clock-only-mode.show-weather #clock-only-weather-container { visibility: visible; }
-        
-        #digital-clock-overlay.seconds-visible .clock-segment span { font-size: 22vmin; }
-        #digital-clock-overlay.seconds-visible .clock-separator { font-size: 18vmin; }
-        #digital-clock-overlay .clock-segment span { font-size: 30vmin; }
-        #digital-clock-overlay .clock-separator { font-size: 24vmin; }
+        body.clock-only-mode #digital-clock-wrapper { flex-grow: 0; }
+        body.clock-only-mode #digital-clock .clock-segment span { font-size: 30vmin; }
+        body.clock-only-mode #digital-clock .clock-separator { font-size: 24vmin; }
+        body.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 22vmin; }
+        body.clock-only-mode #digital-clock.seconds-visible .clock-separator { font-size: 18vmin; }
 
         #settings-container { position: fixed; top: 1.5rem; right: 1.5rem; z-index: 100; }
         #settings-toggle { cursor: pointer; width: 2.5rem; height: 2.5rem; background: none; border: none; padding: 0; font-size: 2rem; line-height: 1; color: var(--text-primary); transition: transform 0.2s ease; }
@@ -236,7 +205,7 @@
         
         .settings-btn { display: block; width: 100%; background: rgba(51,51,51,0.8); color: var(--text-primary); border: none; padding: 0.7rem; margin-bottom: 0.4rem; border-radius: 0.3rem; cursor: pointer; font-size: 1rem; text-align: left; transition: all 0.2s ease;}
         .settings-btn:hover { background: rgba(68,68,68,0.9); transform: scale(1.02); }
-        .settings-group-toggle { font-weight: 700; background: rgba(80,80,80,0.8); }
+        .settings-group > .settings-group-toggle { font-weight: 700; background: rgba(80,80,80,0.8); }
         .settings-group-toggle::after { content: '▸'; float: right; transition: transform 0.2s ease; }
         .settings-group.open .settings-group-toggle::after { transform: rotate(90deg); }
         .settings-submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
@@ -266,9 +235,10 @@
             .date-container, #weather-container { font-size: 1.8rem; }
             #calendar-container { font-size: 1.2rem; max-width: 90%; }
             #clock-only-date-container, #clock-only-weather-container { font-size: 5vw; }
-            #digital-clock-overlay.seconds-visible .clock-segment span { font-size: 24vw; }
-            #digital-clock-overlay .clock-segment span { font-size: 32vw; }
-            #digital-clock-overlay .clock-separator { font-size: 26vw; }
+            body.clock-only-mode #digital-clock-wrapper { flex-grow: 1; }
+            body.clock-only-mode #digital-clock .clock-segment span { font-size: 32vw; }
+            body.clock-only-mode #digital-clock .clock-separator { font-size: 26vw; }
+            body.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 24vw; }
         }
     </style>
 </head>
@@ -281,13 +251,7 @@
         <div class="info-column" id="info-column">
             <div class="content-wrapper">
                 <div id="digital-clock-wrapper" class="flex-grow-item">
-                    <div id="digital-clock">
-                        <div class="clock-segment"><span id="clock-hours">00</span></div><div id="main-colon" class="clock-separator">:</div><div class="clock-segment"><span id="clock-minutes">00</span></div>
-                        <div class="clock-seconds">
-                            <div class="clock-separator">:</div><div class="clock-segment"><span id="clock-seconds">00</span></div>
-                        </div>
                     </div>
-                </div>
                 <div id="date-weather-group" class="flex-grow-item">
                     <div id="date-container" class="date-container"><p id="gregorian-date-p"></p><p id="lunar-date-p"></p><p id="lunar-event"></p></div>
                     <div id="weather-container">
@@ -327,12 +291,7 @@
                 <span id="weather-temp-overlay"></span>
              </div>
         </div>
-        <div id="digital-clock-overlay">
-            <div class="clock-segment"><span id="clock-hours-overlay">00</span></div><div id="main-colon-overlay" class="clock-separator">:</div><div class="clock-segment"><span id="clock-minutes-overlay">00</span></div>
-            <div class="clock-seconds">
-                <div class="clock-separator">:</div><div class="clock-segment"><span id="clock-seconds-overlay">00</span></div>
-            </div>
-        </div>
+        
         <div id="clock-only-date-container">
             <p id="gregorian-date-overlay"></p>
             <p id="lunar-date-overlay" style="color: #f39c12;"></p>
@@ -342,7 +301,6 @@
     <div id="settings-container">
         <button id="settings-toggle" aria-label="Mở hoặc đóng bảng cài đặt"><span>&#9776;</span></button>
         <div id="settings-panel">
-            
             <div class="settings-group">
                 <div class="settings-btn settings-group-toggle">Chế độ hiển thị</div>
                 <div class="settings-submenu">
@@ -376,14 +334,11 @@
             </div>
 
             <hr style="border-color: #444; margin: 10px 0;">
-            
             <button class="settings-btn" id="refresh-photos-btn">Ảnh mới ngay</button>
             <button class="settings-btn" id="photo-guide-btn">HD: Cập nhật ảnh</button>
             <button class="settings-btn" id="always-on-guide-btn">HD: Giữ màn hình bật</button>
-            
             <hr style="border-color: #444; margin: 10px 0;">
             <button class="settings-btn" id="reset-settings-btn">Đặt lại Cài đặt</button>
-
         </div>
     </div>
     
@@ -397,79 +352,59 @@
     <script>
     // ----- THUẬT TOÁN ÂM LỊCH MỚI, CHÍNH XÁC CHO VIỆT NAM (UTC+7) -----
     function solarToLunar(dd, mm, yy) {
-        var LichAm = function() {
-            var el = this;
-            el.jdFromDate = function(d, m, y) {
-                var a = Math.floor((14 - m) / 12);
-                var y1 = y + 4800 - a;
-                var m1 = m + 12 * a - 3;
-                var jdn = d + Math.floor((153 * m1 + 2) / 5) + 365 * y1 + Math.floor(y1 / 4) - Math.floor(y1 / 100) + Math.floor(y1 / 400) - 32045;
-                return jdn;
-            };
-            el.jdToDate = function(jdn) {
-                var a = jdn + 32044;
-                var b = Math.floor((4 * a + 3) / 146097);
-                var c = a - Math.floor((146097 * b) / 4);
-                var d = Math.floor((4 * c + 3) / 1461);
-                var e = c - Math.floor((1461 * d) / 4);
-                var m = Math.floor((5 * e + 2) / 153);
-                var day = e - Math.floor((153 * m + 2) / 5) + 1;
-                var month = m + 3 - 12 * Math.floor(m / 10);
-                var year = 100 * b + d - 4800 + Math.floor(m / 10);
-                return [day, month, year];
-            };
-            el.getNewMoonDay = function(k, timeZone) {
-                var T = k / 1236.85, T2 = T * T, T3 = T * T2;
-                var jdn = 2415020.75933 + 29.53058868 * k + 0.0001178 * T2 - 0.000000155 * T3;
-                jdn += 0.00033 * Math.sin((166.56 + 132.87 * T - 0.009173 * T2) * (Math.PI / 180));
-                return Math.round(jdn - 0.5) + (timeZone / 24.0);
-            };
-            el.getSunLongitude = function(jdn, timeZone) {
-                var T = (jdn - 2415020.5 - timeZone / 24) / 36525;
-                var L = (279.69668 + 36000.76892 * T + 0.0003025 * T * T) % 360;
-                return L;
-            };
-            el.getLeapMonthOffset = function(jdn, timeZone) {
-                var k = Math.floor((jdn - 2415020.5 - timeZone / 24) / 29.53058868) + 1;
-                var a11 = el.getSunLongitude(el.getNewMoonDay(k, timeZone), timeZone);
-                return Math.floor(a11 / 30);
-            };
-            el.convert = function(d, m, y) {
-                var timeZone = 7;
-                var jd = el.jdFromDate(d, m, y);
-                var k = Math.floor((jd - 2415020.5) / 29.53058868);
-                var nm = el.getNewMoonDay(k, timeZone);
-                if (nm > jd) nm = el.getNewMoonDay(k - 1, timeZone);
-                var lunarDay = jd - nm + 1;
-                var lunarYear = el.jdToDate(nm)[2];
-                var offset = el.getLeapMonthOffset(jd, timeZone);
-                var lunarMonth = offset + 1;
-                var isLeap = false;
-                if (offset >= el.jdToDate(nm)[1]) lunarMonth = offset;
-                var diff = (jd - 1 - 2415020.5) / 365.2422;
-                lunarYear = 1900 + Math.floor(diff);
-                var startOfYear = el.jdFromDate(1, 1, lunarYear);
-                k = Math.floor((startOfYear - 2415020.5) / 29.53058868);
-                var startYearOffset = el.getLeapMonthOffset(startOfYear, timeZone);
-                if (startYearOffset < el.getLeapMonthOffset(el.jdFromDate(31, 12, lunarYear), timeZone)) {
-                    var leapMonth = el.getLeapMonthOffset(jd, timeZone);
-                    if (lunarMonth > leapMonth) lunarMonth--; else if (lunarMonth === leapMonth) isLeap = true;
-                }
-                var CAN = ["Canh", "Tân", "Nhâm", "Quý", "Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ"];
-                var CHI = ["Thân", "Dậu", "Tuất", "Hợi", "Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi"];
-                var dayCanChi = CAN[(jd + 9) % 10] + " " + CHI[(jd + 1) % 12];
-                return { day: lunarDay, month: lunarMonth, year: lunarYear, isLeap: isLeap, dayCanChi: dayCanChi };
-            };
-        };
-        var lc = new LichAm().convert(dd, mm, yy);
-        return { day: lc.day, lunarMonth: lc.month, lunarYear: lc.year, isLeap: lc.isLeap, dayCanChi: lc.dayCanChi };
+        // HoTen: Hồ Ngọc Đức (hngocduc@gmail.com)
+        // https://www.informatik.uni-leipzig.de/~duc/amlich/
+        function getNewMoonDay(k, timeZone) {
+            var T = k / 1236.85;
+            var T2 = T * T;
+            var T3 = T * T2;
+            var jdn = 2415020.75933 + 29.53058868 * k + 0.0001178 * T2 - 0.000000155 * T3;
+            jdn += 0.00033 * Math.sin( (166.56 + 132.87 * T - 0.009173 * T2) * Math.PI / 180);
+            return Math.round(jdn - 0.5) + timeZone;
+        }
+
+        function getSunLongitude(jdn, timeZone) {
+            var T = (jdn - 2415020.5 - timeZone/24) / 36525;
+            var L = (279.69668 + 36000.76892 * T + 0.0003025 * T * T) % 360;
+            return L;
+        }
+
+        function jdFromDate(d, m, y) {
+            var a = Math.floor((14 - m) / 12);
+            var y1 = y + 4800 - a;
+            var m1 = m + 12 * a - 3;
+            return d + Math.floor((153 * m1 + 2) / 5) + 365 * y1 + Math.floor(y1 / 4) - Math.floor(y1 / 100) + Math.floor(y1 / 400) - 32045;
+        }
+
+        var timeZone = 7;
+        var jd = jdFromDate(dd, mm, yy);
+        var k = Math.floor((jd - 2415020.5) / 29.53058868);
+        var nm = getNewMoonDay(k, timeZone);
+        if (nm > jd) { nm = getNewMoonDay(k - 1, timeZone); }
+        var sl = getSunLongitude(nm, timeZone);
+        var lunarMonth = Math.floor(sl / 30) + 1;
+        if (lunarMonth > 12) { lunarMonth -= 12; }
+        var lunarDay = jd - nm + 1;
+        var diff = Math.floor((nm - 2415021) / 365.2422);
+        var lunarYear = 1900 + diff;
+        var nm1 = getNewMoonDay(k-1, timeZone);
+        var sl1 = getSunLongitude(nm1, timeZone);
+        var lunarMonth1 = Math.floor(sl1 / 30) + 1;
+        if (lunarMonth1 > 12) { lunarMonth1 -= 12; }
+        var isLeap = (lunarMonth === lunarMonth1);
+
+        var CAN = ["Canh", "Tân", "Nhâm", "Quý", "Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ"];
+        var CHI = ["Thân", "Dậu", "Tuất", "Hợi", "Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi"];
+        var dayCanChi = CAN[(jd + 9) % 10] + " " + CHI[(jd + 1) % 12];
+        
+        return { day: lunarDay, lunarMonth: lunarMonth, lunarYear: lunarYear, isLeap: isLeap, dayCanChi: dayCanChi };
     }
     
     document.addEventListener("DOMContentLoaded", function() {
         var REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
         var REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
 
-        var els = { container: document.getElementById('main-container'), clockOnlyOverlay: document.getElementById('clock-only-overlay'), infoColumn: document.getElementById('info-column'), clock: document.getElementById('digital-clock'), clockOverlay: document.getElementById('digital-clock-overlay'), digitalClockWrapper: document.getElementById('digital-clock-wrapper'), clockOnlyClockWrapper: document.getElementById('clock-only-clock-wrapper'), mainColon: document.getElementById('main-colon'), dateWeatherGroup: document.getElementById('date-weather-group'), calendarWrapper: document.getElementById('calendar-wrapper'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), backgroundImage: document.getElementById('background-image'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), shopToggleBtn: document.getElementById('shop-toggle-btn'), qrToggleBtn: document.getElementById('qr-toggle-btn'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), fullscreenBtn: document.getElementById('fullscreen-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), refreshPhotosBtn: document.getElementById('refresh-photos-btn'), photoGuideBtn: document.getElementById('photo-guide-btn'), alwaysOnGuideBtn: document.getElementById('always-on-guide-btn'), guideDialog: document.getElementById('guide-dialog'), guideTitle: document.getElementById('guide-title'), guideContent: document.getElementById('guide-content'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), clockOnlyGregorianBtn: document.getElementById('clock-only-gregorian-toggle'), clockOnlyLunarBtn: document.getElementById('clock-only-lunar-toggle'), gregorianDateOverlay: document.getElementById('gregorian-date-overlay'), lunarDateOverlay: document.getElementById('lunar-date-overlay'), onlinePhotosBtn: document.getElementById('online-photos-toggle'), clockOnlyWeatherBtn: document.getElementById('clock-only-weather-toggle'), weatherLocationOverlay: document.getElementById('weather-location-overlay'), weatherIconOverlay: document.getElementById('weather-icon-overlay'), weatherTempOverlay: document.getElementById('weather-temp-overlay'), powerSaveBtn: document.getElementById('power-save-toggle') };
+        var els = { container: document.getElementById('main-container'), clockOnlyOverlay: document.getElementById('clock-only-overlay'), infoColumn: document.getElementById('info-column'), clock: document.getElementById('digital-clock'), clockOverlay: document.getElementById('digital-clock-overlay'), digitalClockWrapper: document.getElementById('digital-clock-wrapper'), mainColon: document.getElementById('main-colon'), dateWeatherGroup: document.getElementById('date-weather-group'), calendarWrapper: document.getElementById('calendar-wrapper'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), backgroundImage: document.getElementById('background-image'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), shopToggleBtn: document.getElementById('shop-toggle-btn'), qrToggleBtn: document.getElementById('qr-toggle-btn'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), fullscreenBtn: document.getElementById('fullscreen-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), refreshPhotosBtn: document.getElementById('refresh-photos-btn'), photoGuideBtn: document.getElementById('photo-guide-btn'), alwaysOnGuideBtn: document.getElementById('always-on-guide-btn'), guideDialog: document.getElementById('guide-dialog'), guideTitle: document.getElementById('guide-title'), guideContent: document.getElementById('guide-content'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), clockOnlyGregorianBtn: document.getElementById('clock-only-gregorian-toggle'), clockOnlyLunarBtn: document.getElementById('clock-only-lunar-toggle'), gregorianDateOverlay: document.getElementById('gregorian-date-overlay'), lunarDateOverlay: document.getElementById('lunar-date-overlay'), onlinePhotosBtn: document.getElementById('online-photos-toggle'), clockOnlyWeatherBtn: document.getElementById('clock-only-weather-toggle'), weatherLocationOverlay: document.getElementById('weather-location-overlay'), weatherIconOverlay: document.getElementById('weather-icon-overlay'), weatherTempOverlay: document.getElementById('weather-temp-overlay'), powerSaveBtn: document.getElementById('power-save-toggle') };
         var images = [], currentImageIndex = 0, slideshowInterval = null, currentDateForCalendar = new Date(), lastTime = {};
         var settings = { slideshowHidden: false, shopHidden: false, qrHidden: false, secondsVisible: false, dateHidden: false, calendarHidden: false, weatherHidden: false, clockOnlyMode: false, clockOnlyShowGregorian: false, clockOnlyShowLunar: false, clockOnlyShowWeather: false, useOnlinePhotos: false, powerSaveMode: false };
         
@@ -578,13 +513,12 @@
             els.container.classList.toggle('shop-hidden', settings.shopHidden);
             els.container.classList.toggle('qr-hidden', settings.qrHidden);
             
-            var clockElements = [document.getElementById('digital-clock'), document.getElementById('digital-clock-overlay')];
-            clockElements.forEach(function(clock) {
-                if(clock) clock.classList.toggle('seconds-visible', settings.secondsVisible);
+            [els.clock, els.clockOverlay].forEach(function(c) {
+                c.classList.toggle('seconds-visible', settings.secondsVisible);
             });
-            
-            document.getElementById('main-colon').classList.toggle('colon-blinking', !settings.secondsVisible);
-            document.getElementById('main-colon-overlay').classList.toggle('colon-blinking', !settings.secondsVisible);
+            [els.mainColon, document.getElementById('main-colon-overlay')].forEach(function(c) {
+                c.classList.toggle('colon-blinking', !settings.secondsVisible);
+            });
 
             els.slideshowToggleBtn.textContent = settings.slideshowHidden ? 'Hiện các khối' : 'Ẩn các khối';
             els.onlinePhotosBtn.textContent = settings.useOnlinePhotos ? 'Dùng ảnh cá nhân' : 'Dùng ảnh online';
@@ -646,6 +580,8 @@
         els.guideDialog.addEventListener('click', function(e) { if(e.target === els.guideDialog) { els.guideDialog.classList.remove('show'); } });
         els.backgroundImage.addEventListener('load', function() { this.classList.add('loaded'); });
         els.backgroundImage.onerror = function() { console.warn("Lỗi tải ảnh. Đang thử tải ảnh mới..."); setTimeout(changeImage, 1000); };
+        
+        els.digitalClockWrapper.appendChild(els.clock); // Đặt đồng hồ vào vị trí ban đầu
         
         loadSettings(); updateClock(); updateMainDate(); updateLayout(); loadAutomaticWeather(); fetchAndUpdateRemoteImages(startSlideshow); fetchRemoteConfig();
         
