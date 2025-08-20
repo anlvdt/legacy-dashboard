@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Lato:wght@900&display=swap" rel="stylesheet">
     <style>
+        /* GIÁ TRỊ CỐ ĐỊNH ĐỂ TƯƠNG THÍCH VỚI TRÌNH DUYỆT CŨ (thay thế cho CSS Variables) */
         :root {
             --text-primary: #F5F5F5;
             --text-secondary: #f39c12;
@@ -24,7 +25,7 @@
         
         body {
             background-color: #000;
-            color: var(--text-primary);
+            color: #F5F5F5; /* var(--text-primary) */
             font-family: 'Nunito', sans-serif;
             transition: all 0.5s ease;
         }
@@ -52,6 +53,7 @@
         }
 
         .container { 
+            display: -webkit-flex;
             display: flex; 
             width: 100%; 
             height: 100%; 
@@ -61,37 +63,67 @@
         }
         
         .info-column, .qr-column {
-            flex: 1 1 0;
+            display: -webkit-flex;
             display: flex;
+            -webkit-flex: 1 1 0;
+            flex: 1 1 0;
             height: 100%;
             overflow: hidden;
             transition: all 0.5s ease;
         }
-        .info-column { flex-grow: 1.2; margin-right: 2.5vmin; }
-        .qr-column { flex-grow: 0.8; }
+        .info-column { -webkit-flex-grow: 1.2; flex-grow: 1.2; margin-right: 2.5vmin; }
+        .qr-column { -webkit-flex-grow: 0.8; flex-grow: 0.8; }
 
-        .content-wrapper { display: flex; flex-direction: column; width: 100%; height: 100%; text-align: center; overflow: hidden; }
+        /* === CẬP NHẬT BỐ CỤC CỘT TRÁI === */
+        .content-wrapper { 
+            display: -webkit-flex;
+            display: flex; 
+            -webkit-flex-direction: column;
+            flex-direction: column; 
+            /* Phân bổ không gian đồng đều */
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            width: 100%; 
+            height: 100%; 
+            text-align: center; 
+            overflow: hidden; 
+        }
         
-        .flex-grow-item { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 0; transition: all 0.4s ease; }
-        #digital-clock-wrapper { flex-grow: 1.2; }
-        #date-weather-group { flex-grow: 1; flex-direction: column; justify-content: center; }
-        #calendar-wrapper { flex-grow: 1.5; }
+        .info-block { 
+            display: -webkit-flex;
+            display: flex; 
+            -webkit-flex-direction: column;
+            flex-direction: column; 
+            -webkit-justify-content: center;
+            justify-content: center; 
+            -webkit-align-items: center;
+            align-items: center; 
+            min-height: 0; 
+            transition: all 0.4s ease; 
+        }
+        /* Bỏ flex-grow riêng lẻ để justify-content hoạt động */
+        #digital-clock-wrapper {}
+        #date-weather-group {}
+        #calendar-wrapper {}
+        /* === KẾT THÚC CẬP NHẬT BỐ CỤC === */
 
-        /* === CẬP NHẬT GIAO DIỆN ĐỒNG HỒ === */
         .clock-segment {
-            background: var(--ui-bg);
-            border: var(--ui-border);
-            border-radius: var(--ui-radius);
+            background: rgba(28, 28, 28, 0.45); /* var(--ui-bg) */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* var(--ui-border) */
+            border-radius: 2vmin; /* var(--ui-radius) */
             padding: 0.5vmin 2vmin;
             position: relative;
             box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5);
-            backdrop-filter: blur(var(--ui-blur));
-            -webkit-backdrop-filter: blur(var(--ui-blur));
+            -webkit-backdrop-filter: blur(20px); /* var(--ui-blur) */
+            backdrop-filter: blur(20px);
         }
         
         #digital-clock { 
+            display: -webkit-flex;
             display: flex; 
+            -webkit-justify-content: center;
             justify-content: center; 
+            -webkit-align-items: center;
             align-items: center; 
             width: 100%; 
             line-height: 1; 
@@ -99,31 +131,29 @@
         }
 
         .clock-separator {
-            /* Xóa nền và hiệu ứng của dấu hai chấm */
             background: none;
             border: none;
             box-shadow: none;
-            backdrop-filter: none;
             -webkit-backdrop-filter: none;
+            backdrop-filter: none;
             padding: 0;
-            margin: 0 1.5vmin; /* Tạo khoảng cách giữa các khối số */
+            margin: 0 1.5vmin;
         }
         
         .clock-segment span, .clock-separator { 
             font-family: 'Lato', sans-serif; 
             font-weight: 900; 
-            color: var(--text-primary); 
-            text-shadow: 0 0 1vmin rgba(255,255,255,0.3); /* Thêm hiệu ứng glow nhẹ */
+            color: #F5F5F5; /* var(--text-primary) */
+            text-shadow: 0 0 1vmin rgba(255,255,255,0.3);
             transition: font-size 0.3s ease; 
         }
         .clock-segment span { font-size: 13vmin; letter-spacing: 0.05em; }
         .clock-separator { font-size: 10vmin; }
         
-        .clock-seconds { display: flex; align-items: center; max-width: 0; opacity: 0; overflow: hidden; transition: max-width 0.5s ease, opacity 0.5s ease; }
+        .clock-seconds { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; max-width: 0; opacity: 0; overflow: hidden; transition: max-width 0.5s ease, opacity 0.5s ease; }
         #digital-clock.seconds-visible .clock-segment span { font-size: 8vmin; }
         #digital-clock.seconds-visible .clock-separator { font-size: 7vmin; }
-        #digital-clock.seconds-visible .clock-seconds { max-width: 100%; opacity: 1; } /* Sửa max-width để linh hoạt */
-        /* === KẾT THÚC CẬP NHẬT GIAO DIỆN ĐỒNG HỒ === */
+        #digital-clock.seconds-visible .clock-seconds { max-width: 100%; opacity: 1; }
         
         @-webkit-keyframes blink { 50% { opacity: 0.3; } }
         @keyframes blink { 50% { opacity: 0.3; } }
@@ -144,7 +174,7 @@
         }
         .date-container p { margin: 1vmin 0; }
         #gregorian-date-p { opacity: 0.8; }
-        #lunar-date-p { color: var(--text-secondary); }
+        #lunar-date-p { color: #f39c12; /* var(--text-secondary) */ }
         #lunar-event { color: #e67e22; min-height: 1em; }
         
         #weather-container { 
@@ -156,22 +186,22 @@
             text-shadow: 0 1px 3px rgba(0,0,0,0.5);
             font-size: 4vmin;
         }
-        #weather-container-line2 { display: flex; justify-content: center; align-items: center; }
+        #weather-container-line2 { display: -webkit-flex; display: flex; -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; }
         #weather-container-line2 > span { margin: 0 0.8rem; }
         #weather-icon { font-size: 5vmin; }
-        #weather-location { color: var(--text-weather); margin-bottom: 1vmin; }
+        #weather-location { color: #2980b9; /* var(--text-weather) */ margin-bottom: 1vmin; }
 
         #calendar-container {
-            background: var(--ui-bg);
-            border: var(--ui-border);
+            background: rgba(28, 28, 28, 0.45); /* var(--ui-bg) */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* var(--ui-border) */
             padding: 1.5vmin;
-            border-radius: var(--ui-radius);
+            border-radius: 2vmin; /* var(--ui-radius) */
             width: 100%;
             max-width: 48vmin;
             box-sizing: border-box;
             margin: 0 auto;
-            backdrop-filter: blur(var(--ui-blur));
-            -webkit-backdrop-filter: blur(var(--ui-blur));
+            -webkit-backdrop-filter: blur(20px); /* var(--ui-blur) */
+            backdrop-filter: blur(20px);
         }
         #calendar-header { display: table; width: 100%; }
         .calendar-nav, #calendar-title { display: table-cell; vertical-align: middle; }
@@ -181,83 +211,68 @@
         #calendar-grid::after { content: ""; display: table; clear: both; }
         .calendar-cell { float: left; width: 14.28%; box-sizing: border-box; position: relative; }
         .calendar-cell::before { content: ''; display: block; padding-top: 85%; }
-        .calendar-cell-inner { position: absolute; top: 0.2rem; right: 0.2rem; bottom: 0.2rem; left: 0.2rem; display: flex; flex-direction: column; justify-content: center;}
+        .calendar-cell-inner { position: absolute; top: 0.2rem; right: 0.2rem; bottom: 0.2rem; left: 0.2rem; display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; -webkit-justify-content: center; justify-content: center;}
         .cell-content { text-align: center; padding: 0.2rem 0; }
-        .day-name .cell-content { font-weight: 700; color: var(--text-secondary); font-size: 1.6vmin; }
+        .day-name .cell-content { font-weight: 700; color: #f39c12; /* var(--text-secondary) */ font-size: 1.6vmin; }
         .solar-day { font-size: 1.8vmin; font-weight: 700; display: block; }
-        .lunar-day { font-size: 1.3vmin; display: block; color: var(--text-secondary); opacity: 0.8; }
+        .lunar-day { font-size: 1.3vmin; display: block; color: #f39c12; /* var(--text-secondary) */ opacity: 0.8; }
         .other-month { opacity: 0.3; }
-        .today .calendar-cell-inner { background-color: var(--text-secondary); color: #000; border-radius: 0.8vmin; font-weight: 700; }
+        .today .calendar-cell-inner { background-color: #f39c12; /* var(--text-secondary) */ color: #000; border-radius: 0.8vmin; font-weight: 700; }
         .today .lunar-day { color: #000; }
         
         .qr-column {
-            background: var(--ui-bg);
-            border: var(--ui-border);
-            border-radius: var(--ui-radius);
+            background: rgba(28, 28, 28, 0.45); /* var(--ui-bg) */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* var(--ui-border) */
+            border-radius: 2vmin; /* var(--ui-radius) */
             padding: 2.5vmin;
             box-sizing: border-box;
-            backdrop-filter: blur(var(--ui-blur));
-            -webkit-backdrop-filter: blur(var(--ui-blur));
+            -webkit-backdrop-filter: blur(20px); /* var(--ui-blur) */
+            backdrop-filter: blur(20px);
         }
-        .qr-wrapper { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s ease; }
+        .qr-wrapper { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s ease; }
         .qr-wrapper.loaded { opacity: 1; }
         .qr-code-image { width: 100%; max-width: 300px; height: auto; border-radius: 1vmin; border: 2px solid #fff; margin-bottom: 2vmin; }
         .shop-info { text-align: center; }
-        .shop-name { font-family: 'Oswald', sans-serif; font-size: 3.5vmin; font-weight: 700; color: var(--text-secondary); margin: 0; }
+        .shop-name { font-family: 'Oswald', sans-serif; font-size: 3.5vmin; font-weight: 700; color: #f39c12; /* var(--text-secondary) */ margin: 0; }
         .shop-address { font-size: 2vmin; line-height: 1.4; margin: 1vmin 0 0 0; }
         
-        .hidden-force { transition: opacity 0.4s ease, max-height 0.4s ease, margin 0.4s ease, padding 0.4s ease, flex-basis 0.4s ease; opacity: 0 !important; max-height: 0 !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; border: none !important; flex-grow: 0 !important; flex-basis: 0 !important; }
+        .hidden-force { transition: opacity 0.4s ease, max-height 0.4s ease, margin 0.4s ease, padding 0.4s ease, -webkit-flex-basis 0.4s ease, flex-basis 0.4s ease; opacity: 0 !important; max-height: 0 !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; border: none !important; -webkit-flex-grow: 0 !important; flex-grow: 0 !important; -webkit-flex-basis: 0 !important; flex-basis: 0 !important; }
 
-        .container.shop-hidden .qr-column, .container.slideshow-hidden .info-column, .container.slideshow-hidden .qr-column { flex-grow: 0; flex-basis: 0; margin: 0 !important; border: none !important; padding: 0 !important;}
+        .container.shop-hidden .qr-column, .container.slideshow-hidden .info-column, .container.slideshow-hidden .qr-column { -webkit-flex-grow: 0; flex-grow: 0; -webkit-flex-basis: 0; flex-basis: 0; margin: 0 !important; border: none !important; padding: 0 !important;}
         .container.slideshow-hidden .info-column { margin-right: 0; }
         .container.qr-hidden .qr-code-image { display: none; }
         
-        #clock-only-date-container { 
+        #clock-only-date-container, #clock-only-weather-container {
             position: absolute; 
-            bottom: 5vh; 
             left: 50%;
+            -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
             width: auto;
             padding: 1vmin 3vmin;
             text-align: center; 
-            font-size: 4vmin; 
+            font-weight: 700;
             display: none; 
             z-index: 10; 
-            font-weight: 700;
-            background: var(--ui-bg);
-            border: var(--ui-border);
-            border-radius: var(--ui-radius);
-            backdrop-filter: blur(var(--ui-blur));
-            -webkit-backdrop-filter: blur(var(--ui-blur));
+            background: rgba(28, 28, 28, 0.45); /* var(--ui-bg) */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* var(--ui-border) */
+            border-radius: 2vmin; /* var(--ui-radius) */
+            -webkit-backdrop-filter: blur(20px); /* var(--ui-blur) */
+            backdrop-filter: blur(20px);
         }
-        #clock-only-weather-container {
-            position: absolute;
-            top: 5vh;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 1.5vmin 2.5vmin;
-            font-size: 4.5vmin;
-            z-index: 10;
-            font-weight: 700;
-            background: var(--ui-bg);
-            border: var(--ui-border);
-            border-radius: var(--ui-radius);
-            backdrop-filter: blur(var(--ui-blur));
-            -webkit-backdrop-filter: blur(var(--ui-blur));
-            display: none;
-        }
-        #clock-only-weather-container-line2 { display: flex; align-items: center; justify-content: center; }
+        #clock-only-date-container { bottom: 5vh; font-size: 4vmin; }
+        #clock-only-weather-container { top: 5vh; font-size: 4.5vmin; padding: 1.5vmin 2.5vmin; }
+        #clock-only-weather-container-line2 { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; -webkit-justify-content: center; justify-content: center; }
         #weather-location-overlay { margin-bottom: 1vmin; }
 
         #clock-only-date-container p { margin: 0.5vmin 0; }
         
-        /* === SỬA LỖI VÀ TỐI ƯU CHẾ ĐỘ NHÌN XA === */
         .container.clock-only-mode { padding: 0; }
         .container.clock-only-mode .info-column { margin-right: 0; height: 100vh; width: 100vw; }
-        .container.clock-only-mode .content-wrapper { justify-content: center; }
+        .container.clock-only-mode .content-wrapper { -webkit-justify-content: center; justify-content: center; }
         .container.clock-only-mode #digital-clock-wrapper { 
+            -webkit-flex-grow: 0;
             flex-grow: 0; 
-            width: auto; /* Cho phép khối tự co giãn theo nội dung */
+            width: auto;
         }
         .container.clock-only-mode .qr-column,
         .container.clock-only-mode #date-weather-group,
@@ -269,30 +284,29 @@
         .container.clock-only-mode .clock-separator { font-size: 28vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 25vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-separator { font-size: 20vmin; }
-        /* === KẾT THÚC SỬA LỖI === */
 
         #settings-container { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; }
-        #settings-toggle { cursor: pointer; width: 2.5rem; height: 2.5rem; background: none; border: none; padding: 0; font-size: 2rem; line-height: 1; color: var(--text-primary); transition: transform 0.2s ease; }
+        #settings-toggle { cursor: pointer; width: 2.5rem; height: 2.5rem; background: none; border: none; padding: 0; font-size: 2rem; line-height: 1; color: #F5F5F5; /* var(--text-primary) */ transition: transform 0.2s ease; }
         #settings-toggle:hover { transform: scale(1.1); }
-        #settings-panel { display: block; position: absolute; top: 3.5rem; right: 0; background: rgba(30,30,30,0.8); backdrop-filter: blur(var(--ui-blur)); -webkit-backdrop-filter: blur(var(--ui-blur)); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; padding: 0.7rem; width: 16rem; max-width: 90vw; box-sizing: border-box; opacity: 0; transform: translateY(-10px); pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; }
+        #settings-panel { display: block; position: absolute; top: 3.5rem; right: 0; background: rgba(30,30,30,0.8); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; padding: 0.7rem; width: 16rem; max-width: 90vw; box-sizing: border-box; opacity: 0; transform: translateY(-10px); pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; }
         #settings-panel.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        .settings-btn { display: block; width: 100%; background: rgba(51,51,51,0.8); color: var(--text-primary); border: none; padding: 0.7rem; margin-bottom: 0.4rem; border-radius: 0.3rem; cursor: pointer; font-size: 1rem; text-align: left; transition: all 0.2s ease;}
+        .settings-btn { display: block; width: 100%; background: rgba(51,51,51,0.8); color: #F5F5F5; /* var(--text-primary) */ border: none; padding: 0.7rem; margin-bottom: 0.4rem; border-radius: 0.3rem; cursor: pointer; font-size: 1rem; text-align: left; transition: all 0.2s ease;}
         .settings-btn:hover { background: rgba(68,68,68,0.9); transform: scale(1.02); }
         .settings-btn.sub-option { background-color: rgba(68,68,68,0.7); padding-left: 2rem;}
         .settings-btn.sub-option:hover { background: rgba(85,85,85,0.9); }
         #reset-settings-btn { background-color: #c0392b; }
         
-        .dialog-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; justify-content: center; align-items: center; }
-        .dialog-overlay.show { display: flex; }
-        .dialog-box { background: rgba(30,30,30,0.8); backdrop-filter: blur(var(--ui-blur)); -webkit-backdrop-filter: blur(var(--ui-blur)); border: 1px solid rgba(255,255,255,0.2); padding: 2rem; border-radius: 2vmin; text-align: left; max-width: 500px; width: 90%; }
-        .dialog-box h3 { margin-top: 0; color: var(--text-secondary); }
+        .dialog-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; }
+        .dialog-overlay.show { display: -webkit-flex; display: flex; }
+        .dialog-box { background: rgba(30,30,30,0.8); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); padding: 2rem; border-radius: 2vmin; text-align: left; max-width: 500px; width: 90%; }
+        .dialog-box h3 { margin-top: 0; color: #f39c12; /* var(--text-secondary) */ }
         .dialog-box ul { padding-left: 20px; } .dialog-box li { margin-bottom: 10px; }
 
         @media (max-width: 800px) {
-            .container { flex-direction: column; }
-            .info-column, .qr-column { width: 100%; flex-basis: auto; margin-right: 0; }
+            .container { -webkit-flex-direction: column; flex-direction: column; }
+            .info-column, .qr-column { width: 100%; -webkit-flex-basis: auto; flex-basis: auto; margin-right: 0; }
             .info-column { height: 60%; }
-            .qr-column { height: 40%; display: flex; background: none; border: none; backdrop-filter: none; -webkit-backdrop-filter: none;}
+            .qr-column { height: 40%; display: -webkit-flex; display: flex; background: none; border: none; -webkit-backdrop-filter: none; backdrop-filter: none;}
             .shop-name { font-size: 2.5rem; } .shop-address { font-size: 1.5rem; }
             
             .clock-segment span { font-size: 20vw; }
@@ -326,7 +340,7 @@
     <div class="container" id="main-container">
         <div class="info-column" id="info-column">
             <div class="content-wrapper">
-                <div id="digital-clock-wrapper" class="flex-grow-item">
+                <div id="digital-clock-wrapper" class="info-block">
                     <div id="digital-clock">
                         <div class="clock-segment"><span id="clock-hours">00</span></div><div id="main-colon" class="clock-separator">:</div><div class="clock-segment"><span id="clock-minutes">00</span></div>
                         <div class="clock-seconds">
@@ -334,7 +348,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="date-weather-group" class="flex-grow-item">
+                <div id="date-weather-group" class="info-block">
                     <div id="date-container" class="date-container"><p id="gregorian-date-p"></p><p id="lunar-date-p"></p><p id="lunar-event"></p></div>
                     <div id="weather-container">
                         <div id="weather-location"></div>
@@ -345,7 +359,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="calendar-wrapper" class="flex-grow-item">
+                <div id="calendar-wrapper" class="info-block">
                      <div id="calendar-container">
                         <div id="calendar-header"><div class="calendar-nav" id="prev-btn">&lt;</div><div id="calendar-title"></div><div class="calendar-nav" id="next-btn">&gt;</div></div>
                         <div id="calendar-grid"></div>
@@ -380,36 +394,25 @@
     <div id="settings-container">
         <button id="settings-toggle" aria-label="Mở hoặc đóng bảng cài đặt"><span>&#9776;</span></button>
         <div id="settings-panel">
-            <!-- Nhóm 1: Chế độ hiển thị chính -->
             <button class="settings-btn" id="power-save-toggle">Tiết kiệm điện</button>
             <button class="settings-btn" id="clock-only-toggle">Chế độ nhìn xa</button>
             <hr style="border-color: #444; margin: 10px 0;">
-            
-            <!-- Nhóm 2: Tùy chọn cho Chế độ nhìn xa -->
             <button class="settings-btn sub-option" id="clock-only-gregorian-toggle">Hiện Dương lịch</button>
             <button class="settings-btn sub-option" id="clock-only-lunar-toggle">Hiện Âm lịch</button>
             <button class="settings-btn sub-option" id="clock-only-weather-toggle">Hiện Thời tiết</button>
             <hr style="border-color: #444; margin: 10px 0;">
-            
-            <!-- Nhóm 3: Ẩn/Hiện các thành phần giao diện -->
+            <button class="settings-btn" id="fullscreen-toggle">Toàn màn hình</button><hr style="border-color: #444; margin: 10px 0;">
+            <button class="settings-btn" id="online-photos-toggle">Dùng ảnh online</button>
             <button class="settings-btn" id="slideshow-toggle">Ẩn các khối</button>
             <button class="settings-btn" id="shop-toggle-btn">Ẩn Shop</button>
             <button class="settings-btn" id="qr-toggle-btn">Ẩn Mã QR</button>
             <button class="settings-btn" id="seconds-toggle">Hiện giây</button>
             <button class="settings-btn" id="date-toggle">Ẩn Ngày tháng</button>
             <button class="settings-btn" id="calendar-toggle">Ẩn Lịch</button>
-            <button class="settings-btn" id="weather-toggle">Ẩn Thời tiết</button>
-            <hr style="border-color: #444; margin: 10px 0;">
-
-            <!-- Nhóm 4: Tác vụ & Hướng dẫn -->
-            <button class="settings-btn" id="fullscreen-toggle">Toàn màn hình</button>
-            <button class="settings-btn" id="online-photos-toggle">Dùng ảnh online</button>
+            <button class="settings-btn" id="weather-toggle">Ẩn Thời tiết</button><hr style="border-color: #444; margin: 10px 0;">
             <button class="settings-btn" id="refresh-photos-btn">Ảnh mới ngay</button>
             <button class="settings-btn" id="photo-guide-btn">HD: Cập nhật ảnh</button>
-            <button class="settings-btn" id="always-on-guide-btn">HD: Giữ màn hình bật</button>
-            <hr style="border-color: #444; margin: 10px 0;">
-            
-            <!-- Nhóm 5: Đặt lại -->
+            <button class="settings-btn" id="always-on-guide-btn">HD: Giữ màn hình bật</button><hr style="border-color: #444; margin: 10px 0;">
             <button class="settings-btn" id="reset-settings-btn">Đặt lại Cài đặt</button>
         </div>
     </div>
