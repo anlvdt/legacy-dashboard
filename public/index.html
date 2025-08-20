@@ -233,6 +233,7 @@
     /**
      * THUẬT TOÁN ÂM LỊCH TÍCH HỢP, ĐỘC LẬP VÀ TƯƠNG THÍCH TRÌNH DUYỆT CŨ
      * Logic được chuyển đổi từ amlich.js của trongthanh sang cú pháp ES5.
+     * Đã sửa lỗi logic tính toán ngày và tháng nhuận.
      */
     var LUNAR_TIMEZONE = 7;
     var PI = Math.PI;
@@ -293,12 +294,12 @@
         return nm;
     }
 
-    function getLeapMonthOffset(a11, timezone) {
+    function getLeapMonthOffset(k_a11, timezone) {
         var last = 0, i = 1, diff;
         while (i < 14) {
-            diff = getSunLongitude(getNewMoonDay(a11 + i, timezone), timezone) - last;
-            if (diff < 1) { return i - 1; }
-            last = getSunLongitude(getNewMoonDay(a11 + i, timezone), timezone);
+            diff = getSunLongitude(getNewMoonDay(k_a11 + i, timezone), timezone) - last;
+            if (diff < 1) { return i; }
+            last = getSunLongitude(getNewMoonDay(k_a11 + i, timezone), timezone);
             i++;
         }
         return 0;
@@ -312,8 +313,6 @@
         while (nm < jd) {
             nm = getNewMoonDay(++k, timezone);
         }
-        
-        // SỬA LỖI: Lùi lại một bước để lấy ngày Sóc của tháng Âm lịch HIỆN TẠI.
         nm = getNewMoonDay(--k, timezone);
 
         var lunarDay = INT(jd - nm + 1);
@@ -322,21 +321,23 @@
             a11 = getLunarMonth11(yy - 1, timezone);
         }
         
-        var leap = getLeapMonthOffset(k, timezone);
+        var k_a11 = INT((a11 - 2415021.076998695) / 29.530588861);
+        var leap = getLeapMonthOffset(k_a11, timezone);
         var monthOffset = Math.round((nm - a11) / 29.530588861);
-        var lunarMonth = (monthOffset + 11) % 12;
-
-        if (lunarMonth === 0) lunarMonth = 12;
-        var lunarYear = yy - INT((12.5 - lunarMonth) / 12);
-
-        var isLeap = (leap !== 0 && monthOffset >= leap);
-        if (isLeap) {
-            lunarMonth = monthOffset - leap + 1;
+        
+        var isLeap = (leap !== 0 && monthOffset === leap);
+        
+        if (leap !== 0 && monthOffset > leap) {
+            monthOffset--;
         }
+
+        var lunarMonth = (monthOffset + 11) % 12;
+        if (lunarMonth === 0) lunarMonth = 12;
+        
+        var lunarYear = yy - INT((12.5 - lunarMonth) / 12);
 
         return { lunarDay: lunarDay, lunarMonth: lunarMonth, lunarYear: lunarYear, isLeap: isLeap };
     }
-
 
     function getCan(num) { return CAN[num % 10]; }
     function getChi(num) { return CHI[num % 12]; }
