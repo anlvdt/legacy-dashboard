@@ -12,7 +12,7 @@
             --text-primary: #F5F5F5;
             --text-secondary: #f39c12;
             --text-weather: #2980b9;
-            --ui-blur: 12px;
+            --ui-blur: 20px; /* Tăng độ mờ */
             --ui-radius: 2vmin;
             --ui-bg: rgba(28, 28, 28, 0.45);
             --ui-border: 1px solid rgba(255, 255, 255, 0.1);
@@ -104,7 +104,7 @@
 
         .date-container { 
             font-size: 3.2vmin; 
-            margin-bottom: 3vmin; 
+            margin-bottom: 2vmin; 
             font-weight: 700;
             padding: 1vmin 2vmin;
             background: rgba(0,0,0,0.3);
@@ -125,9 +125,10 @@
             background: rgba(0,0,0,0.3);
             border-radius: 1.5vmin;
             text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            font-size: 4vmin; /* Tăng kích thước thời tiết */
         }
-        #weather-container > span { margin: 0 0.5rem; }
-        #weather-icon { font-size: 4vmin; }
+        #weather-container > span { margin: 0 0.8rem; }
+        #weather-icon { font-size: 5vmin; }
         #weather-location { color: var(--text-weather); }
 
         #calendar-container {
@@ -199,6 +200,22 @@
             backdrop-filter: blur(var(--ui-blur));
             -webkit-backdrop-filter: blur(var(--ui-blur));
         }
+        #clock-only-weather-container {
+            position: absolute;
+            top: 3vh;
+            left: 2.5vmin;
+            padding: 1.5vmin 2.5vmin;
+            font-size: 4.5vmin; /* Tăng kích thước thời tiết */
+            display: none;
+            z-index: 10;
+            font-weight: 700;
+            background: var(--ui-bg);
+            border: var(--ui-border);
+            border-radius: var(--ui-radius);
+            backdrop-filter: blur(var(--ui-blur));
+            -webkit-backdrop-filter: blur(var(--ui-blur));
+            display: none;
+        }
         #clock-only-date-container p { margin: 0.5vmin 0; }
         .container.clock-only-mode { padding: 0; }
         .container.clock-only-mode .info-column { margin-right: 0; }
@@ -207,6 +224,7 @@
         .container.clock-only-mode #calendar-wrapper,
         .container.clock-only-mode #settings-container { display: none; }
         .container.clock-only-mode.show-dates #clock-only-date-container { display: block; }
+        .container.clock-only-mode.show-weather #clock-only-weather-container { display: flex; align-items: center; }
         .container.clock-only-mode .clock-segment span { font-size: 35vmin; }
         .container.clock-only-mode .clock-separator { font-size: 28vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 25vmin; }
@@ -241,9 +259,9 @@
             .clock-separator { font-size: 18vw; }
             #digital-clock.seconds-visible .clock-separator { font-size: 13vw; }
             
-            .date-container, #weather-container { font-size: 1.6rem; }
+            .date-container, #weather-container { font-size: 1.8rem; }
             #calendar-container { font-size: 1.2rem; max-width: 90%; }
-            #clock-only-date-container { font-size: 5vw; }
+            #clock-only-date-container, #clock-only-weather-container { font-size: 5vw; }
             .container.clock-only-mode .info-column { height: 100%; }
             .container.clock-only-mode .clock-segment span { font-size: 38vw; }
             .container.clock-only-mode .clock-separator { font-size: 30vw; }
@@ -296,6 +314,11 @@
             <p id="gregorian-date-overlay"></p>
             <p id="lunar-date-overlay" style="color: #f39c12;"></p>
         </div>
+        <div id="clock-only-weather-container">
+            <span id="weather-location-overlay"></span>&nbsp;
+            <span id="weather-icon-overlay"></span>&nbsp;
+            <span id="weather-temp-overlay"></span>
+        </div>
     </div>
     
     <div id="settings-container">
@@ -304,6 +327,7 @@
             <button class="settings-btn" id="clock-only-toggle">Chế độ Đồng hồ</button>
             <button class="settings-btn sub-option" id="clock-only-gregorian-toggle">Hiện Dương lịch</button>
             <button class="settings-btn sub-option" id="clock-only-lunar-toggle">Hiện Âm lịch</button>
+            <button class="settings-btn sub-option" id="clock-only-weather-toggle">Hiện Thời tiết</button>
             <hr style="border-color: #444; margin: 10px 0;">
             <button class="settings-btn" id="fullscreen-toggle">Toàn màn hình</button><hr style="border-color: #444; margin: 10px 0;">
             <button class="settings-btn" id="online-photos-toggle">Dùng ảnh online</button>
@@ -339,9 +363,9 @@
         var REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
         var REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
 
-        var els = { container: document.getElementById('main-container'), infoColumn: document.getElementById('info-column'), clock: document.getElementById('digital-clock'), mainColon: document.getElementById('main-colon'), dateWeatherGroup: document.getElementById('date-weather-group'), calendarWrapper: document.getElementById('calendar-wrapper'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), backgroundImage: document.getElementById('background-image'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), shopToggleBtn: document.getElementById('shop-toggle-btn'), qrToggleBtn: document.getElementById('qr-toggle-btn'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), fullscreenBtn: document.getElementById('fullscreen-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), refreshPhotosBtn: document.getElementById('refresh-photos-btn'), photoGuideBtn: document.getElementById('photo-guide-btn'), alwaysOnGuideBtn: document.getElementById('always-on-guide-btn'), guideDialog: document.getElementById('guide-dialog'), guideTitle: document.getElementById('guide-title'), guideContent: document.getElementById('guide-content'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), clockOnlyGregorianBtn: document.getElementById('clock-only-gregorian-toggle'), clockOnlyLunarBtn: document.getElementById('clock-only-lunar-toggle'), gregorianDateOverlay: document.getElementById('gregorian-date-overlay'), lunarDateOverlay: document.getElementById('lunar-date-overlay'), onlinePhotosBtn: document.getElementById('online-photos-toggle') };
+        var els = { container: document.getElementById('main-container'), infoColumn: document.getElementById('info-column'), clock: document.getElementById('digital-clock'), mainColon: document.getElementById('main-colon'), dateWeatherGroup: document.getElementById('date-weather-group'), calendarWrapper: document.getElementById('calendar-wrapper'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), backgroundImage: document.getElementById('background-image'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), shopToggleBtn: document.getElementById('shop-toggle-btn'), qrToggleBtn: document.getElementById('qr-toggle-btn'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), fullscreenBtn: document.getElementById('fullscreen-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), refreshPhotosBtn: document.getElementById('refresh-photos-btn'), photoGuideBtn: document.getElementById('photo-guide-btn'), alwaysOnGuideBtn: document.getElementById('always-on-guide-btn'), guideDialog: document.getElementById('guide-dialog'), guideTitle: document.getElementById('guide-title'), guideContent: document.getElementById('guide-content'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), clockOnlyGregorianBtn: document.getElementById('clock-only-gregorian-toggle'), clockOnlyLunarBtn: document.getElementById('clock-only-lunar-toggle'), gregorianDateOverlay: document.getElementById('gregorian-date-overlay'), lunarDateOverlay: document.getElementById('lunar-date-overlay'), onlinePhotosBtn: document.getElementById('online-photos-toggle'), clockOnlyWeatherBtn: document.getElementById('clock-only-weather-toggle'), weatherLocationOverlay: document.getElementById('weather-location-overlay'), weatherIconOverlay: document.getElementById('weather-icon-overlay'), weatherTempOverlay: document.getElementById('weather-temp-overlay') };
         var images = [], currentImageIndex = 0, slideshowInterval = null, currentDateForCalendar = new Date(), lastTime = {};
-        var settings = { slideshowHidden: false, shopHidden: false, qrHidden: false, secondsVisible: false, dateHidden: false, calendarHidden: false, weatherHidden: false, clockOnlyMode: false, clockOnlyShowGregorian: false, clockOnlyShowLunar: false, useOnlinePhotos: false };
+        var settings = { slideshowHidden: false, shopHidden: false, qrHidden: false, secondsVisible: false, dateHidden: false, calendarHidden: false, weatherHidden: false, clockOnlyMode: false, clockOnlyShowGregorian: false, clockOnlyShowLunar: false, clockOnlyShowWeather: false, useOnlinePhotos: false };
         
         function updateClock() { var now = new Date(); var h = ('0' + now.getHours()).slice(-2); var m = ('0' + now.getMinutes()).slice(-2); var s = ('0' + now.getSeconds()).slice(-2); if (lastTime.h !== h) { document.getElementById('clock-hours').textContent = h; lastTime.h = h; } if (lastTime.m !== m) { document.getElementById('clock-minutes').textContent = m; lastTime.m = m; } if (settings.secondsVisible) { document.getElementById('clock-seconds').textContent = s; } }
         function updateMainDate() { var now = new Date(); var dayOfWeek = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; var gregorianText = dayOfWeek[now.getDay()] + ', ngày ' + now.getDate() + ' tháng ' + (now.getMonth() + 1) + ' năm ' + now.getFullYear(); var lunar = solarToLunar(now.getDate(), now.getMonth() + 1, now.getFullYear()); var lunarText = 'Âm lịch: ' + lunar.dayCanChi + ', ngày ' + lunar.day + ' ' + lunar.monthName; document.getElementById('gregorian-date-p').innerText = gregorianText; document.getElementById('lunar-date-p').innerText = lunarText; els.gregorianDateOverlay.innerText = gregorianText; els.lunarDateOverlay.innerText = lunarText; var eventText = ""; var daysInMonth = getLunarMonthDays(lunar.lunarYear, lunar.lunarMonth); if (lunar.day === 1) eventText = "Mồng 1"; else if (lunar.day === 15) eventText = "Ngày Rằm"; else if (lunar.day === 16) eventText = "Ngày 16"; else if (lunar.day === daysInMonth) eventText = "Ngày cuối tháng"; document.getElementById('lunar-event').innerText = eventText; }
@@ -365,10 +389,15 @@
                     }
                     var current = weatherData.current_condition[0];
                     var info = getWeatherInfoFromWttr(current.weatherCode);
+                    
                     els.weatherLocation.textContent = city;
                     els.weatherIcon.textContent = info.i;
                     els.weatherTemp.textContent = current.temp_C + "°C";
                     els.weatherDesc.textContent = info.d;
+
+                    els.weatherLocationOverlay.textContent = city;
+                    els.weatherIconOverlay.textContent = info.i;
+                    els.weatherTempOverlay.textContent = current.temp_C + "°C";
                 });
             });
         }
@@ -401,7 +430,7 @@
                         els.backgroundImage.src='';
                     } else {
                         images = data;
-                        currentImageIndex = -1;
+                        currentImageIndex = -1; 
                         changeImage();
                     }
                     if(callback) callback();
@@ -425,7 +454,7 @@
 
         function startSlideshow() { 
             if(slideshowInterval) clearInterval(slideshowInterval);
-            slideshowInterval = setInterval(changeImage, 8000);
+            slideshowInterval = setInterval(changeImage, 12000); // Tăng thời gian hiển thị ảnh
         }
         
         function saveSettings() { try { localStorage.setItem('dashboardSettings', JSON.stringify(settings)); } catch (e) { console.error("Không thể lưu cài đặt:", e); } }
@@ -435,10 +464,14 @@
             if (settings.slideshowHidden) els.container.classList.add('slideshow-hidden');
             if (settings.shopHidden) els.container.classList.add('shop-hidden');
             if (settings.qrHidden) els.container.classList.add('qr-hidden');
-            if (settings.clockOnlyMode) els.container.classList.add('clock-only-mode');
-
-            if (settings.clockOnlyMode && (settings.clockOnlyShowGregorian || settings.clockOnlyShowLunar)) {
-                els.container.classList.add('show-dates');
+            if (settings.clockOnlyMode) {
+                els.container.classList.add('clock-only-mode');
+                if (settings.clockOnlyShowGregorian || settings.clockOnlyShowLunar) {
+                    els.container.classList.add('show-dates');
+                }
+                if (settings.clockOnlyShowWeather) {
+                    els.container.classList.add('show-weather');
+                }
             }
             
             els.gregorianDateOverlay.style.display = settings.clockOnlyShowGregorian ? 'block' : 'none';
@@ -464,6 +497,7 @@
             els.clockOnlyToggleBtn.textContent = settings.clockOnlyMode ? 'Thoát CĐ Đồng hồ' : 'Chế độ Đồng hồ';
             els.clockOnlyGregorianBtn.textContent = settings.clockOnlyShowGregorian ? 'Tắt Dương lịch' : 'Bật Dương lịch';
             els.clockOnlyLunarBtn.textContent = settings.clockOnlyShowLunar ? 'Tắt Âm lịch' : 'Bật Âm lịch';
+            els.clockOnlyWeatherBtn.textContent = settings.clockOnlyShowWeather ? 'Tắt Thời tiết' : 'Bật Thời tiết';
         }
         
         function loadSettings() { try { var savedSettings = localStorage.getItem('dashboardSettings'); if (savedSettings) { settings = Object.assign(settings, JSON.parse(savedSettings)); } } catch (e) { console.error("Không thể tải cài đặt:", e); } applySettings(); }
@@ -480,7 +514,7 @@
         els.resetSettingsBtn.addEventListener('click', function() { if (confirm('Bạn có chắc muốn đặt lại tất cả cài đặt?')) { localStorage.removeItem('dashboardSettings'); window.location.reload(); } });
         els.fullscreenBtn.addEventListener('click', function() { var docElm = document.documentElement; if (docElm.requestFullscreen) { if (!document.fullscreenElement) { docElm.requestFullscreen(); } else { document.exitFullscreen(); } } else if (docElm.webkitRequestFullscreen) { if (!document.webkitFullscreenElement) { docElm.webkitRequestFullscreen(); } else { document.webkitExitFullscreen(); } } });
         
-        var toggleButtons = { slideshowToggleBtn: 'slideshowHidden', shopToggleBtn: 'shopHidden', qrToggleBtn: 'qrHidden', dateToggleBtn: 'dateHidden', calendarToggleBtn: 'calendarHidden', weatherToggleBtn: 'weatherHidden', secondsBtn: 'secondsVisible', clockOnlyToggleBtn: 'clockOnlyMode', clockOnlyGregorianBtn: 'clockOnlyShowGregorian', clockOnlyLunarBtn: 'clockOnlyShowLunar', onlinePhotosBtn: 'useOnlinePhotos' };
+        var toggleButtons = { slideshowToggleBtn: 'slideshowHidden', shopToggleBtn: 'shopHidden', qrToggleBtn: 'qrHidden', dateToggleBtn: 'dateHidden', calendarToggleBtn: 'calendarHidden', weatherToggleBtn: 'weatherHidden', secondsBtn: 'secondsVisible', clockOnlyToggleBtn: 'clockOnlyMode', clockOnlyGregorianBtn: 'clockOnlyShowGregorian', clockOnlyLunarBtn: 'clockOnlyShowLunar', onlinePhotosBtn: 'useOnlinePhotos', clockOnlyWeatherBtn: 'clockOnlyShowWeather' };
         for (var btnId in toggleButtons) { (function(id, settingKey) { if(els[id]) { els[id].addEventListener('click', function() { settings[settingKey] = !settings[settingKey]; saveSettings(); applySettings(); if(settingKey === 'useOnlinePhotos'){ if(slideshowInterval) clearInterval(slideshowInterval); fetchAndUpdateRemoteImages(startSlideshow); } }); } })(btnId, toggleButtons[btnId]); }
 
         els.refreshPhotosBtn.addEventListener('click', function() {
