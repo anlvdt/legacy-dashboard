@@ -12,7 +12,7 @@
             --text-primary: #F5F5F5;
             --text-secondary: #f39c12;
             --text-weather: #2980b9;
-            --ui-blur: 20px; /* Tăng độ mờ */
+            --ui-blur: 20px;
             --ui-radius: 2vmin;
             --ui-bg: rgba(28, 28, 28, 0.45);
             --ui-border: 1px solid rgba(255, 255, 255, 0.1);
@@ -117,19 +117,18 @@
         #lunar-event { color: #e67e22; min-height: 1em; }
         
         #weather-container { 
-            display:flex; 
-            justify-content: center; 
-            align-items: center; 
+            display: block; /* Sửa thành block để xuống dòng */
             font-weight: 700; 
             padding: 1.5vmin 2vmin;
             background: rgba(0,0,0,0.3);
             border-radius: 1.5vmin;
             text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-            font-size: 4vmin; /* Tăng kích thước thời tiết */
+            font-size: 4vmin;
         }
-        #weather-container > span { margin: 0 0.8rem; }
+        #weather-container-line2 { display: flex; justify-content: center; align-items: center; }
+        #weather-container-line2 > span { margin: 0 0.8rem; }
         #weather-icon { font-size: 5vmin; }
-        #weather-location { color: var(--text-weather); }
+        #weather-location { color: var(--text-weather); margin-bottom: 1vmin; }
 
         #calendar-container {
             background: var(--ui-bg);
@@ -205,8 +204,7 @@
             top: 3vh;
             left: 2.5vmin;
             padding: 1.5vmin 2.5vmin;
-            font-size: 4.5vmin; /* Tăng kích thước thời tiết */
-            display: none;
+            font-size: 4.5vmin;
             z-index: 10;
             font-weight: 700;
             background: var(--ui-bg);
@@ -214,8 +212,11 @@
             border-radius: var(--ui-radius);
             backdrop-filter: blur(var(--ui-blur));
             -webkit-backdrop-filter: blur(var(--ui-blur));
-            display: none;
+            display: none; /* Sẽ được bật bằng class */
         }
+        #clock-only-weather-container-line2 { display: flex; align-items: center; justify-content: center; }
+        #weather-location-overlay { margin-bottom: 1vmin; }
+
         #clock-only-date-container p { margin: 0.5vmin 0; }
         .container.clock-only-mode { padding: 0; }
         .container.clock-only-mode .info-column { margin-right: 0; }
@@ -224,7 +225,7 @@
         .container.clock-only-mode #calendar-wrapper,
         .container.clock-only-mode #settings-container { display: none; }
         .container.clock-only-mode.show-dates #clock-only-date-container { display: block; }
-        .container.clock-only-mode.show-weather #clock-only-weather-container { display: flex; align-items: center; }
+        .container.clock-only-mode.show-weather #clock-only-weather-container { display: block; text-align: center; }
         .container.clock-only-mode .clock-segment span { font-size: 35vmin; }
         .container.clock-only-mode .clock-separator { font-size: 28vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 25vmin; }
@@ -287,8 +288,13 @@
                 </div>
                 <div id="date-weather-group" class="flex-grow-item">
                     <div id="date-container" class="date-container"><p id="gregorian-date-p"></p><p id="lunar-date-p"></p><p id="lunar-event"></p></div>
-                    <div id="weather-container" class="weather-container">
-                        <span id="weather-location"></span><span id="weather-icon"></span><span id="weather-temp"></span><span id="weather-desc">Đang tải thời tiết...</span>
+                    <div id="weather-container">
+                        <div id="weather-location"></div>
+                        <div id="weather-container-line2">
+                            <span id="weather-icon"></span>
+                            <span id="weather-temp"></span>
+                            <span id="weather-desc">Đang tải thời tiết...</span>
+                        </div>
                     </div>
                 </div>
                 <div id="calendar-wrapper" class="flex-grow-item">
@@ -315,9 +321,11 @@
             <p id="lunar-date-overlay" style="color: #f39c12;"></p>
         </div>
         <div id="clock-only-weather-container">
-            <span id="weather-location-overlay"></span>&nbsp;
-            <span id="weather-icon-overlay"></span>&nbsp;
-            <span id="weather-temp-overlay"></span>
+             <div id="weather-location-overlay"></div>
+             <div id="clock-only-weather-container-line2">
+                <span id="weather-icon-overlay"></span>&nbsp;
+                <span id="weather-temp-overlay"></span>
+             </div>
         </div>
     </div>
     
@@ -454,7 +462,7 @@
 
         function startSlideshow() { 
             if(slideshowInterval) clearInterval(slideshowInterval);
-            slideshowInterval = setInterval(changeImage, 12000); // Tăng thời gian hiển thị ảnh
+            slideshowInterval = setInterval(changeImage, 12000);
         }
         
         function saveSettings() { try { localStorage.setItem('dashboardSettings', JSON.stringify(settings)); } catch (e) { console.error("Không thể lưu cài đặt:", e); } }
@@ -511,6 +519,12 @@
         els.nextBtn.addEventListener('click', function() { currentDateForCalendar.setMonth(currentDateForCalendar.getMonth() + 1); renderCalendar(); });
         window.addEventListener('resize', function() { setTimeout(updateLayout, 200); });
         els.settingsToggle.addEventListener('click', function() { els.settingsPanel.classList.toggle('show'); });
+        document.addEventListener('click', function(e) {
+            if (!els.settingsPanel.contains(e.target) && !els.settingsToggle.contains(e.target) && els.settingsPanel.classList.contains('show')) {
+                els.settingsPanel.classList.remove('show');
+            }
+        });
+        
         els.resetSettingsBtn.addEventListener('click', function() { if (confirm('Bạn có chắc muốn đặt lại tất cả cài đặt?')) { localStorage.removeItem('dashboardSettings'); window.location.reload(); } });
         els.fullscreenBtn.addEventListener('click', function() { var docElm = document.documentElement; if (docElm.requestFullscreen) { if (!document.fullscreenElement) { docElm.requestFullscreen(); } else { document.exitFullscreen(); } } else if (docElm.webkitRequestFullscreen) { if (!document.webkitFullscreenElement) { docElm.webkitRequestFullscreen(); } else { document.webkitExitFullscreen(); } } });
         
