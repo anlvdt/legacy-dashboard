@@ -77,6 +77,7 @@
         #date-weather-group { flex-grow: 1; flex-direction: column; justify-content: center; }
         #calendar-wrapper { flex-grow: 1.5; }
 
+        /* === CẬP NHẬT GIAO DIỆN ĐỒNG HỒ === */
         .clock-segment {
             background: var(--ui-bg);
             border: var(--ui-border);
@@ -84,7 +85,6 @@
             padding: 0.5vmin 2vmin;
             position: relative;
             box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5);
-            margin: 0 0.5vmin;
             backdrop-filter: blur(var(--ui-blur));
             -webkit-backdrop-filter: blur(var(--ui-blur));
         }
@@ -95,16 +95,35 @@
             align-items: center; 
             width: 100%; 
             line-height: 1; 
-            white-space: nowrap; /* SỬA LỖI: Ngăn các phần của đồng hồ xuống dòng */
+            white-space: nowrap; 
         }
-        .clock-segment span, .clock-separator { font-family: 'Lato', sans-serif; font-weight: 900; color: var(--text-primary); text-shadow: 0 0 1vmin rgba(255,255,255,0.2); transition: font-size 0.3s ease; }
+
+        .clock-separator {
+            /* Xóa nền và hiệu ứng của dấu hai chấm */
+            background: none;
+            border: none;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            padding: 0;
+            margin: 0 1.5vmin; /* Tạo khoảng cách giữa các khối số */
+        }
+        
+        .clock-segment span, .clock-separator { 
+            font-family: 'Lato', sans-serif; 
+            font-weight: 900; 
+            color: var(--text-primary); 
+            text-shadow: 0 0 1vmin rgba(255,255,255,0.3); /* Thêm hiệu ứng glow nhẹ */
+            transition: font-size 0.3s ease; 
+        }
         .clock-segment span { font-size: 13vmin; letter-spacing: 0.05em; }
         .clock-separator { font-size: 10vmin; }
         
         .clock-seconds { display: flex; align-items: center; max-width: 0; opacity: 0; overflow: hidden; transition: max-width 0.5s ease, opacity 0.5s ease; }
         #digital-clock.seconds-visible .clock-segment span { font-size: 8vmin; }
         #digital-clock.seconds-visible .clock-separator { font-size: 7vmin; }
-        #digital-clock.seconds-visible .clock-seconds { max-width: 30vmin; opacity: 1; }
+        #digital-clock.seconds-visible .clock-seconds { max-width: 100%; opacity: 1; } /* Sửa max-width để linh hoạt */
+        /* === KẾT THÚC CẬP NHẬT GIAO DIỆN ĐỒNG HỒ === */
         
         @-webkit-keyframes blink { 50% { opacity: 0.3; } }
         @keyframes blink { 50% { opacity: 0.3; } }
@@ -232,13 +251,13 @@
 
         #clock-only-date-container p { margin: 0.5vmin 0; }
         
-        /* Chế độ nhìn xa (Clock Only Mode) */
+        /* === SỬA LỖI VÀ TỐI ƯU CHẾ ĐỘ NHÌN XA === */
         .container.clock-only-mode { padding: 0; }
         .container.clock-only-mode .info-column { margin-right: 0; height: 100vh; width: 100vw; }
         .container.clock-only-mode .content-wrapper { justify-content: center; }
         .container.clock-only-mode #digital-clock-wrapper { 
             flex-grow: 0; 
-            width: auto; /* SỬA LỖI: Cho phép khối co giãn theo nội dung */
+            width: auto; /* Cho phép khối tự co giãn theo nội dung */
         }
         .container.clock-only-mode .qr-column,
         .container.clock-only-mode #date-weather-group,
@@ -250,6 +269,7 @@
         .container.clock-only-mode .clock-separator { font-size: 28vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 25vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-separator { font-size: 20vmin; }
+        /* === KẾT THÚC SỬA LỖI === */
 
         #settings-container { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; }
         #settings-toggle { cursor: pointer; width: 2.5rem; height: 2.5rem; background: none; border: none; padding: 0; font-size: 2rem; line-height: 1; color: var(--text-primary); transition: transform 0.2s ease; }
