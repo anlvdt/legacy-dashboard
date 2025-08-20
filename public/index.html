@@ -328,7 +328,11 @@
              </div>
         </div>
         <div id="digital-clock-overlay">
+            <div class="clock-segment"><span id="clock-hours-overlay">00</span></div><div id="main-colon-overlay" class="clock-separator">:</div><div class="clock-segment"><span id="clock-minutes-overlay">00</span></div>
+            <div class="clock-seconds">
+                <div class="clock-separator">:</div><div class="clock-segment"><span id="clock-seconds-overlay">00</span></div>
             </div>
+        </div>
         <div id="clock-only-date-container">
             <p id="gregorian-date-overlay"></p>
             <p id="lunar-date-overlay" style="color: #f39c12;"></p>
@@ -392,69 +396,75 @@
     
     <script>
     // ----- THUẬT TOÁN ÂM LỊCH MỚI, CHÍNH XÁC CHO VIỆT NAM (UTC+7) -----
-    function solarToLunar(solarDay, solarMonth, solarYear) {
-        const jdn = (solarDay, solarMonth, solarYear) => {
-            const a = Math.floor((14 - solarMonth) / 12);
-            const y = solarYear + 4800 - a;
-            const m = solarMonth + 12 * a - 3;
-            return solarDay + Math.floor((153 * m + 2) / 5) + 365 * y + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400) - 32045;
+    function solarToLunar(dd, mm, yy) {
+        var LichAm = function() {
+            var el = this;
+            el.jdFromDate = function(d, m, y) {
+                var a = Math.floor((14 - m) / 12);
+                var y1 = y + 4800 - a;
+                var m1 = m + 12 * a - 3;
+                var jdn = d + Math.floor((153 * m1 + 2) / 5) + 365 * y1 + Math.floor(y1 / 4) - Math.floor(y1 / 100) + Math.floor(y1 / 400) - 32045;
+                return jdn;
+            };
+            el.jdToDate = function(jdn) {
+                var a = jdn + 32044;
+                var b = Math.floor((4 * a + 3) / 146097);
+                var c = a - Math.floor((146097 * b) / 4);
+                var d = Math.floor((4 * c + 3) / 1461);
+                var e = c - Math.floor((1461 * d) / 4);
+                var m = Math.floor((5 * e + 2) / 153);
+                var day = e - Math.floor((153 * m + 2) / 5) + 1;
+                var month = m + 3 - 12 * Math.floor(m / 10);
+                var year = 100 * b + d - 4800 + Math.floor(m / 10);
+                return [day, month, year];
+            };
+            el.getNewMoonDay = function(k, timeZone) {
+                var T = k / 1236.85, T2 = T * T, T3 = T * T2;
+                var jdn = 2415020.75933 + 29.53058868 * k + 0.0001178 * T2 - 0.000000155 * T3;
+                jdn += 0.00033 * Math.sin((166.56 + 132.87 * T - 0.009173 * T2) * (Math.PI / 180));
+                return Math.round(jdn - 0.5) + (timeZone / 24.0);
+            };
+            el.getSunLongitude = function(jdn, timeZone) {
+                var T = (jdn - 2415020.5 - timeZone / 24) / 36525;
+                var L = (279.69668 + 36000.76892 * T + 0.0003025 * T * T) % 360;
+                return L;
+            };
+            el.getLeapMonthOffset = function(jdn, timeZone) {
+                var k = Math.floor((jdn - 2415020.5 - timeZone / 24) / 29.53058868) + 1;
+                var a11 = el.getSunLongitude(el.getNewMoonDay(k, timeZone), timeZone);
+                return Math.floor(a11 / 30);
+            };
+            el.convert = function(d, m, y) {
+                var timeZone = 7;
+                var jd = el.jdFromDate(d, m, y);
+                var k = Math.floor((jd - 2415020.5) / 29.53058868);
+                var nm = el.getNewMoonDay(k, timeZone);
+                if (nm > jd) nm = el.getNewMoonDay(k - 1, timeZone);
+                var lunarDay = jd - nm + 1;
+                var lunarYear = el.jdToDate(nm)[2];
+                var offset = el.getLeapMonthOffset(jd, timeZone);
+                var lunarMonth = offset + 1;
+                var isLeap = false;
+                if (offset >= el.jdToDate(nm)[1]) lunarMonth = offset;
+                var diff = (jd - 1 - 2415020.5) / 365.2422;
+                lunarYear = 1900 + Math.floor(diff);
+                var startOfYear = el.jdFromDate(1, 1, lunarYear);
+                k = Math.floor((startOfYear - 2415020.5) / 29.53058868);
+                var startYearOffset = el.getLeapMonthOffset(startOfYear, timeZone);
+                if (startYearOffset < el.getLeapMonthOffset(el.jdFromDate(31, 12, lunarYear), timeZone)) {
+                    var leapMonth = el.getLeapMonthOffset(jd, timeZone);
+                    if (lunarMonth > leapMonth) lunarMonth--; else if (lunarMonth === leapMonth) isLeap = true;
+                }
+                var CAN = ["Canh", "Tân", "Nhâm", "Quý", "Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ"];
+                var CHI = ["Thân", "Dậu", "Tuất", "Hợi", "Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi"];
+                var dayCanChi = CAN[(jd + 9) % 10] + " " + CHI[(jd + 1) % 12];
+                return { day: lunarDay, month: lunarMonth, year: lunarYear, isLeap: isLeap, dayCanChi: dayCanChi };
+            };
         };
-        const jdnToDate = (jdn) => {
-            const f = jdn + 1401 + Math.floor((Math.floor((4 * jdn + 274277) / 146097) * 3) / 4) - 38;
-            const e = 4 * f + 3;
-            const g = Math.floor((e % 1461) / 4);
-            const h = 5 * g + 2;
-            const day = Math.floor((h % 153) / 5) + 1;
-            const month = (Math.floor(h / 153) + 2) % 12 + 1;
-            const year = Math.floor(e / 1461) - 4716 + Math.floor((14 - month) / 12);
-            return [day, month, year];
-        };
-        const newMoon = (k) => {
-            const T = k / 1236.85;
-            const T2 = T * T;
-            const T3 = T * T2;
-            let jdn = 2415020.75933 + 29.53058868 * k + 0.0001178 * T2 - 0.000000155 * T3;
-            jdn += 0.00033 * Math.sin((166.56 + 132.87 * T - 0.009173 * T2) * Math.PI / 180);
-            return jdn;
-        };
-        const getSunLongitude = (jdn) => {
-            const T = (jdn - 2415020) / 36525;
-            const L = (279.69668 + 36000.76892 * T + 0.0003025 * T * T) % 360;
-            return L;
-        };
-        const getLeapMonthOffset = (jdn, timeZone) => {
-            const a11 = getSunLongitude(newMoon(Math.floor((jdn - 2415020.5 - timeZone / 24) / 29.53058868) + 1));
-            return Math.floor(a11 / 30);
-        };
-        const getNewMoonDay = (k, timeZone) => Math.round(newMoon(k) - 0.5) + timeZone;
-
-        const timeZone = 7;
-        const jd = jdn(solarDay, solarMonth, solarYear) - Math.floor(timeZone / 24);
-        let k = Math.floor((jd - 2415020.5) / 29.53058868);
-        let nm = getNewMoonDay(k, timeZone);
-        if (nm > jd) nm = getNewMoonDay(k - 1, timeZone);
-        
-        let lunarDay = jd - nm + 1;
-        let diff = Math.floor((jd - 1 - 2415020.5) / 365.2422);
-        let lunarYear = 1900 + diff;
-        let offset = getLeapMonthOffset(jd, timeZone);
-        let lunarMonth = offset + 1;
-        if (offset >= jdnToDate(nm)[1]) lunarMonth = offset;
-        
-        let yearData = getLeapMonthOffset(jdn(1, 1, lunarYear), timeZone);
-        if (yearData < getLeapMonthOffset(jdn(1, 12, lunarYear), timeZone)) {
-            let leapMonth = getLeapMonthOffset(jdn(1, 1, lunarYear + 1), timeZone);
-            if (lunarMonth > leapMonth) lunarMonth -= 1;
-            if (lunarMonth === leapMonth) return { day: lunarDay, lunarMonth: leapMonth, isLeap: true, lunarYear };
-        }
-        
-        const CAN = ["Canh", "Tân", "Nhâm", "Quý", "Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ"];
-        const CHI = ["Thân", "Dậu", "Tuất", "Hợi", "Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi"];
-        const dayCanChi = CAN[(jd + 9) % 10] + " " + CHI[(jd + 1) % 12];
-
-        return { day: lunarDay, lunarMonth: lunarMonth, isLeap: false, lunarYear, dayCanChi };
+        var lc = new LichAm().convert(dd, mm, yy);
+        return { day: lc.day, lunarMonth: lc.month, lunarYear: lc.year, isLeap: lc.isLeap, dayCanChi: lc.dayCanChi };
     }
-
+    
     document.addEventListener("DOMContentLoaded", function() {
         var REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
         var REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
@@ -463,7 +473,7 @@
         var images = [], currentImageIndex = 0, slideshowInterval = null, currentDateForCalendar = new Date(), lastTime = {};
         var settings = { slideshowHidden: false, shopHidden: false, qrHidden: false, secondsVisible: false, dateHidden: false, calendarHidden: false, weatherHidden: false, clockOnlyMode: false, clockOnlyShowGregorian: false, clockOnlyShowLunar: false, clockOnlyShowWeather: false, useOnlinePhotos: false, powerSaveMode: false };
         
-        function updateClock() { var now = new Date(); var h = ('0' + now.getHours()).slice(-2); var m = ('0' + now.getMinutes()).slice(-2); var s = ('0' + now.getSeconds()).slice(-2); if (lastTime.h !== h) { document.getElementById('clock-hours').textContent = h; lastTime.h = h; } if (lastTime.m !== m) { document.getElementById('clock-minutes').textContent = m; lastTime.m = m; } if (settings.secondsVisible) { document.getElementById('clock-seconds').textContent = s; } }
+        function updateClock() { var now = new Date(); var h = ('0' + now.getHours()).slice(-2); var m = ('0' + now.getMinutes()).slice(-2); var s = ('0' + now.getSeconds()).slice(-2); if (lastTime.h !== h) { document.getElementById('clock-hours').textContent = h; document.getElementById('clock-hours-overlay').textContent = h; lastTime.h = h; } if (lastTime.m !== m) { document.getElementById('clock-minutes').textContent = m; document.getElementById('clock-minutes-overlay').textContent = m; lastTime.m = m; } if (settings.secondsVisible) { document.getElementById('clock-seconds').textContent = s; document.getElementById('clock-seconds-overlay').textContent = s; } }
         function updateMainDate() { var now = new Date(); var dayOfWeek = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; var gregorianText = dayOfWeek[now.getDay()] + ', ngày ' + now.getDate() + ' tháng ' + (now.getMonth() + 1) + ' năm ' + now.getFullYear(); var lunar = solarToLunar(now.getDate(), now.getMonth() + 1, now.getFullYear()); var lunarText = 'Âm lịch: ' + lunar.dayCanChi + ', ngày ' + lunar.day + ' tháng ' + lunar.lunarMonth + (lunar.isLeap ? " (Nhuận)" : ""); document.getElementById('gregorian-date-p').innerText = gregorianText; document.getElementById('lunar-date-p').innerText = lunarText; els.gregorianDateOverlay.innerText = gregorianText; els.lunarDateOverlay.innerText = lunarText; var eventText = ""; if (lunar.day === 1) eventText = "Mồng 1"; else if (lunar.day === 15) eventText = "Ngày Rằm"; document.getElementById('lunar-event').innerText = eventText; }
         function makeRequest(url, callback) { var xhr = new XMLHttpRequest(); xhr.onreadystatechange = function() { if (xhr.readyState === 4) { if (xhr.status >= 200 && xhr.status < 300) { try { callback(null, JSON.parse(xhr.responseText)); } catch(e) { callback(e, null); } } else { callback(new Error('Yêu cầu mạng thất bại: ' + xhr.status), null); } } }; xhr.open('GET', url, true); xhr.send(); }
         
@@ -558,22 +568,24 @@
         function applySettings() {
             document.body.classList.toggle('power-save-mode', settings.powerSaveMode);
             document.body.classList.toggle('clock-only-mode', settings.clockOnlyMode);
-            
+
             if (settings.clockOnlyMode) {
-                els.clockOnlyOverlay.classList.toggle('show-dates', settings.clockOnlyShowGregorian || settings.clockOnlyShowLunar);
-                els.clockOnlyOverlay.classList.toggle('show-weather', settings.clockOnlyShowWeather);
+                document.body.classList.toggle('show-dates', settings.clockOnlyShowGregorian || settings.clockOnlyShowLunar);
+                document.body.classList.toggle('show-weather', settings.clockOnlyShowWeather);
             }
             
             els.container.classList.toggle('slideshow-hidden', settings.slideshowHidden);
             els.container.classList.toggle('shop-hidden', settings.shopHidden);
             els.container.classList.toggle('qr-hidden', settings.qrHidden);
             
-            var clockParent = document.querySelector('.seconds-visible');
-            if (clockParent) clockParent.classList.remove('seconds-visible');
-            (settings.clockOnlyMode ? els.clockOnlyOverlay.querySelector('#digital-clock-overlay') : els.clock).classList.toggle('seconds-visible', settings.secondsVisible);
-
-            els.mainColon.classList.toggle('colon-blinking', !settings.secondsVisible);
+            var clockElements = [document.getElementById('digital-clock'), document.getElementById('digital-clock-overlay')];
+            clockElements.forEach(function(clock) {
+                if(clock) clock.classList.toggle('seconds-visible', settings.secondsVisible);
+            });
             
+            document.getElementById('main-colon').classList.toggle('colon-blinking', !settings.secondsVisible);
+            document.getElementById('main-colon-overlay').classList.toggle('colon-blinking', !settings.secondsVisible);
+
             els.slideshowToggleBtn.textContent = settings.slideshowHidden ? 'Hiện các khối' : 'Ẩn các khối';
             els.onlinePhotosBtn.textContent = settings.useOnlinePhotos ? 'Dùng ảnh cá nhân' : 'Dùng ảnh online';
             els.powerSaveBtn.textContent = settings.powerSaveMode ? 'Tắt Tiết kiệm điện' : 'Bật Tiết kiệm điện';
@@ -635,9 +647,6 @@
         els.backgroundImage.addEventListener('load', function() { this.classList.add('loaded'); });
         els.backgroundImage.onerror = function() { console.warn("Lỗi tải ảnh. Đang thử tải ảnh mới..."); setTimeout(changeImage, 1000); };
         
-        els.digitalClockWrapper.appendChild(els.clock); // Đặt đồng hồ vào vị trí ban đầu
-        document.getElementById('digital-clock-overlay').innerHTML = els.clock.innerHTML; // Sao chép cấu trúc HTML
-
         loadSettings(); updateClock(); updateMainDate(); updateLayout(); loadAutomaticWeather(); fetchAndUpdateRemoteImages(startSlideshow); fetchRemoteConfig();
         
         setInterval(updateClock, 1000); 
