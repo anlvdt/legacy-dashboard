@@ -231,97 +231,52 @@
     </div>
     
     <script>
-    // BƯỚC 1: TOÀN BỘ THUẬT TOÁN ĐƯỢC CHUYỂN SANG ES5 VÀ TÍCH HỢP TẠI ĐÂY
-    var _calendar = {};
-    (function(exports){
-        // Nội dung của amlich.js đã được chuyển đổi sang ES5
-        // (Đây là một phiên bản rút gọn để minh họa, phiên bản đầy đủ sẽ dài hơn)
-        var CAN = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
-        var CHI = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
+    /**
+     * THUẬT TOÁN ÂM LỊCH TÍCH HỢP, ĐỘC LẬP VÀ TƯƠNG THÍCH TRÌNH DUYỆT CŨ
+     */
+    function solarToLunar(dd, mm, yy) {
+        var LUNAR_CALENDAR_DATA=[48568,47024,41392,39381,38336,37296,44436,43360,40224,39282,37232,41458,41392,38288,44341,43264,40192,39218,37168,41365,41360,38256,42341,41280,39200,44243,43184,40144,39125,37072,38995,41360,38240,43253,41200,39168,44211,43168,40112,39093,37040,38963,41344,38224,43237,41184,39152,44195,43152,40096,39085,37024,38947,41328,38208,43221,41168,39136,42182,43136,40080,39061,37008,38931,41312,38192,43205,41152,39120,44163,43120,40064,39050,36992,38915,41296,38176,43189,41136,39104,44147,43104,40048,39032,38448,38900,41280,38160,43173,41120,39088,44131,43088,40032,38997,36944,38899,41280,38144,43157,41104,39072,44051,43056,40016,38981,36928,38883,41264,38128,43141,41088,39056,44035,43040,39984,38965,36912,38867,41248,38112,43125,41072,39040,44019,42992,39968,38954,36900,38848,41232,38096,43109,41056,39024,43955,42976,39952,38941,36880,38832,41216,38080,43093,41040,38992,43939,42960,39936,38922,36864,38816,41200,38064,43077,41024,38976,43923,42944,39920,38910,36848,38800,41184,38048,43061,41008,38960,43907,42928,39904,38890,36832,38784,41168,38032,43045,40992,38944,43891,42912,39888,38872,38224,38768,41152,38016,43029,40976,38928,43875,42896,39872,38862,36816,38752,41136,38000,43013,40960,38912,43859,42880,39856,38845,36800,38736,41120,37984,42997,40944,38896,43843,42864,39840,38827,36784,38720,41104,37968,42981,40928,38880,43827,42848,39824,38811,36768,38704,41088,37952,42965,40912,38864,43811,42832,39808,38795,36752,38688,41072,37936,42949,40896,38848];
+        var CAN=["Canh","Tân","Nhâm","Quý","Giáp","Ất","Bính","Đinh","Mậu","Kỷ"];
+        var CHI=["Thân","Dậu","Tuất","Hợi","Tý","Sửu","Dần","Mão","Thìn","Tỵ","Ngọ","Mùi"];
+
+        function getLeapMonth(y) { return LUNAR_CALENDAR_DATA[y-1900]&15; }
+        function getLeapMonthDays(y) { return (LUNAR_CALENDAR_DATA[y-1900]&65536)?30:29; }
+        function getLunarMonthDays(y,m) { return (LUNAR_CALENDAR_DATA[y-1900]&(65536>>m))?30:29; }
+        function getLunarYearDays(y) { var i,sum=348; for(i=32768;i>8;i>>=1){sum+=(LUNAR_CALENDAR_DATA[y-1900]&i)?1:0;} return sum+getLeapMonthDays(y); }
+        function jdFromDate(d,m,y) { var a=Math.floor((14-m)/12); var Y=y+4800-a; var M=m+12*a-3; return d+Math.floor((153*M+2)/5)+365*Y+Math.floor(Y/4)-Math.floor(Y/100)+Math.floor(Y/400)-32045; }
+
+        if(yy<1900||yy>2100) return {};
         
-        // ... (Toàn bộ dữ liệu và logic từ amlich.js được chuyển đổi sang ES5 ở đây) ...
-        // Do giới hạn độ dài, tôi sẽ chỉ đưa vào hàm solarToLunar cuối cùng.
-        // Mã nguồn đầy đủ sẽ rất dài, nhưng logic chính là như sau:
-        // 1. Chuyển đổi các Class thành Function Constructor
-        // 2. Chuyển các phương thức của Class thành các phương thức prototype
-        // 3. Thay thế const/let bằng var
-    
-        // HÀM solarToLunar CUỐI CÙNG, ĐỘC LẬP VÀ CHÍNH XÁC
-        function solarToLunar(dd, mm, yy) {
-            var LUNAR_CALENDAR_DATA = [48568,47024,41392,39381,38336,37296,44436,43360,40224,39282,37232,41458,41392,38288,44341,43264,40192,39218,37168,41365,41360,38256,42341,41280,39200,44243,43184,40144,39125,37072,38995,41360,38240,43253,41200,39168,44211,43168,40112,39093,37040,38963,41344,38224,43237,41184,39152,44195,43152,40096,39085,37024,38947,41328,38208,43221,41168,39136,42182,43136,40080,39061,37008,38931,41312,38192,43205,41152,39120,44163,43120,40064,39050,36992,38915,41296,38176,43189,41136,39104,44147,43104,40048,39032,38448,38900,41280,38160,43173,41120,39088,44131,43088,40032,38997,36944,38899,41280,38144,43157,41104,39072,44051,43056,40016,38981,36928,38883,41264,38128,43141,41088,39056,44035,43040,39984,38965,36912,38867,41248,38112,43125,41072,39040,44019,42992,39968,38954,36900,38848,41232,38096,43109,41056,39024,43955,42976,39952,38941,36880,38832,41216,38080,43093,41040,38992,43939,42960,39936,38922,36864,38816,41200,38064,43077,41024,38976,43923,42944,39920,38910,36848,38800,41184,38048,43061,41008,38960,43907,42928,39904,38890,36832,38784,41168,38032,43045,40992,38944,43891,42912,39888,38872,38224,38768,41152,38016,43029,40976,38928,43875,42896,39872,38862,36816,38752,41136,38000,43013,40960,38912,43859,42880,39856,38845,36800,38736,41120,37984,42997,40944,38896,43843,42864,39840,38827,36784,38720,41104,37968,42981,40928,38880,43827,42848,39824,38811,36768,38704,41088,37952,42965,40912,38864,43811,42832,39808,38795,36752,38688,41072,37936,42949,40896,38848];
-            var CAN = ["Canh", "Tân", "Nhâm", "Quý", "Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ"];
-            var CHI = ["Thân", "Dậu", "Tuất", "Hợi", "Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi"];
+        var jd=jdFromDate(dd,mm,yy);
+        var offset=(new Date(yy,mm-1,dd)-new Date(1900,0,31))/86400000;
+        
+        var lunarYear, daysInYear;
+        for(lunarYear=1900;lunarYear<2101&&offset>=0;lunarYear++){ daysInYear=getLunarYearDays(lunarYear); offset-=daysInYear; }
+        if(offset<0){ offset+=daysInYear; lunarYear--; }
 
-            function getLeapMonth(y) { return LUNAR_CALENDAR_DATA[y - 1900] & 15; }
-            function getLeapMonthDays(y) { return (LUNAR_CALENDAR_DATA[y - 1900] & 65536) ? 30 : 29; }
-            function getLunarMonthDays(y, m) { return (LUNAR_CALENDAR_DATA[y - 1900] & (65536 >> m)) ? 30 : 29; }
-            function getLunarYearDays(y) {
-                var i, sum = 348;
-                for (i = 32768; i > 8; i >>= 1) {
-                    sum += (LUNAR_CALENDAR_DATA[y - 1900] & i) ? 1 : 0;
-                }
-                return sum + getLeapMonthDays(y);
+        var leapMonth=getLeapMonth(lunarYear);
+        var isLeap=false;
+        
+        var lunarMonth, daysInMonth;
+        for(lunarMonth=1;lunarMonth<13&&offset>=0;lunarMonth++){
+            if(leapMonth>0&&lunarMonth===(leapMonth+1)&&!isLeap){
+                --lunarMonth; isLeap=true; daysInMonth=getLeapMonthDays(lunarYear);
+            } else {
+                daysInMonth=getLunarMonthDays(lunarYear,lunarMonth);
             }
-            function jdFromDate(d, m, y) {
-                var a = Math.floor((14 - m) / 12);
-                var Y = y + 4800 - a;
-                var M = m + 12 * a - 3;
-                return d + Math.floor((153 * M + 2) / 5) + 365 * Y + Math.floor(Y / 4) - Math.floor(Y / 100) + Math.floor(Y / 400) - 32045;
-            }
-
-            if (yy < 1900 || yy > 2100) return {};
-            
-            var jd = jdFromDate(dd, mm, yy);
-            var offset = (new Date(yy, mm - 1, dd) - new Date(1900, 0, 31)) / 86400000;
-            
-            var lunarYear, daysInYear;
-            for (lunarYear = 1900; lunarYear < 2101 && offset >= 0; lunarYear++) {
-                daysInYear = getLunarYearDays(lunarYear);
-                offset -= daysInYear;
-            }
-            if (offset < 0) {
-                offset += daysInYear;
-                lunarYear--;
-            }
-
-            var leapMonth = getLeapMonth(lunarYear);
-            var isLeap = false;
-            
-            var lunarMonth, daysInMonth;
-            for (lunarMonth = 1; lunarMonth < 13 && offset >= 0; lunarMonth++) {
-                if (leapMonth > 0 && lunarMonth === (leapMonth + 1) && !isLeap) {
-                    --lunarMonth;
-                    isLeap = true;
-                    daysInMonth = getLeapMonthDays(lunarYear);
-                } else {
-                    daysInMonth = getLunarMonthDays(lunarYear, lunarMonth);
-                }
-                offset -= daysInMonth;
-                if (isLeap && lunarMonth === (leapMonth + 1)) isLeap = false;
-            }
-            if (offset < 0) {
-                offset += daysInMonth;
-                lunarMonth--;
-            }
-            
-            var lunarDay = Math.floor(offset + 1);
-            var dayCanChi = CAN[(jd + 9) % 10] + " " + CHI[(jd + 1) % 12];
-            var yearCanChi = CAN[(lunarYear - 4) % 10] + " " + CHI[(lunarYear - 4) % 12];
-            var monthName = "tháng " + lunarMonth + (isLeap ? " nhuận" : "");
-            
-            return {
-                day: lunarDay,
-                lunarMonth: lunarMonth,
-                lunarYear: lunarYear,
-                isLeap: isLeap,
-                dayCanChi: dayCanChi,
-                monthName: monthName,
-                yearName: yearCanChi
-            };
+            offset-=daysInMonth;
+            if(isLeap&&lunarMonth===(leapMonth+1)) isLeap=false;
         }
-    }(_calendar));
+        if(offset<0){ offset+=daysInMonth; lunarMonth--; }
+        
+        var lunarDay=Math.floor(offset+1);
+        var dayCanChi=CAN[(jd+9)%10]+" "+CHI[(jd+1)%12];
+        var yearCanChi=CAN[(lunarYear-4)%10]+" "+CHI[(lunarYear-4)%12];
+        var monthName="tháng "+lunarMonth+(isLeap?" nhuận":"");
+        
+        return {day:lunarDay,lunarMonth:lunarMonth,lunarYear:lunarYear,isLeap:isLeap,dayCanChi:dayCanChi,monthName:monthName,yearName:yearCanChi};
+    }
 
-    // KHÔI PHỤC document.addEventListener("DOMContentLoaded") để đảm bảo script chạy đúng lúc
     document.addEventListener("DOMContentLoaded", function() {
         var REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
         var REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
