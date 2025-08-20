@@ -8,184 +8,45 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Lato:wght@900&display=swap" rel="stylesheet">
     <style>
-        /* GIÁ TRỊ CỐ ĐỊNH ĐỂ TƯƠNG THÍCH VỚI TRÌNH DUYỆT CŨ (thay thế cho CSS Variables) */
+        /* CSS không thay đổi */
         html { font-size: 1.5vmin; }
         @media (max-width: 480px) { html { font-size: 10px; } }
         html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
-        
-        body {
-            background-color: #000;
-            color: #F5F5F5;
-            font-family: 'Nunito', sans-serif;
-            transition: all 0.5s ease;
-        }
-
-        #background-container {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            transition: opacity 0.5s ease;
-        }
-        
-        body.power-save-mode #background-container {
-            opacity: 0;
-        }
-
-        #background-image {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: opacity 1.5s ease-in-out;
-            opacity: 0;
-        }
-        #background-image.loaded {
-            opacity: 1;
-        }
-
-        .container { 
-            display: -webkit-flex;
-            display: flex; 
-            width: 100%; 
-            height: 100%; 
-            position: relative;
-            padding: 2.5vmin;
-            box-sizing: border-box;
-        }
-        
-        .info-column, .qr-column {
-            display: -webkit-flex;
-            display: flex;
-            -webkit-flex: 1 1 0;
-            flex: 1 1 0;
-            height: 100%;
-            overflow: hidden;
-            transition: all 0.5s ease;
-        }
+        body { background-color: #000; color: #F5F5F5; font-family: 'Nunito', sans-serif; transition: all 0.5s ease; }
+        #background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; transition: opacity 0.5s ease; }
+        body.power-save-mode #background-container { opacity: 0; }
+        #background-image { width: 100%; height: 100%; object-fit: cover; transition: opacity 1.5s ease-in-out; opacity: 0; }
+        #background-image.loaded { opacity: 1; }
+        .container { display: -webkit-flex; display: flex; width: 100%; height: 100%; position: relative; padding: 2.5vmin; box-sizing: border-box; }
+        .info-column, .qr-column { display: -webkit-flex; display: flex; -webkit-flex: 1 1 0; flex: 1 1 0; height: 100%; overflow: hidden; transition: all 0.5s ease; }
         .info-column { -webkit-flex-grow: 1.2; flex-grow: 1.2; margin-right: 2.5vmin; }
         .qr-column { -webkit-flex-grow: 0.8; flex-grow: 0.8; }
-
-        .content-wrapper { 
-            display: -webkit-flex;
-            display: flex; 
-            -webkit-flex-direction: column;
-            flex-direction: column; 
-            -webkit-justify-content: space-between;
-            justify-content: space-between;
-            width: 100%; 
-            height: 100%; 
-            text-align: center; 
-            overflow: hidden; 
-        }
-        
-        .info-block { 
-            display: -webkit-flex;
-            display: flex; 
-            -webkit-flex-direction: column;
-            flex-direction: column; 
-            -webkit-justify-content: center;
-            justify-content: center; 
-            -webkit-align-items: center;
-            align-items: center; 
-            min-height: 0; 
-            transition: all 0.4s ease; 
-        }
-
-        .clock-segment {
-            background: rgba(28, 28, 28, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 2vmin;
-            padding: 0.5vmin 2vmin;
-            position: relative;
-            box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5);
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-        }
-        
-        #digital-clock { 
-            display: -webkit-flex;
-            display: flex; 
-            -webkit-justify-content: center;
-            justify-content: center; 
-            -webkit-align-items: center;
-            align-items: center; 
-            width: 100%; 
-            line-height: 1; 
-            white-space: nowrap; 
-        }
-
-        .clock-separator {
-            background: none;
-            border: none;
-            box-shadow: none;
-            -webkit-backdrop-filter: none;
-            backdrop-filter: none;
-            padding: 0;
-            margin: 0 1.5vmin;
-        }
-        
-        .clock-segment span, .clock-separator { 
-            font-family: 'Lato', sans-serif; 
-            font-weight: 900; 
-            color: #F5F5F5;
-            text-shadow: 0 0 1vmin rgba(255,255,255,0.3);
-            transition: font-size 0.3s ease; 
-        }
+        .content-wrapper { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; -webkit-justify-content: space-between; justify-content: space-between; width: 100%; height: 100%; text-align: center; overflow: hidden; }
+        .info-block { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; min-height: 0; transition: all 0.4s ease; }
+        .clock-segment { background: rgba(28, 28, 28, 0.45); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 2vmin; padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+        #digital-clock { display: -webkit-flex; display: flex; -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; width: 100%; line-height: 1; white-space: nowrap; }
+        .clock-separator { background: none; border: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding: 0; margin: 0 1.5vmin; }
+        .clock-segment span, .clock-separator { font-family: 'Lato', sans-serif; font-weight: 900; color: #F5F5F5; text-shadow: 0 0 1vmin rgba(255,255,255,0.3); transition: font-size 0.3s ease; }
         .clock-segment span { font-size: 13vmin; letter-spacing: 0.05em; }
         .clock-separator { font-size: 10vmin; }
-        
         .clock-seconds { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; max-width: 0; opacity: 0; overflow: hidden; transition: max-width 0.5s ease, opacity 0.5s ease; }
         #digital-clock.seconds-visible .clock-segment span { font-size: 8vmin; }
         #digital-clock.seconds-visible .clock-separator { font-size: 7vmin; }
         #digital-clock.seconds-visible .clock-seconds { max-width: 100%; opacity: 1; }
-        
         @-webkit-keyframes blink { 50% { opacity: 0.3; } }
         @keyframes blink { 50% { opacity: 0.3; } }
-        
-        .colon-blinking {
-            -webkit-animation: blink 1s step-end infinite;
-            animation: blink 1s step-end infinite;
-        }
-
-        .date-container { 
-            font-size: 3.2vmin; 
-            margin-bottom: 2vmin; 
-            font-weight: 700;
-            padding: 1vmin 2vmin;
-            background: rgba(0,0,0,0.3);
-            border-radius: 1.5vmin;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-        }
+        .colon-blinking { -webkit-animation: blink 1s step-end infinite; animation: blink 1s step-end infinite; }
+        .date-container { font-size: 3.2vmin; margin-bottom: 2vmin; font-weight: 700; padding: 1vmin 2vmin; background: rgba(0,0,0,0.3); border-radius: 1.5vmin; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
         .date-container p { margin: 1vmin 0; }
         #gregorian-date-p { opacity: 0.8; }
         #lunar-date-p { color: #f39c12; }
         #lunar-event { color: #e67e22; min-height: 1em; }
-        
-        #weather-container { 
-            display: block;
-            font-weight: 700; 
-            padding: 1.5vmin 2vmin;
-            background: rgba(0,0,0,0.3);
-            border-radius: 1.5vmin;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-            font-size: 4vmin;
-        }
+        #weather-container { display: block; font-weight: 700; padding: 1.5vmin 2vmin; background: rgba(0,0,0,0.3); border-radius: 1.5vmin; text-shadow: 0 1px 3px rgba(0,0,0,0.5); font-size: 4vmin; }
         #weather-container-line2 { display: -webkit-flex; display: flex; -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; }
         #weather-container-line2 > span { margin: 0 0.8rem; }
         #weather-icon { font-size: 5vmin; }
         #weather-location { color: #2980b9; margin-bottom: 1vmin; }
-
-        #calendar-container {
-            background: rgba(28, 28, 28, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1.5vmin;
-            border-radius: 2vmin;
-            width: 100%;
-            max-width: 48vmin;
-            box-sizing: border-box;
-            margin: 0 auto;
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-        }
+        #calendar-container { background: rgba(28, 28, 28, 0.45); border: 1px solid rgba(255, 255, 255, 0.1); padding: 1.5vmin; border-radius: 2vmin; width: 100%; max-width: 48vmin; box-sizing: border-box; margin: 0 auto; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
         #calendar-header { display: table; width: 100%; }
         .calendar-nav, #calendar-title { display: table-cell; vertical-align: middle; }
         #calendar-title { width: 70%; font-size: 2vmin; font-weight: 700; }
@@ -202,61 +63,27 @@
         .other-month { opacity: 0.3; }
         .today .calendar-cell-inner { background-color: #f39c12; color: #000; border-radius: 0.8vmin; font-weight: 700; }
         .today .lunar-day { color: #000; }
-        
-        .qr-column {
-            background: rgba(28, 28, 28, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 2vmin;
-            padding: 2.5vmin;
-            box-sizing: border-box;
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-        }
+        .qr-column { background: rgba(28, 28, 28, 0.45); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 2vmin; padding: 2.5vmin; box-sizing: border-box; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
         .qr-wrapper { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s ease; }
         .qr-wrapper.loaded { opacity: 1; }
         .qr-code-image { width: 100%; max-width: 300px; height: auto; border-radius: 1vmin; border: 2px solid #fff; margin-bottom: 2vmin; }
         .shop-info { text-align: center; }
         .shop-name { font-family: 'Oswald', sans-serif; font-size: 3.5vmin; font-weight: 700; color: #f39c12; margin: 0; }
         .shop-address { font-size: 2vmin; line-height: 1.4; margin: 1vmin 0 0 0; }
-        
         .hidden-force { transition: opacity 0.4s ease, max-height 0.4s ease, margin 0.4s ease, padding 0.4s ease, -webkit-flex-basis 0.4s ease, flex-basis 0.4s ease; opacity: 0 !important; max-height: 0 !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; border: none !important; -webkit-flex-grow: 0 !important; flex-grow: 0 !important; -webkit-flex-basis: 0 !important; flex-basis: 0 !important; }
-
         .container.shop-hidden .qr-column, .container.slideshow-hidden .info-column, .container.slideshow-hidden .qr-column { -webkit-flex-grow: 0; flex-grow: 0; -webkit-flex-basis: 0; flex-basis: 0; margin: 0 !important; border: none !important; padding: 0 !important;}
         .container.slideshow-hidden .info-column { margin-right: 0; }
         .container.qr-hidden .qr-code-image { display: none; }
-        
-        #clock-only-date-container, #clock-only-weather-container {
-            position: absolute; 
-            left: 50%;
-            -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
-            width: auto;
-            padding: 1vmin 3vmin;
-            text-align: center; 
-            font-weight: 700;
-            display: none; 
-            z-index: 10; 
-            background: rgba(28, 28, 28, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 2vmin;
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-        }
+        #clock-only-date-container, #clock-only-weather-container { position: absolute; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); width: auto; padding: 1vmin 3vmin; text-align: center; font-weight: 700; display: none; z-index: 10; background: rgba(28, 28, 28, 0.45); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 2vmin; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
         #clock-only-date-container { bottom: 5vh; font-size: 4vmin; }
         #clock-only-weather-container { top: 5vh; font-size: 4.5vmin; padding: 1.5vmin 2.5vmin; }
         #clock-only-weather-container-line2 { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; -webkit-justify-content: center; justify-content: center; }
         #weather-location-overlay { margin-bottom: 1vmin; }
-
         #clock-only-date-container p { margin: 0.5vmin 0; }
-        
         .container.clock-only-mode { padding: 0; }
         .container.clock-only-mode .info-column { margin-right: 0; height: 100vh; width: 100vw; }
         .container.clock-only-mode .content-wrapper { -webkit-justify-content: center; justify-content: center; }
-        .container.clock-only-mode #digital-clock-wrapper { 
-            -webkit-flex-grow: 0;
-            flex-grow: 0; 
-            width: auto;
-        }
+        .container.clock-only-mode #digital-clock-wrapper { -webkit-flex-grow: 0; flex-grow: 0; width: auto; }
         .container.clock-only-mode .qr-column,
         .container.clock-only-mode #date-weather-group,
         .container.clock-only-mode #calendar-wrapper,
@@ -267,7 +94,6 @@
         .container.clock-only-mode .clock-separator { font-size: 28vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 25vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-separator { font-size: 20vmin; }
-
         #settings-container { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; }
         #settings-toggle { cursor: pointer; width: 2.5rem; height: 2.5rem; background: none; border: none; padding: 0; font-size: 2rem; line-height: 1; color: #F5F5F5; transition: transform 0.2s ease; }
         #settings-toggle:hover { transform: scale(1.1); }
@@ -278,25 +104,21 @@
         .settings-btn.sub-option { background-color: rgba(68,68,68,0.7); padding-left: 2rem;}
         .settings-btn.sub-option:hover { background: rgba(85,85,85,0.9); }
         #reset-settings-btn { background-color: #c0392b; }
-        
         .dialog-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; }
         .dialog-overlay.show { display: -webkit-flex; display: flex; }
         .dialog-box { background: rgba(30,30,30,0.8); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); padding: 2rem; border-radius: 2vmin; text-align: left; max-width: 500px; width: 90%; }
         .dialog-box h3 { margin-top: 0; color: #f39c12; }
         .dialog-box ul { padding-left: 20px; } .dialog-box li { margin-bottom: 10px; }
-
         @media (max-width: 800px) {
             .container { -webkit-flex-direction: column; flex-direction: column; }
             .info-column, .qr-column { width: 100%; -webkit-flex-basis: auto; flex-basis: auto; margin-right: 0; }
             .info-column { height: 60%; }
             .qr-column { height: 40%; display: -webkit-flex; display: flex; background: none; border: none; -webkit-backdrop-filter: none; backdrop-filter: none;}
             .shop-name { font-size: 2.5rem; } .shop-address { font-size: 1.5rem; }
-            
             .clock-segment span { font-size: 20vw; }
             #digital-clock.seconds-visible .clock-segment span { font-size: 15vw; }
             .clock-separator { font-size: 18vw; }
             #digital-clock.seconds-visible .clock-separator { font-size: 13vw; }
-            
             .date-container, #weather-container { font-size: 1.8rem; }
             #calendar-container { font-size: 1.2rem; max-width: 90%; }
             #clock-only-date-container, #clock-only-weather-container { font-size: 5vw; }
@@ -305,7 +127,6 @@
             .container.clock-only-mode .clock-separator { font-size: 30vw; }
             .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 26vw; }
         }
-
         @media (max-width: 480px) {
             #settings-panel {
                 width: 90vw;
@@ -407,40 +228,40 @@
         </div>
     </div>
     
-    <!-- BƯỚC 1: NHÚNG THƯ VIỆN TỪ CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@nghiavuive/lunar_date_vi@latest/dist/lunar_date_vi.umd.js"></script>
+    <!-- SỬA LỖI 1: SỬ DỤNG ĐÚNG LINK CDN MÀ BẠN CUNG CẤP VÀ THÊM "defer" -->
+    <script src="https://cdn.jsdelivr.net/gh/NghiaCaNgao/LunarDate@tree/latest/dist/index.umd.js" defer></script>
     
-    <script>
-    /**
-     * BƯỚC 2: HÀM WRAPPER MỚI
-     * Hàm này sử dụng thư viện đã nhúng để tính toán và trả về kết quả
-     * theo đúng định dạng mà code cũ đang cần.
-     */
-    function solarToLunar(dd, mm, yy) {
-        try {
-            // Thư viện sẽ được gán vào biến global `lunar_date_vi`
-            const solar = new lunar_date_vi.SolarDate(new Date(yy, mm - 1, dd));
-            const lunar = solar.toLunarDate();
+    <!-- SỬA LỖI 2: THÊM "defer" VÀO SCRIPT CHÍNH -->
+    <script defer>
+        /**
+         * HÀM WRAPPER MỚI - ĐÃ SỬA LỖI TÊN BIẾN GLOBAL
+         * Sử dụng thư viện đã được tải để tính toán và trả về kết quả
+         * theo đúng định dạng mà code cũ đang cần.
+         */
+        function solarToLunar(dd, mm, yy) {
+            try {
+                // SỬA LỖI 3: SỬ DỤNG ĐÚNG TÊN BIẾN GLOBAL "LunarDate"
+                const solar = new LunarDate.SolarDate(new Date(yy, mm - 1, dd));
+                const lunar = solar.toLunarDate();
 
-            // Trả về đối tượng có cấu trúc tương thích với code cũ
-            return {
-                day: lunar.day,
-                lunarMonth: lunar.month,
-                lunarYear: lunar.year,
-                isLeap: lunar.leap_month,
-                dayCanChi: lunar.getDayName(),
-                monthName: "tháng " + lunar.month + (lunar.leap_month ? " nhuận" : ""),
-                yearName: lunar.getYearName()
-            };
-        } catch(e) {
-            console.error("Lỗi tính toán Âm lịch:", e);
-            // Trả về giá trị mặc định để tránh làm sập ứng dụng
-            return { day: '?', lunarMonth: '?', lunarYear: '?', dayCanChi: 'Lỗi', monthName: 'Lỗi', yearName: 'Lỗi' };
+                // Trả về đối tượng có cấu trúc tương thích với code cũ
+                return {
+                    day: lunar.day,
+                    lunarMonth: lunar.month,
+                    lunarYear: lunar.year,
+                    isLeap: lunar.leap_month,
+                    dayCanChi: lunar.getDayName(),
+                    monthName: "tháng " + lunar.month + (lunar.leap_month ? " nhuận" : ""),
+                    yearName: lunar.getYearName()
+                };
+            } catch(e) {
+                console.error("Lỗi tính toán Âm lịch:", e);
+                // Trả về giá trị mặc định để tránh làm sập ứng dụng
+                return { day: '?', lunarMonth: '?', lunarYear: '?', dayCanChi: 'Lỗi', monthName: 'Lỗi', yearName: 'Lỗi' };
+            }
         }
-    }
-    
-    // TỪ ĐÂY TRỞ ĐI, TOÀN BỘ CODE CŨ GIỮ NGUYÊN VÀ SẼ HOẠT ĐỘNG BÌNH THƯỜNG
-    document.addEventListener("DOMContentLoaded", function() {
+        
+        // Bỏ đi document.addEventListener("DOMContentLoaded") vì đã dùng defer
         var REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
         var REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
 
@@ -623,7 +444,6 @@
         setInterval(loadAutomaticWeather, 1800000); 
         setInterval(function() { if (!settings.useOnlinePhotos) fetchAndUpdateRemoteImages(); }, 3600000); 
         setInterval(function() { var now = new Date(); if (now.getMinutes() === 0 && now.getSeconds() < 2) { updateMainDate(); currentDateForCalendar = new Date(); renderCalendar(); } }, 1000);
-    });
     </script>
 </body>
 </html>
