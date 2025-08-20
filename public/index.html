@@ -228,18 +228,18 @@
         </div>
     </div>
     
-    <!-- SỬA LỖI 1: SỬ DỤNG ĐÚNG LINK CDN CỦA @nghiavuive/lunar_date_vi VÀ THÊM "defer" -->
-    <script src="https://cdn.jsdelivr.net/npm/@nghiavuive/lunar_date_vi@latest/dist/index.umd.js" defer></script>
+    <!-- BƯỚC 1: SỬ DỤNG FILE LOCAL -->
+    <script src="./amlich.js" defer></script>
     
-    <!-- SỬA LỖI 2: THÊM "defer" VÀO SCRIPT CHÍNH -->
+    <!-- BƯỚC 2: SCRIPT CHÍNH VỚI defer -->
     <script defer>
         /**
          * HÀM WRAPPER MỚI - ĐÃ SỬA LỖI TÊN BIẾN GLOBAL
          */
         function solarToLunar(dd, mm, yy) {
             try {
-                // SỬA LỖI 3: SỬ DỤNG ĐÚNG TÊN BIẾN GLOBAL "lunar_date_vi"
-                const { SolarDate } = lunar_date_vi;
+                // BƯỚC 3: SỬ DỤNG ĐÚNG TÊN BIẾN GLOBAL "_calendar" TỪ FILE amlich.js
+                const { SolarDate } = _calendar;
                 const solar = new SolarDate(new Date(yy, mm - 1, dd));
                 const lunar = solar.toLunarDate();
 
