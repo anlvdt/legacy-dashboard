@@ -233,7 +233,7 @@
     /**
      * THUẬT TOÁN ÂM LỊCH TÍCH HỢP, ĐỘC LẬP VÀ TƯƠNG THÍCH TRÌNH DUYỆT CŨ
      * Logic được chuyển đổi từ amlich.js của trongthanh sang cú pháp ES5.
-     * Đã sửa lỗi logic tính toán ngày và tháng nhuận.
+     * Phiên bản cuối cùng: Sửa lỗi triệt để việc tính toán sai ngày/tháng Âm lịch.
      */
     var LUNAR_TIMEZONE = 7;
     var PI = Math.PI;
@@ -295,11 +295,15 @@
     }
 
     function getLeapMonthOffset(k_a11, timezone) {
-        var last = 0, i = 1, diff;
+        var last = getSunLongitude(getNewMoonDay(k_a11, timezone), timezone);
+        var i = 1, diff;
         while (i < 14) {
-            diff = getSunLongitude(getNewMoonDay(k_a11 + i, timezone), timezone) - last;
-            if (diff < 1) { return i; }
-            last = getSunLongitude(getNewMoonDay(k_a11 + i, timezone), timezone);
+            var current_lon = getSunLongitude(getNewMoonDay(k_a11 + i, timezone), timezone);
+            diff = current_lon - last;
+            if (diff < 1) {
+                return i;
+            }
+            last = current_lon;
             i++;
         }
         return 0;
@@ -323,7 +327,7 @@
         
         var k_a11 = INT((a11 - 2415021.076998695) / 29.530588861);
         var leap = getLeapMonthOffset(k_a11, timezone);
-        var monthOffset = Math.round((nm - a11) / 29.530588861);
+        var monthOffset = k - k_a11;
         
         var isLeap = (leap !== 0 && monthOffset === leap);
         
