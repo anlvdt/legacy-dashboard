@@ -228,18 +228,18 @@
         </div>
     </div>
     
-    <!-- SỬA LỖI 1: SỬ DỤNG ĐÚNG LINK CDN HOẠT ĐỘNG VÀ THÊM "defer" -->
-    <script src="https://cdn.jsdelivr.net/gh/NghiaCaNgao/LunarDate/dist/index.umd.js" defer></script>
+    <!-- SỬA LỖI 1: SỬ DỤNG ĐÚNG LINK CDN CỦA @nghiavuive/lunar_date_vi VÀ THÊM "defer" -->
+    <script src="https://cdn.jsdelivr.net/npm/@nghiavuive/lunar_date_vi@latest/dist/lunar_date_vi.umd.js" defer></script>
     
     <!-- SỬA LỖI 2: THÊM "defer" VÀO SCRIPT CHÍNH -->
     <script defer>
         /**
-         * HÀM WRAPPER MỚI
+         * HÀM WRAPPER MỚI - ĐÃ SỬA LỖI TÊN BIẾN GLOBAL
          */
         function solarToLunar(dd, mm, yy) {
             try {
-                // SỬA LỖI 3: TRÍCH XUẤT CÁC CLASS TỪ BIẾN GLOBAL "lunarDate" THEO ĐÚNG TÀI LIỆU
-                const { SolarDate } = lunarDate;
+                // SỬA LỖI 3: SỬ DỤNG ĐÚNG TÊN BIẾN GLOBAL "lunar_date_vi"
+                const { SolarDate } = lunar_date_vi;
                 const solar = new SolarDate(new Date(yy, mm - 1, dd));
                 const lunar = solar.toLunarDate();
 
