@@ -26,7 +26,7 @@
         .clock-segment { background: rgba(28, 28, 28, 0.45); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 2vmin; padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
         #digital-clock { display: -webkit-flex; display: flex; -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; width: 100%; line-height: 1; white-space: nowrap; }
         .clock-separator { background: none; border: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding: 0; margin: 0 1.5vmin; }
-        .clock-segment span, .clock-separator { font-family: 'Lato', sans-serif; font-weight: 900; color: #F5F5F5; text-shadow: 0 0 1vmin rgba(255,255,255,0.3); transition: font-size 0.3s ease; }
+        .clock-segment span, .clock-separator { font-family: 'Lato', sans-serif; font-weight: 900; color: #F5F5F5; text-shadow: 0 0 1vmin rgba(255,255,255,0.3); transition: font-size: 0.3s ease; }
         .clock-segment span { font-size: 13vmin; letter-spacing: 0.05em; }
         .clock-separator { font-size: 10vmin; }
         .clock-seconds { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; max-width: 0; opacity: 0; overflow: hidden; transition: max-width 0.5s ease, opacity 0.5s ease; }
@@ -234,12 +234,13 @@
     <!-- SỬA LỖI 2: THÊM "defer" VÀO SCRIPT CHÍNH -->
     <script defer>
         /**
-         * HÀM WRAPPER MỚI
+         * HÀM WRAPPER MỚI - ĐÃ SỬA LỖI TÊN BIẾN GLOBAL
          */
         function solarToLunar(dd, mm, yy) {
             try {
                 // SỬA LỖI 3: SỬ DỤNG ĐÚNG TÊN BIẾN GLOBAL "lunarDate" (chữ L viết thường)
-                const solar = new lunarDate.SolarDate(new Date(yy, mm - 1, dd));
+                const { SolarDate } = lunarDate; // Trích xuất Class từ global object
+                const solar = new SolarDate(new Date(yy, mm - 1, dd));
                 const lunar = solar.toLunarDate();
 
                 // Trả về đối tượng có cấu trúc tương thích với code cũ
