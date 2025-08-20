@@ -228,20 +228,18 @@
         </div>
     </div>
     
-    <!-- SỬA LỖI 1: SỬ DỤNG ĐÚNG LINK CDN VÀ THÊM "defer" -->
+    <!-- SỬA LỖI 1: SỬ DỤNG ĐÚNG LINK CDN HOẠT ĐỘNG VÀ THÊM "defer" -->
     <script src="https://cdn.jsdelivr.net/gh/NghiaCaNgao/LunarDate/dist/index.umd.js" defer></script>
     
     <!-- SỬA LỖI 2: THÊM "defer" VÀO SCRIPT CHÍNH -->
     <script defer>
         /**
-         * HÀM WRAPPER MỚI - ĐÃ SỬA LỖI TÊN BIẾN GLOBAL
-         * Sử dụng thư viện đã được tải để tính toán và trả về kết quả
-         * theo đúng định dạng mà code cũ đang cần.
+         * HÀM WRAPPER MỚI
          */
         function solarToLunar(dd, mm, yy) {
             try {
-                // SỬA LỖI 3: SỬ DỤNG ĐÚNG TÊN BIẾN GLOBAL "LunarDate"
-                const solar = new LunarDate.SolarDate(new Date(yy, mm - 1, dd));
+                // SỬA LỖI 3: SỬ DỤNG ĐÚNG TÊN BIẾN GLOBAL "lunarDate" (chữ L viết thường)
+                const solar = new lunarDate.SolarDate(new Date(yy, mm - 1, dd));
                 const lunar = solar.toLunarDate();
 
                 // Trả về đối tượng có cấu trúc tương thích với code cũ
