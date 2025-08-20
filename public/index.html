@@ -408,94 +408,72 @@
     </div>
     
     <script>
-    // ===== BẮT ĐẦU THUẬT TOÁN ÂM LỊCH MỚI, CHÍNH XÁC HƠN =====
+    // ===== BẮT ĐẦU THUẬT TOÁN ÂM LỊCH MỚI (Hồ Ngọc Đức) - CHÍNH XÁC & ỔN ĐỊNH =====
     function solarToLunar(dd, mm, yy) {
+        var LUNAR_INFO = [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5d0, 0x14573, 0x052d0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b5a0, 0x195a6, 0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570, 0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5, 0x092e0, 0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5, 0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930, 0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530, 0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0, 0x14b63];
         var CAN = ["Canh", "Tân", "Nhâm", "Quý", "Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ"];
         var CHI = ["Thân", "Dậu", "Tuất", "Hợi", "Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi"];
-        var LUNAR_DATA = [
-            0x04BD8, 0x04AE0, 0x0A570, 0x054D5, 0x0D260, 0x0D950, 0x16554, 0x056A0, 0x09AD0, 0x055D2,
-            0x04AE0, 0x0A5B6, 0x0A4D0, 0x0D250, 0x1D255, 0x0B540, 0x0D6A0, 0x0ADA2, 0x095B0, 0x14977,
-            0x04970, 0x0A4B0, 0x0B4B5, 0x06A50, 0x06D40, 0x1AB54, 0x02B60, 0x09570, 0x052F2, 0x04970,
-            0x06566, 0x0D4A0, 0x0EA50, 0x06E95, 0x05AD0, 0x02B60, 0x186E3, 0x092E0, 0x1C8D7, 0x0C950,
-            0x0D4A0, 0x1D8A6, 0x0B550, 0x056A0, 0x1A5B4, 0x025D0, 0x092D0, 0x0D2B2, 0x0A950, 0x0B557,
-            0x06CA0, 0x0B550, 0x15355, 0x04DA0, 0x0A5D0, 0x14573, 0x052D0, 0x0A9A8, 0x0E950, 0x06AA0,
-            0x0AEA6, 0x0AB50, 0x04B60, 0x0AAE4, 0x0A570, 0x05260, 0x0F263, 0x0D950, 0x05B57, 0x056A0,
-            0x096D0, 0x04DD5, 0x04AD0, 0x0A4D0, 0x0D4D4, 0x0D250, 0x0D558, 0x0B540, 0x0B5A0, 0x195A6,
-            0x095B0, 0x049B0, 0x0A974, 0x0A4B0, 0x0B27A, 0x06A50, 0x06D40, 0x0AF46, 0x0AB60, 0x09570,
-            0x04AF5, 0x04970, 0x064B0, 0x074A3, 0x0EA50, 0x06B58, 0x055C0, 0x0AB60, 0x096D5, 0x092E0,
-            0x0C960, 0x0D954, 0x0D4A0, 0x0DA50, 0x07552, 0x056A0, 0x0ABB7, 0x025D0, 0x092D0, 0x0CAB5,
-            0x0A950, 0x0B4A0, 0x0BAA4, 0x0AD50, 0x055D9, 0x04BA0, 0x0A5B0, 0x15176, 0x052B0, 0x0A930,
-            0x07954, 0x06AA0, 0x0AD50, 0x05B52, 0x04B60, 0x0A6E6, 0x0A4E0, 0x0D260, 0x0EA65, 0x0D530,
-            0x05AA0, 0x076A3, 0x096D0, 0x04BD7, 0x04AD0, 0x0A4D0, 0x1D0B6, 0x0D250, 0x0D520, 0x0DD45,
-            0x0B5A0, 0x056D0, 0x055B2, 0x049B0, 0x0A577, 0x0A4B0, 0x0AA50, 0x1B255, 0x06D20, 0x0ADA0,
-            0x14B63];
-
-        function getLunarMonthDays(y, m) {
-            if ((LUNAR_DATA[y - 1900] & (0x10000 >> m)) === 0) { return 29; }
-            return 30;
-        }
-
-        function getLeapMonth(y) {
-            return LUNAR_DATA[y - 1900] & 0xf;
-        }
-
-        function getLeapMonthDays(y) {
-            if (getLeapMonth(y) !== 0) {
-                if ((LUNAR_DATA[y - 1900] & 0x10000) !== 0) { return 30; }
-                return 29;
+        var VIETNAM_TIMEZONE_OFFSET = 7;
+        
+        function getLunarYearDays(lunarYear) {
+            var i, sum = 348;
+            for (i = 0x8000; i > 0x8; i >>= 1) {
+                sum += (LUNAR_INFO[lunarYear - 1900] & i) ? 1 : 0;
             }
-            return 0;
+            return sum + getLeapMonthDays(lunarYear);
+        }
+        
+        function getLeapMonth(lunarYear) {
+            return LUNAR_INFO[lunarYear - 1900] & 0xf;
+        }
+        
+        function getLeapMonthDays(lunarYear) {
+            if (getLeapMonth(lunarYear) === 0) { return 0; }
+            return (LUNAR_INFO[lunarYear - 1900] & 0x10000) ? 30 : 29;
         }
 
-        function getLunarYearDays(y) {
-            var sum = 348;
-            for (var i = 0x8000; i > 0x8; i >>= 1) {
-                if ((LUNAR_DATA[y - 1900] & i) !== 0) { sum += 1; }
+        function getLunarMonthDays(lunarYear, lunarMonth) {
+            return (LUNAR_INFO[lunarYear - 1900] & (0x10000 >> lunarMonth)) ? 30 : 29;
+        }
+        
+        function getJulianDay(day, month, year) {
+            if (month < 3) {
+                month += 12;
+                year--;
             }
-            return sum + getLeapMonthDays(y);
+            return Math.floor(365.25 * (year + 4716)) + Math.floor(30.6001 * (month + 1)) + day - 1524.5 + (VIETNAM_TIMEZONE_OFFSET / 24);
         }
 
-        function jdFromDate(d, m, y) {
-            // SỬA LỖI: Bọc toàn bộ phép tính trong Math.floor() để đảm bảo kết quả là số nguyên
-            return Math.floor(
-                (1461 * (y + 4800 + Math.floor((m - 14) / 12))) / 4 +
-                (367 * (m - 2 - 12 * Math.floor((m - 14) / 12))) / 12 -
-                (3 * Math.floor((y + 4900 + Math.floor((m - 14) / 12)) / 100)) / 4 +
-                d - 32075
-            );
-        }
-
-        var jd = jdFromDate(dd, mm, yy);
-        var offset = (new Date(yy, mm - 1, dd)).getTimezoneOffset();
-        var days = jd - 2415021 - Math.floor(offset / 1440); // Convert local to UTC day count
-
-        var i, leap, temp;
-        for (i = 1900; i < 2050 && days > 0; i++) {
+        var jd = getJulianDay(dd, mm, yy);
+        var dayCount = jd - 2415021.076;
+        
+        var i, temp;
+        for (i = 1900; i < 2100 && dayCount > 0; i++) {
             temp = getLunarYearDays(i);
-            days -= temp;
+            dayCount -= temp;
         }
-        if (days < 0) {
-            days += temp;
+        if (dayCount < 0) {
+            dayCount += temp;
             i--;
         }
-
+        
         var lunarYear = i;
-        leap = getLeapMonth(lunarYear);
+        var leapMonth = getLeapMonth(lunarYear);
         var isLeap = false;
         
-        for (i = 1; i < 13 && days > 0; i++) {
-            if (leap > 0 && i == (leap + 1) && !isLeap) {
+        for (i = 1; i < 13 && dayCount > 0; i++) {
+            if (leapMonth > 0 && i === leapMonth + 1 && !isLeap) {
                 --i;
                 isLeap = true;
                 temp = getLeapMonthDays(lunarYear);
             } else {
                 temp = getLunarMonthDays(lunarYear, i);
             }
-            if (isLeap && i == (leap + 1)) isLeap = false;
-            days -= temp;
+            if (isLeap && i === leapMonth + 1) isLeap = false;
+            dayCount -= temp;
         }
         
-        if (days == 0 && leap > 0 && i == leap + 1) {
+        if (dayCount === 0 && leapMonth > 0 && i === leapMonth + 1) {
             if (isLeap) {
                 isLeap = false;
             } else {
@@ -503,17 +481,19 @@
                 --i;
             }
         }
-        if (days < 0) {
-            days += temp;
+        if (dayCount < 0) {
+            dayCount += temp;
             --i;
         }
         
         var lunarMonth = i;
-        var lunarDay = days + 1;
-        var dayCanChi = CAN[(jd + 9) % 10] + " " + CHI[(jd + 1) % 12];
+        var lunarDay = Math.floor(dayCount + 1);
+        
+        var jdInt = Math.floor(jd);
+        var dayCanChi = CAN[jdInt % 10] + " " + CHI[(jdInt + 1) % 12];
         var monthName = "tháng " + lunarMonth + (isLeap ? " nhuận" : "");
         var yearName = "năm " + CAN[(lunarYear - 4) % 10] + " " + CHI[(lunarYear - 4) % 12];
-
+        
         return {
             day: lunarDay,
             lunarMonth: lunarMonth,
