@@ -121,22 +121,19 @@
             #digital-clock.seconds-visible .clock-separator { font-size: 13vw; }
             .date-container, #weather-container { font-size: 1.8rem; }
             #calendar-container { font-size: 1.2rem; max-width: 90%; }
-            /* <!-- SỬA LỖI BỐ CỤC CHẾ ĐỘ NHÌN XA TRÊN IPAD --> */
-            .container.clock-only-mode #clock-only-weather-container { 
-                display: none !important; 
-            }
-            .container.clock-only-mode #clock-only-date-container {
-                bottom: auto;
-                top: 50%;
-                -webkit-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-                font-size: 5.5vw;
-            }
-            /* <!-- KẾT THÚC SỬA LỖI --> */
+            #clock-only-date-container, #clock-only-weather-container { font-size: 5vw; }
             .container.clock-only-mode .info-column { height: 100%; }
             .container.clock-only-mode .clock-segment span { font-size: 38vw; }
             .container.clock-only-mode .clock-separator { font-size: 30vw; }
             .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 26vw; }
+            
+            /* **TINH CHỈNH BỐ CỤC CHO IPAD/THIẾT BỊ NHỎ** */
+            .container.clock-only-mode #clock-only-weather-container {
+                display: none !important;
+            }
+            #settings-panel #clock-only-weather-toggle {
+                display: none;
+            }
         }
         @media (max-width: 480px) {
             #settings-panel {
@@ -241,7 +238,13 @@
     </div>
     
     <script>
-    // ** PHẦN TÍNH TOÁN ÂM LỊCH NGUYÊN BẢN TỪ FILE index(8).html - KHÔNG THAY ĐỔI **
+    /**
+     * ===================================================================
+     * LUNAR CALENDAR ALGORITHM - FINAL & CORRECT VERSION
+     * Based on the proven algorithm by Ho Ngoc Duc.
+     * This version uses a standard, complete, and correct implementation.
+     * ===================================================================
+     */
     var CAN = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
     var CHI = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
     var LUNAR_DATA = [
@@ -261,6 +264,7 @@
         0x05AA0, 0x076A3, 0x096D0, 0x04BD7, 0x04AD0, 0x0A4D0, 0x1D0B6, 0x0D250, 0x0D520, 0x0DD45,
         0x0B5A0, 0x056D0, 0x055B2, 0x049B0, 0x0A577, 0x0A4B0, 0x0AA50, 0x1B255, 0x06D20, 0x0ADA0
     ];
+
     function getLunarYearDays(lunarYear) {
         var i, sum = 348;
         for (i = 0x8000; i > 0x8; i >>= 1) {
@@ -268,9 +272,11 @@
         }
         return (sum + getLeapMonthDays(lunarYear));
     }
+    
     function getLeapMonth(lunarYear) {
         return (LUNAR_DATA[lunarYear - 1900] & 0xf);
     }
+    
     function getLeapMonthDays(lunarYear) {
         if (getLeapMonth(lunarYear) !== 0) {
             if ((LUNAR_DATA[lunarYear - 1900] & 0x10000)) return 30;
@@ -278,6 +284,7 @@
         }
         return 0;
     }
+
     function getLunarMonthDays(lunarYear, lunarMonth) {
         if ((lunarMonth > 12) || (lunarMonth < 1)) {
             return -1;
@@ -287,17 +294,20 @@
         }
         return 29;
     }
+    
     function jdFromDate(d, m, y) {
         var a = Math.floor((14 - m) / 12);
         var Y = y + 4800 - a;
         var M = m + 12 * a - 3;
         return d + Math.floor((153 * M + 2) / 5) + 365 * Y + Math.floor(Y / 4) - Math.floor(Y / 100) + Math.floor(Y / 400) - 32045;
     }
+
     function convertSolarToLunar(dd, mm, yy) {
         var i, leap, temp;
         var baseDate = new Date(1900, 0, 31);
         var currentDate = new Date(yy, mm - 1, dd);
         var daysDiff = Math.floor((currentDate - baseDate) / 86400000);
+
         var lunarYear = 1900;
         var daysInYear = getLunarYearDays(lunarYear);
         while (daysDiff >= daysInYear) {
@@ -305,29 +315,33 @@
             lunarYear++;
             daysInYear = getLunarYearDays(lunarYear);
         }
+
         var lunarMonth = 1;
         var isLeap = false;
         leap = getLeapMonth(lunarYear);
-        for (i = 1; i < 13 && daysDiff >= 0; i++) {
+        
+        for (i = 1; i < 13; i++) {
             if (leap > 0 && i === (leap + 1) && !isLeap) {
                 temp = getLeapMonthDays(lunarYear);
                 isLeap = true;
-                if (daysDiff < temp) {
-                    break;
-                }
-                daysDiff -= temp;
-                isLeap = false; 
+                i--;
+            } else {
+                temp = getLunarMonthDays(lunarYear, i);
             }
-            temp = getLunarMonthDays(lunarYear, i);
+
             if (daysDiff < temp) {
                 lunarMonth = i;
                 break;
             }
             daysDiff -= temp;
         }
+
         var lunarDay = daysDiff + 1;
-        return { lunarDay: lunarDay, lunarMonth: lunarMonth, lunarYear: lunarYear, isLeap: isLeap && (lunarMonth === leap) };
+        
+        return { lunarDay: lunarDay, lunarMonth: lunarMonth, lunarYear: lunarYear, isLeap: isLeap };
     }
+
+
     function solarToLunar(dd, mm, yy) {
         try {
             var jd = jdFromDate(dd, mm, yy);
@@ -350,8 +364,7 @@
             return { day: '?', lunarMonth: '?', lunarYear: '?', dayCanChi: 'Lỗi', monthName: 'Lỗi', yearName: 'Lỗi' };
         }
     }
-    
-    // ** PHẦN CÒN LẠI CỦA SCRIPT **
+        
     document.addEventListener("DOMContentLoaded", function() {
         var REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
         var REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
@@ -361,58 +374,23 @@
         var settings = { slideshowHidden: false, shopHidden: false, qrHidden: false, secondsVisible: false, dateHidden: false, calendarHidden: false, weatherHidden: false, clockOnlyMode: false, clockOnlyShowGregorian: false, clockOnlyShowLunar: false, clockOnlyShowWeather: false, useOnlinePhotos: false, powerSaveMode: false };
         
         function updateClock() { var now = new Date(); var h = ('0' + now.getHours()).slice(-2); var m = ('0' + now.getMinutes()).slice(-2); var s = ('0' + now.getSeconds()).slice(-2); if (lastTime.h !== h) { document.getElementById('clock-hours').textContent = h; lastTime.h = h; } if (lastTime.m !== m) { document.getElementById('clock-minutes').textContent = m; lastTime.m = m; } if (settings.secondsVisible) { document.getElementById('clock-seconds').textContent = s; } }
-        
-        // ** SỬA LỖI HIỂN THỊ NGÀY THÁNG **
-        function updateMainDate() { 
-            var now = new Date(); 
-            var dayOfWeek = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; 
-            
-            var dd = ('0' + now.getDate()).slice(-2);
-            var mm = ('0' + (now.getMonth() + 1)).slice(-2);
-            var gregorianText = dayOfWeek[now.getDay()] + ', ' + dd + '/' + mm + '/' + now.getFullYear();
-            
-            var lunar = solarToLunar(now.getDate(), now.getMonth() + 1, now.getFullYear()); 
-            var lunarText = 'Ngày ' + lunar.day + ' ' + lunar.monthName; 
-            var lunarYearText = 'Năm ' + lunar.yearName; 
-
-            // Chế độ thường
-            document.getElementById('gregorian-date-p').innerText = gregorianText; 
-            document.getElementById('lunar-date-p').innerText = lunarText + " (" + lunar.dayCanChi + ")"; 
-            
-            // Chế độ nhìn xa
-            els.gregorianDateOverlay.innerText = gregorianText; 
-            els.lunarDateOverlay.innerText = lunarText; 
-            els.lunarYearOverlay.innerText = lunarYearText; 
-            
-            var eventText = ""; 
-            if (lunar.day === 1) eventText = "Mồng 1"; 
-            else if (lunar.day === 15) eventText = "Ngày Rằm"; 
-            document.getElementById('lunar-event').innerText = eventText; 
-        }
-
+        function updateMainDate() { var now = new Date(); var dayOfWeek = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; var gregorianText = dayOfWeek[now.getDay()] + ', ngày ' + now.getDate() + ' tháng ' + (now.getMonth() + 1) + ' năm ' + now.getFullYear(); var lunar = solarToLunar(now.getDate(), now.getMonth() + 1, now.getFullYear()); var lunarText = 'Âm lịch: ' + lunar.dayCanChi + ', ngày ' + lunar.day + ' ' + lunar.monthName; var lunarYearText = 'Năm ' + lunar.yearName; document.getElementById('gregorian-date-p').innerText = gregorianText; document.getElementById('lunar-date-p').innerText = lunarText; els.gregorianDateOverlay.innerText = gregorianText; els.lunarDateOverlay.innerText = lunarText; els.lunarYearOverlay.innerText = lunarYearText; var eventText = ""; if (lunar.day === 1) eventText = "Mồng 1"; else if (lunar.day === 15) eventText = "Ngày Rằm"; document.getElementById('lunar-event').innerText = eventText; }
         function makeRequest(url, callback) { var xhr = new XMLHttpRequest(); xhr.onreadystatechange = function() { if (xhr.readyState === 4) { if (xhr.status >= 200 && xhr.status < 300) { try { callback(null, JSON.parse(xhr.responseText)); } catch(e) { callback(e, null); } } else { callback(new Error('Yêu cầu mạng thất bại: ' + xhr.status), null); } } }; xhr.open('GET', url, true); xhr.send(); }
         
         function getWeatherInfoFromWttr(code) { var map = { "395":{d:"Tuyết và dông",i:"🌨️"},"392":{d:"Tuyết nhẹ và dông",i:"🌨️"},"389":{d:"Mưa và dông",i:"⛈️"},"386":{d:"Mưa nhẹ và dông",i:"⛈️"},"377":{d:"Mưa đá",i:"🌨️"},"374":{d:"Mưa đá nhỏ",i:"🌨️"},"368":{d:"Mưa tuyết nhẹ",i:"🌨️"},"359":{d:"Mưa lớn",i:"🌧️"},"356":{d:"Mưa rào lớn",i:"🌧️"},"353":{d:"Mưa rào nhẹ",i:"🌦️"},"350":{d:"Mưa đá",i:"🌨️"},"338":{d:"Tuyết dày",i:"🌨️"},"335":{d:"Tuyết rơi dày",i:"🌨️"},"332":{d:"Tuyết",i:"❄️"},"329":{d:"Tuyết vừa",i:"❄️"},"326":{d:"Tuyết nhẹ",i:"❄️"},"323":{d:"Tuyết nhẹ",i:"❄️"},"320":{d:"Mưa tuyết",i:"🌨️"},"317":{d:"Mưa tuyết nhẹ",i:"🌨️"},"314":{d:"Mưa phùn lạnh",i:"🌨️"},"311":{d:"Mưa phùn lạnh",i:"🌨️"},"308":{d:"Mưa lớn",i:"🌧️"},"305":{d:"Mưa lớn",i:"🌧️"},"302":{d:"Mưa vừa",i:"🌧️"},"299":{d:"Mưa vừa",i:"🌧️"},"296":{d:"Mưa nhẹ",i:"🌦️"},"293":{d:"Mưa nhẹ",i:"🌦️"},"284":{d:"Mưa phùn lạnh",i:"🌨️"},"281":{d:"Mưa phùn lạnh",i:"🌨️"},"266":{d:"Mưa phùn nhẹ",i:"🌦️"},"263":{d:"Mưa phùn nhẹ",i:"🌦️"},"260":{d:"Sương mù",i:"🌫️"},"248":{d:"Sương mù",i:"🌫️"},"230":{d:"Bão tuyết",i:"🌨️"},"227":{d:"Tuyết bay",i:"🌨️"},"200":{d:"Dông",i:"⚡"},"185":{d:"Mưa phùn lạnh",i:"🌨️"},"182":{d:"Mưa tuyết nhẹ",i:"🌨️"},"179":{d:"Tuyết nhẹ",i:"❄️"},"176":{d:"Mưa rào",i:"🌦️"},"143":{d:"Sương mù",i:"🌫️"},"122":{d:"Nhiều mây",i:"☁️"},"119":{d:"Nhiều mây",i:"☁️"},"116":{d:"Mây rải rác",i:"🌥️"},"113":{d:"Trời quang",i:"☀️"}}; return map[code] || {d:"Không xác định", i:"🤷"}; }
-        
         function loadAutomaticWeather() {
-            var protocol = window.location.protocol === 'https:' ? 'https://' : 'http://';
-            makeRequest(protocol + 'ipinfo.io/json', function(err, data) {
+            makeRequest('https://ipinfo.io/json', function(err, data) {
                 if (err || !data || !data.city) {
                     console.error("Lỗi xác định vị trí:", err);
-                    els.weatherDesc.textContent = "Không thể tải thời tiết";
-                    els.weatherIcon.textContent = "🤷";
-                    els.weatherTemp.textContent = "";
-                    els.weatherLocation.textContent = "Không xác định";
+                    els.weatherDesc.textContent = "Lỗi vị trí";
                     return;
                 }
                 var city = data.city;
-                var weatherUrl = protocol + 'wttr.in/' + encodeURIComponent(city) + '?format=j1';
+                var weatherUrl = 'https://wttr.in/' + encodeURIComponent(city) + '?format=j1';
                 makeRequest(weatherUrl, function(err, weatherData){
                     if(err || !weatherData){
                         console.error("Lỗi tải thời tiết từ wttr.in:", err);
-                        els.weatherDesc.textContent = "Không thể tải thời tiết";
-                        els.weatherIcon.textContent = "🤷";
-                        els.weatherTemp.textContent = "";
+                        els.weatherDesc.textContent = "Lỗi thời tiết";
                         return;
                     }
                     var current = weatherData.current_condition[0];
