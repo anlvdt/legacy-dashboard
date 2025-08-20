@@ -188,7 +188,7 @@
         
         #clock-only-date-container { 
             position: absolute; 
-            bottom: 3vh; 
+            bottom: 5vh; 
             left: 50%;
             transform: translateX(-50%);
             width: auto;
@@ -206,7 +206,7 @@
         }
         #clock-only-weather-container {
             position: absolute;
-            top: 15vh;
+            top: 5vh;
             left: 50%;
             transform: translateX(-50%);
             padding: 1.5vmin 2.5vmin;
@@ -224,8 +224,12 @@
         #weather-location-overlay { margin-bottom: 1vmin; }
 
         #clock-only-date-container p { margin: 0.5vmin 0; }
+        
+        /* Chế độ nhìn xa (Clock Only Mode) */
         .container.clock-only-mode { padding: 0; }
-        .container.clock-only-mode .info-column { margin-right: 0; }
+        .container.clock-only-mode .info-column { margin-right: 0; height: 100vh; width: 100vw; }
+        .container.clock-only-mode .content-wrapper { justify-content: center; }
+        .container.clock-only-mode #digital-clock-wrapper { flex-grow: 0; } /* Let parent center it */
         .container.clock-only-mode .qr-column,
         .container.clock-only-mode #date-weather-group,
         .container.clock-only-mode #calendar-wrapper,
@@ -240,7 +244,7 @@
         #settings-container { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; }
         #settings-toggle { cursor: pointer; width: 2.5rem; height: 2.5rem; background: none; border: none; padding: 0; font-size: 2rem; line-height: 1; color: var(--text-primary); transition: transform 0.2s ease; }
         #settings-toggle:hover { transform: scale(1.1); }
-        #settings-panel { display: block; position: absolute; top: 3.5rem; right: 0; background: rgba(30,30,30,0.8); backdrop-filter: blur(var(--ui-blur)); -webkit-backdrop-filter: blur(var(--ui-blur)); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; padding: 0.7rem; width: 16rem; opacity: 0; transform: translateY(-10px); pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; }
+        #settings-panel { display: block; position: absolute; top: 3.5rem; right: 0; background: rgba(30,30,30,0.8); backdrop-filter: blur(var(--ui-blur)); -webkit-backdrop-filter: blur(var(--ui-blur)); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; padding: 0.7rem; width: 16rem; max-width: 90vw; box-sizing: border-box; opacity: 0; transform: translateY(-10px); pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; }
         #settings-panel.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
         .settings-btn { display: block; width: 100%; background: rgba(51,51,51,0.8); color: var(--text-primary); border: none; padding: 0.7rem; margin-bottom: 0.4rem; border-radius: 0.3rem; cursor: pointer; font-size: 1rem; text-align: left; transition: all 0.2s ease;}
         .settings-btn:hover { background: rgba(68,68,68,0.9); transform: scale(1.02); }
@@ -273,6 +277,14 @@
             .container.clock-only-mode .clock-segment span { font-size: 38vw; }
             .container.clock-only-mode .clock-separator { font-size: 30vw; }
             .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 26vw; }
+        }
+
+        @media (max-width: 480px) {
+            #settings-panel {
+                width: 90vw;
+                left: 5vw;
+                right: 5vw;
+            }
         }
     </style>
 </head>
@@ -338,25 +350,36 @@
     <div id="settings-container">
         <button id="settings-toggle" aria-label="Mở hoặc đóng bảng cài đặt"><span>&#9776;</span></button>
         <div id="settings-panel">
+            <!-- Nhóm 1: Chế độ hiển thị chính -->
             <button class="settings-btn" id="power-save-toggle">Tiết kiệm điện</button>
-            <hr style="border-color: #444; margin: 10px 0;">
             <button class="settings-btn" id="clock-only-toggle">Chế độ nhìn xa</button>
+            <hr style="border-color: #444; margin: 10px 0;">
+            
+            <!-- Nhóm 2: Tùy chọn cho Chế độ nhìn xa -->
             <button class="settings-btn sub-option" id="clock-only-gregorian-toggle">Hiện Dương lịch</button>
             <button class="settings-btn sub-option" id="clock-only-lunar-toggle">Hiện Âm lịch</button>
             <button class="settings-btn sub-option" id="clock-only-weather-toggle">Hiện Thời tiết</button>
             <hr style="border-color: #444; margin: 10px 0;">
-            <button class="settings-btn" id="fullscreen-toggle">Toàn màn hình</button><hr style="border-color: #444; margin: 10px 0;">
-            <button class="settings-btn" id="online-photos-toggle">Dùng ảnh online</button>
+            
+            <!-- Nhóm 3: Ẩn/Hiện các thành phần giao diện -->
             <button class="settings-btn" id="slideshow-toggle">Ẩn các khối</button>
             <button class="settings-btn" id="shop-toggle-btn">Ẩn Shop</button>
             <button class="settings-btn" id="qr-toggle-btn">Ẩn Mã QR</button>
             <button class="settings-btn" id="seconds-toggle">Hiện giây</button>
             <button class="settings-btn" id="date-toggle">Ẩn Ngày tháng</button>
             <button class="settings-btn" id="calendar-toggle">Ẩn Lịch</button>
-            <button class="settings-btn" id="weather-toggle">Ẩn Thời tiết</button><hr style="border-color: #444; margin: 10px 0;">
+            <button class="settings-btn" id="weather-toggle">Ẩn Thời tiết</button>
+            <hr style="border-color: #444; margin: 10px 0;">
+
+            <!-- Nhóm 4: Tác vụ & Hướng dẫn -->
+            <button class="settings-btn" id="fullscreen-toggle">Toàn màn hình</button>
+            <button class="settings-btn" id="online-photos-toggle">Dùng ảnh online</button>
             <button class="settings-btn" id="refresh-photos-btn">Ảnh mới ngay</button>
             <button class="settings-btn" id="photo-guide-btn">HD: Cập nhật ảnh</button>
-            <button class="settings-btn" id="always-on-guide-btn">HD: Giữ màn hình bật</button><hr style="border-color: #444; margin: 10px 0;">
+            <button class="settings-btn" id="always-on-guide-btn">HD: Giữ màn hình bật</button>
+            <hr style="border-color: #444; margin: 10px 0;">
+            
+            <!-- Nhóm 5: Đặt lại -->
             <button class="settings-btn" id="reset-settings-btn">Đặt lại Cài đặt</button>
         </div>
     </div>
@@ -570,7 +593,7 @@
         function renderCalendar() { var isVertical = window.innerWidth <= 800; var calendarFn = isVertical ? generateMonthlyCalendar : generateWeeklyCalendar; calendarFn(currentDateForCalendar); }
         function generateWeeklyCalendar(baseDate) { var grid=document.getElementById('calendar-grid');grid.innerHTML='';var today=new Date();var dayNames=['CN','T2','T3','T4','T5','T6','T7'];var weekStart=new Date(baseDate);weekStart.setDate(baseDate.getDate()-baseDate.getDay());var weekEnd=new Date(weekStart);weekEnd.setDate(weekStart.getDate()+6);document.getElementById('calendar-title').textContent='Tuần: '+weekStart.getDate()+'/'+(weekStart.getMonth()+1)+' - '+weekEnd.getDate()+'/'+(weekEnd.getMonth()+1);dayNames.forEach(function(name){var dayEl=document.createElement('div');dayEl.className='calendar-cell day-name';dayEl.innerHTML='<div class="cell-content">'+name+'</div>';grid.appendChild(dayEl);});for(var i=0;i<7;i++){var currentDay=new Date(weekStart);currentDay.setDate(weekStart.getDate()+i);var solarDay=currentDay.getDate();var lunar=solarToLunar(solarDay,currentDay.getMonth()+1,currentDay.getFullYear());var lunarDisplay=lunar.day===1?lunar.day+'/'+lunar.lunarMonth:lunar.day;var dayEl=document.createElement('div');dayEl.className='calendar-cell';if(currentDay.getDate()===today.getDate()&&currentDay.getMonth()===today.getMonth()&&currentDay.getFullYear()===today.getFullYear()){dayEl.classList.add('today');}dayEl.innerHTML='<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">'+solarDay+'</span><span class="lunar-day">'+lunarDisplay+'</span></div></div>';grid.appendChild(dayEl);} }
         function generateMonthlyCalendar(baseDate) { var grid=document.getElementById('calendar-grid');grid.innerHTML='';var today=new Date();var year=baseDate.getFullYear();var month=baseDate.getMonth();document.getElementById('calendar-title').textContent='Tháng '+(month+1)+' '+year;var firstDayOfMonth=new Date(year,month,1).getDay();var daysInMonth=new Date(year,month+1,0).getDate();var dayNames=['CN','T2','T3','T4','T5','T6','T7'];dayNames.forEach(function(name){var dayEl=document.createElement('div');dayEl.className='calendar-cell day-name';dayEl.innerHTML='<div class="cell-content">'+name+'</div>';grid.appendChild(dayEl);});for(var i=0;i<firstDayOfMonth;i++){var dayEl=document.createElement('div');dayEl.className='calendar-cell other-month';grid.appendChild(dayEl);}for(var i=1;i<=daysInMonth;i++){var solarDay=i;var lunar=solarToLunar(solarDay,month+1,year);var lunarDisplay=lunar.day===1?lunar.day+'/'+lunar.lunarMonth:lunar.day;var dayEl=document.createElement('div');dayEl.className='calendar-cell';if(solarDay===today.getDate()&&month===today.getMonth()&&year===today.getFullYear()){dayEl.classList.add('today');}dayEl.innerHTML='<div class="calendar-cell-inner"><div class="cell-content"><span class="solar-day">'+solarDay+'</span><span class="lunar-day">'+lunarDisplay+'</span></div></div>';grid.appendChild(dayEl);} }
-        function showGuide(type) { var guides = { photo: { title: 'Hướng dẫn Cập nhật Ảnh', content: '<ul><li>Bạn có thể dùng danh sách ảnh cá nhân (cấu hình trong file Gist) hoặc dùng ảnh online từ Unsplash.</li><li>Để dùng ảnh online, bạn không cần API Key, chỉ cần bật tùy chọn trong menu. Bạn có thể tùy chỉnh chủ đề ảnh bằng cách sửa các từ khóa trong mã nguồn.</li><li>Sử dụng nút "Dùng ảnh online" trong menu cài đặt để chuyển đổi giữa hai chế độ.</li></ul>' }, alwaysOn: { title: 'Hướng dẫn Giữ Màn hình Bật', content: '<ul><li><b>iPad/iPhone:</b> Vào Cài đặt > Màn hình & Độ sáng > Tự động khoá > chọn "Không".</li><li><b>Android:</b> Vào Cài đặt > Màn hình > Thời gian sáng màn hình > chọn thời gian dài nhất hoặc "Không bao giờ". Một số máy cần bật "Tuỳ chọn nhà phát triển" để có tuỳ chọn "Luôn bật khi sạc".</li><li><b>Windows/macOS:</b> Vào phần cài đặt Năng lượng (Power/Energy Saver) và đặt thời gian tắt màn hình thành "Không bao giờ" (Never).</li></ul>' } }; var guide = guides[type]; els.guideTitle.innerHTML = guide.title; els.guideContent.innerHTML = guide.content; els.guideDialog.classList.add('show'); }
+        function showGuide(type) { var guides = { photo: { title: 'Hướng dẫn Cập nhật Ảnh', content: '<ul><li>Bạn có thể dùng danh sách ảnh cá nhân (cấu hình trong file Gist) hoặc dùng ảnh online từ Picsum Photos.</li><li>Để dùng ảnh online, bạn không cần API Key, chỉ cần bật tùy chọn trong menu.</li><li>Sử dụng nút "Dùng ảnh online" trong menu cài đặt để chuyển đổi giữa hai chế độ.</li></ul>' }, alwaysOn: { title: 'Hướng dẫn Giữ Màn hình Bật', content: '<ul><li><b>iPad/iPhone:</b> Vào Cài đặt > Màn hình & Độ sáng > Tự động khoá > chọn "Không".</li><li><b>Android:</b> Vào Cài đặt > Màn hình > Thời gian sáng màn hình > chọn thời gian dài nhất hoặc "Không bao giờ". Một số máy cần bật "Tuỳ chọn nhà phát triển" để có tuỳ chọn "Luôn bật khi sạc".</li><li><b>Windows/macOS:</b> Vào phần cài đặt Năng lượng (Power/Energy Saver) và đặt thời gian tắt màn hình thành "Không bao giờ" (Never).</li></ul>' } }; var guide = guides[type]; els.guideTitle.innerHTML = guide.title; els.guideContent.innerHTML = guide.content; els.guideDialog.classList.add('show'); }
         
         els.prevBtn.addEventListener('click', function() { currentDateForCalendar.setMonth(currentDateForCalendar.getMonth() - 1); renderCalendar(); });
         els.nextBtn.addEventListener('click', function() { currentDateForCalendar.setMonth(currentDateForCalendar.getMonth() + 1); renderCalendar(); });
