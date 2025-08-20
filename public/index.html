@@ -232,11 +232,10 @@
     <script>
     /**
      * THUẬT TOÁN ÂM LỊCH TÍCH HỢP, ĐỘC LẬP VÀ TƯƠNG THÍCH TRÌNH DUYỆT CŨ
-     * Logic được chuyển đổi từ amlich.js của trongthanh sang cú pháp ES5.
-     * Phiên bản cuối cùng: Sửa lỗi triệt để việc tính toán sai ngày/tháng Âm lịch.
+     * Logic dựa trên thuật toán của Hồ Ngọc Đức, đã được viết lại và tối ưu.
+     * Phiên bản cuối cùng: Sửa lỗi triệt để việc tính toán sai ngày/tháng/năm Âm lịch.
      */
     var LUNAR_TIMEZONE = 7;
-    var PI = Math.PI;
     var CAN = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
     var CHI = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
     
@@ -248,111 +247,114 @@
         var M = m + 12 * a - 3;
         return d + INT((153 * M + 2) / 5) + 365 * Y + INT(Y / 4) - INT(Y / 100) + INT(Y / 400) - 32045;
     }
+    
+    // Thuật toán tìm ngày Sóc (New Moon) của Ho Ngoc Duc
+    function getNewMoon(jd) {
+        var c = (jd - 2451545.0) / 29.530588853;
+        var t = c / 1236.85;
+        var t2 = t * t;
+        var t3 = t2 * t;
+        var t4 = t3 * t;
 
-    function getNewMoonDay(k, timezone) {
-        var T = k / 1236.85;
-        var T2 = T * T;
-        var T3 = T2 * T;
-        var J = 2415020.75933 + 29.53058868 * k + 0.0001178 * T2 - 0.000000155 * T3 + 0.00033 * Math.sin( (166.56 + 132.87 * T - 0.009173 * T2) * PI / 180);
-        var M = 359.2242 + 29.10535608 * k - 0.0000333 * T2 - 0.00000347 * T3;
-        var M_ = 306.0253 + 385.81691806 * k + 0.0107306 * T2 + 0.00001236 * T3;
-        var F = 21.2964 + 390.67050646 * k - 0.0016528 * T2 - 0.00000239 * T3;
-        var B = 0.1734 - 0.000393 * T;
-        J += 0.406 * Math.sin(M_ * PI / 180) + 0.2174 * Math.sin(M * PI / 180) - B * Math.sin(2 * F * PI / 180);
-        J -= 0.1708 * Math.sin(2 * M_ * PI / 180) + 0.02 * Math.sin( (2 * M_ - M) * PI / 180);
-        J -= 0.0129 * Math.sin( (2 * M_ + M) * PI / 180) + 0.0072 * Math.sin( (M_ + M) * PI / 180) - 0.0052 * Math.sin( (M_ - M) * PI / 180);
-        J += 0.0041 * Math.sin(F * PI / 180) - 0.004 * Math.sin(M * PI / 180) + 0.0021 * Math.sin( (M_ + 2 * M) * PI / 180) + 0.001 * Math.sin( (2 * M_ - 2 * M) * PI / 180);
-        var W = J - 2415020.5;
-        return INT(W - W % 1) + 0.5 - timezone / 24;
+        var e = 1 - 0.002516 * t - 0.0000074 * t2;
+        
+        var m_sun = (359.2242 + 29.10535608 * c - 0.0000333 * t2 - 0.00000347 * t3) * Math.PI / 180;
+        var m_moon = (306.0253 + 385.81691806 * c + 0.0107306 * t2 + 0.00001236 * t3) * Math.PI / 180;
+        var f = (21.2964 + 390.67050646 * c - 0.0016528 * t2 - 0.00000239 * t3) * Math.PI / 180;
+
+        var a = -0.4068 * Math.sin(m_moon) + (0.1734 - 0.000393 * t) * Math.sin(m_sun) * e + 0.2174 * Math.sin(2 * m_moon) -
+            0.1708 * Math.sin(2 * m_sun) * e * e - 0.02 * Math.sin(3 * m_moon) + 0.0129 * Math.sin(m_sun + 2 * m_moon) +
+            0.0072 * Math.sin(m_sun - 2 * m_moon) * e - 0.0052 * Math.sin(m_sun + m_moon) * e + 0.0041 * Math.sin(2 * f) -
+            0.004 * Math.sin(m_sun - m_moon) * e - 0.0021 * Math.sin(m_sun - 2 * m_moon) * e;
+        
+        return INT(2451545.0 + 29.530588853 * c + 0.0001337 * t2 - 0.00000015 * t3 + 0.00000000073 * t4 + a);
     }
     
-    function getSunLongitude(jd, timezone) {
-        var T = (jd - 2451545) / 36525;
-        var L = 280.466456 + 36000.76983 * T + 0.0003032 * T * T;
-        L = L - 360 * INT(L / 360);
-        var M = 357.5291092 + 35999.05029 * T - 0.0001536 * T * T;
-        M = M - 360 * INT(M / 360);
-        var C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M * PI / 180) + (0.019993 - 0.000101 * T) * Math.sin(2 * M * PI / 180) + 0.000289 * Math.sin(3 * M * PI / 180);
-        var lon = L + C;
-        return INT(lon / 30);
+    // Tìm ngày Sóc gần nhất không vượt quá ngày jd
+    function getNewMoonDay(jd) {
+        var nm = getNewMoon(jd);
+        return (nm > jd) ? getNewMoon(jd - 29) : nm;
+    }
+    
+    function getSunLongitude(jd) {
+        var t = (jd - 2451545.0) / 36525;
+        var t2 = t * t;
+        var l0 = 280.46646 + 36000.76983 * t + 0.0003032 * t2;
+        var m = 357.52911 + 35999.05029 * t - 0.0001537 * t2;
+        var c = (1.914602 - 0.004817 * t - 0.000014 * t2) * Math.sin(m * Math.PI / 180) +
+                (0.019993 - 0.000101 * t) * Math.sin(2 * m * Math.PI / 180) +
+                0.000289 * Math.sin(3 * m * Math.PI / 180);
+        var lon = l0 + c;
+        return lon - 360 * INT(lon / 360);
+    }
+    
+    // Tìm ngày Đông Chí (Winter Solstice)
+    function getWinterSolstice(yy) {
+        var jd = jdFromDate(31, 12, yy);
+        var off = getSunLongitude(jd) - 270;
+        if (off < -1) off += 360;
+        return jd - 0.9856 * off;
+    }
+    
+    // Tìm ngày Tết Nguyên Đán
+    function getNewYear(yy) {
+        var ws = getWinterSolstice(yy - 1);
+        var nm1 = getNewMoonDay(ws);
+        return getNewMoonDay(nm1 + 29);
     }
 
-    // SỬA LỖI: Hàm này giờ trả về cả chỉ số k và ngày Julian (jd)
-    function getLunarMonth11Info(yy, timezone) {
-        var k = INT((yy - 1900) * 12.3685);
-        var nm;
-        while (true) {
-            nm = getNewMoonDay(k, timezone);
-            if (getSunLongitude(nm, timezone) < 9) {
-                k++;
-            } else {
-                break;
-            }
-        }
-        while (getSunLongitude(nm, timezone) >= 10) {
-            k--;
-            nm = getNewMoonDay(k, timezone);
-        }
-        return { k: k, jd: nm };
-    }
-
-    function getLeapMonthOffset(k_a11, timezone) {
-        var last = getSunLongitude(getNewMoonDay(k_a11, timezone), timezone);
-        var i = 1;
-        while (i < 14) {
-            var current_lon = getSunLongitude(getNewMoonDay(k_a11 + i, timezone), timezone);
-            if (current_lon === last) {
-                return i;
-            }
-            last = current_lon;
-            i++;
-        }
-        return 0;
-    }
-
-    // SỬA LỖI: Toàn bộ hàm được viết lại để loại bỏ phép tính xấp xỉ
-    function convertSolarToLunar(dd, mm, yy, timezone) {
+    // Hàm chuyển đổi chính
+    function convertSolarToLunar(dd, mm, yy) {
         var jd = jdFromDate(dd, mm, yy);
+        var lunarYear = yy;
         
-        var k = INT((jd - 2415021.076998695) / 29.530588861);
-        var nm = getNewMoonDay(k, timezone);
-        while (nm < jd) {
-            nm = getNewMoonDay(++k, timezone);
-        }
-        nm = getNewMoonDay(--k, timezone);
-
-        var lunarDay = INT(jd - nm + 1);
-        
-        var solarYearOfA11 = yy;
-        var a11_info = getLunarMonth11Info(yy, timezone);
-        if (jd < a11_info.jd) { 
-            solarYearOfA11 = yy - 1;
-            a11_info = getLunarMonth11Info(solarYearOfA11, timezone);
-        }
-        
-        var k_a11 = a11_info.k;
-        var leap = getLeapMonthOffset(k_a11, timezone);
-        var monthOffset = k - k_a11;
-        
-        var isLeap = (leap !== 0 && monthOffset === leap);
-        
-        if (leap !== 0 && monthOffset > leap) {
-            monthOffset--;
+        var newYearJd = getNewYear(yy);
+        if (jd < newYearJd) {
+            lunarYear--;
+            newYearJd = getNewYear(lunarYear);
         }
 
-        var lunarMonth = (monthOffset + 11);
-        while(lunarMonth > 12) {
-            lunarMonth -= 12;
+        var nextNewYearJd = getNewYear(lunarYear + 1);
+        var nm = getNewMoonDay(jd);
+        var lunarDay = jd - nm + 1;
+
+        var leapMonth = 0;
+        var totalMonths = 12;
+
+        if (getNewMoonDay(nextNewYearJd - 2) > getNewMoonDay(newYearJd + 29 * 11)) {
+            totalMonths = 13;
+            var sum = newYearJd;
+            var i = 1;
+            while (i <= 13) {
+                var nm1 = getNewMoonDay(sum + 1);
+                if (getSunLongitude(nm1) - getSunLongitude(sum) < 28) {
+                    leapMonth = i;
+                    break;
+                }
+                sum = nm1;
+                i++;
+            }
         }
 
-        var lunarYear;
-        if (lunarMonth < 11) {
-            lunarYear = solarYearOfA11 + 1;
-        } else {
-            lunarYear = solarYearOfA11;
+        var diff = 0;
+        var tempJd = newYearJd;
+        while (tempJd <= nm) {
+            diff++;
+            tempJd = getNewMoonDay(tempJd + 29);
         }
 
-        return { lunarDay: lunarDay, lunarMonth: lunarMonth, lunarYear: lunarYear, isLeap: isLeap };
+        var lunarMonth = diff;
+        var isLeap = false;
+        
+        if (leapMonth > 0) {
+            if (lunarMonth > leapMonth) {
+                lunarMonth--;
+            } else if (lunarMonth === leapMonth) {
+                isLeap = true;
+            }
+        }
+
+        return { lunarDay: INT(lunarDay), lunarMonth: lunarMonth, lunarYear: lunarYear, isLeap: isLeap };
     }
 
 
@@ -362,7 +364,7 @@
     function solarToLunar(dd, mm, yy) {
         try {
             var jd = jdFromDate(dd, mm, yy);
-            var result = convertSolarToLunar(dd, mm, yy, LUNAR_TIMEZONE);
+            var result = convertSolarToLunar(dd, mm, yy);
             var yearName = getCan((result.lunarYear + 6) % 10) + ' ' + getChi((result.lunarYear + 8) % 12);
             var dayCanChi = getCan((jd + 9) % 10) + ' ' + getChi((jd + 1) % 12);
             var monthName = "tháng " + result.lunarMonth + (result.isLeap ? " nhuận" : "");
