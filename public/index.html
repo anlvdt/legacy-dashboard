@@ -273,7 +273,8 @@
         
         function getWeatherInfoFromWttr(code) { var map = { "395":{d:"Tuyết và dông",i:"🌨️"},"392":{d:"Tuyết nhẹ và dông",i:"🌨️"},"389":{d:"Mưa và dông",i:"⛈️"},"386":{d:"Mưa nhẹ và dông",i:"⛈️"},"377":{d:"Mưa đá",i:"🌨️"},"374":{d:"Mưa đá nhỏ",i:"🌨️"},"368":{d:"Mưa tuyết nhẹ",i:"🌨️"},"359":{d:"Mưa lớn",i:"🌧️"},"356":{d:"Mưa rào lớn",i:"🌧️"},"353":{d:"Mưa rào nhẹ",i:"🌦️"},"350":{d:"Mưa đá",i:"🌨️"},"338":{d:"Tuyết dày",i:"🌨️"},"335":{d:"Tuyết rơi dày",i:"🌨️"},"332":{d:"Tuyết",i:"❄️"},"329":{d:"Tuyết vừa",i:"❄️"},"326":{d:"Tuyết nhẹ",i:"❄️"},"323":{d:"Tuyết nhẹ",i:"❄️"},"320":{d:"Mưa tuyết",i:"🌨️"},"317":{d:"Mưa tuyết nhẹ",i:"🌨️"},"314":{d:"Mưa phùn lạnh",i:"🌨️"},"311":{d:"Mưa phùn lạnh",i:"🌨️"},"308":{d:"Mưa lớn",i:"🌧️"},"305":{d:"Mưa lớn",i:"🌧️"},"302":{d:"Mưa vừa",i:"🌧️"},"299":{d:"Mưa vừa",i:"🌧️"},"296":{d:"Mưa nhẹ",i:"🌦️"},"293":{d:"Mưa nhẹ",i:"🌦️"},"284":{d:"Mưa phùn lạnh",i:"🌨️"},"281":{d:"Mưa phùn lạnh",i:"🌨️"},"266":{d:"Mưa phùn nhẹ",i:"🌦️"},"263":{d:"Mưa phùn nhẹ",i:"🌦️"},"260":{d:"Sương mù",i:"🌫️"},"248":{d:"Sương mù",i:"🌫️"},"230":{d:"Bão tuyết",i:"🌨️"},"227":{d:"Tuyết bay",i:"🌨️"},"200":{d:"Dông",i:"⚡"},"185":{d:"Mưa phùn lạnh",i:"🌨️"},"182":{d:"Mưa tuyết nhẹ",i:"🌨️"},"179":{d:"Tuyết nhẹ",i:"❄️"},"176":{d:"Mưa rào",i:"🌦️"},"143":{d:"Sương mù",i:"🌫️"},"122":{d:"Nhiều mây",i:"☁️"},"119":{d:"Nhiều mây",i:"☁️"},"116":{d:"Mây rải rác",i:"🌥️"},"113":{d:"Trời quang",i:"☀️"}}; return map[code] || {d:"Không xác định", i:"🤷"}; }
         function loadAutomaticWeather() {
-            makeRequest('http://ip-api.com/json/', function(err, data) {
+            // SỬA LỖI: Chuyển sang https để tương thích mọi thiết bị
+            makeRequest('https://ip-api.com/json/', function(err, data) {
                 if (err || !data || data.status !== 'success') {
                     console.error("Lỗi xác định vị trí:", err);
                     els.weatherDesc.textContent = "Lỗi vị trí";
@@ -427,12 +428,12 @@
         els.photoGuideBtn.addEventListener('click', function() { showGuide('photo'); });
         els.alwaysOnGuideBtn.addEventListener('click', function() { showGuide('alwaysOn'); });
         els.guideDialog.addEventListener('click', function(e) { if(e.target === els.guideDialog) { els.guideDialog.classList.remove('show'); } });
-        els.slideshowImage.onerror = function() { var failedImage = images[currentImageIndex]; console.warn("Lỗi tải ảnh:", failedImage); images.splice(currentImageIndex, 1); if (images.length > 0) { currentImageIndex = currentImageIndex % images.length; changeImage(); } else { startSlideshow(); } };
+        els.slideshowImage.onerror = function() { var failedImage = images[currentImageIndex]; console.warn("Lỗi tải ảnh:", failedImage); if(settings.useOnlinePhotos){ changeImage(); return; } images.splice(currentImageIndex, 1); if (images.length > 0) { currentImageIndex = currentImageIndex % images.length; changeImage(); } else { startSlideshow(); } };
         
         loadSettings(); updateClock(); updateMainDate(); updateLayout(); loadAutomaticWeather(); fetchAndUpdateRemoteImages(); fetchRemoteConfig();
         setInterval(updateClock, 1000); 
         setInterval(loadAutomaticWeather, 1800000); // Tải lại thời tiết sau mỗi 30 phút
-        setInterval(function() { if (!settings.useOnlinePhotos) fetchAndUpdateRemoteImages(); }, 3600000); // Chỉ tải lại Gist ảnh mỗi giờ
+        setInterval(function() { if (!settings.useOnlinePhotos) fetchAndUpdateRemoteImages(); }, 3600000); 
         setInterval(function() { var now = new Date(); if (now.getMinutes() === 0 && now.getSeconds() < 2) { updateMainDate(); currentDateForCalendar = new Date(); renderCalendar(); } }, 1000);
     });
     </script>
