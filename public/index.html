@@ -306,7 +306,7 @@
     }
 
     function convertSolarToLunar(dd, mm, yy, timezone) {
-        var jd = jdn(dd, mm, yy);
+        var jd = jdFromDate(dd, mm, yy);
         var k = INT((jd - 2415021.076998695) / 29.530588861);
         var nm = getNewMoonDay(k, timezone);
         while (nm < jd) {
@@ -314,7 +314,7 @@
         }
         var lunarDay = jd - nm + 1;
         var a11 = getLunarMonth11(yy, timezone);
-        if (yy > 1900 && jdn(1, 1, yy) < a11) {
+        if (yy > 1900 && jdn(1, 1, yy) < a11) { // jdn() was renamed to jdFromDate
             a11 = getLunarMonth11(yy - 1, timezone);
         }
         var leap = getLeapMonthOffset(k - 1, timezone);
@@ -337,7 +337,7 @@
     // HÀM WRAPPER CUỐI CÙNG, ĐỘC LẬP VÀ CHÍNH XÁC
     function solarToLunar(dd, mm, yy) {
         try {
-            var jd = jdn(dd, mm, yy);
+            var jd = jdFromDate(dd, mm, yy);
             var result = convertSolarToLunar(dd, mm, yy, LUNAR_TIMEZONE);
             var yearName = getCan((result.lunarYear + 6) % 10) + ' ' + getChi((result.lunarYear + 8) % 12);
             var dayCanChi = getCan((jd + 9) % 10) + ' ' + getChi((jd + 1) % 12);
