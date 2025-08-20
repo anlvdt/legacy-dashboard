@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Legacy Frame by An Le - Make ur outdated device great again!</title>
+    <title>Legacy Frame by An Le - Make old device great again!</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Lato:wght@900&display=swap" rel="stylesheet">
@@ -456,58 +456,69 @@
         }
 
         function jdFromDate(d, m, y) {
-            return (1461 * (y + 4800 + Math.floor((m - 14) / 12))) / 4 +
-                   (367 * (m - 2 - 12 * Math.floor((m - 14) / 12))) / 12 -
-                   (3 * Math.floor((y + 4900 + Math.floor((m - 14) / 12)) / 100)) / 4 +
-                   d - 32075;
+            // SỬA LỖI: Bọc toàn bộ phép tính trong Math.floor() để đảm bảo kết quả là số nguyên
+            return Math.floor(
+                (1461 * (y + 4800 + Math.floor((m - 14) / 12))) / 4 +
+                (367 * (m - 2 - 12 * Math.floor((m - 14) / 12))) / 12 -
+                (3 * Math.floor((y + 4900 + Math.floor((m - 14) / 12)) / 100)) / 4 +
+                d - 32075
+            );
         }
 
         var jd = jdFromDate(dd, mm, yy);
-        var day = new Date(yy, mm-1, dd);
-        var time_zone = -day.getTimezoneOffset() / 60; // Get local timezone
-        var off = (jd - 2451545) - (((time_zone - 7) / 24)); // Offset from UTC+7
+        var offset = (new Date(yy, mm - 1, dd)).getTimezoneOffset();
+        var days = jd - 2415021 - Math.floor(offset / 1440); // Convert local to UTC day count
 
-        var new_year, new_month, new_day;
-        var i, k, is_leap, mday, mdays;
-
-        var current_jd = 2451545-7; // Mốc 1/1/2000, múi giờ +7
-        var days = jd-current_jd;
-
+        var i, leap, temp;
         for (i = 1900; i < 2050 && days > 0; i++) {
-            mdays = getLunarYearDays(i);
-            days -= mdays;
+            temp = getLunarYearDays(i);
+            days -= temp;
         }
-        if (days < 0) { days += mdays; i--; }
-        
-        new_year = i;
-        var leap = getLeapMonth(new_year);
-        is_leap = false;
+        if (days < 0) {
+            days += temp;
+            i--;
+        }
+
+        var lunarYear = i;
+        leap = getLeapMonth(lunarYear);
+        var isLeap = false;
         
         for (i = 1; i < 13 && days > 0; i++) {
-            if (leap > 0 && i === (leap + 1) && is_leap === false) {
-                --i; is_leap = true; mday = getLeapMonthDays(new_year);
+            if (leap > 0 && i == (leap + 1) && !isLeap) {
+                --i;
+                isLeap = true;
+                temp = getLeapMonthDays(lunarYear);
             } else {
-                mday = getLunarMonthDays(new_year, i);
+                temp = getLunarMonthDays(lunarYear, i);
             }
-            days -= mday;
-            if (is_leap === true && i === (leap + 1)) { is_leap = false; }
+            if (isLeap && i == (leap + 1)) isLeap = false;
+            days -= temp;
         }
         
-        if (days < 0) { days += mday; --i; }
-        if(i==0) i=12; //fix bug when it is the last day of a lunar year
-        new_month = i;
-        new_day = days + 1;
-
-        var jdToday = jdFromDate(dd, mm, yy) - 7;
-        var dayCanChi = CAN[(jdToday + 9) % 10] + " " + CHI[(jdToday + 1) % 12];
-        var monthName = "tháng " + new_month + (getLeapMonth(new_year) === new_month && is_leap ? " nhuận" : "");
-        var yearName = "năm " + CAN[(new_year - 4) % 10] + " " + CHI[(new_year - 4) % 12];
+        if (days == 0 && leap > 0 && i == leap + 1) {
+            if (isLeap) {
+                isLeap = false;
+            } else {
+                isLeap = true;
+                --i;
+            }
+        }
+        if (days < 0) {
+            days += temp;
+            --i;
+        }
+        
+        var lunarMonth = i;
+        var lunarDay = days + 1;
+        var dayCanChi = CAN[(jd + 9) % 10] + " " + CHI[(jd + 1) % 12];
+        var monthName = "tháng " + lunarMonth + (isLeap ? " nhuận" : "");
+        var yearName = "năm " + CAN[(lunarYear - 4) % 10] + " " + CHI[(lunarYear - 4) % 12];
 
         return {
-            day: new_day,
-            lunarMonth: new_month,
-            lunarYear: new_year,
-            isLeap: (getLeapMonth(new_year) === new_month && is_leap),
+            day: lunarDay,
+            lunarMonth: lunarMonth,
+            lunarYear: lunarYear,
+            isLeap: isLeap,
             dayCanChi: dayCanChi,
             monthName: monthName,
             yearName: yearName
