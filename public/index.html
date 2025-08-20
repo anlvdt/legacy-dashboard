@@ -185,7 +185,6 @@
         <div id="clock-only-date-container">
             <p id="gregorian-date-overlay"></p>
             <p id="lunar-date-overlay" style="color: #f39c12;"></p>
-            <!-- THÊM MỚI: Dòng hiển thị năm Âm lịch -->
             <p id="lunar-year-overlay" style="color: #f39c12; opacity: 0.8; font-size: 80%;"></p>
         </div>
         <div id="clock-only-weather-container">
@@ -309,27 +308,35 @@
         var jd = jdFromDate(dd, mm, yy);
         var k = INT((jd - 2415021.076998695) / 29.530588861);
         var nm = getNewMoonDay(k, timezone);
+        
         while (nm < jd) {
             nm = getNewMoonDay(++k, timezone);
         }
-        var lunarDay = jd - nm + 1;
+        
+        // SỬA LỖI: Lùi lại một bước để lấy ngày Sóc của tháng Âm lịch HIỆN TẠI.
+        nm = getNewMoonDay(--k, timezone);
+
+        var lunarDay = INT(jd - nm + 1);
         var a11 = getLunarMonth11(yy, timezone);
-        if (yy > 1900 && jdFromDate(1, 1, yy) < a11) { // SỬA LỖI: jdn -> jdFromDate
+        if (yy > 1900 && jdFromDate(1, 1, yy) < a11) { 
             a11 = getLunarMonth11(yy - 1, timezone);
         }
-        var leap = getLeapMonthOffset(k - 1, timezone);
+        
+        var leap = getLeapMonthOffset(k, timezone);
         var monthOffset = Math.round((nm - a11) / 29.530588861);
         var lunarMonth = (monthOffset + 11) % 12;
+
         if (lunarMonth === 0) lunarMonth = 12;
         var lunarYear = yy - INT((12.5 - lunarMonth) / 12);
-        if (leap !== 0 && monthOffset >= leap + 1) {
-            lunarMonth--;
-            if (lunarMonth === 0) lunarMonth = 12;
+
+        var isLeap = (leap !== 0 && monthOffset >= leap);
+        if (isLeap) {
+            lunarMonth = monthOffset - leap + 1;
         }
-        var isLeap = (leap !== 0 && monthOffset === leap);
 
         return { lunarDay: lunarDay, lunarMonth: lunarMonth, lunarYear: lunarYear, isLeap: isLeap };
     }
+
 
     function getCan(num) { return CAN[num % 10]; }
     function getChi(num) { return CHI[num % 12]; }
@@ -475,7 +482,7 @@
             
             els.gregorianDateOverlay.style.display = settings.clockOnlyShowGregorian ? 'block' : 'none';
             els.lunarDateOverlay.style.display = settings.clockOnlyShowLunar ? 'block' : 'none';
-            els.lunarYearOverlay.style.display = settings.clockOnlyShowLunar ? 'block' : 'none'; // Hiển thị năm Âm lịch cùng lúc
+            els.lunarYearOverlay.style.display = settings.clockOnlyShowLunar ? 'block' : 'none'; 
             
             els.clock.classList[settings.secondsVisible ? 'add' : 'remove']('seconds-visible');
             if (settings.secondsVisible) { els.mainColon.classList.remove('colon-blinking'); } 
