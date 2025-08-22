@@ -4,7 +4,9 @@ Bạn có một chiếc máy tính bảng hoặc điện thoại cũ không còn
 
 Dự án này được viết bằng HTML, CSS và JavaScript thuần túy, không phụ thuộc vào bất kỳ thư viện nào, đảm bảo hiệu suất mượt mà ngay cả trên các thiết bị có cấu hình yếu nhất.
 
-DEMO: [https://legacyframe.netlify.app/]
+**➡️ [Xem Demo Trực Tuyến](https://legacyframe.netlify.app/) ⬅️**
+
+*(Bạn nên chụp một ảnh màn hình đẹp của ứng dụng và thay thế link này)*
 
 ### ✨ Các Tính Năng Nổi Bật
 
@@ -31,13 +33,52 @@ DEMO: [https://legacyframe.netlify.app/]
 
 ---
 
-## 🚀 Tải Về Và Sử Dụng
+## 🚀 Cách Triển Khai Lên Internet
 
-### Tải Mã Nguồn Về Máy
+Để chia sẻ ứng dụng của bạn với người khác một cách dễ dàng, bạn nên đưa nó lên mạng. Dưới đây là hướng dẫn chi tiết sử dụng GitHub và Netlify.
 
-1.  Trên trang GitHub này, nhấn vào nút màu xanh lá `Code`, sau đó chọn `Download ZIP`.
-2.  Giải nén file ZIP vừa tải về.
-3.  Mở file `index.html` bằng bất kỳ trình duyệt web nào để bắt đầu sử dụng.
+### Bước 1: Tạo Kho Chứa (Repository) trên GitHub
+
+1.  **Đăng nhập** vào tài khoản [GitHub](https://github.com/) của bạn.
+2.  Nhấn vào dấu `+` ở góc trên cùng bên phải và chọn **New repository**.
+3.  **Đặt tên cho kho chứa:** Ví dụ: `legacy-frame`.
+4.  Chọn **Public** để mọi người có thể truy cập.
+5.  **Không** tick vào ô "Add a README file".
+6.  Nhấn nút **Create repository**.
+
+### Bước 2: Tải Mã Nguồn Lên GitHub
+
+1.  Trong trang kho chứa bạn vừa tạo, nhấn vào link **uploading an existing file**.
+2.  Kéo file `index.html` của bạn vào khu vực tải lên.
+3.  Chờ file được tải lên xong, sau đó nhấn nút **Commit changes**.
+
+### Bước 3: Kết Nối và Triển Khai với Netlify (Khuyên dùng)
+
+Netlify rất mạnh mẽ và sẽ tự động cập nhật trang web mỗi khi bạn thay đổi mã nguồn trên GitHub.
+
+1.  **Đăng ký Netlify:**
+    *   Truy cập [Netlify](https://www.netlify.com/) và chọn **Sign up**.
+    *   Cách dễ nhất là đăng ký bằng tài khoản GitHub của bạn.
+
+2.  **Tạo một trang web mới:**
+    *   Sau khi đăng nhập, trong trang tổng quan (dashboard), nhấn vào **Add new site** -> **Import an existing project**.
+
+3.  **Kết nối với GitHub:**
+    *   Chọn **GitHub** làm nhà cung cấp. Netlify sẽ yêu cầu bạn cấp quyền truy cập vào tài khoản GitHub của mình.
+
+4.  **Chọn kho chứa:**
+    *   Tìm và chọn kho chứa `legacy-frame` (hoặc tên bạn đã đặt) từ danh sách.
+
+5.  **Cấu hình triển khai:**
+    *   Netlify sẽ hiển thị trang cài đặt. Vì đây là một dự án HTML tĩnh đơn giản, bạn **không cần thay đổi bất cứ thứ gì**.
+    *   Nhấn nút **Deploy site**.
+
+6.  **Hoàn tất!**
+    *   Netlify sẽ mất khoảng một phút để triển khai trang web của bạn.
+    *   Sau khi hoàn tất, Netlify sẽ cung cấp cho bạn một đường link công khai.
+    *   **Để đổi tên:** Vào **Site settings** -> **Change site name** để có một đường link đẹp hơn, ví dụ: `https://khung-anh-so.netlify.app`.
+
+Bây giờ bạn có thể chia sẻ đường link Netlify này cho bất kỳ ai!
 
 ---
 
@@ -45,21 +86,12 @@ DEMO: [https://legacyframe.netlify.app/]
 
 ### Giao Diện Chính
 
-*   Màn hình được chia thành hai cột chính:
-    *   **Cột bên trái:** Hiển thị thông tin chính bao gồm Đồng hồ, Ngày tháng Âm/Dương và Lịch.
-    *   **Cột bên phải:** Hiển thị thông tin Shop và Mã QR.
-*   Trên các thiết bị di động có màn hình hẹp, hai cột này sẽ tự động xếp chồng lên nhau.
+*   **Cột bên trái:** Hiển thị thông tin chính bao gồm Đồng hồ, Ngày tháng Âm/Dương và Lịch.
+*   **Cột bên phải:** Hiển thị thông tin Shop và Mã QR.
 
 ### Bảng Cài Đặt
 
-Để tùy chỉnh ứng dụng, hãy nhấn vào **biểu tượng bánh răng (⚙️)** ở góc trên cùng bên phải màn hình. Một bảng điều khiển sẽ hiện ra, cho phép bạn:
-
-*   **Bật/Tắt Chế độ nhìn xa:** Chỉ hiển thị đồng hồ với kích thước khổng lồ.
-*   **Dùng ảnh online/cá nhân:** Chuyển đổi giữa hai chế độ trình chiếu ảnh.
-*   **Toàn màn hình:** Mở ứng dụng ra toàn bộ màn hình của thiết bị.
-*   **Ẩn/Hiện các khối:** Tùy ý tắt các thành phần như Lịch, Thời tiết, Ngày tháng, v.v. để giao diện gọn gàng hơn.
-*   **HD: Giữ màn hình bật:** Xem hướng dẫn cách thiết lập để màn hình thiết bị của bạn không tự động tắt.
-*   **Đặt lại Cài đặt:** Xóa mọi tùy chỉnh và quay về trạng thái mặc định.
+Nhấn vào **biểu tượng ba gạch ngang (☰)** ở góc trên cùng bên phải màn hình để mở bảng điều khiển và tùy chỉnh các tính năng theo ý muốn.
 
 ---
 
@@ -72,24 +104,20 @@ Bạn có thể cá nhân hóa hoàn toàn phần hình ảnh và thông tin QR 
 1.  **Tạo Gist:**
     *   Truy cập [GitHub Gist](https://gist.github.com/).
     *   Đặt tên file là `slideshow_images.json`.
-    *   Dán nội dung sau vào và thay thế bằng các URL ảnh của bạn. Bạn có thể thêm bao nhiêu ảnh tùy thích.
+    *   Dán nội dung sau vào và thay thế bằng các URL ảnh của bạn:
         ```json
         [
           "https://images.unsplash.com/photo-1542051841857-5f90071e7989",
-          "https://images.unsplash.com/photo-1528181304800-259b08848526",
-          "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"
+          "https://images.unsplash.com/photo-1528181304800-259b08848526"
         ]
         ```
-    *   Nhấn vào nút `Create secret gist` (hoặc `Create public gist`).
+    *   Nhấn vào nút `Create secret gist`.
 
 2.  **Lấy URL "Raw":**
-    *   Sau khi tạo xong, bạn sẽ thấy nút `Raw` ở góc trên bên phải của file.
-    *   Nhấn vào nút `Raw` và sao chép đường dẫn (URL) trên thanh địa chỉ của trình duyệt.
+    *   Sau khi tạo xong, nhấn vào nút `Raw` và sao chép đường dẫn (URL) trên thanh địa chỉ.
 
 3.  **Cập nhật mã nguồn:**
-    *   Mở file `index.html` bằng một trình soạn thảo văn bản.
-    *   Tìm đến dòng có biến `REMOTE_IMAGE_MANIFEST_URL`.
-    *   Dán URL "Raw" bạn vừa sao chép để thay thế cho URL mặc định.
+    *   Mở file `index.html`, tìm đến biến `REMOTE_IMAGE_MANIFEST_URL` và dán URL "Raw" bạn vừa sao chép vào đó.
 
 ### 2. Tùy Chỉnh Thông Tin Shop & Mã QR
 
@@ -105,6 +133,33 @@ Bạn có thể cá nhân hóa hoàn toàn phần hình ảnh và thông tin QR 
         ```
 
 2.  **Lấy URL "Raw"** và **Cập nhật mã nguồn** tương tự như bước trên, nhưng lần này bạn sẽ thay thế URL cho biến `REMOTE_CONFIG_URL`.
+
+*(Lưu ý: Sau khi thay đổi mã nguồn `index.html`, bạn cần tải lại file này lên GitHub để Netlify tự động cập nhật phiên bản mới).*
+
+### 💡 Mẹo: Tích Hợp Mã QR Động Với VietQR QuickLink
+
+Để biến mã QR thành một công cụ thanh toán chuyên nghiệp, bạn có thể sử dụng dịch vụ **QuickLink** miễn phí của VietQR.
+
+1.  Truy cập trang tạo QuickLink của VietQR tại: **[https://my.vietqr.io/](https://my.vietqr.io/)**
+2.  Điền đầy đủ thông tin: Ngân hàng, Số tài khoản, Tên chủ tài khoản.
+3.  Sau khi tạo xong, sao chép lại đường link **QuickLink** được cung cấp. Link này có dạng `https://my.vietqr.io/BANK-ID/ACCOUNT-NO/ACCOUNT-NAME`.
+4.  Mở file Gist `config.json` của bạn và dán đường link này vào trường `qrImageUrl`. File của bạn sẽ trông giống như sau:
+    ```json
+    {
+      "qrImageUrl": "https://my.vietqr.io/MB/0123456789/NGUYEN VAN A",
+      "shopName": "Tên Cửa Hàng Của Bạn",
+      "shopAddress": "Địa chỉ cửa hàng"
+    }
+    ```
+5.  Lưu lại Gist. Ứng dụng sẽ tự động lấy link này và hiển thị mã QR tương ứng. Khách hàng chỉ cần quét mã là có thể mở ứng dụng ngân hàng và chuyển khoản ngay lập tức!
+
+---
+
+## 🙏 Lời Cảm Ơn:
+
+*   **Ý tưởng & khởi xướng dự án:** **ẨN LÊ** từ **LAPTOP LÊ ẨN**.
+*   **Hỗ trợ viết và hoàn thiện mã nguồn:** **Gemini** (Google AI).
+*   **Thuật toán chuyển đổi Âm lịch:** Dựa trên thuật toán chính xác và đáng tin cậy của tác giả **Hồ Ngọc Đức**.
 
 ---
 
