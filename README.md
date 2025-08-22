@@ -33,15 +33,7 @@ DEMO: [https://legacyframe.netlify.app/]
 
 ## 🚀 Tải Về Và Sử Dụng
 
-### Cách 1: Sử Dụng Trực Tuyến (Đơn giản nhất)
-
-Bạn không cần cài đặt bất cứ thứ gì. Chỉ cần mở trình duyệt web (Safari, Chrome, Firefox...) trên thiết bị của bạn và truy cập vào đường link sau:
-
-**➡️ [https://TEN_GITHUB_CUA_BAN.github.io/TEN_REPOSITORY/](https://TEN_GITHUB_CUA_BAN.github.io/TEN_REPOSITORY/)**
-
-*(Hãy thay thế `TEN_GITHUB_CUA_BAN` và `TEN_REPOSITORY` bằng tên tài khoản và tên kho chứa của bạn trên GitHub).*
-
-### Cách 2: Tải Mã Nguồn Về Máy
+### Tải Mã Nguồn Về Máy
 
 1.  Trên trang GitHub này, nhấn vào nút màu xanh lá `Code`, sau đó chọn `Download ZIP`.
 2.  Giải nén file ZIP vừa tải về.
