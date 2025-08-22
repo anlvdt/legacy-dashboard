@@ -6,8 +6,6 @@ Dự án này được viết bằng HTML, CSS và JavaScript thuần túy, khô
 
 **➡️ [Xem Demo Trực Tuyến](https://legacyframe.netlify.app/) ⬅️**
 
-*(Bạn nên chụp một ảnh màn hình đẹp của ứng dụng và thay thế link này)*
-
 ### ✨ Các Tính Năng Nổi Bật
 
 *   **⏰ Đồng Hồ & Lịch Đa Năng:**
