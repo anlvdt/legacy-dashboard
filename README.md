@@ -33,7 +33,7 @@ Dự án này được viết bằng HTML, CSS và JavaScript thuần túy, khô
 
 ## 🚀 Cách Triển Khai Lên Internet
 
-Để chia sẻ ứng dụng của bạn với người khác một cách dễ dàng, bạn nên đưa nó lên mạng. Dưới đây là hướng dẫn chi tiết sử dụng GitHub và Netlify.
+Dưới đây là hướng dẫn chi tiết sử dụng GitHub và Netlify.
 
 ### Bước 1: Tạo Kho Chứa (Repository) trên GitHub
 
