@@ -4,7 +4,7 @@ Bạn có một chiếc máy tính bảng hoặc điện thoại cũ không còn
 
 Dự án này được viết bằng HTML, CSS và JavaScript thuần túy, không phụ thuộc vào bất kỳ thư viện nào, đảm bảo hiệu suất mượt mà ngay cả trên các thiết bị có cấu hình yếu nhất.
 
-[https://legacyframe.netlify.app/]
+DEMO: [https://legacyframe.netlify.app/]
 
 ### ✨ Các Tính Năng Nổi Bật
 
