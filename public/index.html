@@ -31,7 +31,7 @@
         .clock-segment { background: rgba(28, 28, 28, 0.45); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 2vmin; padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
         #digital-clock { display: -webkit-flex; display: flex; -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; width: 100%; line-height: 1; white-space: nowrap; }
         .clock-separator { background: none; border: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding: 0; margin: 0 1.5vmin; }
-        .clock-segment span, .clock-separator { font-family: 'Lato', sans-serif; font-weight: 900; color: #F5F5F5; text-shadow: 0 0 1vmin rgba(255,255,255,0.3); transition: font-size 0.3s ease; }
+        .clock-segment span, .clock-separator { font-family: 'Lato', sans-serif; font-weight: 900; color: #F5F5F5; text-shadow: 0 0 1vmin rgba(255,255,255,0.3); transition: font-size: 0.3s ease; }
         .clock-segment span { font-size: 13vmin; letter-spacing: 0.05em; }
         .clock-separator { font-size: 10vmin; }
         .clock-seconds { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; max-width: 0; opacity: 0; overflow: hidden; transition: max-width 0.5s ease, opacity 0.5s ease; }
@@ -80,23 +80,11 @@
         .container.slideshow-hidden .info-column { margin-right: 0; }
         .container.qr-hidden .qr-code-image { display: none; }
         
-        /* --- BẮT ĐẦU THAY ĐỔI CSS: Layout cho Chế độ nhìn xa --- */
         #clock-only-date-container, #clock-only-weather-container {
-            position: relative; /* Bỏ position absolute */
-            bottom: auto;
-            top: auto;
-            left: auto;
-            transform: none;
-            display: none; /* Vẫn ẩn mặc định */
-            width: auto; 
-            padding: 1vmin 3vmin; 
-            text-align: center; 
-            font-weight: 700; 
-            background: rgba(28, 28, 28, 0.45); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 2vmin; 
-            -webkit-backdrop-filter: blur(20px); 
-            backdrop-filter: blur(20px);
+            position: relative; bottom: auto; top: auto; left: auto; transform: none; display: none;
+            width: auto; padding: 1vmin 3vmin; text-align: center; font-weight: 700; 
+            background: rgba(28, 28, 28, 0.45); border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 2vmin; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
             z-index: 10;
         }
         #clock-only-date-container { font-size: 4vmin; }
@@ -108,21 +96,13 @@
         .container.clock-only-mode { padding: 0; }
         .container.clock-only-mode .info-column { margin-right: 0; height: 100vh; width: 100vw; }
         
-        /* Thay đổi quan trọng: .content-wrapper sẽ quản lý layout dọc */
         .container.clock-only-mode .content-wrapper { 
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            padding: 2vh 0;
-            box-sizing: border-box;
+            flex-direction: column; justify-content: space-between;
+            height: 100%; padding: 2vh 0; box-sizing: border-box;
         }
-        /* Đồng hồ sẽ tự giãn ra ở giữa */
         .container.clock-only-mode #digital-clock-wrapper { 
-            flex-grow: 1; 
-            width: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-grow: 1; width: auto; display: flex;
+            align-items: center; justify-content: center;
         }
 
         .container.clock-only-mode .qr-column,
@@ -130,7 +110,6 @@
         .container.clock-only-mode #calendar-wrapper,
         .container.clock-only-mode #settings-container { display: none; }
         
-        /* JS sẽ bật các khối này lên bằng cách thêm class vào container */
         .container.clock-only-mode.show-dates #clock-only-date-container { display: block; }
         .container.clock-only-mode.show-weather #clock-only-weather-container { display: block; text-align: center; }
         
@@ -138,7 +117,6 @@
         .container.clock-only-mode .clock-separator { font-size: 28vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 25vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-separator { font-size: 20vmin; }
-        /* --- KẾT THÚC THAY ĐỔI CSS --- */
 
         #settings-container { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; }
         #settings-toggle { cursor: pointer; width: 2.5rem; height: 2.5rem; background: none; border: none; padding: 0; font-size: 2rem; line-height: 1; color: #F5F5F5; transition: transform 0.2s ease; }
@@ -198,7 +176,6 @@
     <div class="container" id="main-container">
         <div class="info-column" id="info-column">
             <div class="content-wrapper">
-                 <!-- --- BẮT ĐẦU THAY ĐỔI HTML: Chuyển khối weather vào đây --- -->
                 <div id="clock-only-weather-container">
                      <div id="weather-location-overlay"></div>
                      <div id="clock-only-weather-container-line2">
@@ -206,7 +183,6 @@
                         <span id="weather-temp-overlay"></span>
                      </div>
                 </div>
-                <!-- --- KẾT THÚC THAY ĐỔI HTML --- -->
 
                 <div id="digital-clock-wrapper" class="info-block">
                     <div id="digital-clock">
@@ -234,14 +210,14 @@
                     </div>
                 </div>
                 
-                <!-- --- BẮT ĐẦU THAY ĐỔI HTML: Chuyển khối date vào đây --- -->
                 <div id="clock-only-date-container">
                     <p id="gregorian-date-overlay"></p>
                     <p id="lunar-date-overlay" style="color: #f39c12;"></p>
                     <p id="lunar-event-overlay" style="color: #e67e22;"></p>
+                    <!-- --- BẮT ĐẦU THAY ĐỔI: Thêm lại dòng hiển thị năm Âm lịch bị thiếu --- -->
                     <p id="lunar-year-overlay" style="color: #f39c12; opacity: 0.8; font-size: 80%;"></p>
+                    <!-- --- KẾT THÚC THAY ĐỔI --- -->
                 </div>
-                <!-- --- KẾT THÚC THAY ĐỔI HTML --- -->
             </div>
         </div>
 
@@ -254,9 +230,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- CÁC KHỐI OVERLAY CŨ ĐÃ ĐƯỢC DI CHUYỂN VÀO TRONG .content-wrapper -->
-
     </div>
     
     <div id="settings-container">
