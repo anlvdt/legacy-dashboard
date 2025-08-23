@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Lato:wght@900&display=swap" rel="stylesheet">
     <style>
-        /* CSS không thay đổi */
         html { font-size: 1.5vmin; }
         @media (max-width: 480px) { html { font-size: 10px; } }
         html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
@@ -24,18 +23,9 @@
         .content-wrapper { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; -webkit-justify-content: space-between; justify-content: space-between; width: 100%; height: 100%; text-align: center; overflow: hidden; }
         
         .info-block { 
-            display: -webkit-flex; 
-            display: flex; 
-            -webkit-flex-direction: column; 
-            flex-direction: column; 
-            -webkit-justify-content: center; 
-            justify-content: center; 
-            -webkit-align-items: center; 
-            align-items: center; 
-            min-height: 0; 
-            transition: all 0.4s ease; 
-            -webkit-flex-grow: 1;
-            flex-grow: 1;
+            display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; 
+            -webkit-justify-content: center; justify-content: center; -webkit-align-items: center; align-items: center; 
+            min-height: 0; transition: all 0.4s ease; -webkit-flex-grow: 1; flex-grow: 1;
         }
 
         .clock-segment { background: rgba(28, 28, 28, 0.45); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 2vmin; padding: 0.5vmin 2vmin; position: relative; box-shadow: 0 0.5vmin 2vmin rgba(0,0,0,0.5); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
@@ -89,26 +79,67 @@
         .container.shop-hidden .qr-column, .container.slideshow-hidden .info-column, .container.slideshow-hidden .qr-column { -webkit-flex-grow: 0; flex-grow: 0; -webkit-flex-basis: 0; flex-basis: 0; margin: 0 !important; border: none !important; padding: 0 !important;}
         .container.slideshow-hidden .info-column { margin-right: 0; }
         .container.qr-hidden .qr-code-image { display: none; }
-        #clock-only-date-container, #clock-only-weather-container { position: absolute; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); width: auto; padding: 1vmin 3vmin; text-align: center; font-weight: 700; display: none; z-index: 10; background: rgba(28, 28, 28, 0.45); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 2vmin; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
-        #clock-only-date-container { bottom: 2vh; font-size: 4vmin; }
-        #clock-only-weather-container { top: 2vh; font-size: 4.5vmin; padding: 1.5vmin 2.5vmin; }
+        
+        /* --- BẮT ĐẦU THAY ĐỔI CSS: Layout cho Chế độ nhìn xa --- */
+        #clock-only-date-container, #clock-only-weather-container {
+            position: relative; /* Bỏ position absolute */
+            bottom: auto;
+            top: auto;
+            left: auto;
+            transform: none;
+            display: none; /* Vẫn ẩn mặc định */
+            width: auto; 
+            padding: 1vmin 3vmin; 
+            text-align: center; 
+            font-weight: 700; 
+            background: rgba(28, 28, 28, 0.45); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 2vmin; 
+            -webkit-backdrop-filter: blur(20px); 
+            backdrop-filter: blur(20px);
+            z-index: 10;
+        }
+        #clock-only-date-container { font-size: 4vmin; }
+        #clock-only-weather-container { font-size: 4.5vmin; }
         #clock-only-weather-container-line2 { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; -webkit-justify-content: center; justify-content: center; }
         #weather-location-overlay { margin-bottom: 1vmin; }
         #clock-only-date-container p { margin: 0.5vmin 0; }
+
         .container.clock-only-mode { padding: 0; }
         .container.clock-only-mode .info-column { margin-right: 0; height: 100vh; width: 100vw; }
-        .container.clock-only-mode .content-wrapper { -webkit-justify-content: center; justify-content: center; }
-        .container.clock-only-mode #digital-clock-wrapper { -webkit-flex-grow: 0; flex-grow: 0; width: auto; }
+        
+        /* Thay đổi quan trọng: .content-wrapper sẽ quản lý layout dọc */
+        .container.clock-only-mode .content-wrapper { 
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            padding: 2vh 0;
+            box-sizing: border-box;
+        }
+        /* Đồng hồ sẽ tự giãn ra ở giữa */
+        .container.clock-only-mode #digital-clock-wrapper { 
+            flex-grow: 1; 
+            width: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .container.clock-only-mode .qr-column,
         .container.clock-only-mode #date-weather-group,
         .container.clock-only-mode #calendar-wrapper,
         .container.clock-only-mode #settings-container { display: none; }
+        
+        /* JS sẽ bật các khối này lên bằng cách thêm class vào container */
         .container.clock-only-mode.show-dates #clock-only-date-container { display: block; }
         .container.clock-only-mode.show-weather #clock-only-weather-container { display: block; text-align: center; }
+        
         .container.clock-only-mode .clock-segment span { font-size: 35vmin; }
         .container.clock-only-mode .clock-separator { font-size: 28vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span { font-size: 25vmin; }
         .container.clock-only-mode #digital-clock.seconds-visible .clock-separator { font-size: 20vmin; }
+        /* --- KẾT THÚC THAY ĐỔI CSS --- */
+
         #settings-container { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; }
         #settings-toggle { cursor: pointer; width: 2.5rem; height: 2.5rem; background: none; border: none; padding: 0; font-size: 2rem; line-height: 1; color: #F5F5F5; transition: transform 0.2s ease; }
         #settings-toggle:hover { transform: scale(1.1); }
@@ -150,7 +181,6 @@
             }
         }
         
-        /* CSS để ẩn các thành phần thời tiết trên thiết bị cũ (iOS 9 trở về trước) */
         body.legacy-device #weather-container,
         body.legacy-device #clock-only-weather-container,
         body.legacy-device #weather-toggle,
@@ -168,6 +198,16 @@
     <div class="container" id="main-container">
         <div class="info-column" id="info-column">
             <div class="content-wrapper">
+                 <!-- --- BẮT ĐẦU THAY ĐỔI HTML: Chuyển khối weather vào đây --- -->
+                <div id="clock-only-weather-container">
+                     <div id="weather-location-overlay"></div>
+                     <div id="clock-only-weather-container-line2">
+                        <span id="weather-icon-overlay"></span>&nbsp;
+                        <span id="weather-temp-overlay"></span>
+                     </div>
+                </div>
+                <!-- --- KẾT THÚC THAY ĐỔI HTML --- -->
+
                 <div id="digital-clock-wrapper" class="info-block">
                     <div id="digital-clock">
                         <div class="clock-segment"><span id="clock-hours">00</span></div><div id="main-colon" class="clock-separator">:</div><div class="clock-segment"><span id="clock-minutes">00</span></div>
@@ -193,6 +233,15 @@
                         <div id="calendar-grid"></div>
                     </div>
                 </div>
+                
+                <!-- --- BẮT ĐẦU THAY ĐỔI HTML: Chuyển khối date vào đây --- -->
+                <div id="clock-only-date-container">
+                    <p id="gregorian-date-overlay"></p>
+                    <p id="lunar-date-overlay" style="color: #f39c12;"></p>
+                    <p id="lunar-event-overlay" style="color: #e67e22;"></p>
+                    <p id="lunar-year-overlay" style="color: #f39c12; opacity: 0.8; font-size: 80%;"></p>
+                </div>
+                <!-- --- KẾT THÚC THAY ĐỔI HTML --- -->
             </div>
         </div>
 
@@ -206,21 +255,8 @@
             </div>
         </div>
 
-        <div id="clock-only-date-container">
-            <p id="gregorian-date-overlay"></p>
-            <p id="lunar-date-overlay" style="color: #f39c12;"></p>
-            <!-- --- BẮT ĐẦU THAY ĐỔI: Thêm P để hiển thị sự kiện Âm lịch --- -->
-            <p id="lunar-event-overlay" style="color: #e67e22;"></p>
-            <!-- --- KẾT THÚC THAY ĐỔI --- -->
-            <p id="lunar-year-overlay" style="color: #f39c12; opacity: 0.8; font-size: 80%;"></p>
-        </div>
-        <div id="clock-only-weather-container">
-             <div id="weather-location-overlay"></div>
-             <div id="clock-only-weather-container-line2">
-                <span id="weather-icon-overlay"></span>&nbsp;
-                <span id="weather-temp-overlay"></span>
-             </div>
-        </div>
+        <!-- CÁC KHỐI OVERLAY CŨ ĐÃ ĐƯỢC DI CHUYỂN VÀO TRONG .content-wrapper -->
+
     </div>
     
     <div id="settings-container">
@@ -388,10 +424,8 @@
         var REMOTE_IMAGE_MANIFEST_URL = 'https://gist.githubusercontent.com/anlvdt/66f712365351cc8cfc2ad27718b2c9d7/raw/c2cdaa42b282b28e8024417771f314e421b074a7/slideshow_images.json';
         var REMOTE_CONFIG_URL = 'https://gist.githubusercontent.com/anlvdt/5ba20e2a08249bcac84aca7f2c371f0b/raw/7470ffdaf1a0dc18306599033555bf029073858e/config.json';
 
-        // --- BẮT ĐẦU THAY ĐỔI: Thêm 'lunarEventOverlay' vào object els ---
         var els = { container: document.getElementById('main-container'), infoColumn: document.getElementById('info-column'), clock: document.getElementById('digital-clock'), mainColon: document.getElementById('main-colon'), dateWeatherGroup: document.getElementById('date-weather-group'), calendarWrapper: document.getElementById('calendar-wrapper'), weatherContainer: document.getElementById('weather-container'), weatherLocation: document.getElementById('weather-location'), weatherIcon: document.getElementById('weather-icon'), weatherTemp: document.getElementById('weather-temp'), weatherDesc: document.getElementById('weather-desc'), prevBtn: document.getElementById('prev-btn'), nextBtn: document.getElementById('next-btn'), backgroundImage: document.getElementById('background-image'), settingsToggle: document.getElementById('settings-toggle'), settingsPanel: document.getElementById('settings-panel'), slideshowToggleBtn: document.getElementById('slideshow-toggle'), shopToggleBtn: document.getElementById('shop-toggle-btn'), qrToggleBtn: document.getElementById('qr-toggle-btn'), secondsBtn: document.getElementById('seconds-toggle'), dateToggleBtn: document.getElementById('date-toggle'), calendarToggleBtn: document.getElementById('calendar-toggle'), weatherToggleBtn: document.getElementById('weather-toggle'), fullscreenBtn: document.getElementById('fullscreen-toggle'), resetSettingsBtn: document.getElementById('reset-settings-btn'), refreshPhotosBtn: document.getElementById('refresh-photos-btn'), photoGuideBtn: document.getElementById('photo-guide-btn'), alwaysOnGuideBtn: document.getElementById('always-on-guide-btn'), guideDialog: document.getElementById('guide-dialog'), guideTitle: document.getElementById('guide-title'), guideContent: document.getElementById('guide-content'), clockOnlyToggleBtn: document.getElementById('clock-only-toggle'), clockOnlyGregorianBtn: document.getElementById('clock-only-gregorian-toggle'), clockOnlyLunarBtn: document.getElementById('clock-only-lunar-toggle'), gregorianDateOverlay: document.getElementById('gregorian-date-overlay'), lunarDateOverlay: document.getElementById('lunar-date-overlay'), onlinePhotosBtn: document.getElementById('online-photos-toggle'), clockOnlyWeatherBtn: document.getElementById('clock-only-weather-toggle'), clockOnlyWeatherContainer: document.getElementById('clock-only-weather-container'), weatherLocationOverlay: document.getElementById('weather-location-overlay'), weatherIconOverlay: document.getElementById('weather-icon-overlay'), weatherTempOverlay: document.getElementById('weather-temp-overlay'), powerSaveBtn: document.getElementById('power-save-toggle'), lunarYearOverlay: document.getElementById('lunar-year-overlay'), lunarEventOverlay: document.getElementById('lunar-event-overlay') };
-        // --- KẾT THÚC THAY ĐỔI ---
-
+        
         var images = [], currentImageIndex = 0, slideshowInterval = null, currentDateForCalendar = new Date(), lastTime = {};
         var settings = { slideshowHidden: false, shopHidden: false, qrHidden: false, secondsVisible: false, dateHidden: false, calendarHidden: false, weatherHidden: false, clockOnlyMode: false, clockOnlyShowGregorian: false, clockOnlyShowLunar: false, clockOnlyShowWeather: false, useOnlinePhotos: false, powerSaveMode: false };
         
@@ -412,17 +446,14 @@
             if (lunar.day === 1) eventText = "Mồng 1";
             else if (lunar.day === 15) eventText = "Ngày Rằm";
             
-            // Cập nhật cho chế độ xem thông thường
             document.getElementById('gregorian-date-p').innerText = gregorianText;
             document.getElementById('lunar-date-p').innerText = lunarText;
             document.getElementById('lunar-event').innerText = eventText;
 
-            // --- BẮT ĐẦU THAY ĐỔI: Cập nhật cho chế độ nhìn xa (overlay) ---
             els.gregorianDateOverlay.innerText = gregorianText;
             els.lunarDateOverlay.innerText = lunarText;
-            els.lunarEventOverlay.innerText = eventText; // Thêm dòng này
+            els.lunarEventOverlay.innerText = eventText;
             els.lunarYearOverlay.innerText = lunarYearText;
-            // --- KẾT THÚC THAY ĐỔI ---
         }
 
         function makeRequest(url, callback) { var xhr = new XMLHttpRequest(); xhr.onreadystatechange = function() { if (xhr.readyState === 4) { if (xhr.status >= 200 && xhr.status < 300) { try { callback(null, JSON.parse(xhr.responseText)); } catch(e) { callback(e, null); } } else { callback(new Error('Yêu cầu mạng thất bại: ' + xhr.status), null); } } }; xhr.open('GET', url, true); xhr.send(); }
@@ -567,13 +598,9 @@
         function showGuide(type) { var guides = { photo: { title: 'Hướng dẫn Cập nhật Ảnh', content: '<ul><li>Bạn có thể dùng danh sách ảnh cá nhân (cấu hình trong file Gist) hoặc dùng ảnh online từ Picsum Photos.</li><li>Để dùng ảnh online, bạn không cần API Key, chỉ cần bật tùy chọn trong menu.</li><li>Sử dụng nút "Dùng ảnh online" trong menu cài đặt để chuyển đổi giữa hai chế độ.</li></ul>' }, alwaysOn: { title: 'Hướng dẫn Giữ Màn hình Bật', content: '<ul><li><b>iPad/iPhone:</b> Vào Cài đặt > Màn hình & Độ sáng > Tự động khoá > chọn "Không".</li><li><b>Android:</b> Vào Cài đặt > Màn hình > Thời gian sáng màn hình > chọn thời gian dài nhất hoặc "Không bao giờ". Một số máy cần bật "Tuỳ chọn nhà phát triển" để có tuỳ chọn "Luôn bật khi sạc".</li><li><b>Windows/macOS:</b> Vào phần cài đặt Năng lượng (Power/Energy Saver) và đặt thời gian tắt màn hình thành "Không bao giờ" (Never).</li></ul>' } }; var guide = guides[type]; els.guideTitle.innerHTML = guide.title; els.guideContent.innerHTML = guide.content; els.guideDialog.classList.add('show'); }
         
         function isLegacyIOS() {
-            // Hàm này kiểm tra các thiết bị iPhone/iPad/iPod chạy iOS phiên bản 9 hoặc cũ hơn.
-            // Các phiên bản này có giao thức bảo mật (TLS) đã lỗi thời và không thể kết nối
-            // tới các API thời tiết hiện đại, khiến tính năng này bị lỗi.
             if (!/iP(ad|hone|od)/.test(navigator.userAgent)) {
-                return false; // Không phải là thiết bị di động của Apple
+                return false;
             }
-            // Tìm chuỗi "OS X_Y" và kiểm tra xem phiên bản X có nhỏ hơn 10 không.
             const match = navigator.userAgent.match(/OS (\d+)_/);
             return match && parseInt(match[1], 10) < 10;
         }
@@ -605,7 +632,6 @@
         els.backgroundImage.addEventListener('load', function() { this.classList.add('loaded'); });
         els.backgroundImage.onerror = function() { console.warn("Lỗi tải ảnh. Đang thử tải ảnh mới..."); setTimeout(changeImage, 1000); };
         
-        // Logic khởi tạo chính
         var isOldDevice = isLegacyIOS();
         if (isOldDevice) {
             console.log("Phát hiện thiết bị iOS cũ. Vô hiệu hóa tính năng thời tiết.");
@@ -618,7 +644,7 @@
         updateLayout(); 
         
         if (!isOldDevice) {
-            loadAutomaticWeather(); // Chỉ tải thời tiết nếu không phải thiết bị cũ
+            loadAutomaticWeather();
             setInterval(loadAutomaticWeather, 1800000); 
         }
 
