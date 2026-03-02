@@ -2836,8 +2836,7 @@ body.power-save-mode #news-tts-btn {
 
 
 /* ================================================================
- * HOLIDAY COUNTDOWN — Đếm ngược ngày nghỉ lễ
- * Nằm dưới vạn niên trong calendar widget
+ * HOLIDAY COUNTDOWN — Đếm ngược ngày nghỉ lễ (widget riêng)
  * ================================================================ */
 .holiday-countdown {
     display: -webkit-flex;
@@ -2852,9 +2851,14 @@ body.power-save-mode #news-tts-btn {
     background: rgba(243, 156, 18, 0.12);
     border: 1px solid rgba(243, 156, 18, 0.25);
     border-radius: 1.5vmin;
-    padding: 0.8vmin 1.5vmin;
-    margin-top: 1vmin;
+    padding: 1.2vmin 1.5vmin;
     text-align: center;
+    width: 100%;
+}
+
+/* Bottom-row override: transparent inner wrapper */
+#dashboard-bottom-row .holiday-countdown {
+    background: rgba(243, 156, 18, 0.12);
 }
 
 .holiday-icon {
