@@ -28,59 +28,69 @@ LF.weather._lon = null;
  * @returns {{ d: string, i: string }} - d: mô tả, i: icon
  */
 LF.weather.getWeatherInfo = function (code) {
-    var map = {
-        '395': { d: 'Tuyết và dông', i: '🌨️' },
-        '392': { d: 'Tuyết nhẹ và dông', i: '🌨️' },
-        '389': { d: 'Mưa và dông', i: '⛈️' },
-        '386': { d: 'Mưa nhẹ và dông', i: '⛈️' },
-        '377': { d: 'Mưa đá', i: '🌨️' },
-        '374': { d: 'Mưa đá nhỏ', i: '🌨️' },
-        '371': { d: 'Mưa tuyết vừa', i: '🌨️' },
-        '368': { d: 'Mưa tuyết nhẹ', i: '🌨️' },
-        '365': { d: 'Mưa tuyết vừa', i: '🌨️' },
-        '362': { d: 'Mưa tuyết nhẹ', i: '🌨️' },
-        '359': { d: 'Mưa lớn', i: '🌧️' },
-        '356': { d: 'Mưa rào lớn', i: '🌧️' },
-        '353': { d: 'Mưa rào nhẹ', i: '🌦️' },
-        '350': { d: 'Mưa đá', i: '🌨️' },
-        '338': { d: 'Tuyết dày', i: '🌨️' },
-        '335': { d: 'Tuyết rơi dày', i: '🌨️' },
-        '332': { d: 'Tuyết', i: '❄️' },
-        '329': { d: 'Tuyết vừa', i: '❄️' },
-        '326': { d: 'Tuyết nhẹ', i: '❄️' },
-        '323': { d: 'Tuyết nhẹ', i: '❄️' }
+    var svg = {
+        sun: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"/></svg>',
+        cloud: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>',
+        rain: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM11 20l-2 2m4-2l-2 2m4-2l-2 2m-8-2l-2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+        snow: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/><circle cx="9" cy="19" r="1.5"/><circle cx="12" cy="21" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg>',
+        storm: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM13 13l-4 5h3v4l5-6h-3z"/></svg>',
+        fog: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M4 10h16v2H4zm0 4h16v2H4zm0 4h16v2H4zm0-12h16v2H4z"/></svg>',
+        unknown: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>'
     };
-    map['320'] = { d: 'Mưa tuyết', i: '🌨️' };
-    map['317'] = { d: 'Mưa tuyết nhẹ', i: '🌨️' };
-    map['314'] = { d: 'Mưa phùn lạnh', i: '🌨️' };
-    map['311'] = { d: 'Mưa phùn lạnh', i: '🌨️' };
-    map['308'] = { d: 'Mưa lớn', i: '🌧️' };
-    map['305'] = { d: 'Mưa lớn', i: '🌧️' };
-    map['302'] = { d: 'Mưa vừa', i: '🌧️' };
-    map['299'] = { d: 'Mưa vừa', i: '🌧️' };
-    map['296'] = { d: 'Mưa nhẹ', i: '🌦️' };
-    map['293'] = { d: 'Mưa nhẹ', i: '🌦️' };
-    map['284'] = { d: 'Mưa phùn lạnh', i: '🌨️' };
-    map['281'] = { d: 'Mưa phùn lạnh', i: '🌨️' };
-    map['266'] = { d: 'Mưa phùn nhẹ', i: '🌦️' };
-    map['263'] = { d: 'Mưa phùn nhẹ', i: '🌦️' };
-    map['260'] = { d: 'Sương mù', i: '🌫️' };
-    map['248'] = { d: 'Sương mù', i: '🌫️' };
-    map['230'] = { d: 'Bão tuyết', i: '🌨️' };
-    map['227'] = { d: 'Tuyết bay', i: '🌨️' };
-    map['200'] = { d: 'Dông', i: '⚡' };
-    map['185'] = { d: 'Mưa phùn lạnh', i: '🌨️' };
-    map['182'] = { d: 'Mưa tuyết nhẹ', i: '🌨️' };
-    map['179'] = { d: 'Tuyết nhẹ', i: '❄️' };
-    map['176'] = { d: 'Mưa rào', i: '🌦️' };
-    map['143'] = { d: 'Sương mù', i: '🌫️' };
-    map['122'] = { d: 'Nhiều mây', i: '☁️' };
-    map['119'] = { d: 'Nhiều mây', i: '☁️' };
-    map['116'] = { d: 'Mây rải rác', i: '🌥️' };
-    map['113'] = { d: 'Trời quang', i: '☀️' };
+
+    var map = {
+        '395': { d: 'Tuyết và dông', i: svg.storm },
+        '392': { d: 'Tuyết nhẹ, dông', i: svg.storm },
+        '389': { d: 'Mưa và dông', i: svg.storm },
+        '386': { d: 'Mưa nhẹ và dông', i: svg.storm },
+        '377': { d: 'Mưa đá', i: svg.snow },
+        '374': { d: 'Mưa đá nhỏ', i: svg.snow },
+        '371': { d: 'Mưa tuyết vừa', i: svg.snow },
+        '368': { d: 'Mưa tuyết nhẹ', i: svg.snow },
+        '365': { d: 'Mưa tuyết vừa', i: svg.snow },
+        '362': { d: 'Mưa tuyết nhẹ', i: svg.snow },
+        '359': { d: 'Mưa lớn', i: svg.rain },
+        '356': { d: 'Mưa rào lớn', i: svg.rain },
+        '353': { d: 'Mưa rào nhẹ', i: svg.rain },
+        '350': { d: 'Mưa đá', i: svg.snow },
+        '338': { d: 'Tuyết dày', i: svg.snow },
+        '335': { d: 'Tuyết rơi dày', i: svg.snow },
+        '332': { d: 'Tuyết', i: svg.snow },
+        '329': { d: 'Tuyết vừa', i: svg.snow },
+        '326': { d: 'Tuyết nhẹ', i: svg.snow },
+        '323': { d: 'Tuyết nhẹ', i: svg.snow },
+        '320': { d: 'Mưa tuyết', i: svg.snow },
+        '317': { d: 'Mưa tuyết nhẹ', i: svg.snow },
+        '314': { d: 'Mưa phùn lạnh', i: svg.rain },
+        '311': { d: 'Mưa phùn lạnh', i: svg.rain },
+        '308': { d: 'Mưa lớn', i: svg.rain },
+        '305': { d: 'Mưa lớn', i: svg.rain },
+        '302': { d: 'Mưa vừa', i: svg.rain },
+        '299': { d: 'Mưa vừa', i: svg.rain },
+        '296': { d: 'Mưa nhẹ', i: svg.rain },
+        '293': { d: 'Mưa nhẹ', i: svg.rain },
+        '284': { d: 'Mưa phùn lạnh', i: svg.rain },
+        '281': { d: 'Mưa phùn lạnh', i: svg.rain },
+        '266': { d: 'Mưa phùn nhẹ', i: svg.rain },
+        '263': { d: 'Mưa phùn nhẹ', i: svg.rain },
+        '260': { d: 'Sương mù', i: svg.fog },
+        '248': { d: 'Sương mù', i: svg.fog },
+        '230': { d: 'Bão tuyết', i: svg.storm },
+        '227': { d: 'Tuyết bay', i: svg.snow },
+        '200': { d: 'Dông', i: svg.storm },
+        '185': { d: 'Mưa phùn lạnh', i: svg.rain },
+        '182': { d: 'Mưa tuyết nhẹ', i: svg.snow },
+        '179': { d: 'Tuyết nhẹ', i: svg.snow },
+        '176': { d: 'Mưa rào', i: svg.rain },
+        '143': { d: 'Sương mù', i: svg.fog },
+        '122': { d: 'Nhiều mây', i: svg.cloud },
+        '119': { d: 'Nhiều mây', i: svg.cloud },
+        '116': { d: 'Mây rải rác', i: svg.cloud },
+        '113': { d: 'Trời quang', i: svg.sun }
+    };
 
     var key = String(code);
-    return map[key] || { d: 'Không xác định', i: '🤷' };
+    return map[key] || { d: 'Không xác định', i: svg.unknown };
 };
 
 /**

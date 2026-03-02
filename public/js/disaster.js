@@ -139,7 +139,7 @@ LF.disaster.renderBanner = function (events) {
     // Icon cảnh báo
     var icon = document.createElement('span');
     icon.className = 'disaster-icon';
-    icon.textContent = '⚠';
+    icon.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>';
 
     // Text cảnh báo
     var text = document.createElement('span');

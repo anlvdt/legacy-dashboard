@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Legacy Frame by An Le - Make your outdated devices great again!</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -224,7 +225,12 @@
          SETTINGS PANEL
          ============================================================ -->
         <div id="settings-container">
-            <button id="settings-toggle" aria-label="Mở hoặc đóng bảng cài đặt"><span>&#9776;</span></button>
+            <button id="settings-toggle" aria-label="Mở hoặc đóng bảng cài đặt">
+                <svg viewBox="0 0 24 24" width="1.2em" height="1.2em" fill="currentColor"
+                    style="vertical-align:-0.1em;">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                </svg>
+            </button>
             <div id="settings-panel">
 
                 <!-- Section: Hiển thị -->
@@ -300,7 +306,11 @@
             <div id="news-ticker-track">
                 <div id="news-ticker-content"></div>
             </div>
-            <button id="news-tts-btn" title="Đọc tin tức" style="display:none;">🔊</button>
+            <button id="news-tts-btn" title="Đọc tin tức" style="display:none;"><svg viewBox="0 0 24 24" width="1.2em"
+                    height="1.2em" fill="currentColor" style="vertical-align:-0.15em">
+                    <path
+                        d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                </svg></button>
         </div>
 
         <!-- ============================================================
@@ -316,8 +326,12 @@
                 <div class="news-panel-header">
                     <h3 class="news-panel-title-h">Tin tức</h3>
                     <div class="news-panel-header-actions">
-                        <button id="news-panel-read-all-btn" class="news-panel-action-btn" type="button">🔊 Đọc tất
-                            cả</button>
+                        <button id="news-panel-read-all-btn" class="news-panel-action-btn" type="button"><svg
+                                viewBox="0 0 24 24" width="1.2em" height="1.2em" fill="currentColor"
+                                style="vertical-align:-0.15em; margin-right: 0.25em">
+                                <path
+                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                            </svg> Đọc tất cả</button>
                         <button id="news-panel-close-btn" class="news-panel-close" type="button"
                             aria-label="Đóng">×</button>
                     </div>
