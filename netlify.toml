@@ -1,3 +1,23 @@
 [build]
   functions = "functions/"
   publish = "public/"
+
+[[redirects]]
+  from = "/api/weather"
+  to = "/.netlify/functions/weather"
+  status = 200
+
+[[redirects]]
+  from = "/api/kqxs"
+  to = "/.netlify/functions/kqxs"
+  status = 200
+
+[[redirects]]
+  from = "/api/fuel"
+  to = "/.netlify/functions/fuel"
+  status = 200
+
+[[redirects]]
+  from = "/api/proxy"
+  to = "/.netlify/functions/proxy"
+  status = 200
