@@ -243,81 +243,28 @@ LF.calendar.getHoliday = function (dd, mm, yy, lunarDay, lunarMonth) {
 };
 
 /**
- * 7. render(baseDate) — Render lịch tháng/tuần
- * Dùng DocumentFragment cho hiệu năng
+ * 7. render(baseDate) — Render lịch tháng đầy đủ
+ * Luôn hiển thị full tháng, T2 là ngày đầu tuần
  *
  * @param {Date} baseDate - Ngày cơ sở để render lịch
  */
 LF.calendar.render = function (baseDate) {
-    var isVertical = window.innerWidth <= 800;
-    if (isVertical) {
-        LF.calendar._renderMonthly(baseDate);
-    } else {
-        LF.calendar._renderWeekly(baseDate);
-    }
+    LF.calendar._renderMonthly(baseDate);
 };
 
 /**
- * Render lịch tuần (landscape)
+ * Render lịch tuần (legacy — không còn dùng, giữ backward compat)
  * @param {Date} baseDate
  */
 LF.calendar._renderWeekly = function (baseDate) {
-    var grid = document.getElementById('calendar-grid');
-    if (!grid) { return; }
-
-    var today = new Date();
-    var dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
-    var weekStart = new Date(baseDate);
-    weekStart.setDate(baseDate.getDate() - baseDate.getDay());
-    var weekEnd = new Date(weekStart);
-    weekEnd.setDate(weekStart.getDate() + 6);
-
-    var titleEl = document.getElementById('calendar-title');
-    if (titleEl) {
-        titleEl.textContent = 'Tuần: ' + weekStart.getDate() + '/' + (weekStart.getMonth() + 1) +
-            ' - ' + weekEnd.getDate() + '/' + (weekEnd.getMonth() + 1);
-    }
-
-    var frag = document.createDocumentFragment();
-    var i, dayEl, currentDay, solarDay, lunar, lunarDisplay;
-
-    // Header row
-    for (i = 0; i < dayNames.length; i++) {
-        dayEl = document.createElement('div');
-        dayEl.className = 'calendar-cell day-name';
-        dayEl.innerHTML = '<div class="cell-content">' + dayNames[i] + '</div>';
-        frag.appendChild(dayEl);
-    }
-
-    // Day cells
-    for (i = 0; i < 7; i++) {
-        currentDay = new Date(weekStart);
-        currentDay.setDate(weekStart.getDate() + i);
-        solarDay = currentDay.getDate();
-        lunar = LF.calendar.solarToLunar(solarDay, currentDay.getMonth() + 1, currentDay.getFullYear());
-        lunarDisplay = (lunar.day === 1) ? lunar.day + '/' + lunar.lunarMonth : lunar.day;
-
-        dayEl = document.createElement('div');
-        dayEl.className = 'calendar-cell';
-        if (currentDay.getDate() === today.getDate() &&
-            currentDay.getMonth() === today.getMonth() &&
-            currentDay.getFullYear() === today.getFullYear()) {
-            dayEl.className += ' today';
-        }
-        dayEl.innerHTML = '<div class="calendar-cell-inner"><div class="cell-content">' +
-            '<span class="solar-day">' + solarDay + '</span>' +
-            '<span class="lunar-day">' + lunarDisplay + '</span>' +
-            '</div></div>';
-        frag.appendChild(dayEl);
-    }
-
-    grid.innerHTML = '';
-    grid.appendChild(frag);
+    // Delegate sang monthly
+    LF.calendar._renderMonthly(baseDate);
 };
 
 
 /**
- * Render lịch tháng (portrait / mobile)
+ * Render lịch tháng đầy đủ — T2 là ngày đầu tuần
+ * Hiển thị ngày tháng trước/sau để lấp đầy grid
  * @param {Date} baseDate
  */
 LF.calendar._renderMonthly = function (baseDate) {
@@ -327,18 +274,24 @@ LF.calendar._renderMonthly = function (baseDate) {
     var today = new Date();
     var year = baseDate.getFullYear();
     var month = baseDate.getMonth();
-    var dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+    // T2 đầu tuần: T2, T3, T4, T5, T6, T7, CN
+    var dayNames = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
 
     var titleEl = document.getElementById('calendar-title');
     if (titleEl) {
         titleEl.textContent = 'Tháng ' + (month + 1) + ' ' + year;
     }
 
-    var firstDayOfMonth = new Date(year, month, 1).getDay();
     var daysInMonth = new Date(year, month + 1, 0).getDate();
+    // getDay() trả 0=CN, chuyển sang Monday-based: T2=0, T3=1, ..., CN=6
+    var firstDayJS = new Date(year, month, 1).getDay();
+    var firstDayMon = (firstDayJS === 0) ? 6 : firstDayJS - 1;
+
+    // Số ngày tháng trước cần hiện
+    var prevMonthDays = new Date(year, month, 0).getDate();
 
     var frag = document.createDocumentFragment();
-    var i, dayEl, solarDay, lunar, lunarDisplay;
+    var i, dayEl, solarDay, lunar, lunarDisplay, cellDate, cellMonth, cellYear;
 
     // Header row
     for (i = 0; i < dayNames.length; i++) {
@@ -348,28 +301,57 @@ LF.calendar._renderMonthly = function (baseDate) {
         frag.appendChild(dayEl);
     }
 
-    // Empty cells before first day
-    for (i = 0; i < firstDayOfMonth; i++) {
-        dayEl = document.createElement('div');
-        dayEl.className = 'calendar-cell other-month';
-        frag.appendChild(dayEl);
-    }
+    // Tổng ô cần render (6 hàng x 7 cột = 42, hoặc 5 hàng nếu đủ)
+    var totalCells = firstDayMon + daysInMonth;
+    var rows = Math.ceil(totalCells / 7);
+    if (rows < 5) { rows = 5; }
+    var totalSlots = rows * 7;
 
-    // Day cells
-    for (i = 1; i <= daysInMonth; i++) {
-        solarDay = i;
-        lunar = LF.calendar.solarToLunar(solarDay, month + 1, year);
+    for (i = 0; i < totalSlots; i++) {
+        var dayNum = i - firstDayMon + 1;
+        var isOtherMonth = false;
+
+        if (dayNum < 1) {
+            // Ngày tháng trước
+            cellDate = prevMonthDays + dayNum;
+            cellMonth = month; // JS month (0-based), tháng trước = month - 1 + 1 = month
+            cellYear = year;
+            if (month === 0) { cellMonth = 12; cellYear = year - 1; }
+            else { cellMonth = month; }
+            isOtherMonth = true;
+            lunar = LF.calendar.solarToLunar(cellDate, cellMonth, cellYear);
+        } else if (dayNum > daysInMonth) {
+            // Ngày tháng sau
+            cellDate = dayNum - daysInMonth;
+            cellMonth = month + 2; // JS month 0-based + 1 for display + 1 for next
+            cellYear = year;
+            if (cellMonth > 12) { cellMonth = 1; cellYear = year + 1; }
+            isOtherMonth = true;
+            lunar = LF.calendar.solarToLunar(cellDate, cellMonth, cellYear);
+        } else {
+            // Ngày trong tháng hiện tại
+            cellDate = dayNum;
+            cellMonth = month + 1;
+            cellYear = year;
+            isOtherMonth = false;
+            lunar = LF.calendar.solarToLunar(cellDate, cellMonth, cellYear);
+        }
+
         lunarDisplay = (lunar.day === 1) ? lunar.day + '/' + lunar.lunarMonth : lunar.day;
 
         dayEl = document.createElement('div');
         dayEl.className = 'calendar-cell';
-        if (solarDay === today.getDate() &&
+        if (isOtherMonth) {
+            dayEl.className += ' other-month';
+        }
+        if (!isOtherMonth &&
+            cellDate === today.getDate() &&
             month === today.getMonth() &&
             year === today.getFullYear()) {
             dayEl.className += ' today';
         }
         dayEl.innerHTML = '<div class="calendar-cell-inner"><div class="cell-content">' +
-            '<span class="solar-day">' + solarDay + '</span>' +
+            '<span class="solar-day">' + cellDate + '</span>' +
             '<span class="lunar-day">' + lunarDisplay + '</span>' +
             '</div></div>';
         frag.appendChild(dayEl);

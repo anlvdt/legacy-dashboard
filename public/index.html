@@ -19,59 +19,17 @@
 
         #kiosk-frame {
             border: none;
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            transform-origin: top left;
+            width: 100vw;
+            height: 100vh;
         }
     </style>
 </head>
 
 <body>
     <iframe id="kiosk-frame" src="app.html"></iframe>
-    <script>
-        function scaleIframe() {
-            var frame = document.getElementById('kiosk-frame');
-            if (!frame) return;
-
-            // Kích thước của Container thực tế (Viewport)
-            var winW = window.innerWidth;
-            var winH = window.innerHeight;
-
-            // Nhận diện màn Màn Ngang (Landscape) hay Màn Dọc (Portrait)
-            var isPortrait = winH > winW;
-
-            // Cố định tỷ lệ vàng của Dashboard (1920x1080)
-            var targetW = isPortrait ? 1080 : 1920;
-            var targetH = isPortrait ? 1920 : 1080;
-
-            // Cấp kích thước giả lập cho iFrame để bảo toàn nguyên vẹn 100vw, 100vh bên trong
-            frame.style.width = targetW + 'px';
-            frame.style.height = targetH + 'px';
-
-            // Xoay xở tính toán hệ số thu phóng sao cho nhét khít toàn bộ Iframe vào cửa sổ thực
-            var scale = Math.min(winW / targetW, winH / targetH);
-            frame.style.transform = 'scale(' + scale + ')';
-
-            // Canh giữa màn hình (Letterbox viền đen nếu tỷ lệ quá dị)
-            var actualW = targetW * scale;
-            var actualH = targetH * scale;
-            var leftOffset = (winW - actualW) / 2;
-            var topOffset = (winH - actualH) / 2;
-
-            frame.style.left = leftOffset + 'px';
-            frame.style.top = topOffset + 'px';
-        }
-
-        // Lắng nghe các biến động màn hình
-        window.addEventListener('resize', scaleIframe);
-        window.addEventListener('orientationchange', function () {
-            setTimeout(scaleIframe, 150); // Edge case cho thiết bị cũ xoay màn hình chậm
-        });
-
-        // Kích hoạt ngay khi tải trang
-        scaleIframe();
-    </script>
 </body>
 
 </html>

@@ -23,74 +23,56 @@ LF.weather._lat = null;
 LF.weather._lon = null;
 
 /**
- * Map weather code (wttr.in) sang mô tả tiếng Việt + icon emoji
- * @param {string|number} code - weather code từ wttr.in
- * @returns {{ d: string, i: string }} - d: mô tả, i: icon
+ * SVG icons dùng chung cho weather
+ */
+LF.weather._svg = {
+    sun: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"/></svg>',
+    cloud: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>',
+    rain: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM11 20l-2 2m4-2l-2 2m4-2l-2 2m-8-2l-2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    snow: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/><circle cx="9" cy="19" r="1.5"/><circle cx="12" cy="21" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg>',
+    storm: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM13 13l-4 5h3v4l5-6h-3z"/></svg>',
+    fog: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M4 10h16v2H4zm0 4h16v2H4zm0 4h16v2H4zm0-12h16v2H4z"/></svg>',
+    unknown: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>'
+};
+
+/**
+ * Map WMO weather code (Open-Meteo) sang mô tả tiếng Việt + SVG icon
+ * WMO codes: https://open-meteo.com/en/docs#weathervariables
+ * @param {string|number} code - WMO weather code (0-99)
+ * @returns {{ d: string, i: string }} - d: mô tả, i: SVG icon
  */
 LF.weather.getWeatherInfo = function (code) {
-    var svg = {
-        sun: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"/></svg>',
-        cloud: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>',
-        rain: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM11 20l-2 2m4-2l-2 2m4-2l-2 2m-8-2l-2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
-        snow: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/><circle cx="9" cy="19" r="1.5"/><circle cx="12" cy="21" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg>',
-        storm: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM13 13l-4 5h3v4l5-6h-3z"/></svg>',
-        fog: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M4 10h16v2H4zm0 4h16v2H4zm0 4h16v2H4zm0-12h16v2H4z"/></svg>',
-        unknown: '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em;height:1.2em;vertical-align:-0.15em"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>'
-    };
+    var svg = LF.weather._svg;
+    var c = parseInt(code, 10);
+    if (isNaN(c)) { return { d: 'Không xác định', i: svg.unknown }; }
 
-    var map = {
-        '395': { d: 'Tuyết và dông', i: svg.storm },
-        '392': { d: 'Tuyết nhẹ, dông', i: svg.storm },
-        '389': { d: 'Mưa và dông', i: svg.storm },
-        '386': { d: 'Mưa nhẹ và dông', i: svg.storm },
-        '377': { d: 'Mưa đá', i: svg.snow },
-        '374': { d: 'Mưa đá nhỏ', i: svg.snow },
-        '371': { d: 'Mưa tuyết vừa', i: svg.snow },
-        '368': { d: 'Mưa tuyết nhẹ', i: svg.snow },
-        '365': { d: 'Mưa tuyết vừa', i: svg.snow },
-        '362': { d: 'Mưa tuyết nhẹ', i: svg.snow },
-        '359': { d: 'Mưa lớn', i: svg.rain },
-        '356': { d: 'Mưa rào lớn', i: svg.rain },
-        '353': { d: 'Mưa rào nhẹ', i: svg.rain },
-        '350': { d: 'Mưa đá', i: svg.snow },
-        '338': { d: 'Tuyết dày', i: svg.snow },
-        '335': { d: 'Tuyết rơi dày', i: svg.snow },
-        '332': { d: 'Tuyết', i: svg.snow },
-        '329': { d: 'Tuyết vừa', i: svg.snow },
-        '326': { d: 'Tuyết nhẹ', i: svg.snow },
-        '323': { d: 'Tuyết nhẹ', i: svg.snow },
-        '320': { d: 'Mưa tuyết', i: svg.snow },
-        '317': { d: 'Mưa tuyết nhẹ', i: svg.snow },
-        '314': { d: 'Mưa phùn lạnh', i: svg.rain },
-        '311': { d: 'Mưa phùn lạnh', i: svg.rain },
-        '308': { d: 'Mưa lớn', i: svg.rain },
-        '305': { d: 'Mưa lớn', i: svg.rain },
-        '302': { d: 'Mưa vừa', i: svg.rain },
-        '299': { d: 'Mưa vừa', i: svg.rain },
-        '296': { d: 'Mưa nhẹ', i: svg.rain },
-        '293': { d: 'Mưa nhẹ', i: svg.rain },
-        '284': { d: 'Mưa phùn lạnh', i: svg.rain },
-        '281': { d: 'Mưa phùn lạnh', i: svg.rain },
-        '266': { d: 'Mưa phùn nhẹ', i: svg.rain },
-        '263': { d: 'Mưa phùn nhẹ', i: svg.rain },
-        '260': { d: 'Sương mù', i: svg.fog },
-        '248': { d: 'Sương mù', i: svg.fog },
-        '230': { d: 'Bão tuyết', i: svg.storm },
-        '227': { d: 'Tuyết bay', i: svg.snow },
-        '200': { d: 'Dông', i: svg.storm },
-        '185': { d: 'Mưa phùn lạnh', i: svg.rain },
-        '182': { d: 'Mưa tuyết nhẹ', i: svg.snow },
-        '179': { d: 'Tuyết nhẹ', i: svg.snow },
-        '176': { d: 'Mưa rào', i: svg.rain },
-        '143': { d: 'Sương mù', i: svg.fog },
-        '122': { d: 'Nhiều mây', i: svg.cloud },
-        '119': { d: 'Nhiều mây', i: svg.cloud },
-        '116': { d: 'Mây rải rác', i: svg.cloud },
-        '113': { d: 'Trời quang', i: svg.sun }
-    };
+    if (c === 0) { return { d: 'Trời quang', i: svg.sun }; }
+    if (c === 1) { return { d: 'Gần như quang', i: svg.sun }; }
+    if (c === 2) { return { d: 'Mây rải rác', i: svg.cloud }; }
+    if (c === 3) { return { d: 'Nhiều mây', i: svg.cloud }; }
+    if (c === 45 || c === 48) { return { d: 'Sương mù', i: svg.fog }; }
+    if (c === 51) { return { d: 'Mưa phùn nhẹ', i: svg.rain }; }
+    if (c === 53) { return { d: 'Mưa phùn', i: svg.rain }; }
+    if (c === 55) { return { d: 'Mưa phùn dày', i: svg.rain }; }
+    if (c === 56 || c === 57) { return { d: 'Mưa phùn lạnh', i: svg.rain }; }
+    if (c === 61) { return { d: 'Mưa nhẹ', i: svg.rain }; }
+    if (c === 63) { return { d: 'Mưa vừa', i: svg.rain }; }
+    if (c === 65) { return { d: 'Mưa lớn', i: svg.rain }; }
+    if (c === 66 || c === 67) { return { d: 'Mưa lạnh', i: svg.rain }; }
+    if (c === 71) { return { d: 'Tuyết nhẹ', i: svg.snow }; }
+    if (c === 73) { return { d: 'Tuyết vừa', i: svg.snow }; }
+    if (c === 75) { return { d: 'Tuyết dày', i: svg.snow }; }
+    if (c === 77) { return { d: 'Mưa đá nhỏ', i: svg.snow }; }
+    if (c === 80) { return { d: 'Mưa rào nhẹ', i: svg.rain }; }
+    if (c === 81) { return { d: 'Mưa rào vừa', i: svg.rain }; }
+    if (c === 82) { return { d: 'Mưa rào lớn', i: svg.rain }; }
+    if (c === 85) { return { d: 'Mưa tuyết nhẹ', i: svg.snow }; }
+    if (c === 86) { return { d: 'Mưa tuyết dày', i: svg.snow }; }
+    if (c === 95) { return { d: 'Dông', i: svg.storm }; }
+    if (c === 96) { return { d: 'Dông kèm mưa đá nhẹ', i: svg.storm }; }
+    if (c === 99) { return { d: 'Dông kèm mưa đá lớn', i: svg.storm }; }
 
-    var key = String(code);
-    return map[key] || { d: 'Không xác định', i: svg.unknown };
+    return { d: 'Không xác định', i: svg.unknown };
 };
 
 /**
@@ -142,11 +124,11 @@ LF.weather.applyWeatherData = function (city, info, tempC) {
     var weatherTempOverlay = document.getElementById('weather-temp-overlay');
 
     if (weatherLocation) { weatherLocation.textContent = city; }
-    if (weatherIcon) { weatherIcon.textContent = info.i; }
+    if (weatherIcon) { weatherIcon.innerHTML = info.i; }
     if (weatherTemp) { weatherTemp.textContent = tempC + '°C'; }
     if (weatherDesc) { weatherDesc.textContent = info.d; }
     if (weatherLocationOverlay) { weatherLocationOverlay.textContent = city; }
-    if (weatherIconOverlay) { weatherIconOverlay.textContent = info.i; }
+    if (weatherIconOverlay) { weatherIconOverlay.innerHTML = info.i; }
     if (weatherTempOverlay) { weatherTempOverlay.textContent = tempC + '°C'; }
 };
 
@@ -161,70 +143,60 @@ LF.weather._getDayName = function (dayOfWeek) {
 };
 
 /**
- * Render dự báo 3 ngày lên DOM
- * @param {Array} forecastDays - mảng 3 ngày dự báo
+ * Render dự báo 24h theo giờ lên DOM
+ * @param {Array} forecastHours - mảng các giờ dự báo {hour, temp, desc, icon}
  */
-LF.weather._renderForecast = function (forecastDays) {
+LF.weather._renderForecast = function (forecastHours) {
     var container = document.getElementById('forecast-container');
     if (!container) { return; }
 
     container.innerHTML = '';
 
-    var i, day, dayEl, dateEl, iconEl, tempEl, descEl, info, dateObj;
-    for (i = 0; i < forecastDays.length; i++) {
-        day = forecastDays[i];
+    var i, item, hourEl, timeEl, iconEl, tempEl;
+    for (i = 0; i < forecastHours.length; i++) {
+        item = forecastHours[i];
 
-        dayEl = document.createElement('div');
-        dayEl.className = 'forecast-day';
+        hourEl = document.createElement('div');
+        hourEl.className = 'forecast-hour';
 
-        dateEl = document.createElement('div');
-        dateEl.className = 'forecast-date';
-        dateEl.textContent = day.date;
+        timeEl = document.createElement('div');
+        timeEl.className = 'forecast-time';
+        timeEl.textContent = item.hour;
 
         iconEl = document.createElement('div');
         iconEl.className = 'forecast-icon';
-        iconEl.textContent = day.icon;
+        iconEl.innerHTML = item.icon;
 
         tempEl = document.createElement('div');
         tempEl.className = 'forecast-temp';
-        tempEl.textContent = day.low + '°/' + day.high + '°';
+        tempEl.textContent = item.temp + '°';
 
-        descEl = document.createElement('div');
-        descEl.className = 'forecast-desc';
-        descEl.textContent = day.desc;
-
-        dayEl.appendChild(dateEl);
-        dayEl.appendChild(iconEl);
-        dayEl.appendChild(tempEl);
-        dayEl.appendChild(descEl);
-        container.appendChild(dayEl);
+        hourEl.appendChild(timeEl);
+        hourEl.appendChild(iconEl);
+        hourEl.appendChild(tempEl);
+        container.appendChild(hourEl);
     }
 };
 
 /**
- * Tải thời tiết hiện tại qua wttr.in
+ * Tải thời tiết hiện tại qua Open-Meteo (backend proxy)
  * Dùng cache TTL 30 phút, fallback cache khi offline
  */
 LF.weather.loadCurrent = function () {
     var cached = LF.utils.cacheGet(LF.weather.CACHE_KEY_CURRENT);
     var weatherDesc = document.getElementById('weather-desc');
 
-    // Hiển thị "Đang tải..." khi chờ API
-    if (!cached && weatherDesc) {
-        weatherDesc.textContent = 'Đang tải thời tiết...';
-    }
-
-    // Nếu có cache hợp lệ, dùng luôn
+    // Hiển thị cache tạm thời trong khi fetch mới
     if (cached && cached.city && cached.info && cached.tempC) {
         LF.weather.applyWeatherData(cached.city, cached.info, cached.tempC);
         LF.weather._city = cached.city;
-        return;
+    } else if (weatherDesc) {
+        weatherDesc.textContent = 'Đang tải thời tiết...';
     }
 
-    // Xác định vị trí qua ip-api.com, fallback ipinfo.io
+    // Luôn detect vị trí mới qua IP để đảm bảo city chính xác
     LF.weather._detectLocation(function (err, city, lat, lon) {
         if (err || !city) {
-            // Thử dùng cache cũ (bỏ qua TTL) khi offline
             LF.weather._showCachedOrError(LF.weather.CACHE_KEY_CURRENT, 'weather');
             return;
         }
@@ -233,7 +205,7 @@ LF.weather.loadCurrent = function () {
         LF.weather._lat = lat;
         LF.weather._lon = lon;
 
-        LF.weather._fetchWttrWeather(city);
+        LF.weather._fetchOpenMeteoWeather(city, lat, lon);
     });
 };
 
@@ -263,28 +235,32 @@ LF.weather._detectLocation = function (callback) {
 };
 
 /**
- * Fetch thời tiết từ wttr.in
+ * Fetch thời tiết từ Open-Meteo qua backend proxy
  * @param {string} city
+ * @param {number} lat
+ * @param {number} lon
  */
-LF.weather._fetchWttrWeather = function (city) {
-    var weatherUrl = 'https://wttr.in/' + encodeURIComponent(city) + '?format=j1';
+LF.weather._fetchOpenMeteoWeather = function (city, lat, lon) {
+    var weatherUrl = '/api/weather?lat=' + lat + '&lon=' + lon + '&city=' + encodeURIComponent(city);
 
-    LF.utils.makeRequest(weatherUrl, function (err, weatherData) {
-        if (err || !weatherData) {
+    LF.utils.makeRequest(weatherUrl, function (err, data) {
+        if (err || !data || !data.weather) {
             LF.weather._showCachedOrError(LF.weather.CACHE_KEY_CURRENT, 'weather');
             return;
         }
 
         try {
-            var current = weatherData.current_condition[0];
-            var info = LF.weather.getWeatherInfo(current.weatherCode);
-            var tempC = current.temp_C;
+            var location = data.location || city;
+            var weatherCode = data.weather.weather_code;
+            var tempC = Math.round(data.weather.temperature_2m);
+            var info = LF.weather.getWeatherInfo(weatherCode);
 
-            LF.weather.applyWeatherData(city, info, tempC);
+            LF.weather.applyWeatherData(location, info, tempC);
+            LF.weather._city = location;
 
             // Lưu cache
             LF.utils.cacheSet(LF.weather.CACHE_KEY_CURRENT, {
-                city: city,
+                city: location,
                 info: info,
                 tempC: tempC,
                 ts: Date.now()
@@ -296,8 +272,7 @@ LF.weather._fetchWttrWeather = function (city) {
 };
 
 /**
- * Tải dự báo 3 ngày tới (nhiệt độ cao/thấp, mô tả)
- * Dùng dữ liệu từ wttr.in format=j1 (trường weather[])
+ * Tải dự báo 24h theo giờ từ Open-Meteo
  */
 LF.weather.loadForecast = function () {
     var cached = LF.utils.cacheGet(LF.weather.CACHE_KEY_FORECAST);
@@ -307,13 +282,13 @@ LF.weather.loadForecast = function () {
         return;
     }
 
-    var city = LF.weather._city;
-    if (!city) {
-        // Chưa có city — chờ loadCurrent xong rồi thử lại sau 3 giây
+    var lat = LF.weather._lat;
+    var lon = LF.weather._lon;
+
+    if (lat === null || lon === null) {
         var retryTimer = setTimeout(function () {
             clearTimeout(retryTimer);
-            var retryCity = LF.weather._city;
-            if (retryCity) {
+            if (LF.weather._lat !== null && LF.weather._lon !== null) {
                 LF.weather.loadForecast();
             } else {
                 LF.weather._showCachedOrError(LF.weather.CACHE_KEY_FORECAST, 'forecast');
@@ -322,37 +297,41 @@ LF.weather.loadForecast = function () {
         return;
     }
 
-    var weatherUrl = 'https://wttr.in/' + encodeURIComponent(city) + '?format=j1';
+    var forecastUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&hourly=temperature_2m,weather_code&timezone=auto&forecast_days=2';
 
-    LF.utils.makeRequest(weatherUrl, function (err, weatherData) {
-        if (err || !weatherData || !weatherData.weather) {
+    LF.utils.makeRequest(forecastUrl, function (err, data) {
+        if (err || !data || !data.hourly || !data.hourly.time) {
             LF.weather._showCachedOrError(LF.weather.CACHE_KEY_FORECAST, 'forecast');
             return;
         }
 
         try {
             var forecast = [];
-            var days = weatherData.weather;
-            var i, dayData, dateStr, dateObj, dayName, dd, mm, high, low, code, info;
+            var hourly = data.hourly;
+            var now = new Date();
+            var currentHour = now.getHours();
+            var i, timeStr, h, code, info, temp;
 
-            // Bỏ ngày đầu (hôm nay), lấy tối đa 3 ngày tiếp theo
-            for (i = 1; i < days.length && forecast.length < 3; i++) {
-                dayData = days[i];
-                dateStr = dayData.date; // "YYYY-MM-DD"
-                dateObj = new Date(dateStr + 'T00:00:00');
-                dayName = LF.weather._getDayName(dateObj.getDay());
-                dd = dateObj.getDate();
-                mm = dateObj.getMonth() + 1;
+            // Tìm giờ hiện tại trong mảng, lấy 24 giờ tiếp theo, mỗi 3 giờ
+            var startIdx = -1;
+            for (i = 0; i < hourly.time.length; i++) {
+                var d = new Date(hourly.time[i]);
+                if (d.getHours() >= currentHour && d.getDate() === now.getDate() && d.getMonth() === now.getMonth()) {
+                    startIdx = i;
+                    break;
+                }
+            }
+            if (startIdx === -1) { startIdx = 0; }
 
-                high = dayData.maxtempC;
-                low = dayData.mintempC;
-                code = dayData.hourly && dayData.hourly[4] ? dayData.hourly[4].weatherCode : '113';
+            for (i = startIdx; i < hourly.time.length && forecast.length < 8; i += 3) {
+                h = new Date(hourly.time[i]).getHours();
+                temp = Math.round(hourly.temperature_2m[i]);
+                code = hourly.weather_code[i];
                 info = LF.weather.getWeatherInfo(code);
 
                 forecast.push({
-                    date: dayName + ' ' + dd + '/' + mm,
-                    high: high,
-                    low: low,
+                    hour: (h < 10 ? '0' : '') + h + ':00',
+                    temp: temp,
                     desc: info.d,
                     icon: info.i
                 });
@@ -360,7 +339,6 @@ LF.weather.loadForecast = function () {
 
             LF.weather._renderForecast(forecast);
 
-            // Lưu cache
             LF.utils.cacheSet(LF.weather.CACHE_KEY_FORECAST, {
                 forecast: forecast,
                 ts: Date.now()

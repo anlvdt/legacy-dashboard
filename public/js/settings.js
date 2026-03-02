@@ -237,6 +237,7 @@ LF.settings.apply = function () {
     LF.settings._setVisibility('finance-widget', current.showFinanceWidget);
     LF.settings._setVisibility('disaster-banner', current.showDisasterAlerts);
     LF.settings._setVisibility('news-ticker', current.showNewsTicker);
+    LF.settings._setVisibility('news-widget', current.showNewsTicker);
 
     // Flags trên container cho layout 3-row mới
     if (mainContainer) {

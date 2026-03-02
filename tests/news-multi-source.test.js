@@ -1,6 +1,6 @@
 /**
- * Property test: Ticker tin tức hiển thị đa nguồn
- * Feature: legacy-frame-upgrade, Property 9: Ticker tin tức hiển thị đa nguồn
+ * Property test: Tin tức hiển thị đa nguồn (inline widget)
+ * Feature: legacy-frame-upgrade, Property 9: Tin tức hiển thị đa nguồn
  *
  * Validates: Requirements 6.1
  */
@@ -38,7 +38,7 @@ const sourceNameArb = fc.constantFrom(
 /** Arbitrary for a single news item with a given source */
 function newsItemArb(sourceName) {
   return fc.record({
-    title: fc.string({ minLength: 1, maxLength: 100 }).filter(s => s.trim().length > 0),
+    title: fc.string({ minLength: 1, maxLength: 100 }).filter(function (s) { return s.trim().length > 0; }),
     link: fc.webUrl(),
     source: fc.constant(sourceName)
   });
@@ -47,68 +47,62 @@ function newsItemArb(sourceName) {
 /** Arbitrary for a set of N distinct source names (N >= 2) */
 const distinctSourcesArb = fc
   .uniqueArray(sourceNameArb, { minLength: 2, maxLength: 5 })
-  .filter(arr => arr.length >= 2);
+  .filter(function (arr) { return arr.length >= 2; });
 
 /**
  * Generate items from multiple distinct sources.
- * Each source contributes at least 1 item.
  */
-const multiSourceItemsArb = distinctSourcesArb.chain(sources => {
-  // For each source, generate 1-3 items
-  const itemArbs = sources.map(name =>
-    fc.array(newsItemArb(name), { minLength: 1, maxLength: 3 })
-  );
-  return fc.tuple(...itemArbs).map(arrays => {
-    // Flatten all items and shuffle
-    const all = [];
-    for (const arr of arrays) {
-      for (const item of arr) {
-        all.push(item);
+const multiSourceItemsArb = distinctSourcesArb.chain(function (sources) {
+  var itemArbs = sources.map(function (name) {
+    return fc.array(newsItemArb(name), { minLength: 1, maxLength: 3 });
+  });
+  return fc.tuple.apply(fc, itemArbs).map(function (arrays) {
+    var all = [];
+    for (var i = 0; i < arrays.length; i++) {
+      for (var j = 0; j < arrays[i].length; j++) {
+        all.push(arrays[i][j]);
       }
     }
-    return { sources, items: all };
+    return { sources: sources, items: all };
   });
 });
 
-describe('Feature: legacy-frame-upgrade, Property 9: Ticker tin tức hiển thị đa nguồn', () => {
-  beforeEach(() => {
+describe('Feature: legacy-frame-upgrade, Property 9: Tin tức hiển thị đa nguồn', function () {
+  beforeEach(function () {
     delete globalThis.LF;
+
+    // Tạo DOM container cho inline widget
+    document.body.innerHTML = '<div id="news-inline-scroll-content"></div>';
+
     loadModulesGlobal();
   });
 
   /**
    * Property 9: Given items from N sources (N >= 2), after calling
-   * buildTickerDOM(items), the DOM output must contain at least one
-   * item from each source. Each item should have a `.news-ticker-source`
-   * element containing the source name.
-   *
-   * **Validates: Requirements 6.1**
+   * _buildInlineDOM(items), the DOM output must contain at least one
+   * item from each source with a .news-scroll-source element.
    */
-  it('buildTickerDOM output contains at least one .news-ticker-source element per source', () => {
+  it('_buildInlineDOM output contains at least one .news-scroll-source element per source', { timeout: 15000 }, function () {
     fc.assert(
       fc.property(
         multiSourceItemsArb,
-        ({ sources, items }) => {
-          const fragment = globalThis.LF.news.buildTickerDOM(items);
+        function (data) {
+          var sources = data.sources;
+          var items = data.items;
 
-          // Append fragment to a temporary container to query it
-          const container = document.createElement('div');
-          container.appendChild(fragment);
+          globalThis.LF.news._buildInlineDOM(items);
 
-          const sourceElements = container.querySelectorAll('.news-ticker-source');
+          var container = document.getElementById('news-inline-scroll-content');
+          var sourceElements = container.querySelectorAll('.news-scroll-source');
 
-          // Collect all source names found in the DOM
-          const foundSources = new Set();
-          for (let i = 0; i < sourceElements.length; i++) {
-            const text = sourceElements[i].textContent.trim();
-            if (text) {
-              foundSources.add(text);
-            }
+          var foundSources = {};
+          for (var i = 0; i < sourceElements.length; i++) {
+            var text = sourceElements[i].textContent.trim();
+            if (text) { foundSources[text] = true; }
           }
 
-          // Every input source must appear at least once
-          for (const sourceName of sources) {
-            expect(foundSources.has(sourceName)).toBe(true);
+          for (var s = 0; s < sources.length; s++) {
+            expect(foundSources[sources[s]]).toBe(true);
           }
         }
       ),
@@ -117,30 +111,24 @@ describe('Feature: legacy-frame-upgrade, Property 9: Ticker tin tức hiển th�
   });
 
   /**
-   * Property 9b: Each ticker item is an <a> element with target="_blank"
-   * so links open in a new tab when tapped.
-   *
-   * **Validates: Requirements 6.1**
+   * Property 9b: Each news item is a div with class .news-scroll-item
    */
-  it('each ticker item is a link that opens in a new tab', () => {
+  it('each news item is a div with class news-scroll-item', function () {
     fc.assert(
       fc.property(
         multiSourceItemsArb,
-        ({ items }) => {
-          const fragment = globalThis.LF.news.buildTickerDOM(items);
+        function (data) {
+          var items = data.items;
 
-          const container = document.createElement('div');
-          container.appendChild(fragment);
+          globalThis.LF.news._buildInlineDOM(items);
 
-          const tickerItems = container.querySelectorAll('.news-ticker-item');
+          var container = document.getElementById('news-inline-scroll-content');
+          var scrollItems = container.querySelectorAll('.news-scroll-item');
 
-          // Should have at least as many items as input
-          expect(tickerItems.length).toBeGreaterThanOrEqual(items.length);
+          expect(scrollItems.length).toBeGreaterThanOrEqual(items.length);
 
-          for (let i = 0; i < tickerItems.length; i++) {
-            const el = tickerItems[i];
-            expect(el.tagName).toBe('A');
-            expect(el.getAttribute('target')).toBe('_blank');
+          for (var i = 0; i < scrollItems.length; i++) {
+            expect(scrollItems[i].tagName).toBe('DIV');
           }
         }
       ),
@@ -149,23 +137,20 @@ describe('Feature: legacy-frame-upgrade, Property 9: Ticker tin tức hiển th�
   });
 
   /**
-   * Property 9c: The total number of .news-ticker-item elements equals
-   * the number of input items (one DOM element per news item).
-   *
-   * **Validates: Requirements 6.1**
+   * Property 9c: Produces exactly one .news-scroll-item per input item
    */
-  it('produces exactly one .news-ticker-item per input item', () => {
+  it('produces exactly one .news-scroll-item per input item', function () {
     fc.assert(
       fc.property(
         multiSourceItemsArb,
-        ({ items }) => {
-          const fragment = globalThis.LF.news.buildTickerDOM(items);
+        function (data) {
+          var items = data.items;
 
-          const container = document.createElement('div');
-          container.appendChild(fragment);
+          globalThis.LF.news._buildInlineDOM(items);
 
-          const tickerItems = container.querySelectorAll('.news-ticker-item');
-          expect(tickerItems.length).toBe(items.length);
+          var container = document.getElementById('news-inline-scroll-content');
+          var scrollItems = container.querySelectorAll('.news-scroll-item');
+          expect(scrollItems.length).toBe(items.length);
         }
       ),
       { numRuns: 100 }

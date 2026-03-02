@@ -2,13 +2,10 @@
  * tts.js — Module Text-to-Speech cho Legacy Frame
  * Tất cả cú pháp ES5 (var, function) — không dùng let/const/arrow/template literals
  *
- * Engine chính: Google Translate TTS (giọng tự nhiên tiếng Việt)
- *   → Proxy qua /.netlify/functions/tts-proxy
- *   → Phát bằng <audio> element (tương thích iOS 7+, Android 4.4+)
+ * Engine duy nhất: Edge TTS qua /.netlify/functions/tts-proxy
+ * Nếu Edge TTS thất bại → chỉ cuộn tin, không đọc
  *
- * Fallback: Web Speech API (browser built-in, khi proxy thất bại)
- *
- * Hẹn giờ đọc sáng: setInterval kiểm tra mỗi 30s
+ * Khi đọc: tạm dừng cuộn tự động, cuộn đồng bộ tới bài đang đọc
  */
 
 var LF = LF || {};
@@ -20,36 +17,27 @@ LF.tts._isReading = false;
 LF.tts._currentIndex = 0;
 LF.tts._items = [];
 LF.tts._scheduleTimer = null;
-LF.tts._audio = null;        // <audio> element hiện tại
-LF.tts._prefetchedAudio = null; // caching audio tiep theo
+LF.tts._audio = null;
+LF.tts._prefetchedAudio = null;
 LF.tts._prefetchIndex = -1;
 LF.tts.TTS_PROXY = '/.netlify/functions/tts-proxy';
 
 /**
  * Kiểm tra hỗ trợ Audio element
- * @returns {boolean}
  */
 LF.tts.isAudioSupported = function () {
-    try {
-        return typeof Audio !== 'undefined';
-    } catch (e) {
-        return false;
-    }
+    try { return typeof Audio !== 'undefined'; } catch (e) { return false; }
 };
 
 /**
- * Kiểm tra hỗ trợ Web Speech API (fallback)
- * @returns {boolean}
+ * Backward compat — luôn trả false vì đã loại bỏ Web Speech
  */
 LF.tts.isSpeechSupported = function () {
-    return typeof window !== 'undefined' &&
-        typeof window.speechSynthesis !== 'undefined';
+    return false;
 };
 
 /**
- * Chuẩn hóa văn bản trước khi đọc (Dịch từ viết tắt)
- * @param {string} text
- * @returns {string}
+ * Chuẩn hóa văn bản trước khi đọc
  */
 LF.tts._normalizeText = function (text) {
     if (!text) return '';
@@ -86,32 +74,21 @@ LF.tts._normalizeText = function (text) {
     for (var key in dict) {
         if (dict.hasOwnProperty(key)) {
             var val = dict[key];
-            // Thay thế chính xác từ, chấp nhận dấu câu phía sau bằng lookahead
             var regexPattern = '(^|\\\\s|[(\\\\[\\"\\\'\\u201C\\u2018])(' + key.replace(/\\./g, '\\\\.') + ')(?=\\\\s|$|[.,;:?!)\\\\]\\"\\\'\\u201D\\u2019])';
             var regex = new RegExp(regexPattern, 'g');
-            str = str.replace(regex, function (match, p1, p2) {
-                return p1 + val;
-            });
-            // Chạy 2 lần để giải quyết trường hợp các từ viết tắt đứng sát nhau
-            str = str.replace(regex, function (match, p1, p2) {
-                return p1 + val;
-            });
+            str = str.replace(regex, function (match, p1, p2) { return p1 + val; });
+            str = str.replace(regex, function (match, p1, p2) { return p1 + val; });
         }
     }
     return str;
 };
 
 /* ================================================================
- * EDGE TTS (Engine chính)
+ * EDGE TTS (Engine duy nhất)
  * ================================================================ */
 
 /**
  * Phát một đoạn text qua Edge TTS proxy
- * @param {string} text
- * @param {string} voice - Tên giọng (ví dụ vi-VN-HoaiMyNeural)
- * @param {function} onEnd - callback khi xong
- * @param {function} onError - callback khi lỗi
- * @param {number} idx - index đang đọc để kiểm tra prefetch
  */
 LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
     if (!text) {
@@ -121,7 +98,6 @@ LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
 
     var audio;
     if (LF.tts._prefetchedAudio && LF.tts._prefetchIndex === idx) {
-        // Tận dụng bài đã tải trước
         audio = LF.tts._prefetchedAudio;
         LF.tts._prefetchedAudio = null;
         LF.tts._prefetchIndex = -1;
@@ -145,15 +121,11 @@ LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
         if (onError) { onError(); }
     };
 
-    try {
-        audio.play();
-    } catch (e) {
-        if (onError) { onError(); }
-    }
+    try { audio.play(); } catch (e) { if (onError) { onError(); } }
 };
 
 /**
- * Tải trước (Prefetch) audio của bài tiếp theo
+ * Tải trước audio của bài tiếp theo
  */
 LF.tts._prefetchEdge = function (text, voice, idx) {
     if (!text) return;
@@ -164,18 +136,14 @@ LF.tts._prefetchEdge = function (text, voice, idx) {
 
     var audio = new Audio();
     audio.preload = "auto";
-    audio.src = url; // Quá trình tải mạng bắt đầu âm thầm
+    audio.src = url;
 
     LF.tts._prefetchedAudio = audio;
     LF.tts._prefetchIndex = idx;
 };
 
 /**
- * Phát text toàn bộ qua Edge TTS
- * @param {string} text
- * @param {function} onDone - callback khi đọc hết
- * @param {function} onError - callback khi lỗi (fallback sang Web Speech)
- * @param {number} idx - index để map cache
+ * Phát text qua Edge TTS — nếu lỗi thì bỏ qua (không fallback)
  */
 LF.tts._speakEdgeTTS = function (text, onDone, onError, idx) {
     if (!LF.tts._isReading) {
@@ -187,72 +155,11 @@ LF.tts._speakEdgeTTS = function (text, onDone, onError, idx) {
     var voice = (gender === 'male') ? 'vi-VN-NamMinhNeural' : 'vi-VN-HoaiMyNeural';
 
     LF.tts._playEdge(
-        text,
-        voice,
+        text, voice,
         function () { if (onDone) { onDone(); } },
         function () { if (onError) { onError(); } },
         idx
     );
-};
-
-/* ================================================================
- * WEB SPEECH API (Fallback)
- * ================================================================ */
-
-/**
- * Tìm giọng tiếng Việt tốt nhất via Web Speech API
- * Ưu tiên: vi-VN Neural Edge → vi-VN → en-US
- * @param {string} gender - 'male' hoặc 'female'
- * @returns {SpeechSynthesisVoice|null}
- */
-LF.tts._findVoice = function (gender) {
-    if (!LF.tts.isSpeechSupported()) { return null; }
-    var voices = window.speechSynthesis.getVoices();
-    if (!voices || voices.length === 0) { return null; }
-
-    var neuralName = (gender === 'male') ? 'NamMinh' : 'HoaiMy';
-    var i, v;
-
-    for (i = 0; i < voices.length; i++) {
-        v = voices[i];
-        if (v.name && v.name.indexOf(neuralName) !== -1) { return v; }
-    }
-    for (i = 0; i < voices.length; i++) {
-        v = voices[i];
-        if (v.lang && (v.lang === 'vi-VN' || v.lang === 'vi')) { return v; }
-    }
-    for (i = 0; i < voices.length; i++) {
-        v = voices[i];
-        if (v.lang && v.lang.indexOf('en') === 0) { return v; }
-    }
-    return voices[0] || null;
-};
-
-/**
- * Phát text qua Web Speech API (fallback)
- * @param {string} text
- * @param {function} onEnd
- */
-LF.tts._speakFallback = function (text, onEnd) {
-    if (!LF.tts.isSpeechSupported() || !text) {
-        if (onEnd) { onEnd(); }
-        return;
-    }
-
-    window.speechSynthesis.cancel();
-    var utterance = new SpeechSynthesisUtterance(text);
-    var gender = (LF.settings && LF.settings.current) ? LF.settings.current.ttsVoiceGender : 'female';
-    var voice = LF.tts._findVoice(gender);
-    if (voice) {
-        utterance.voice = voice;
-        utterance.lang = voice.lang;
-    } else {
-        utterance.lang = 'vi-VN';
-    }
-    utterance.rate = 0.9;
-    utterance.onend = function () { if (onEnd) { onEnd(); } };
-    utterance.onerror = function () { if (onEnd) { onEnd(); } };
-    window.speechSynthesis.speak(utterance);
 };
 
 /* ================================================================
@@ -266,7 +173,6 @@ LF.tts.stop = function () {
     LF.tts._isReading = false;
     LF.tts._currentIndex = 0;
 
-    // Dừng audio element
     if (LF.tts._audio) {
         try {
             LF.tts._audio.pause();
@@ -275,20 +181,18 @@ LF.tts.stop = function () {
         LF.tts._audio = null;
     }
 
-    // Dừng Web Speech API
-    if (LF.tts.isSpeechSupported()) {
-        try { window.speechSynthesis.cancel(); } catch (e) { }
-    }
-
     LF.tts._updateTTSButton(false);
-    LF.tts._clearHighlight();
+
+    // Resume cuộn tự động
+    if (LF.news) {
+        LF.news._scrollPaused = false;
+        LF.news.clearHighlight();
+    }
 };
 
 /**
- * Đọc một news item (tiêu đề + mô tả đầy đủ) qua Google TTS
- * @param {object} item - {title, description, source}
- * @param {function} onEnd
- * @param {number} idx - index đang đọc
+ * Đọc một news item qua Edge TTS
+ * Nếu Edge TTS lỗi → skip bài này, chuyển bài tiếp (chỉ cuộn)
  */
 LF.tts.readNewsItem = function (item, onEnd, idx) {
     if (!item) {
@@ -296,26 +200,25 @@ LF.tts.readNewsItem = function (item, onEnd, idx) {
         return;
     }
 
-    // Ghép text: tiêu đề, mô tả (Bỏ qua tên nguồn)
     var parts = [];
     if (item.title) { parts.push(item.title + '.'); }
     if (item.description && item.description !== item.title) {
         parts.push(item.description);
     }
     var fullText = parts.join(' ');
-
-    // Normalization: Nới rộng chữ viết tắt
     fullText = LF.tts._normalizeText(fullText);
 
-    // Thử Edge TTS trước, fallback sang Web Speech nếu lỗi
+    // Cuộn tới bài đang đọc
+    if (LF.news && LF.news.scrollToItem) {
+        LF.news.scrollToItem(idx);
+    }
+
     LF.tts._speakEdgeTTS(
         fullText,
         function () { if (onEnd) { onEnd(); } },
         function () {
-            // Edge TTS thất bại → dùng Web Speech API
-            LF.tts._speakFallback(fullText, function () {
-                if (onEnd) { onEnd(); }
-            });
+            // Edge TTS lỗi → bỏ qua, chuyển bài tiếp (chỉ cuộn, không đọc)
+            if (onEnd) { onEnd(); }
         },
         idx
     );
@@ -323,8 +226,6 @@ LF.tts.readNewsItem = function (item, onEnd, idx) {
 
 /**
  * Đọc lần lượt danh sách tin tức
- * @param {Array} items
- * @param {number} [startIndex]
  */
 LF.tts.readNewsList = function (items, startIndex) {
     if (!items || items.length === 0) { return; }
@@ -333,12 +234,15 @@ LF.tts.readNewsList = function (items, startIndex) {
     LF.tts._currentIndex = (typeof startIndex === 'number') ? startIndex : 0;
     LF.tts._isReading = true;
 
+    // Tạm dừng cuộn tự động
+    if (LF.news) { LF.news._scrollPaused = true; }
+
     LF.tts._updateTTSButton(true);
     LF.tts._readNext();
 };
 
 /**
- * Đọc tin tiếp theo (đệ quy qua callback)
+ * Đọc tin tiếp theo
  */
 LF.tts._readNext = function () {
     if (!LF.tts._isReading) { return; }
@@ -349,17 +253,18 @@ LF.tts._readNext = function () {
     if (idx >= items.length) {
         LF.tts._isReading = false;
         LF.tts._updateTTSButton(false);
-        LF.tts._clearHighlight();
+        // Resume cuộn tự động
+        if (LF.news) {
+            LF.news._scrollPaused = false;
+            LF.news.clearHighlight();
+        }
         return;
     }
 
-    LF.tts._highlightPanelItem(idx);
-
-    // Bắt đầu prefetch (tải trước) audio của bài tiếp theo
+    // Prefetch bài tiếp theo
     if (idx + 1 < items.length) {
         var nextItem = items[idx + 1];
         var nextParts = [];
-        // Bỏ qua tên nguồn giống như readNewsItem
         if (nextItem.title) { nextParts.push(nextItem.title + '.'); }
         if (nextItem.description && nextItem.description !== nextItem.title) {
             nextParts.push(nextItem.description);
@@ -382,70 +287,49 @@ LF.tts._readNext = function () {
  * ================================================================ */
 
 /**
- * Cập nhật nút TTS trên ticker
+ * Cập nhật nút TTS trên inline widget
  */
 LF.tts._updateTTSButton = function (isReading) {
-    var btn = document.getElementById('news-tts-btn');
+    var speakerSvg = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" style="vertical-align:-0.1em"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
+    var stopSvg = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" style="vertical-align:-0.1em"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>';
+
+    var btn = document.getElementById('news-inline-tts-btn');
     if (btn) {
         if (isReading) {
-            btn.textContent = '\u23f9';
-            btn.title = 'D\u1eebng \u0111\u1ecdc';
+            btn.innerHTML = stopSvg;
+            btn.title = 'Dừng đọc';
             if (btn.className.indexOf('tts-speaking') === -1) {
                 btn.className = btn.className + ' tts-speaking';
             }
         } else {
-            btn.textContent = '\ud83d\udd0a';
-            btn.title = '\u0110\u1ecdc tin t\u1ee9c';
+            btn.innerHTML = speakerSvg;
+            btn.title = 'Đọc tin tức';
             btn.className = btn.className.replace(/\s*tts-speaking/g, '');
         }
     }
 
+    // Backward compat — old button
+    var oldBtn = document.getElementById('news-tts-btn');
+    if (oldBtn) {
+        oldBtn.innerHTML = isReading ? stopSvg : speakerSvg;
+    }
+
     var panelBtn = document.getElementById('news-panel-read-all-btn');
     if (panelBtn) {
-        panelBtn.textContent = isReading ? '\u23f9 D\u1eebng \u0111\u1ecdc' : '\ud83d\udd0a \u0110\u1ecdc t\u1ea5t c\u1ea3';
+        panelBtn.innerHTML = isReading ? (stopSvg + ' Dừng đọc') : (speakerSvg + ' Đọc tất cả');
     }
 };
 
 /**
- * Highlight item đang đọc trong panel
+ * Backward compat — teleprompter overlay đã bị loại bỏ
  */
-LF.tts._highlightPanelItem = function (idx) {
-    var list = document.getElementById('news-panel-list');
-    if (!list) { return; }
-    var items = list.getElementsByClassName('news-panel-item');
-    var i;
-    for (i = 0; i < items.length; i++) {
-        items[i].className = items[i].className.replace(/\s*tts-active/g, '');
-    }
-    if (items[idx]) {
-        items[idx].className = items[idx].className + ' tts-active';
-        if (items[idx].scrollIntoView) {
-            try { items[idx].scrollIntoView({ block: 'nearest' }); } catch (e) { }
-        }
-    }
-};
-
-/**
- * Xoá tất cả highlight
- */
-LF.tts._clearHighlight = function () {
-    var list = document.getElementById('news-panel-list');
-    if (!list) { return; }
-    var items = list.getElementsByClassName('news-panel-item');
-    var i;
-    for (i = 0; i < items.length; i++) {
-        items[i].className = items[i].className.replace(/\s*tts-active/g, '');
-    }
-};
+LF.tts._updateTeleprompter = function () { };
+LF.tts._closeTeleprompter = function () { };
 
 /* ================================================================
- * MORNING SCHEDULER — Hẹn giờ đọc tin mỗi sáng
+ * MORNING SCHEDULER
  * ================================================================ */
 
-/**
- * Đặt lịch đọc vào giờ cụ thể mỗi ngày
- * @param {string} timeStr - format "HH:MM"
- */
 LF.tts.scheduleDaily = function (timeStr) {
     LF.tts.stopSchedule();
     if (!timeStr || timeStr.indexOf(':') === -1) { return; }
@@ -470,34 +354,23 @@ LF.tts.scheduleDaily = function (timeStr) {
     }, 30000);
 };
 
-/**
- * Kích hoạt đọc tin buổi sáng
- */
 LF.tts._triggerMorningRead = function () {
     var items = (LF.news && LF.news._items && LF.news._items.length) ? LF.news._items : null;
 
     if (!items || items.length === 0) {
-        // Tải tin mới nếu chưa có, chờ 15s rồi đọc
-        if (LF.news && LF.news.loadMultiSource) {
-            LF.news.loadMultiSource();
-        }
+        if (LF.news && LF.news.loadMultiSource) { LF.news.loadMultiSource(); }
         setTimeout(function () {
             var loaded = (LF.news && LF.news._items && LF.news._items.length) ? LF.news._items : [];
             if (loaded.length > 0) {
-                if (LF.news && LF.news.openPanel) { LF.news.openPanel(); }
                 LF.tts.readNewsList(loaded, 0);
             }
         }, 15000);
         return;
     }
 
-    if (LF.news && LF.news.openPanel) { LF.news.openPanel(); }
     LF.tts.readNewsList(items, 0);
 };
 
-/**
- * Huỷ lịch đọc
- */
 LF.tts.stopSchedule = function () {
     if (LF.tts._scheduleTimer !== null) {
         clearInterval(LF.tts._scheduleTimer);
@@ -509,25 +382,15 @@ LF.tts.stopSchedule = function () {
  * INIT
  * ================================================================ */
 
-/**
- * Khởi tạo module TTS
- */
 LF.tts.init = function () {
-    // Kiểm tra tối thiểu hỗ trợ Audio
-    var supported = LF.tts.isAudioSupported() || LF.tts.isSpeechSupported();
-    if (!supported) {
-        var ttsBtn = document.getElementById('news-tts-btn');
+    if (!LF.tts.isAudioSupported()) {
+        var ttsBtn = document.getElementById('news-inline-tts-btn');
         if (ttsBtn) { ttsBtn.style.display = 'none'; }
         return;
     }
 
-    // Preload Web Speech voices nếu có
-    if (LF.tts.isSpeechSupported() && window.speechSynthesis.getVoices) {
-        window.speechSynthesis.getVoices();
-    }
-
-    // Nút 🔊 trên ticker
-    var ttsBtn = document.getElementById('news-tts-btn');
+    // Nút TTS trên inline widget
+    var ttsBtn = document.getElementById('news-inline-tts-btn');
     if (ttsBtn) {
         ttsBtn.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -536,7 +399,6 @@ LF.tts.init = function () {
             } else {
                 var items = (LF.news && LF.news._items) ? LF.news._items : [];
                 if (items.length > 0) {
-                    if (LF.news && LF.news.openPanel) { LF.news.openPanel(); }
                     LF.tts.readNewsList(items, 0);
                 }
             }

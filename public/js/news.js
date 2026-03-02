@@ -2,8 +2,9 @@
  * news.js — Module tin tức cho Legacy Frame
  * Tất cả cú pháp ES5 (var, function) — không dùng let/const/arrow/template literals
  *
- * Requirements: 1.2, 2.2, 2.4, 2.6, 6.1, 6.2, 6.5, 6.6, 6.7
- * Bổ sung: parse description RSS, LF.news._items, openPanel(), TTS integration
+ * Hiển thị tin tức dạng inline widget (ngang hàng với các khối khác)
+ * Tự cuộn lên liên tục kiểu teleprompter
+ * Khi TTS đọc: cuộn đồng bộ với bài đang đọc
  */
 
 var LF = LF || {};
@@ -15,15 +16,14 @@ LF.news.sources = [
     { name: 'VnExpress', url: 'https://vnexpress.net/rss/tin-moi-nhat.rss' },
     { name: 'Thanh Niên', url: 'https://thanhnien.vn/rss/home.rss' },
     { name: 'Dân Trí', url: 'https://dantri.com.vn/rss/home.rss' },
-    { name: 'Báo Chính Phủ', url: 'https://baochinhphu.vn/rss/tin-moi.rss' },
-    { name: 'VTV News', url: 'https://vtv.vn/trong-nuoc.rss' }
+    { name: 'Tuổi Trẻ', url: 'https://tuoitre.vn/rss/tin-moi-nhat.rss' }
 ];
 
 /** Cache key và TTL (15 phút) */
 LF.news.CACHE_KEY = 'news';
 LF.news.CACHE_TTL = 900000;
 
-/** Danh sách dự phòng CORS Proxy (Ưu tiên proxy nội bộ Netlify) */
+/** Danh sách dự phòng CORS Proxy */
 LF.news.CORS_PROXIES = [
     '/api/proxy?url=',
     'https://api.allorigins.win/raw?url=',
@@ -37,34 +37,28 @@ LF.news.RSS_TIMEOUT = 10000;
 /** Refresh interval: 15 phút */
 LF.news.REFRESH_INTERVAL = 900000;
 
-/** Trạng thái animation */
-LF.news._animationId = null;
+/** Trạng thái */
+LF.news._scrollAnimId = null;
 LF.news._refreshTimer = null;
-LF.news._tickerOffset = 0;
 LF.news._loaded = false;
-LF.news._items = []; // Danh sách tin đã tải — dùng cho TTS và news panel
+LF.news._items = [];
+LF.news._scrollOffset = 0;
+LF.news._scrollPaused = false;
 
 /**
  * Strip HTML tags khỏi mô tả RSS
- * @param {string} html
- * @returns {string}
  */
 LF.news._stripHtml = function (html) {
     if (!html) { return ''; }
-    // Loại bỏ CDATA
     var s = html.replace(/<\!\[CDATA\[/g, '').replace(/\]\]>/g, '');
-    // Loại bỏ HTML tags
     s = s.replace(/<[^>]+>/g, ' ');
-    // Decode HTML entities cơ bản
     s = s.replace(/&amp;/g, '&')
         .replace(/&lt;/g, '<')
         .replace(/&gt;/g, '>')
         .replace(/&quot;/g, '"')
         .replace(/&#39;/g, "'")
         .replace(/&nbsp;/g, ' ');
-    // Chuẩn hoá khoảng trắng
     s = s.replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, '');
-    // Giới hạn 300 ký tự
     if (s.length > 300) {
         s = s.substring(0, 297) + '...';
     }
@@ -73,34 +67,20 @@ LF.news._stripHtml = function (html) {
 
 /**
  * Parse RSS XML thành mảng items
- * @param {string} xmlString - chuỗi XML RSS
- * @param {string} sourceName - tên nguồn tin
- * @returns {Array} mảng items { title, description, link, source }
  */
 LF.news.parseRSS = function (xmlString, sourceName) {
     var items = [];
-    if (!xmlString || typeof xmlString !== 'string') {
-        return items;
-    }
+    if (!xmlString || typeof xmlString !== 'string') { return items; }
 
-    var parser;
-    var doc;
+    var parser, doc;
     try {
         parser = new DOMParser();
         doc = parser.parseFromString(xmlString, 'text/xml');
-    } catch (e) {
-        return items;
-    }
+    } catch (e) { return items; }
 
-    if (!doc) {
-        return items;
-    }
-
-    // Kiểm tra lỗi parse XML
+    if (!doc) { return items; }
     var parseError = doc.getElementsByTagName('parsererror');
-    if (parseError && parseError.length > 0) {
-        return items;
-    }
+    if (parseError && parseError.length > 0) { return items; }
 
     var itemNodes = doc.getElementsByTagName('item');
     var i, titleNode, linkNode, descNode, title, link, description;
@@ -118,12 +98,10 @@ LF.news.parseRSS = function (xmlString, sourceName) {
             title = titleNode.textContent || titleNode.childNodes[0] && titleNode.childNodes[0].nodeValue || '';
             title = title.replace(/^\s+|\s+$/g, '');
         }
-
         if (linkNode) {
             link = linkNode.textContent || linkNode.childNodes[0] && linkNode.childNodes[0].nodeValue || '';
             link = link.replace(/^\s+|\s+$/g, '');
         }
-
         if (descNode) {
             var rawDesc = descNode.textContent || descNode.childNodes[0] && descNode.childNodes[0].nodeValue || '';
             description = LF.news._stripHtml(rawDesc);
@@ -138,209 +116,205 @@ LF.news.parseRSS = function (xmlString, sourceName) {
             });
         }
     }
-
     return items;
 };
 
 /**
- * Build DOM cho ticker (dùng DocumentFragment), hiển thị tên nguồn
- * Ticker items mở news panel khi click thay vì mở link trực tiếp
- * @param {Array} items - mảng items { title, description, link, source }
- * @returns {DocumentFragment}
+ * Build DOM cho inline scroll view (cuộn dọc kiểu teleprompter)
  */
-LF.news.buildTickerDOM = function (items) {
-    var elements = [];
-    var i, item, el, sourceSpan, titleSpan, sep;
+LF.news._buildInlineDOM = function (items) {
+    var container = document.getElementById('news-inline-scroll-content');
+    if (!container) { return; }
+
+    while (container.firstChild) { container.removeChild(container.firstChild); }
 
     if (!items || !items.length) {
-        var emptyEl = document.createElement('span');
-        emptyEl.className = 'news-ticker-item';
+        var emptyEl = document.createElement('div');
+        emptyEl.className = 'news-scroll-item';
         emptyEl.textContent = 'Không có tin tức';
-        elements.push(emptyEl);
-        return LF.utils.createFragment(elements);
+        container.appendChild(emptyEl);
+        return;
     }
 
+    var i, item, el, sourceSpan, titleSpan;
     for (i = 0; i < items.length; i++) {
         item = items[i];
 
-        // Dùng <a> để giữ semantics và tương thích test
-        // Click intercepted để mở news panel thay vì đi thẳng tới link
-        el = document.createElement('a');
-        el.className = 'news-ticker-item';
-        el.href = item.link || '#';
-        el.target = '_blank';
-        el.rel = 'noopener';
+        el = document.createElement('div');
+        el.className = 'news-scroll-item';
         el.setAttribute('data-index', i);
 
         sourceSpan = document.createElement('span');
-        sourceSpan.className = 'news-ticker-source';
+        sourceSpan.className = 'news-scroll-source';
         sourceSpan.textContent = item.source || '';
 
         titleSpan = document.createElement('span');
-        titleSpan.className = 'news-ticker-title';
+        titleSpan.className = 'news-scroll-title';
         titleSpan.textContent = item.title || '';
 
         el.appendChild(sourceSpan);
         el.appendChild(titleSpan);
 
-        // Intercept click → mở news panel (không theo link trực tiếp)
-        (function (idx) {
-            el.addEventListener('click', function (e) {
-                e.preventDefault();
-                LF.news.openPanel(idx);
+        // Click mở link
+        (function (lnk) {
+            el.addEventListener('click', function () {
+                if (lnk) { window.open(lnk, '_blank'); }
             });
-        })(i);
+        })(item.link);
 
-        elements.push(el);
-
-        if (i < items.length - 1) {
-            sep = document.createElement('span');
-            sep.className = 'news-ticker-separator';
-            sep.textContent = ' | ';
-            elements.push(sep);
-        }
+        container.appendChild(el);
     }
-
-    return LF.utils.createFragment(elements);
 };
 
 /**
- * Animation ticker bằng requestAnimationFrame
- * Cuộn ngang liên tục
+ * Bắt đầu animation cuộn dọc liên tục (teleprompter)
  */
-LF.news.startAnimation = function () {
-    var ticker = document.getElementById('news-ticker-content');
-    if (!ticker) { return; }
+LF.news.startScrollAnimation = function () {
+    var scrollView = document.getElementById('news-inline-scroll-view');
+    var content = document.getElementById('news-inline-scroll-content');
+    if (!scrollView || !content) { return; }
 
-    // Dừng animation cũ nếu có
-    LF.news.stopAnimation();
-
-    LF.news._tickerOffset = 0;
-    var speed = 1; // pixel per frame
+    LF.news.stopScrollAnimation();
+    LF.news._scrollOffset = 0;
+    var speed = 0.5; // pixel per frame
 
     function animate() {
-        if (!ticker.firstChild) {
-            LF.news._animationId = null;
+        if (LF.news._scrollPaused) {
+            LF.news._scrollAnimId = (typeof requestAnimationFrame === 'function')
+                ? requestAnimationFrame(animate)
+                : setTimeout(animate, 16);
             return;
         }
 
-        LF.news._tickerOffset -= speed;
+        LF.news._scrollOffset += speed;
 
-        // Reset khi cuộn hết nội dung
-        var contentWidth = ticker.scrollWidth;
-        var containerWidth = ticker.parentNode ? ticker.parentNode.offsetWidth : 0;
+        var contentHeight = content.scrollHeight;
+        var viewHeight = scrollView.offsetHeight;
 
-        if (LF.news._tickerOffset < -contentWidth) {
-            LF.news._tickerOffset = containerWidth;
+        // Reset khi cuộn hết
+        if (LF.news._scrollOffset >= contentHeight) {
+            LF.news._scrollOffset = -viewHeight;
         }
 
-        ticker.style.cssText = '-webkit-transform:translateX(' + LF.news._tickerOffset + 'px);transform:translateX(' + LF.news._tickerOffset + 'px)';
+        content.style.cssText = '-webkit-transform:translateY(' + (-LF.news._scrollOffset) + 'px);transform:translateY(' + (-LF.news._scrollOffset) + 'px)';
 
-        LF.news._animationId = (typeof requestAnimationFrame === 'function')
+        LF.news._scrollAnimId = (typeof requestAnimationFrame === 'function')
             ? requestAnimationFrame(animate)
             : setTimeout(animate, 16);
     }
 
-    LF.news._animationId = (typeof requestAnimationFrame === 'function')
+    LF.news._scrollAnimId = (typeof requestAnimationFrame === 'function')
         ? requestAnimationFrame(animate)
         : setTimeout(animate, 16);
 };
 
 /**
- * Dừng animation ticker
+ * Dừng animation cuộn
  */
-LF.news.stopAnimation = function () {
-    if (LF.news._animationId !== null) {
+LF.news.stopScrollAnimation = function () {
+    if (LF.news._scrollAnimId !== null) {
         if (typeof cancelAnimationFrame === 'function') {
-            cancelAnimationFrame(LF.news._animationId);
+            cancelAnimationFrame(LF.news._scrollAnimId);
         } else {
-            clearTimeout(LF.news._animationId);
+            clearTimeout(LF.news._scrollAnimId);
         }
-        LF.news._animationId = null;
+        LF.news._scrollAnimId = null;
     }
 };
 
 /**
- * Hiển thị tin tức lên ticker
- * @param {Array} items - mảng items
- * @param {boolean} isStale - true nếu dùng tin cũ
+ * Cuộn tới item cụ thể (dùng khi TTS đọc)
  */
-LF.news._renderTicker = function (items, isStale) {
-    var container = document.getElementById('news-ticker-content');
-    if (!container) { return; }
+LF.news.scrollToItem = function (index) {
+    var content = document.getElementById('news-inline-scroll-content');
+    if (!content) { return; }
 
-    // Lưu items vào _items để TTS và news panel sử dụng
+    var items = content.getElementsByClassName('news-scroll-item');
+    if (!items[index]) { return; }
+
+    // Highlight item đang đọc
+    var i;
+    for (i = 0; i < items.length; i++) {
+        items[i].className = items[i].className.replace(/\s*news-scroll-active/g, '');
+    }
+    items[index].className = items[index].className + ' news-scroll-active';
+
+    // Cuộn tới vị trí item
+    LF.news._scrollOffset = items[index].offsetTop;
+    content.style.cssText = '-webkit-transform:translateY(' + (-LF.news._scrollOffset) + 'px);transform:translateY(' + (-LF.news._scrollOffset) + 'px)';
+};
+
+/**
+ * Xóa highlight tất cả items
+ */
+LF.news.clearHighlight = function () {
+    var content = document.getElementById('news-inline-scroll-content');
+    if (!content) { return; }
+    var items = content.getElementsByClassName('news-scroll-item');
+    var i;
+    for (i = 0; i < items.length; i++) {
+        items[i].className = items[i].className.replace(/\s*news-scroll-active/g, '');
+    }
+};
+
+/**
+ * Hiển thị tin tức lên inline widget
+ */
+LF.news._renderInline = function (items, isStale) {
+    var widget = document.getElementById('news-widget');
+    if (!widget) { return; }
+
     LF.news._items = items || [];
 
-    // Xóa nội dung cũ
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
+    LF.news._buildInlineDOM(items);
 
-    // Thêm thông báo "Đang dùng tin cũ" nếu cần
-    if (isStale) {
-        var staleEl = document.createElement('span');
-        staleEl.className = 'news-ticker-stale';
-        staleEl.textContent = 'Đang dùng tin cũ — ';
-        container.appendChild(staleEl);
-    }
-
-    var fragment = LF.news.buildTickerDOM(items);
-    container.appendChild(fragment);
-
-    // Mostra nút TTS khi đã có tin (luôn hiện, không cần bật setting)
+    // Hiện widget
     if (items && items.length > 0) {
-        var ttsBtn = document.getElementById('news-tts-btn');
+        widget.style.display = '';
+    }
+
+    // Hiện nút TTS
+    if (items && items.length > 0) {
+        var ttsBtn = document.getElementById('news-inline-tts-btn');
         if (ttsBtn) { ttsBtn.style.display = ''; }
     }
 
-    // Bắt đầu animation
-    LF.news.startAnimation();
+    // Bắt đầu cuộn
+    LF.news.startScrollAnimation();
 };
 
+// Backward compat — old code gọi _renderTicker
+LF.news._renderTicker = LF.news._renderInline;
+
 /**
- * Lấy thông báo lỗi tiếng Việt cho module tin tức
- * @returns {string}
+ * Lấy thông báo lỗi tiếng Việt
  */
 LF.news.getErrorMessage = function () {
     return 'Không thể tải tin tức';
 };
 
 /**
- * Lấy tin tức từ cache (bỏ qua TTL — dùng cho fallback)
- * @returns {Array|null}
+ * Lấy tin tức từ cache
  */
 LF.news._getCachedItems = function () {
     var raw = null;
-    try {
-        raw = localStorage.getItem('lf_cache_' + LF.news.CACHE_KEY);
-    } catch (e) {
-        return null;
-    }
+    try { raw = localStorage.getItem('lf_cache_' + LF.news.CACHE_KEY); } catch (e) { return null; }
     if (!raw) { return null; }
     try {
         var entry = JSON.parse(raw);
-        if (entry && entry.data && entry.data.length) {
-            return entry.data;
-        }
-    } catch (e) {
-        // JSON parse lỗi
-    }
+        if (entry && entry.data && entry.data.length) { return entry.data; }
+    } catch (e) { }
     return null;
 };
 
 /**
- * Tải RSS từ một nguồn qua XHR trực tiếp (trả text, không parse JSON)
- * Áp dụng cơ chế dự phòng liên hoàn (Fallback CORS Proxies)
- * @param {Object} source - { name, url }
- * @param {function} callback - function(items)
+ * Tải RSS từ một nguồn qua XHR
  */
 LF.news._loadRSSSource = function (source, callback) {
     var proxyIndex = 0;
 
     function tryNextProxy() {
         if (proxyIndex >= LF.news.CORS_PROXIES.length) {
-            // Đã thử hết tất cả proxy mà vẫn thất bại
             return callback([]);
         }
 
@@ -358,7 +332,6 @@ LF.news._loadRSSSource = function (source, callback) {
             done = true;
 
             if (xhr.status >= 200 && xhr.status < 300 && xhr.responseText) {
-                // Kiểm tra xem payload trả về có valid XML không (để chống lỗi proxy trả về HTML báo lỗi)
                 if (xhr.responseText.indexOf('<?xml') === -1 && xhr.responseText.indexOf('<rss') === -1) {
                     proxyIndex++;
                     tryNextProxy();
@@ -395,13 +368,11 @@ LF.news._loadRSSSource = function (source, callback) {
         xhr.send(null);
     }
 
-    // Bắt đầu thử từ proxy đầu tiên
     tryNextProxy();
 };
 
 /**
  * Tải tin từ nhiều nguồn đồng thời
- * Dùng allorigins.win proxy cho RSS
  */
 LF.news.loadMultiSource = function () {
     var sources = LF.news.sources;
@@ -409,26 +380,18 @@ LF.news.loadMultiSource = function () {
     var completed = 0;
     var total = sources.length;
 
-    // Hiển thị "Đang tải..." khi bắt đầu
-    var container = document.getElementById('news-ticker-content');
-    if (container && !LF.news._loaded) {
-        container.textContent = 'Đang tải tin tức...';
-    }
-
     function onAllDone() {
         if (allItems.length > 0) {
-            // Lưu cache
             LF.utils.cacheSet(LF.news.CACHE_KEY, allItems, LF.news.CACHE_TTL);
-            LF.news._renderTicker(allItems, false);
+            LF.news._renderInline(allItems, false);
             LF.news._loaded = true;
         } else {
-            // Không có tin nào — thử cache (bỏ qua TTL)
             var cached = LF.news._getCachedItems();
             if (cached && cached.length > 0) {
                 LF.news._items = cached;
-                LF.news._renderTicker(cached, true);
+                LF.news._renderInline(cached, true);
             } else {
-                LF.news._renderTicker([], false);
+                LF.news._renderInline([], false);
             }
         }
     }
@@ -437,40 +400,28 @@ LF.news.loadMultiSource = function () {
     for (i = 0; i < sources.length; i++) {
         LF.news._loadRSSSource(sources[i], function (items) {
             completed++;
-
             if (items && items.length > 0) {
                 var j;
-                for (j = 0; j < items.length; j++) {
-                    allItems.push(items[j]);
-                }
+                for (j = 0; j < items.length; j++) { allItems.push(items[j]); }
             }
-
-            if (completed >= total) {
-                onAllDone();
-            }
+            if (completed >= total) { onAllDone(); }
         });
     }
 };
-
 
 /**
  * Tự động refresh mỗi 15 phút
  */
 LF.news.scheduleRefresh = function () {
-    // Xóa timer cũ nếu có
     if (LF.news._refreshTimer !== null) {
         clearInterval(LF.news._refreshTimer);
         LF.news._refreshTimer = null;
     }
-
     LF.news._refreshTimer = setInterval(function () {
         LF.news.loadMultiSource();
     }, LF.news.REFRESH_INTERVAL);
 };
 
-/**
- * Dừng refresh tự động
- */
 LF.news.stopRefresh = function () {
     if (LF.news._refreshTimer !== null) {
         clearInterval(LF.news._refreshTimer);
@@ -478,8 +429,12 @@ LF.news.stopRefresh = function () {
     }
 };
 
+// Backward compat
+LF.news.stopAnimation = LF.news.stopScrollAnimation;
+LF.news.startAnimation = LF.news.startScrollAnimation;
+
 /**
- * Khởi tạo module tin tức (lazy-load — gọi khi cần)
+ * Khởi tạo module tin tức
  */
 LF.news.init = function () {
     if (LF.news._loaded) { return; }
@@ -488,163 +443,9 @@ LF.news.init = function () {
 };
 
 /* ================================================================
- * NEWS PANEL — Overlay hiển thị danh sách tin đầy đủ + TTS
+ * NEWS PANEL — Giữ lại cho backward compat
  * ================================================================ */
-
-/**
- * Mở news panel, có thể scroll tới vị trí cụ thể
- * @param {number} [scrollToIndex] - index của bài muốn focus
- */
-LF.news.openPanel = function (scrollToIndex) {
-    var overlay = document.getElementById('news-panel');
-    if (!overlay) { return; }
-
-    // Điền nội dung
-    LF.news._buildPanelList(LF.news._items);
-
-    // Hiển thị panel
-    overlay.className = overlay.className.replace(/\s*show/g, '') + ' show';
-
-    // Scroll tới item nếu có yêu cầu
-    if (typeof scrollToIndex === 'number') {
-        var list = document.getElementById('news-panel-list');
-        if (list) {
-            var items = list.getElementsByClassName('news-panel-item');
-            if (items[scrollToIndex] && items[scrollToIndex].scrollIntoView) {
-                setTimeout(function () {
-                    try { items[scrollToIndex].scrollIntoView({ block: 'center' }); } catch (e) { }
-                }, 100);
-            }
-        }
-    }
-};
-
-/**
- * Đóng news panel
- */
-LF.news.closePanel = function () {
-    var overlay = document.getElementById('news-panel');
-    if (!overlay) { return; }
-    overlay.className = overlay.className.replace(/\s*show/g, '');
-    // Dừng TTS khi đóng panel
-    if (LF.tts && LF.tts.stop) { LF.tts.stop(); }
-};
-
-/**
- * Xây dựng danh sách tin trong panel
- * @param {Array} items
- */
-LF.news._buildPanelList = function (items) {
-    var list = document.getElementById('news-panel-list');
-    if (!list) { return; }
-
-    // Xóa nội dung cũ
-    while (list.firstChild) {
-        list.removeChild(list.firstChild);
-    }
-
-    if (!items || items.length === 0) {
-        var emptyMsg = document.createElement('p');
-        emptyMsg.className = 'news-panel-empty';
-        emptyMsg.textContent = 'Chưa có tin tức. Hãy kiểm tra kết nối mạng.';
-        list.appendChild(emptyMsg);
-        return;
-    }
-
-    var i, item, el, sourceEl, titleEl, descEl, actionsEl, linkBtn, readBtn;
-
-    for (i = 0; i < items.length; i++) {
-        item = items[i];
-
-        el = document.createElement('div');
-        el.className = 'news-panel-item';
-
-        // Nguồn tin
-        sourceEl = document.createElement('span');
-        sourceEl.className = 'news-panel-source';
-        sourceEl.textContent = item.source || '';
-        el.appendChild(sourceEl);
-
-        // Tiêu đề
-        titleEl = document.createElement('div');
-        titleEl.className = 'news-panel-title';
-        titleEl.textContent = item.title || '';
-        el.appendChild(titleEl);
-
-        // Mô tả ngắn
-        if (item.description) {
-            descEl = document.createElement('div');
-            descEl.className = 'news-panel-desc';
-            descEl.textContent = item.description;
-            el.appendChild(descEl);
-        }
-
-        // Actions: Đọc + Mở link
-        actionsEl = document.createElement('div');
-        actionsEl.className = 'news-panel-actions';
-
-        // Nút Đọc riêng lẻ
-        readBtn = document.createElement('button');
-        readBtn.className = 'news-panel-read-btn';
-        readBtn.innerHTML = '<svg viewBox="0 0 24 24" width="1.2em" height="1.2em" fill="currentColor" style="vertical-align:-0.15em; margin-right:0.25em"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg> Đọc';
-        (function (idx, itm) {
-            readBtn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                if (LF.tts && LF.tts.readNewsList) {
-                    LF.tts.readNewsList(LF.news._items, idx);
-                }
-            });
-        })(i, item);
-        actionsEl.appendChild(readBtn);
-
-        // Nút mở link
-        if (item.link) {
-            linkBtn = document.createElement('a');
-            linkBtn.className = 'news-panel-btn news-panel-link-btn';
-            linkBtn.textContent = '🔗 Đọc bài';
-            linkBtn.href = item.link;
-            linkBtn.target = '_blank';
-            linkBtn.rel = 'noopener';
-            actionsEl.appendChild(linkBtn);
-        }
-
-        el.appendChild(actionsEl);
-        list.appendChild(el);
-    }
-};
-
-/**
- * Bind sự kiện cho news panel (gọi sau khi DOM ready)
- */
-LF.news.bindPanelEvents = function () {
-    // Nút đóng panel
-    var closeBtn = document.getElementById('news-panel-close-btn');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function () {
-            LF.news.closePanel();
-        });
-    }
-
-    // Click outside → đóng panel
-    var overlay = document.getElementById('news-panel');
-    if (overlay) {
-        overlay.addEventListener('click', function (e) {
-            if (e.target === overlay) {
-                LF.news.closePanel();
-            }
-        });
-    }
-
-    // Nút "Đọc tất cả" trong panel
-    var readAllBtn = document.getElementById('news-panel-read-all-btn');
-    if (readAllBtn) {
-        readAllBtn.addEventListener('click', function () {
-            if (LF.tts && LF.tts._isReading) {
-                LF.tts.stop();
-            } else if (LF.tts && LF.tts.readNewsList) {
-                LF.tts.readNewsList(LF.news._items, 0);
-            }
-        });
-    }
-};
-
+LF.news.openPanel = function () { };
+LF.news.closePanel = function () { };
+LF.news.bindPanelEvents = function () { };
+LF.news._buildPanelList = function () { };

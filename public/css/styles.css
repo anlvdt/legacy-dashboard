@@ -126,9 +126,8 @@ body.power-save-mode #background-container {
     overflow-x: hidden;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    gap: 1.5vmin;
-    padding-bottom: 140px;
-    /* Tránh bị news-ticker fixed đè lên */
+    gap: 1vmin;
+    padding-bottom: 1.5vmin;
 }
 
 /* Ẩn scrollbar để giao diện tinh vi hơn */
@@ -165,9 +164,9 @@ body.power-save-mode #background-container {
     display: -webkit-flex;
     display: -webkit-box;
     display: flex;
-    -webkit-flex: 1;
-    -webkit-box-flex: 1;
-    flex: 1;
+    -webkit-flex: 0 1 auto;
+    -webkit-box-flex: 0;
+    flex: 0 1 auto;
     -webkit-align-items: center;
     -webkit-box-align: center;
     align-items: center;
@@ -282,14 +281,14 @@ body.power-save-mode #background-container {
 }
 
 .clock-segment span {
-    font-size: 13vmin;
+    font-size: 11vmin;
     letter-spacing: 0.05em;
     -webkit-filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.12));
     filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.12));
 }
 
 .clock-separator {
-    font-size: 10vmin;
+    font-size: 8vmin;
 }
 
 /* Seconds display — hidden by default */
@@ -415,20 +414,14 @@ body.power-save-mode #background-container {
     margin-bottom: 0.5vmin;
     font-weight: 700;
     padding: 1vmin 2vmin;
-    background: rgba(20, 20, 20, 0.4);
+    background: rgba(15, 15, 20, 0.75);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 2vmin;
-    -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
-    box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-@supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
-    .date-container {
-        background: rgba(20, 20, 20, 0.25);
-        -webkit-backdrop-filter: blur(25px);
-        backdrop-filter: blur(25px);
-    }
+    position: relative;
+    z-index: 2;
 }
 
 .date-container p {
@@ -453,26 +446,21 @@ body.power-save-mode #background-container {
 /* ================================================================
  * WEATHER — Current weather display
  * Spacing: 1.5vmin padding
+ * Dùng nền đục (không backdrop-filter) để tránh bị mờ
  * ================================================================ */
 #weather-widget {
     display: block;
     font-weight: 700;
     padding: 1.5vmin 2vmin;
-    background: rgba(20, 20, 20, 0.4);
+    background: rgba(15, 15, 20, 0.75);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 2vmin;
-    -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
-    box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     font-size: 2.5vmin;
-}
-
-@supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
-    #weather-widget {
-        background: rgba(20, 20, 20, 0.25);
-        -webkit-backdrop-filter: blur(25px);
-        backdrop-filter: blur(25px);
-    }
+    position: relative;
+    z-index: 2;
 }
 
 #weather-container-line2 {
@@ -507,9 +495,9 @@ body.power-save-mode #background-container {
     opacity: 0.8;
 }
 
-/* Khi hiện lỗi (không có icon, chỉ có text) — style nhẹ nhàng */
-#weather-widget[data-error="true"] {
-    opacity: 0.65;
+#weather-icon svg {
+    -webkit-filter: drop-shadow(0 0.5vmin 1vmin rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0 0.5vmin 1vmin rgba(0, 0, 0, 0.6));
 }
 
 #weather-desc[data-error="true"] {
@@ -519,7 +507,7 @@ body.power-save-mode #background-container {
 }
 
 /* ================================================================
- * FORECAST — 3-day weather forecast widget (MỚI)
+ * FORECAST — 24h hourly weather forecast
  * Requirements: 5.6
  * ================================================================ */
 #forecast-container {
@@ -530,25 +518,31 @@ body.power-save-mode #background-container {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     flex-direction: row;
-    -webkit-justify-content: space-around;
-    -webkit-box-pack: distribute;
-    justify-content: space-around;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
     -webkit-align-items: center;
     -webkit-box-align: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 1.5vmin;
-    padding: 1vmin 1.5vmin;
+    padding: 0.8vmin 0.5vmin;
     margin-top: 1vmin;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
     font-size: 1.2vmin;
     color: rgba(255, 255, 255, 0.45);
     font-weight: 400;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-.forecast-day {
+#forecast-container::-webkit-scrollbar {
+    display: none;
+}
+
+.forecast-hour {
     display: -webkit-flex;
     display: -webkit-box;
     display: flex;
@@ -559,26 +553,37 @@ body.power-save-mode #background-container {
     -webkit-align-items: center;
     -webkit-box-align: center;
     align-items: center;
-    padding: 0.5vmin 1vmin;
-    min-width: 4rem;
+    -webkit-flex: 1 1 0;
+    flex: 1 1 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    padding: 0.3vmin 0.3vmin;
+    min-width: 0;
 }
 
-.forecast-date {
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.65);
-    margin-bottom: 0.5vmin;
+.forecast-time {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.2vmin;
     font-weight: 700;
 }
 
 .forecast-icon {
-    font-size: 3vmin;
-    margin-bottom: 0.5vmin;
+    font-size: 2.2vmin;
+    margin-bottom: 0.3vmin;
+    line-height: 1;
 }
 
+.forecast-temp,
 .forecast-temps {
     font-size: 0.8rem;
     font-weight: 700;
     color: #F5F5F5;
+}
+
+.forecast-icon svg {
+    -webkit-filter: drop-shadow(0 0.5vmin 0.5vmin rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0 0.5vmin 0.5vmin rgba(0, 0, 0, 0.6));
 }
 
 .forecast-high {
@@ -610,7 +615,7 @@ body.power-save-mode #background-container {
 #calendar-container {
     background: rgba(20, 20, 20, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 1.5vmin;
+    padding: 1vmin;
     border-radius: 2vmin;
     width: 100%;
     max-width: 48vmin;
@@ -679,7 +684,7 @@ body.power-save-mode #background-container {
 .calendar-cell::before {
     content: '';
     display: block;
-    padding-top: 120%;
+    padding-top: 100%;
 }
 
 .calendar-cell-inner {
@@ -708,17 +713,17 @@ body.power-save-mode #background-container {
 .day-name .cell-content {
     font-weight: 700;
     color: #f39c12;
-    font-size: 1.6vmin;
+    font-size: 1.3vmin;
 }
 
 .solar-day {
-    font-size: 1.6vmin;
+    font-size: 1.4vmin;
     font-weight: 700;
     display: block;
 }
 
 .lunar-day {
-    font-size: 1.3vmin;
+    font-size: 1.1vmin;
     display: block;
     color: #f39c12;
     opacity: 0.8;
@@ -1698,148 +1703,10 @@ body.power-save-mode .today .solar-day {
 }
 
 /* ================================================================
- * NEWS TICKER — Cuộn tin tức tiếng Việt
- * Requirements: 3.6 (min-height 44px touch), 6.1
+ * NEWS TICKER — Đã thay thế bằng inline widget, ẩn hoàn toàn
  * ================================================================ */
 #news-ticker {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 75;
-    height: auto;
-    min-height: 54px;
-    padding: 0.5rem 0;
-    background: rgba(10, 10, 15, 0.4);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    display: -webkit-flex;
-    display: -webkit-box;
-    display: flex;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    align-items: center;
-    overflow: hidden;
-    -webkit-transition: opacity 0.3s;
-    transition: opacity 0.3s;
-}
-
-@supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
-    #news-ticker {
-        background: rgba(8, 8, 12, 0.25);
-        -webkit-backdrop-filter: blur(25px);
-        backdrop-filter: blur(25px);
-    }
-}
-
-#news-ticker-label {
-    -webkit-flex-shrink: 0;
-    flex-shrink: 0;
-    background: #e74c3c;
-    color: #fff;
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    padding: 0.5rem 1rem;
-    margin: 0 1rem;
-    border-radius: 4px;
-    display: -webkit-flex;
-    display: -webkit-box;
-    display: flex;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    align-items: center;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-#news-ticker-track {
-    -webkit-flex: 1;
-    -webkit-box-flex: 1;
-    flex: 1;
-    overflow: hidden;
-    position: relative;
-    height: 100%;
-}
-
-#news-ticker-content {
-    display: -webkit-flex;
-    display: -webkit-box;
-    display: flex;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    align-items: center;
-    height: 100%;
-    white-space: nowrap;
-    will-change: -webkit-transform;
-    will-change: transform;
-}
-
-.news-ticker-item {
-    display: -webkit-inline-flex;
-    display: inline-flex;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-flex-shrink: 0;
-    flex-shrink: 0;
-    padding: 0 4rem;
-    font-size: 0.95rem;
-    color: #e8e8e8;
-    cursor: pointer;
-    -webkit-transition: color 0.2s;
-    transition: color 0.2s;
-    white-space: nowrap;
-    min-height: 44px;
-}
-
-.news-ticker-item:hover {
-    color: #f39c12;
-}
-
-.news-ticker-source {
-    color: #f39c12;
-    font-weight: 700;
-    margin-right: 0.4rem;
-    font-size: 0.72rem;
-    -webkit-flex-shrink: 0;
-    flex-shrink: 0;
-}
-
-.news-ticker-sep {
-    color: rgba(255, 255, 255, 0.2);
-    padding: 0 0.5rem;
-    -webkit-flex-shrink: 0;
-    flex-shrink: 0;
-}
-
-/* News source toggle button */
-#news-toggle-btn {
-    cursor: pointer;
-    -webkit-flex-shrink: 0;
-    flex-shrink: 0;
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.85rem;
-    padding: 0 0.6rem;
-    height: 100%;
-    -webkit-transition: color 0.2s;
-    transition: color 0.2s;
-    min-width: 44px;
-    min-height: 44px;
-}
-
-#news-toggle-btn:hover {
-    color: #f39c12;
-}
-
-/* Khi có ticker thì đẩy nội dung lên trên */
-body.has-ticker .container {
-    padding-bottom: calc(2.4rem + 2.5vmin);
-}
-
-body.has-ticker #img-loading {
-    bottom: 2.8rem;
+    display: none !important;
 }
 
 /* ================================================================
@@ -2111,6 +1978,17 @@ body.legacy-device .today .solar-day {
         margin-bottom: 2vmin;
     }
 
+    #dashboard-bottom-row {
+        gap: 1.5vmin;
+    }
+
+    #dashboard-bottom-row .info-block {
+        -webkit-flex: 1 1 45%;
+        flex: 1 1 45%;
+        max-width: none;
+        padding: 1.5vmin;
+    }
+
     .shop-name {
         font-size: 2.5rem;
     }
@@ -2178,7 +2056,12 @@ body.legacy-device .today .solar-day {
         right: 5vw;
     }
 
-
+    #dashboard-bottom-row .info-block {
+        -webkit-flex: 1 1 100%;
+        flex: 1 1 100%;
+        max-width: none;
+        padding: 1.5vmin;
+    }
 
     .finance-value {
         font-size: 1.05rem;
@@ -2188,12 +2071,11 @@ body.legacy-device .today .solar-day {
         font-size: 0.55rem;
     }
 
-    /* Forecast stacks on mobile */
+    /* Forecast scrolls horizontally on mobile */
     #forecast-container {
-        -webkit-flex-direction: column;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        flex-direction: column;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+        overflow-x: auto;
     }
 
     .forecast-divider {
@@ -2379,11 +2261,11 @@ body.legacy-device .today .solar-day {
  * ================================================================ */
 @media (min-width: 1200px) {
     .clock-segment span {
-        font-size: 13vmin;
+        font-size: 11vmin;
     }
 
     .clock-separator {
-        font-size: 10vmin;
+        font-size: 8vmin;
     }
 
     #calendar-container {
@@ -2714,7 +2596,7 @@ body.power-save-mode #news-tts-btn {
     /* Chrome, Safari */
 }
 
-/* Clock & Weather Top Row Layout: Focus ỏ giữa trang */
+/* Clock & Weather Top Row Layout: Focus ở giữa trang */
 #dashboard-top-row {
     display: -webkit-flex;
     display: flex;
@@ -2724,15 +2606,14 @@ body.power-save-mode #news-tts-btn {
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
-    gap: 1.5vmin;
-    margin-top: 1vmin;
+    gap: 1vmin;
+    margin-top: 0;
 }
 
 #dashboard-top-row #digital-clock-wrapper {
     margin: 0;
     -webkit-flex-shrink: 0;
     flex-shrink: 0;
-    font-size: 9vmin;
 }
 
 /* Date/weather layout hàng ngang dưới đồng hồ */
@@ -2741,42 +2622,62 @@ body.power-save-mode #news-tts-btn {
     display: flex;
     -webkit-flex-direction: row;
     flex-direction: row;
-    -webkit-align-items: center;
-    align-items: center;
+    -webkit-align-items: stretch;
+    align-items: stretch;
     -webkit-justify-content: center;
     justify-content: center;
-    gap: 2.5vmin;
+    gap: 2vmin;
     margin: 0;
 }
 
 #dashboard-top-row #date-display,
 #dashboard-top-row #weather-widget {
     margin: 0;
-    background: rgba(20, 20, 20, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1.2vmin 2vmin;
+    background: rgba(15, 15, 20, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 1vmin 2vmin;
     border-radius: 2vmin;
+    -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 2;
 }
 
-/* Quote chiếm toàn bộ mid-row — tinh tế hơn */
+/* Loại bỏ nền kép trên date-weather-group — chỉ con bên trong có nền */
+#dashboard-top-row #date-weather-group {
+    background: transparent;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+/* Quote chiếm toàn bộ mid-row */
 #dashboard-mid-row {
     display: -webkit-flex;
     display: flex;
     -webkit-justify-content: center;
     justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
     width: 100%;
-    margin: 1.5vmin 0;
+    margin: 0.5vmin 0;
+    -webkit-flex: 0 1 auto;
+    flex: 0 1 auto;
+    min-height: 0;
 }
 
 #dashboard-mid-row .quote-wrapper {
     margin: 0;
-    max-width: 90vw;
+    max-width: 80vw;
 }
 
 #dashboard-mid-row .quote-text {
     display: block !important;
-    font-size: 2.8vmin;
+    font-size: 2.5vmin;
     font-weight: 500;
+    line-height: 1.5;
 }
 
 /* Bottom-row: Grid mềm dẻo, tự động xuống dòng (Wrap) */
@@ -2787,39 +2688,36 @@ body.power-save-mode #news-tts-btn {
     flex-wrap: wrap;
     -webkit-justify-content: center;
     justify-content: center;
-    gap: 2.5vmin;
-    /* Tăng gap để tạo khoảng thở giữa các block */
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    gap: 1.5vmin;
     max-width: 98vw;
-    margin: 1.5vmin auto;
+    max-height: 38vh;
+    margin: 0 auto;
+    padding-bottom: 1vmin;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    overflow: hidden;
 }
 
 #dashboard-bottom-row .info-block {
-    -webkit-flex: 1 1 240px;
-    flex: 1 1 240px;
-    max-width: 480px;
+    -webkit-flex: 1 1 200px;
+    flex: 1 1 200px;
+    max-width: 420px;
+    max-height: 36vh;
     min-width: 0;
     box-sizing: border-box;
     margin: 0;
-    padding: 2.5vmin;
-    /* Tăng padding để text không bị sát lề */
-    background: rgba(20, 20, 20, 0.4);
+    padding: 1.5vmin 2vmin;
+    background: rgba(15, 15, 20, 0.75);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 2.5vmin;
-    -webkit-box-shadow: 0 0.8vmin 2vmin rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0.8vmin 2vmin rgba(0, 0, 0, 0.4);
-
-    /* Dàn nội dung theo chiều dọc để chiếm đều khoảng không */
-    -webkit-justify-content: space-between;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-}
-
-@supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
-    #dashboard-bottom-row .info-block {
-        background: rgba(10, 10, 20, 0.35);
-        -webkit-backdrop-filter: blur(20px);
-        backdrop-filter: blur(20px);
-    }
+    border-radius: 2vmin;
+    -webkit-box-shadow: 0 0.5vmin 1.5vmin rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0.5vmin 1.5vmin rgba(0, 0, 0, 0.4);
+    -webkit-justify-content: flex-start;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    overflow: hidden;
 }
 
 /* Loại bỏ hiệu ứng hộp kép (double-box), ép các con bên trong chỉ làm flex container trong suốt */
@@ -2855,12 +2753,151 @@ body.power-save-mode #news-tts-btn {
     display: none;
 }
 
-/* Ticker to hơn, dễ đọc hơn */
-#news-ticker {
-    font-size: 1.6vmin;
+/* Ticker đã thay thế bằng inline widget */
+
+
+/* ================================================================
+ * NEWS INLINE WIDGET — Khối tin tức ngang hàng, cuộn dọc teleprompter
+ * Giới hạn chiều cao để không vỡ bố cục
+ * ================================================================ */
+#news-widget {
+    padding: 0;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
-#news-ticker-label {
-    font-size: 1.4vmin;
-    padding: 0 1.2rem;
+.news-inline-wrapper {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.news-inline-header {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 1vmin;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.news-inline-label {
+    background: #e74c3c;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.news-inline-tts {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    color: #f39c12;
+    font-size: 1rem;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    min-width: 36px;
+    min-height: 36px;
+    -webkit-transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.news-inline-tts:hover {
+    background: rgba(243, 156, 18, 0.15);
+}
+
+.news-inline-tts.tts-speaking {
+    color: #e74c3c;
+    border-color: rgba(231, 76, 60, 0.5);
+    -webkit-animation: ttsPulse 1.2s ease-in-out infinite;
+    animation: ttsPulse 1.2s ease-in-out infinite;
+}
+
+.news-inline-scroll-view {
+    -webkit-flex: 1;
+    -webkit-box-flex: 1;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    min-height: 0;
+}
+
+#news-inline-scroll-content {
+    will-change: -webkit-transform;
+    will-change: transform;
+}
+
+.news-scroll-item {
+    padding: 0.6vmin 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    -webkit-transition: background 0.2s, border-left 0.2s;
+    transition: background 0.2s, border-left 0.2s;
+    padding-left: 0.5vmin;
+}
+
+.news-scroll-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.news-scroll-item.news-scroll-active {
+    background: rgba(243, 156, 18, 0.12);
+    border-left: 3px solid #f39c12;
+}
+
+.news-scroll-source {
+    display: block;
+    font-size: 0.6rem;
+    color: #f39c12;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.2vmin;
+}
+
+.news-scroll-title {
+    display: block;
+    font-size: 0.82rem;
+    color: #e8e8e8;
+    line-height: 1.35;
+    font-weight: 500;
+}
+
+/* News widget tự co giãn nhưng giới hạn chiều cao */
+#dashboard-bottom-row #news-widget {
+    overflow: hidden;
+    max-height: 36vh;
+}
+
+/* News inline wrapper cũng giới hạn */
+#dashboard-bottom-row .news-inline-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: 100%;
 }

@@ -1,7 +1,9 @@
 const https = require('https');
 
 const fetch = (url) => new Promise((resolve, reject) => {
-    https.get(url, (res) => {
+    const req = https.get(url, {
+        headers: { 'User-Agent': 'LegacyFrame/1.0' }
+    }, (res) => {
         let data = '';
         res.on('data', (chunk) => data += chunk);
         res.on('end', () => {
@@ -15,11 +17,13 @@ const fetch = (url) => new Promise((resolve, reject) => {
                 reject(new Error("Failed to parse JSON response."));
             }
         });
-    }).on('error', (err) => reject(new Error("API request failed: " + err.message)));
+    });
+    req.on('error', (err) => reject(new Error("API request failed: " + err.message)));
+    req.setTimeout(8000, () => { req.destroy(); reject(new Error("Request timeout")); });
 });
 
 exports.handler = async function (event, context) {
-    const { lat, lon } = event.queryStringParameters;
+    const { lat, lon, city } = event.queryStringParameters;
 
     if (!lat || !lon) {
         return {
@@ -29,63 +33,46 @@ exports.handler = async function (event, context) {
         };
     }
 
-    const providers = [
-        // 1. Primary: Open-Meteo
-        async () => {
-            const GEOCODING_URL = `https://geocoding-api.open-meteo.com/v1/search?latitude=${lat}&longitude=${lon}&count=1&language=vi&format=json`;
-            const WEATHER_URL = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code`;
+    try {
+        // Nếu frontend đã gửi city từ IP detection, dùng luôn — không cần reverse geocoding
+        const needGeo = !city;
+        const WEATHER_URL = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code`;
+        const GEO_URL = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=vi&zoom=5`;
 
-            const [geoData, weatherData] = await Promise.all([
-                fetch(GEOCODING_URL),
-                fetch(WEATHER_URL)
-            ]);
-
-            return {
-                location: (geoData && geoData.results && geoData.results.length > 0) ? geoData.results[0].name : "Không rõ",
-                weather: (weatherData && weatherData.current) ? weatherData.current : null,
-                source: "Open-Meteo"
-            };
-        },
-        // 2. Fallback 1: DBThoiTiet / WeatherAPI alternative (Simulated structure if primary 500s)
-        async () => {
-            const FALLBACK_URL = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code`;
-            const weatherData = await fetch(FALLBACK_URL);
-            return {
-                location: "Vị trí Dự phòng",
-                weather: (weatherData && weatherData.current) ? weatherData.current : null,
-                source: "Fallback Node"
-            };
+        const promises = [fetch(WEATHER_URL)];
+        if (needGeo) {
+            promises.push(fetch(GEO_URL).catch(() => null));
         }
-    ];
 
-    let finalResponse = null;
-    let fallbackError = null;
+        const results = await Promise.all(promises);
+        const weatherData = results[0];
+        const geoData = needGeo ? results[1] : null;
 
-    for (const provider of providers) {
-        try {
-            const data = await provider();
-            if (data && data.weather) {
-                finalResponse = data;
-                break; // Thành công, thoát vòng lặp fallback
-            }
-        } catch (error) {
-            fallbackError = error;
-            console.log(`[Redundancy] Provider failed, trying next... ${error.message}`);
-            continue; // Chuyển sang provider tiếp theo
+        // Xác định tên vị trí: ưu tiên city từ frontend > reverse geocoding
+        let location = city || null;
+        if (!location && geoData && geoData.address) {
+            location = geoData.address.city
+                || geoData.address.state
+                || geoData.address.town
+                || geoData.address.municipality
+                || geoData.address.county
+                || null;
         }
-    }
 
-    if (finalResponse) {
         return {
             statusCode: 200,
             headers: { 'Access-Control-Allow-Origin': '*' },
-            body: JSON.stringify(finalResponse)
+            body: JSON.stringify({
+                location: location || null,
+                weather: (weatherData && weatherData.current) ? weatherData.current : null,
+                source: "Open-Meteo"
+            })
         };
-    } else {
+    } catch (error) {
         return {
             statusCode: 500,
             headers: { 'Access-Control-Allow-Origin': '*' },
-            body: JSON.stringify({ error: "Tất cả các nguồn thời tiết đều không phản hồi: " + (fallbackError ? fallbackError.message : "Unknown error") }),
+            body: JSON.stringify({ error: "Lỗi tải thời tiết: " + error.message }),
         };
     }
 };
