@@ -193,8 +193,8 @@ LF.app.applyPowerSaveMode = function () {
             bgEl.style.backgroundColor = '#000';
         }
     } else {
-        // Khôi phục slideshow nếu không ở clock-only mode
-        if (!current.clockOnlyMode && LF.slideshow && LF.slideshow.start) {
+        // Khôi phục slideshow nếu không ở clock-only mode và bật ảnh trực tuyến
+        if (!current.clockOnlyMode && current.useOnlinePhotos && LF.slideshow && LF.slideshow.start) {
             var interval = current.slideshowInterval || 12000;
             if (!current.slideshowHidden) {
                 LF.slideshow.start(interval);
@@ -233,8 +233,8 @@ LF.app._pauseNonEssentialIntervals = function () {
 LF.app._resumeIntervals = function () {
     var current = LF.settings && LF.settings.current ? LF.settings.current : {};
 
-    // Khôi phục slideshow nếu không ở power save mode
-    if (!current.powerSaveMode && !current.slideshowHidden && LF.slideshow && LF.slideshow.start) {
+    // Khôi phục slideshow nếu không ở power save mode và bật ảnh trực tuyến
+    if (!current.powerSaveMode && current.useOnlinePhotos && !current.slideshowHidden && LF.slideshow && LF.slideshow.start) {
         LF.slideshow.start(current.slideshowInterval || 12000);
     }
 
@@ -492,12 +492,12 @@ LF.app.init = function () {
         LF.app.applyPowerSaveMode();
     }
 
-    // 10. Init slideshow (nếu không ở power save hoặc clock-only)
+    // 10. Init slideshow (nếu không ở power save hoặc clock-only, và bật ảnh trực tuyến)
     if (!current.powerSaveMode && !current.clockOnlyMode) {
         if (LF.slideshow && LF.slideshow.init) {
             LF.slideshow.init();
         }
-        if (!current.slideshowHidden && LF.slideshow && LF.slideshow.start) {
+        if (current.useOnlinePhotos && !current.slideshowHidden && LF.slideshow && LF.slideshow.start) {
             LF.slideshow.start(current.slideshowInterval);
         }
     }

@@ -413,7 +413,18 @@ LF.news._loadRSSSource = function (source, callback) {
  * Tải tin từ nhiều nguồn đồng thời
  */
 LF.news.loadMultiSource = function () {
-    var sources = LF.news.sources;
+    var current = (LF.settings && LF.settings.current) ? LF.settings.current : {};
+    var isMulti = current.newsMultiSource !== false;
+    var sources;
+
+    if (isMulti) {
+        sources = LF.news.sources;
+    } else {
+        var idx = current.newsSourceIndex || 0;
+        if (idx >= LF.news.sources.length) { idx = 0; }
+        sources = [LF.news.sources[idx]];
+    }
+
     var allItems = [];
     var completed = 0;
     var total = sources.length;

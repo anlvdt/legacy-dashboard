@@ -257,8 +257,31 @@ LF.settings.apply = function () {
         }
     }
 
-    // Đồng hồ giây
-    LF.settings._setVisibility('clock-seconds', current.secondsVisible);
+    // Đồng hồ giây — dùng toggleSeconds để cập nhật CSS
+    if (LF.clock && LF.clock.toggleSeconds) {
+        LF.clock.toggleSeconds(!!current.secondsVisible);
+    }
+
+    // TTS button visibility
+    var ttsBtnOld = document.getElementById('news-tts-btn');
+    var ttsBtnInline = document.getElementById('news-inline-tts-btn');
+    if (ttsBtnOld) {
+        ttsBtnOld.style.display = current.enableTTS ? '' : 'none';
+    }
+    if (ttsBtnInline) {
+        ttsBtnInline.style.display = current.enableTTS ? '' : 'none';
+    }
+
+    // Slideshow: bật/tắt theo useOnlinePhotos
+    if (current.useOnlinePhotos && !current.slideshowHidden && !current.powerSaveMode) {
+        if (LF.slideshow && LF.slideshow.start && !LF.slideshow._running) {
+            LF.slideshow.start(current.slideshowInterval || 12000);
+        }
+    } else if (!current.useOnlinePhotos) {
+        if (LF.slideshow && LF.slideshow.stop) {
+            LF.slideshow.stop();
+        }
+    }
 
     // Cập nhật text nút trong panel
     LF.settings._updateButtonTexts();
@@ -506,8 +529,17 @@ LF.settings.bindEvents = function () {
                         if (k === 'clockOnlyMode' && LF.app && LF.app.applyClockOnlyMode) {
                             LF.app.applyClockOnlyMode();
                         }
+                        if ((k === 'clockOnlyShowGregorian' || k === 'clockOnlyShowLunar' || k === 'clockOnlyShowWeather') && LF.app && LF.app.applyClockOnlyMode) {
+                            LF.app.applyClockOnlyMode();
+                        }
                         if (k === 'powerSaveMode' && LF.app && LF.app.applyPowerSaveMode) {
                             LF.app.applyPowerSaveMode();
+                        }
+                        if (k === 'showDisasterAlerts' && LF.settings.current.showDisasterAlerts && LF.disaster && LF.disaster.init) {
+                            LF.disaster.init();
+                        }
+                        if ((k === 'showNewsTicker' || k === 'newsMultiSource') && LF.news && LF.news.loadMultiSource) {
+                            LF.news.loadMultiSource();
                         }
                     });
                 }
@@ -519,7 +551,7 @@ LF.settings.bindEvents = function () {
     var intervalBtn = document.getElementById('btn-slideshowInterval');
     if (intervalBtn) {
         intervalBtn.addEventListener('click', function () {
-            var intervals = [10000, 15000, 30000, 60000];
+            var intervals = [12000, 10000, 15000, 30000, 60000];
             var current = LF.settings.current.slideshowInterval || 12000;
             var idx = -1;
             for (var i = 0; i < intervals.length; i++) {
@@ -560,8 +592,12 @@ LF.settings.bindEvents = function () {
     if (enableTTSBtn) {
         enableTTSBtn.addEventListener('click', function () {
             var ttsBtn = document.getElementById('news-tts-btn');
+            var inlineTtsBtn = document.getElementById('news-inline-tts-btn');
             if (ttsBtn) {
                 ttsBtn.style.display = LF.settings.current.enableTTS ? '' : 'none';
+            }
+            if (inlineTtsBtn) {
+                inlineTtsBtn.style.display = LF.settings.current.enableTTS ? '' : 'none';
             }
             if (!LF.settings.current.enableTTS && LF.tts && LF.tts.stop) {
                 LF.tts.stop();
@@ -638,5 +674,94 @@ LF.settings.bindEvents = function () {
                 }
             } catch (e) { }
         });
+    }
+
+    // Refresh photos button — tải ảnh mới ngay lập tức
+    var refreshPhotosBtn = document.getElementById('refresh-photos-btn');
+    if (refreshPhotosBtn) {
+        refreshPhotosBtn.addEventListener('click', function () {
+            if (LF.slideshow && LF.slideshow.changeImage) {
+                LF.slideshow.changeImage();
+            }
+        });
+    }
+
+    // News source button — đổi nguồn tin (cycle qua danh sách, chỉ có tác dụng khi tắt đa nguồn)
+    var newsSourceBtn = document.getElementById('news-source-btn');
+    if (newsSourceBtn) {
+        newsSourceBtn.addEventListener('click', function () {
+            if (!LF.news || !LF.news.sources) { return; }
+            var total = LF.news.sources.length;
+            if (total === 0) { return; }
+            var idx = (LF.settings.current.newsSourceIndex || 0) + 1;
+            if (idx >= total) { idx = 0; }
+            LF.settings.current.newsSourceIndex = idx;
+            LF.settings.save();
+            newsSourceBtn.textContent = 'Nguồn: ' + LF.news.sources[idx].name;
+            // Reload tin nếu đang ở chế độ đơn nguồn
+            if (!LF.settings.current.newsMultiSource && LF.news.loadMultiSource) {
+                LF.news.loadMultiSource();
+            }
+        });
+    }
+
+    // Photo guide button — hướng dẫn cập nhật ảnh
+    var photoGuideBtn = document.getElementById('photo-guide-btn');
+    if (photoGuideBtn) {
+        photoGuideBtn.addEventListener('click', function () {
+            LF.settings._showGuide(
+                'Cập nhật ảnh nền',
+                '<p>Ứng dụng tự động tải ảnh từ Picsum Photos khi bật "Ảnh trực tuyến".</p>' +
+                '<ul>' +
+                '<li>Bật <b>Ảnh trực tuyến</b> trong mục Nguồn ảnh</li>' +
+                '<li>Chọn thời gian chuyển ảnh (10s, 15s, 30s, 60s)</li>' +
+                '<li>Nhấn <b>Tải ảnh mới</b> để đổi ảnh ngay</li>' +
+                '</ul>' +
+                '<p>Nếu không bật ảnh trực tuyến, ứng dụng sẽ hiển thị nền đen.</p>'
+            );
+        });
+    }
+
+    // Always-on guide button — hướng dẫn giữ màn hình bật
+    var alwaysOnGuideBtn = document.getElementById('always-on-guide-btn');
+    if (alwaysOnGuideBtn) {
+        alwaysOnGuideBtn.addEventListener('click', function () {
+            LF.settings._showGuide(
+                'Giữ màn hình luôn bật',
+                '<p>Để thiết bị hiển thị liên tục như đồng hồ treo tường:</p>' +
+                '<ul>' +
+                '<li><b>iOS:</b> Cài đặt &rarr; Màn hình &amp; Độ sáng &rarr; Tự động khoá &rarr; Không bao giờ</li>' +
+                '<li><b>Android:</b> Cài đặt &rarr; Hiển thị &rarr; Thời gian chờ màn hình &rarr; 30 phút (hoặc dùng app "Stay Alive")</li>' +
+                '</ul>' +
+                '<p>Nên bật <b>Tiết kiệm điện</b> để giảm hao pin khi dùng lâu.</p>'
+            );
+        });
+    }
+};
+
+/**
+ * Mở guide dialog với tiêu đề và nội dung HTML
+ * @param {string} title
+ * @param {string} htmlContent
+ */
+LF.settings._showGuide = function (title, htmlContent) {
+    var overlay = document.getElementById('guide-dialog');
+    var titleEl = document.getElementById('guide-title');
+    var contentEl = document.getElementById('guide-content');
+    var closeBtn = document.getElementById('guide-close-btn');
+
+    if (!overlay || !titleEl || !contentEl) { return; }
+
+    titleEl.textContent = title;
+    contentEl.innerHTML = htmlContent;
+
+    if (overlay.className.indexOf('show') === -1) {
+        overlay.className = overlay.className + ' show';
+    }
+
+    if (closeBtn) {
+        closeBtn.onclick = function () {
+            overlay.className = overlay.className.replace(/\s*show/g, '');
+        };
     }
 };
