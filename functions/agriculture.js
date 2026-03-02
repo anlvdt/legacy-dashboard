@@ -56,56 +56,34 @@ const parseCoffeePrice = (html) => {
     return null;
 };
 
-/**
- * Parse giá hồ tiêu từ giacaphe.com/gia-tieu/
- */
-const parsePepperPrice = (html) => {
-    if (!html) return null;
-    const match = html.match(/trung b[ìi]nh[^0-9]{0,30}?([0-9]+[.,][0-9]{3})/i);
-    if (match && match[1]) {
-        return parseInt(match[1].replace(/[.,]/g, ''), 10);
-    }
-    const match2 = html.match(/([0-9]{2,3}[.,][0-9]{3})\s*[đd]\/kg/);
-    if (match2 && match2[1]) {
-        return parseInt(match2[1].replace(/[.,]/g, ''), 10);
-    }
-    return null;
-};
-
 exports.handler = async function (event, context) {
-    const result = { coffee: null, pepper: null, timestamp: new Date().toISOString() };
-
     try {
-        // Fetch coffee price (primary — usually works)
-        const coffeeHtml = await fetchViaProxy('https://giacaphe.com/gia-ca-phe-noi-dia/', 12000);
-        result.coffee = parseCoffeePrice(coffeeHtml);
-    } catch (e) {
-        // ignore
-    }
+        const html = await fetchViaProxy('https://giacaphe.com/gia-ca-phe-noi-dia/', 12000);
+        const coffee = parseCoffeePrice(html);
 
-    try {
-        // Fetch pepper price (may timeout — optional)
-        const pepperHtml = await fetchViaProxy('https://giacaphe.com/gia-tieu/', 8000);
-        result.pepper = parsePepperPrice(pepperHtml);
-    } catch (e) {
-        // ignore
-    }
+        if (!coffee) {
+            return {
+                statusCode: 500,
+                headers: { 'Access-Control-Allow-Origin': '*' },
+                body: JSON.stringify({ error: 'Không thể tải giá cà phê' })
+            };
+        }
 
-    // If coffee failed, return error
-    if (!result.coffee && !result.pepper) {
+        return {
+            statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify({
+                data: { coffee: coffee, timestamp: new Date().toISOString() }
+            })
+        };
+    } catch (e) {
         return {
             statusCode: 500,
             headers: { 'Access-Control-Allow-Origin': '*' },
-            body: JSON.stringify({ error: 'Không thể tải giá nông sản' })
+            body: JSON.stringify({ error: 'Lỗi kết nối' })
         };
     }
-
-    return {
-        statusCode: 200,
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify({ data: result })
-    };
 };

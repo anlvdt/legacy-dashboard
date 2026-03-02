@@ -1,8 +1,8 @@
 /**
- * agriculture.js — Module giá nông sản cho Legacy Frame
+ * agriculture.js — Module giá cà phê nội địa cho Legacy Frame
  * Tất cả cú pháp ES5 (var, function) — không dùng let/const/arrow/template literals
  *
- * Hiển thị giá cà phê Robusta nội địa và giá hồ tiêu
+ * Hiển thị giá cà phê Robusta nội địa (Tây Nguyên)
  */
 
 var LF = LF || {};
@@ -33,36 +33,22 @@ LF.agriculture.fetchData = function () {
 };
 
 LF.agriculture.render = function (data) {
-    if (!data) {
+    if (!data || !data.coffee) {
         LF.agriculture.renderError();
         return;
     }
 
-    var format = function (val) {
-        if (!val) { return 'Ch\u01B0a c\u00F3 d\u1EEF li\u1EC7u'; }
-        return parseInt(val, 10).toLocaleString('vi-VN') + ' \u0111/kg';
-    };
-
     var coffeeEl = document.getElementById('agri-coffee-value');
-    var pepperEl = document.getElementById('agri-pepper-value');
-
     if (coffeeEl) {
         coffeeEl.className = 'agri-value';
-        coffeeEl.textContent = format(data.coffee);
-    }
-    if (pepperEl) {
-        pepperEl.className = 'agri-value';
-        pepperEl.textContent = format(data.pepper);
+        coffeeEl.textContent = parseInt(data.coffee, 10).toLocaleString('vi-VN') + ' \u0111/kg';
     }
 };
 
 LF.agriculture.renderError = function () {
-    var ids = ['agri-coffee-value', 'agri-pepper-value'];
-    for (var i = 0; i < ids.length; i++) {
-        var el = document.getElementById(ids[i]);
-        if (el) {
-            el.className = 'agri-value loading';
-            el.textContent = 'L\u1ED7i d\u1EEF li\u1EC7u';
-        }
+    var el = document.getElementById('agri-coffee-value');
+    if (el) {
+        el.className = 'agri-value loading';
+        el.textContent = 'L\u1ED7i d\u1EEF li\u1EC7u';
     }
 };
