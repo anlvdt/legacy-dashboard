@@ -2757,7 +2757,7 @@ body.power-save-mode #news-tts-btn {
 
 
 /* ================================================================
- * HOLIDAY COUNTDOWN — Đếm ngược ngày nghỉ lễ (trong agriculture widget)
+ * HOLIDAY COUNTDOWN — Đếm ngược ngày nghỉ lễ (trong date-display)
  * ================================================================ */
 .holiday-countdown {
     display: -webkit-flex;
@@ -2769,13 +2769,12 @@ body.power-save-mode #news-tts-btn {
     -webkit-justify-content: center;
     -webkit-box-pack: center;
     justify-content: center;
-    background: rgba(243, 156, 18, 0.12);
-    border: 1px solid rgba(243, 156, 18, 0.25);
-    border-radius: 1.5vmin;
-    padding: 0.8vmin 1.5vmin;
-    margin-top: 1vmin;
+    background: rgba(243, 156, 18, 0.10);
+    border: 1px solid rgba(243, 156, 18, 0.2);
+    border-radius: 1vmin;
+    padding: 0.4vmin 1vmin;
+    margin-top: 0.5vmin;
     text-align: center;
-    width: 100%;
 }
 
 .holiday-icon {
