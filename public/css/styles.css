@@ -413,7 +413,7 @@ body.power-save-mode #background-container {
  * ================================================================ */
 .date-container {
     font-size: 3.2vmin;
-    margin-bottom: 0.5vmin;
+    margin-bottom: 0;
     font-weight: 700;
     padding: 1vmin 2vmin;
     background: rgba(15, 15, 20, 0.75);
@@ -424,10 +424,20 @@ body.power-save-mode #background-container {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     position: relative;
     z-index: 2;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
 }
 
 .date-container p {
-    margin: 1vmin 0;
+    margin: 0.3vmin 0;
 }
 
 #gregorian-date-p {
@@ -442,7 +452,7 @@ body.power-save-mode #background-container {
 
 #lunar-event {
     color: #e67e22;
-    min-height: 1em;
+    min-height: 0;
 }
 
 /* ================================================================
@@ -486,7 +496,7 @@ body.power-save-mode #background-container {
 }
 
 #weather-location {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: 0.5vmin;
     font-size: 1.6vmin;
 }
@@ -534,7 +544,7 @@ body.power-save-mode #background-container {
     -webkit-flex-wrap: nowrap;
     flex-wrap: nowrap;
     font-size: 1.2vmin;
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.7);
     font-weight: 400;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -564,7 +574,7 @@ body.power-save-mode #background-container {
 }
 
 .forecast-time {
-    font-size: 0.65rem;
+    font-size: 1vmin;
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 0.2vmin;
     font-weight: 700;
@@ -578,7 +588,7 @@ body.power-save-mode #background-container {
 
 .forecast-temp,
 .forecast-temps {
-    font-size: 0.8rem;
+    font-size: 1.2vmin;
     font-weight: 700;
     color: #F5F5F5;
 }
@@ -597,8 +607,8 @@ body.power-save-mode #background-container {
 }
 
 .forecast-desc {
-    font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.55);
+    font-size: 1vmin;
+    color: rgba(255, 255, 255, 0.7);
     margin-top: 0.5vmin;
 }
 
@@ -768,7 +778,7 @@ body.power-save-mode #background-container {
 }
 
 .almanac-title {
-    font-size: 0.75rem;
+    font-size: 1.1vmin;
     color: rgba(255, 255, 255, 0.6);
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -807,25 +817,25 @@ body.power-save-mode #background-container {
 }
 
 .almanac-item-label {
-    font-size: 0.6rem;
+    font-size: 0.9vmin;
     color: rgba(255, 255, 255, 0.5);
     margin-bottom: 0.5vmin;
 }
 
 .almanac-item-value {
-    font-size: 0.85rem;
+    font-size: 1.2vmin;
     font-weight: 700;
     color: #f39c12;
 }
 
 .almanac-lucky-hours {
-    font-size: 0.75rem;
+    font-size: 1.1vmin;
     color: #2ecc71;
     margin-top: 0.5vmin;
 }
 
 .almanac-direction {
-    font-size: 0.75rem;
+    font-size: 1.1vmin;
     color: #3498db;
     margin-top: 0.5vmin;
 }
@@ -875,7 +885,7 @@ body.power-save-mode #background-container {
     font-size: 3.5vmin;
     font-weight: 600;
     line-height: 1.4;
-    color: #f5f6fa;
+    color: #F5F5F5;
     text-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.9);
     font-style: italic;
     margin-bottom: 1.5vmin;
@@ -1232,7 +1242,7 @@ body.power-save-mode #forecast-container,
 body.power-save-mode #van-nien-summary,
 body.power-save-mode #calendar-container,
 body.power-save-mode .aqi-wrapper,
-body.power-save-mode #finance-widget {
+body.power-save-mode #dashboard-bottom-row .info-block {
     background: transparent;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -1391,7 +1401,7 @@ body.power-save-mode .today .solar-day {
 .settings-input-label {
     display: block;
     font-size: 0.8rem;
-    color: #ccc;
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: 0.3rem;
 }
 
@@ -1717,89 +1727,14 @@ body.power-save-mode .today .solar-day {
  * Không dùng CSS variables
  * ================================================================ */
 
-/* Default .info-block applies to #finance-widget. We style the inner wrapper: */
-#finance-widget {
-    padding: 0;
-    background: transparent;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    border: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-#finance-widget .finance-wrapper {
-    display: -webkit-flex;
-    display: -webkit-box;
-    display: flex;
-    -webkit-flex-direction: row;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    flex-direction: row;
-    -webkit-justify-content: space-around;
-    -webkit-box-pack: distribute;
-    justify-content: space-around;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    align-items: center;
-    background: rgba(15, 15, 15, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    border-radius: 2vmin;
-    padding: 1vmin 2vmin;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
-    box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
-    width: 100%;
-}
-
-.finance-value {
-    color: #f3ce49;
-    /* Vàng SJC sang trọng */
-}
-
-.finance-value-box {
-    display: -webkit-flex;
-    display: -webkit-box;
-    display: flex;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-justify-content: flex-end;
-    -webkit-box-pack: end;
-    justify-content: flex-end;
-    min-width: 6rem;
-}
-
-/* Finance trend indicators */
-.finance-trend {
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-left: 0.5vmin;
-    width: 1rem;
-    text-align: right;
-    display: inline-block;
-}
-
-.finance-trend-up {
-    color: #2ecc71;
-}
-
-.finance-trend-down {
-    color: #e74c3c;
-}
-
-.finance-trend-stable {
-    color: rgba(255, 255, 255, 0.4);
-}
+/* #finance-widget — không cần style riêng, kế thừa từ .info-block */
 
 /* ================================================================
- * KQXS & FUEL WIDGETS
+ * KQXS, FUEL & FINANCE WIDGETS
  * ================================================================ */
 .kqxs-wrapper,
-.fuel-wrapper {
+.fuel-wrapper,
+.finance-wrapper {
     display: -webkit-flex;
     display: -webkit-box;
     display: flex;
@@ -1825,7 +1760,7 @@ body.power-save-mode .today .solar-day {
 .kqxs-header,
 .fuel-header,
 .finance-header {
-    font-size: 0.85rem;
+    font-size: 1.6vmin;
     color: #f39c12;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -1848,15 +1783,16 @@ body.power-save-mode .today .solar-day {
     -webkit-align-items: center;
     -webkit-box-align: center;
     align-items: center;
-    padding: 0.5vmin 0;
+    padding: 0.8vmin 0;
 }
 
 .kqxs-region,
 .fuel-type,
 .finance-type {
-    font-size: 0.8rem;
+    font-size: 1.4vmin;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 600;
+    margin-right: 1vmin;
 }
 
 .kqxs-value,
@@ -1864,8 +1800,8 @@ body.power-save-mode .today .solar-day {
 .finance-value {
     font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
     font-weight: 800;
-    font-size: 1.1rem;
-    color: #fff;
+    font-size: 2.2vmin;
+    color: #F5F5F5;
     text-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.6);
 }
 
@@ -1874,7 +1810,7 @@ body.power-save-mode .today .solar-day {
 .finance-value.loading {
     color: rgba(255, 255, 255, 0.4);
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 1.2vmin;
 }
 
 .kqxs-divider,
@@ -1887,8 +1823,8 @@ body.power-save-mode .today .solar-day {
 }
 
 .source-credit {
-    font-size: 0.55rem;
-    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.9vmin;
+    color: rgba(255, 255, 255, 0.45);
     text-align: right;
     margin-top: 1vmin;
     font-style: italic;
@@ -1914,8 +1850,9 @@ body.legacy-device #settings-panel {
     backdrop-filter: none !important;
 }
 
-body.legacy-device #finance-widget {
-    background: rgba(15, 15, 15, 0.75) !important;
+/* Legacy: bottom-row info-block dùng nền đục, không backdrop-filter */
+body.legacy-device #dashboard-bottom-row .info-block {
+    background: rgba(15, 15, 15, 0.88) !important;
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
 }
@@ -2704,7 +2641,7 @@ body.power-save-mode #news-tts-btn {
     box-sizing: border-box;
     margin: 0.75vmin;
     padding: 1.5vmin 2vmin;
-    background: rgba(15, 15, 20, 0.75);
+    background: rgba(15, 15, 20, 0.92);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 2vmin;
     -webkit-box-shadow: 0 0.5vmin 1.5vmin rgba(0, 0, 0, 0.4);
@@ -2796,7 +2733,7 @@ body.power-save-mode #news-tts-btn {
 .news-inline-label {
     background: #e74c3c;
     color: #fff;
-    font-size: 0.75rem;
+    font-size: 1.1vmin;
     font-weight: 800;
     letter-spacing: 0.08em;
     padding: 0.3rem 0.8rem;
@@ -2863,7 +2800,7 @@ body.power-save-mode #news-tts-btn {
 
 .news-scroll-source {
     display: block;
-    font-size: 0.6rem;
+    font-size: 0.9vmin;
     color: #f39c12;
     font-weight: 700;
     text-transform: uppercase;
@@ -2873,8 +2810,8 @@ body.power-save-mode #news-tts-btn {
 
 .news-scroll-title {
     display: block;
-    font-size: 0.82rem;
-    color: #e8e8e8;
+    font-size: 1.2vmin;
+    color: #F5F5F5;
     line-height: 1.35;
     font-weight: 500;
 }

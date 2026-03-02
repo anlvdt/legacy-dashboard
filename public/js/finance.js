@@ -167,17 +167,12 @@ LF.finance.loadUSD = function () {
  */
 LF.finance._applyUSD = function (rate) {
     var el = document.getElementById('finance-usd-value');
-    var trendEl = document.getElementById('finance-usd-trend');
 
-    var trendInfo = LF.finance.getTrend(rate, LF.finance.previousValues.usd);
     LF.finance.previousValues.usd = rate;
 
     if (el) {
+        el.className = 'finance-value';
         el.textContent = LF.finance._formatNumber(Math.round(rate)) + ' VND';
-    }
-    if (trendEl) {
-        trendEl.textContent = trendInfo.symbol;
-        trendEl.className = 'finance-trend finance-trend-' + trendInfo.trend;
     }
 };
 
@@ -234,17 +229,12 @@ LF.finance.loadGoldWorld = function () {
  */
 LF.finance._applyGoldWorld = function (priceMillionVND) {
     var el = document.getElementById('finance-gold-world-value');
-    var trendEl = document.getElementById('finance-gold-world-trend');
 
-    var trendInfo = LF.finance.getTrend(priceMillionVND, LF.finance.previousValues.goldWorld);
     LF.finance.previousValues.goldWorld = priceMillionVND;
 
     if (el) {
+        el.className = 'finance-value';
         el.textContent = priceMillionVND.toFixed(2) + ' tr';
-    }
-    if (trendEl) {
-        trendEl.textContent = trendInfo.symbol;
-        trendEl.className = 'finance-trend finance-trend-' + trendInfo.trend;
     }
 };
 
@@ -349,17 +339,12 @@ LF.finance.loadGoldSJC = function () {
  */
 LF.finance._applyGoldSJC = function (priceMillionVND) {
     var el = document.getElementById('finance-gold-sjc-value');
-    var trendEl = document.getElementById('finance-gold-sjc-trend');
 
-    var trendInfo = LF.finance.getTrend(priceMillionVND, LF.finance.previousValues.goldSJC);
     LF.finance.previousValues.goldSJC = priceMillionVND;
 
     if (el) {
+        el.className = 'finance-value';
         el.textContent = priceMillionVND.toFixed(2) + ' tr';
-    }
-    if (trendEl) {
-        trendEl.textContent = trendInfo.symbol;
-        trendEl.className = 'finance-trend finance-trend-' + trendInfo.trend;
     }
 };
 
