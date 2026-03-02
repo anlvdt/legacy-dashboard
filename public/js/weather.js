@@ -280,6 +280,9 @@ LF.weather.loadForecast = function () {
 
     if (cached && cached.forecast && cached.forecast.length > 0) {
         LF.weather._renderForecast(cached.forecast);
+        if (cached.sunrise && cached.sunset) {
+            LF.weather._applySunriseSunset(cached.sunrise, cached.sunset);
+        }
         return;
     }
 
@@ -298,7 +301,7 @@ LF.weather.loadForecast = function () {
         return;
     }
 
-    var forecastUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&hourly=temperature_2m,weather_code&timezone=auto&forecast_days=2';
+    var forecastUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&hourly=temperature_2m,weather_code&daily=sunrise,sunset&timezone=auto&forecast_days=2';
 
     LF.utils.makeRequest(forecastUrl, function (err, data) {
         if (err || !data || !data.hourly || !data.hourly.time) {
@@ -340,8 +343,15 @@ LF.weather.loadForecast = function () {
 
             LF.weather._renderForecast(forecast);
 
+            // Render sunrise/sunset từ daily data
+            if (data.daily && data.daily.sunrise && data.daily.sunset) {
+                LF.weather._applySunriseSunset(data.daily.sunrise[0], data.daily.sunset[0]);
+            }
+
             LF.utils.cacheSet(LF.weather.CACHE_KEY_FORECAST, {
                 forecast: forecast,
+                sunrise: (data.daily && data.daily.sunrise) ? data.daily.sunrise[0] : null,
+                sunset: (data.daily && data.daily.sunset) ? data.daily.sunset[0] : null,
                 ts: Date.now()
             }, LF.weather.CACHE_TTL);
         } catch (e) {
@@ -606,4 +616,32 @@ LF.weather._applyUV = function (uvi) {
     el.innerHTML = LF.weather._uvSvg + ' UV ' + rounded + ' (' + level.desc + ')';
     el.style.color = level.color;
     el.style.display = '';
+};
+
+
+/**
+ * Áp dụng giờ mặt trời mọc/lặn lên DOM
+ * @param {string} sunrise - ISO datetime string
+ * @param {string} sunset - ISO datetime string
+ */
+LF.weather._applySunriseSunset = function (sunrise, sunset) {
+    var el = document.getElementById('weather-sun');
+    if (!el) { return; }
+
+    var riseTime = '';
+    var setTime = '';
+
+    if (sunrise) {
+        var r = new Date(sunrise);
+        riseTime = (r.getHours() < 10 ? '0' : '') + r.getHours() + ':' + (r.getMinutes() < 10 ? '0' : '') + r.getMinutes();
+    }
+    if (sunset) {
+        var s = new Date(sunset);
+        setTime = (s.getHours() < 10 ? '0' : '') + s.getHours() + ':' + (s.getMinutes() < 10 ? '0' : '') + s.getMinutes();
+    }
+
+    if (riseTime && setTime) {
+        el.innerHTML = '<svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="#f39c12" style="vertical-align:-0.15em"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/><path d="M2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1z" opacity=".6"/></svg> ' + riseTime + '  <svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="#e67e22" style="vertical-align:-0.15em"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/><path d="M2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 22v-2c0-.55-.45-1-1-1s-1 .45-1 1v2c0 .55.45 1 1 1s1-.45 1-1z" opacity=".6"/></svg> ' + setTime;
+        el.style.display = '';
+    }
 };

@@ -126,7 +126,8 @@ LF.app.applyClockOnlyMode = function () {
         'news-widget',
         'quote-widget',
         'aqi-widget',
-        'agriculture-widget'
+        'agriculture-widget',
+        'fx-ticker'
     ];
 
     var i, el;
@@ -210,6 +211,11 @@ LF.app._pauseNonEssentialIntervals = function () {
     // Dừng slideshow
     if (LF.slideshow && LF.slideshow.stop) {
         LF.slideshow.stop();
+    }
+
+    // Dừng FX ticker
+    if (LF.fxticker && LF.fxticker.stop) {
+        LF.fxticker.stop();
     }
 
     // Dừng news ticker animation và refresh
@@ -305,6 +311,7 @@ LF.app._refreshAllAPIs = function () {
         if (LF.fuel && LF.fuel.init) LF.fuel.init();
         if (LF.kqxs && LF.kqxs.init) LF.kqxs.init();
         if (LF.agriculture && LF.agriculture.init) LF.agriculture.init();
+        if (LF.fxticker && LF.fxticker.init) LF.fxticker.init();
     }, 5000);
 
     // Tin tức: sau 10 giây
@@ -522,6 +529,13 @@ LF.app.init = function () {
             }
             if (current.showAgriWidget && LF.agriculture && LF.agriculture.init) {
                 LF.agriculture.init();
+            }
+
+            // FX Ticker (tỷ giá + vàng)
+            if (LF.fxticker && LF.fxticker.init) {
+                setTimeout(function () {
+                    LF.fxticker.init();
+                }, 6000);
             }
         }
 

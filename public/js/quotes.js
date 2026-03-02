@@ -15,6 +15,12 @@ LF.quotes._rotateInterval = null;
 /** Index câu hiện tại */
 LF.quotes._currentIndex = -1;
 
+/** Sự kiện lịch sử "ngày này" */
+LF.quotes._historyEvents = [];
+
+/** Đếm lượt rotate để xen kẽ lịch sử */
+LF.quotes._rotateCount = 0;
+
 /**
  * Bộ sưu tập ca dao, tục ngữ, danh ngôn tiếng Việt
  * Phân loại theo chủ đề: gia-dinh, hoc-tap, dao-duc, mua-vu, cuoc-song, tinh-yeu
@@ -85,13 +91,63 @@ LF.quotes.collection = [
 LF.quotes.loadData = function (callback) {
     // Collection inline đã có sẵn — gọi callback ngay
     if (callback) { callback(); }
+
+    // Tải sự kiện "ngày này trong lịch sử" (không block)
+    LF.quotes._loadHistory();
 };
 
 /**
- * Hiển thị câu ca dao ngẫu nhiên lên DOM
- * Lấy ngẫu nhiên từ biến LF.quotes.collection (nạp qua loadData)
+ * Tải sự kiện "ngày này trong lịch sử" từ byabbe.se
+ */
+LF.quotes._loadHistory = function () {
+    var now = new Date();
+    var month = now.getMonth() + 1;
+    var day = now.getDate();
+    var url = 'https://byabbe.se/on-this-day/' + month + '/' + day + '/events.json';
+
+    if (typeof LF.utils === 'undefined' || !LF.utils.makeRequest) { return; }
+
+    LF.utils.makeRequest(url, function (err, data) {
+        if (err || !data || !data.events || !data.events.length) { return; }
+
+        var events = data.events;
+        var picked = [];
+        var i, ev;
+
+        // Lọc sự kiện có năm >= 1800 và mô tả ngắn gọn
+        for (i = 0; i < events.length; i++) {
+            ev = events[i];
+            if (ev.year && parseInt(ev.year, 10) >= 1800 && ev.description && ev.description.length < 200) {
+                picked.push({
+                    year: ev.year,
+                    text: ev.description
+                });
+            }
+        }
+
+        // Giữ tối đa 15 sự kiện ngẫu nhiên
+        if (picked.length > 15) {
+            picked.sort(function () { return Math.random() - 0.5; });
+            picked = picked.slice(0, 15);
+        }
+
+        LF.quotes._historyEvents = picked;
+    }, 8000);
+};
+
+/**
+ * Hiển thị câu ca dao ngẫu nhiên hoặc sự kiện lịch sử (xen kẽ) lên DOM
+ * Mỗi 3 lượt ca dao sẽ xen 1 sự kiện lịch sử
  */
 LF.quotes.showRandom = function () {
+    LF.quotes._rotateCount++;
+
+    // Xen kẽ: mỗi 3 lượt hiện 1 sự kiện lịch sử
+    if (LF.quotes._historyEvents.length > 0 && LF.quotes._rotateCount % 3 === 0) {
+        LF.quotes._showHistoryEvent();
+        return;
+    }
+
     var collection = LF.quotes.collection;
     if (!collection || !collection.length) { return; }
 
@@ -111,12 +167,33 @@ LF.quotes.showRandom = function () {
         textEl.textContent = quote.text;
     }
     if (authorEl) {
-        authorEl.textContent = '— ' + quote.author;
+        authorEl.textContent = '\u2014 ' + quote.author;
     }
     if (wrapperEl) {
         if (wrapperEl.className.indexOf('loaded') === -1) {
             wrapperEl.className += ' loaded';
         }
+    }
+};
+
+/**
+ * Hiển thị 1 sự kiện lịch sử "ngày này"
+ */
+LF.quotes._showHistoryEvent = function () {
+    var events = LF.quotes._historyEvents;
+    if (!events.length) { return; }
+
+    var idx = Math.floor(Math.random() * events.length);
+    var ev = events[idx];
+
+    var textEl = document.getElementById('quote-text');
+    var authorEl = document.getElementById('quote-author');
+
+    if (textEl) {
+        textEl.textContent = ev.text;
+    }
+    if (authorEl) {
+        authorEl.textContent = '\u2014 Ng\u00E0y n\u00E0y n\u0103m ' + ev.year;
     }
 };
 

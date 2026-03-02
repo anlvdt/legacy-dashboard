@@ -99,6 +99,7 @@
                             <span id="weather-temp"></span>
                             <span id="weather-desc" style="font-size:1.3vmin">Đang tải thời tiết...</span>
                             <span id="weather-uv" class="weather-uv" style="display:none"></span>
+                            <span id="weather-sun" class="weather-sun" style="display:none"></span>
                         </div>
                         <!-- 3-Day Forecast -->
                         <div id="forecast-container" class="forecast-container"><span
@@ -369,6 +370,15 @@
     </div><!-- /main-container -->
 
         <!-- ============================================================
+         EXCHANGE RATE TICKER — Chạy ngang cạnh dưới màn hình
+         ============================================================ -->
+        <div id="fx-ticker" class="fx-ticker" style="display:none;">
+            <div class="fx-ticker-track">
+                <div class="fx-ticker-content" id="fx-ticker-content"></div>
+            </div>
+        </div>
+
+        <!-- ============================================================
          JAVASCRIPT — External modules loaded in dependency order
          ============================================================ -->
         <script src="amlich.js"></script>
@@ -385,6 +395,7 @@
         <script src="js/settings.js"></script>
         <script src="js/kqxs_fuel.js"></script>
         <script src="js/agriculture.js"></script>
+        <script src="js/fxticker.js"></script>
         <script src="js/app.js"></script>
 </body>
 
