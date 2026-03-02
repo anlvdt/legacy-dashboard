@@ -508,13 +508,11 @@ LF.calendar.getNextHoliday = function () {
  */
 LF.calendar.renderHolidayCountdown = function () {
     var el = document.getElementById('holiday-countdown');
-    var widget = document.getElementById('holiday-widget');
     if (!el) { return; }
 
     var info = LF.calendar.getNextHoliday();
     if (!info) {
         el.style.display = 'none';
-        if (widget) { widget.style.display = 'none'; }
         return;
     }
 
@@ -534,5 +532,4 @@ LF.calendar.renderHolidayCountdown = function () {
 
     el.innerHTML = html;
     el.style.display = '';
-    if (widget) { widget.style.display = ''; }
 };

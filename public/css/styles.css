@@ -765,82 +765,6 @@ body.power-save-mode #background-container {
 }
 
 /* ================================================================
- * ALMANAC — Vạn niên widget (MỚI)
- * Requirements: 5.8
- * ================================================================ */
-#van-nien-summary {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1.5vmin;
-    padding: 1vmin 1.5vmin;
-    margin-top: 1vmin;
-    text-align: center;
-}
-
-.almanac-title {
-    font-size: 1.1vmin;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.5vmin;
-    font-weight: 700;
-}
-
-.almanac-row {
-    display: -webkit-flex;
-    display: -webkit-box;
-    display: flex;
-    -webkit-flex-direction: row;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    flex-direction: row;
-    -webkit-justify-content: space-around;
-    -webkit-box-pack: distribute;
-    justify-content: space-around;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-bottom: 0.5vmin;
-}
-
-.almanac-item {
-    display: -webkit-flex;
-    display: -webkit-box;
-    display: flex;
-    -webkit-flex-direction: column;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    flex-direction: column;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    align-items: center;
-    padding: 0.5vmin 1vmin;
-}
-
-.almanac-item-label {
-    font-size: 0.9vmin;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 0.5vmin;
-}
-
-.almanac-item-value {
-    font-size: 1.2vmin;
-    font-weight: 700;
-    color: #f39c12;
-}
-
-.almanac-lucky-hours {
-    font-size: 1.1vmin;
-    color: #2ecc71;
-    margin-top: 0.5vmin;
-}
-
-.almanac-direction {
-    font-size: 1.1vmin;
-    color: #3498db;
-    margin-top: 0.5vmin;
-}
-
-/* ================================================================
  * RIGHT COLUMN — Quotes & AQI
  * Spacing: 2.5vmin padding, 3vmin margin-bottom, 1.5vmin inner
  * ================================================================ */
@@ -1150,8 +1074,7 @@ body.power-save-mode #background-container {
 .container.clock-only-mode #calendar-wrapper,
 .container.clock-only-mode #settings-container,
 .container.clock-only-mode #finance-widget,
-.container.clock-only-mode #forecast-container,
-.container.clock-only-mode #van-nien-summary {
+.container.clock-only-mode #forecast-container {
     display: none;
 }
 
@@ -1239,7 +1162,6 @@ body.power-save-mode .clock-separator {
 body.power-save-mode .date-container,
 body.power-save-mode #weather-widget,
 body.power-save-mode #forecast-container,
-body.power-save-mode #van-nien-summary,
 body.power-save-mode #calendar-container,
 body.power-save-mode .aqi-wrapper,
 body.power-save-mode #dashboard-bottom-row .info-block {
@@ -2200,7 +2122,6 @@ body.legacy-device .today .solar-day {
 .date-container,
 #weather-widget,
 #forecast-container,
-#van-nien-summary,
 #finance-widget,
 .quote-wrapper,
 .aqi-wrapper {
@@ -2836,7 +2757,7 @@ body.power-save-mode #news-tts-btn {
 
 
 /* ================================================================
- * HOLIDAY COUNTDOWN — Đếm ngược ngày nghỉ lễ (widget riêng)
+ * HOLIDAY COUNTDOWN — Đếm ngược ngày nghỉ lễ (trong agriculture widget)
  * ================================================================ */
 .holiday-countdown {
     display: -webkit-flex;
@@ -2851,14 +2772,10 @@ body.power-save-mode #news-tts-btn {
     background: rgba(243, 156, 18, 0.12);
     border: 1px solid rgba(243, 156, 18, 0.25);
     border-radius: 1.5vmin;
-    padding: 1.2vmin 1.5vmin;
+    padding: 0.8vmin 1.5vmin;
+    margin-top: 1vmin;
     text-align: center;
     width: 100%;
-}
-
-/* Bottom-row override: transparent inner wrapper */
-#dashboard-bottom-row .holiday-countdown {
-    background: rgba(243, 156, 18, 0.12);
 }
 
 .holiday-icon {
@@ -2962,13 +2879,6 @@ body.power-save-mode #news-tts-btn {
     color: rgba(255, 255, 255, 0.4);
     font-weight: 600;
     font-size: 1.2vmin;
-}
-
-.agri-divider {
-    height: 1px;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    margin: 0.2vmin 0;
 }
 
 /* Bottom-row override: transparent inner wrapper */

@@ -121,7 +121,6 @@ LF.app.applyClockOnlyMode = function () {
     // Ẩn tất cả widget không thiết yếu
     var widgetsToHide = [
         'calendar-widget',
-        'holiday-widget',
         'finance-widget',
         'news-ticker',
         'news-widget',
