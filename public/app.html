@@ -375,6 +375,7 @@
          RADIO CẢI LƯƠNG — Thanh điều khiển radio
          ============================================================ -->
         <div id="radio-bar" class="radio-bar" style="display:none;">
+            <div class="radio-top-row">
             <div class="radio-controls">
                 <button id="radio-prev-btn" class="radio-btn" type="button" title="Bài trước">
                     <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
@@ -404,6 +405,14 @@
                     <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
                 </span>
                 <span id="radio-title" class="radio-title">Nhấn Play để nghe cải lương</span>
+                <span id="radio-time" class="radio-time"></span>
+            </div>
+            </div>
+            <div class="radio-progress-wrap" id="radio-progress-wrap">
+                <div class="radio-progress-bar" id="radio-progress-bar">
+                    <div class="radio-progress-fill" id="radio-progress-fill"></div>
+                    <div class="radio-progress-thumb" id="radio-progress-thumb"></div>
+                </div>
             </div>
         </div>
 

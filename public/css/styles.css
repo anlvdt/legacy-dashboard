@@ -2967,7 +2967,18 @@ body.power-save-mode #news-tts-btn {
     background: rgba(10, 10, 15, 0.92);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     z-index: 49;
-    padding: 1vmin 2vmin;
+    padding: 0.8vmin 2vmin 0.4vmin 2vmin;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.radio-top-row {
     display: -webkit-flex;
     display: -webkit-box;
     display: flex;
@@ -2977,7 +2988,6 @@ body.power-save-mode #news-tts-btn {
     -webkit-justify-content: space-between;
     -webkit-box-pack: justify;
     justify-content: space-between;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .radio-controls {
@@ -3067,6 +3077,63 @@ body.power-save-mode #news-tts-btn {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.radio-time {
+    font-size: 1.2vmin;
+    color: rgba(255, 255, 255, 0.4);
+    margin-left: 0.8vmin;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.radio-progress-wrap {
+    width: 100%;
+    padding: 0.4vmin 0 0.2vmin 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.radio-progress-bar {
+    position: relative;
+    width: 100%;
+    height: 0.6vmin;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 0.3vmin;
+    overflow: visible;
+}
+
+.radio-progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: #f39c12;
+    border-radius: 0.3vmin;
+    -webkit-transition: width 0.3s linear;
+    transition: width 0.3s linear;
+}
+
+.radio-progress-thumb {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    width: 1.6vmin;
+    height: 1.6vmin;
+    background: #f39c12;
+    border-radius: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transition: left 0.3s linear;
+    transition: left 0.3s linear;
+    display: none;
+}
+
+.radio-progress-wrap:hover .radio-progress-thumb,
+.radio-progress-wrap:active .radio-progress-thumb {
+    display: block;
 }
 
 /* ================================================================

@@ -121,9 +121,11 @@ LF.radio._onStateChange = function (event) {
         LF.radio._retryCount = 0;
         LF.radio._updatePlayBtn();
         LF.radio._updateTitle();
+        LF.radio._startProgressTimer();
     } else if (state === 2) {
         LF.radio._playing = false;
         LF.radio._updatePlayBtn();
+        LF.radio._stopProgressTimer();
     } else if (state === 0) {
         // Hết bài → phát bài tiếp
         LF.radio._videoIndex++;
@@ -302,6 +304,7 @@ LF.radio.stop = function () {
     }
     LF.radio._playing = false;
     LF.radio._updatePlayBtn();
+    LF.radio._stopProgressTimer();
 };
 
 /**
@@ -346,6 +349,158 @@ LF.radio._updateVolumeLabel = function () {
     if (el) { el.textContent = LF.radio._volume + '%'; }
 };
 
+/** Progress bar timer ID */
+LF.radio._progressTimer = null;
+LF.radio._seeking = false;
+
+/**
+ * Format giây thành mm:ss
+ */
+LF.radio._formatTime = function (seconds) {
+    if (!seconds || seconds < 0) { return '0:00'; }
+    var m = Math.floor(seconds / 60);
+    var s = Math.floor(seconds % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+};
+
+/**
+ * Bắt đầu cập nhật progress bar mỗi giây
+ */
+LF.radio._startProgressTimer = function () {
+    LF.radio._stopProgressTimer();
+    LF.radio._progressTimer = setInterval(function () {
+        if (!LF.radio._seeking) {
+            LF.radio._updateProgress();
+        }
+    }, 500);
+};
+
+/**
+ * Dừng progress timer
+ */
+LF.radio._stopProgressTimer = function () {
+    if (LF.radio._progressTimer) {
+        clearInterval(LF.radio._progressTimer);
+        LF.radio._progressTimer = null;
+    }
+};
+
+/**
+ * Cập nhật progress bar + thời gian
+ */
+LF.radio._updateProgress = function () {
+    if (!LF.radio._player || !LF.radio._ready) { return; }
+
+    var fill = document.getElementById('radio-progress-fill');
+    var thumb = document.getElementById('radio-progress-thumb');
+    var timeEl = document.getElementById('radio-time');
+    if (!fill) { return; }
+
+    try {
+        var current = LF.radio._player.getCurrentTime() || 0;
+        var duration = LF.radio._player.getDuration() || 0;
+
+        if (duration > 0) {
+            var pct = (current / duration) * 100;
+            fill.style.width = pct + '%';
+            if (thumb) { thumb.style.left = pct + '%'; }
+            if (timeEl) {
+                timeEl.textContent = LF.radio._formatTime(current) + ' / ' + LF.radio._formatTime(duration);
+            }
+        } else {
+            fill.style.width = '0%';
+            if (thumb) { thumb.style.left = '0%'; }
+            if (timeEl) { timeEl.textContent = ''; }
+        }
+    } catch (e) {
+        // Player chưa sẵn sàng
+    }
+};
+
+/**
+ * Seek đến vị trí dựa trên tọa độ click/touch trên progress bar
+ */
+LF.radio._seekToPosition = function (clientX) {
+    if (!LF.radio._player || !LF.radio._ready) { return; }
+
+    var bar = document.getElementById('radio-progress-bar');
+    if (!bar) { return; }
+
+    var rect = bar.getBoundingClientRect();
+    var x = clientX - rect.left;
+    var pct = Math.max(0, Math.min(1, x / rect.width));
+
+    try {
+        var duration = LF.radio._player.getDuration() || 0;
+        if (duration > 0) {
+            var seekTo = pct * duration;
+            LF.radio._player.seekTo(seekTo, true);
+
+            // Cập nhật UI ngay lập tức
+            var fill = document.getElementById('radio-progress-fill');
+            var thumb = document.getElementById('radio-progress-thumb');
+            if (fill) { fill.style.width = (pct * 100) + '%'; }
+            if (thumb) { thumb.style.left = (pct * 100) + '%'; }
+        }
+    } catch (e) {
+        // Seek lỗi
+    }
+};
+
+/**
+ * Bind progress bar events (click + touch drag)
+ */
+LF.radio._bindProgressEvents = function () {
+    var wrap = document.getElementById('radio-progress-wrap');
+    if (!wrap) { return; }
+
+    // Click để seek
+    wrap.addEventListener('click', function (e) {
+        e.stopPropagation();
+        LF.radio._seekToPosition(e.clientX);
+    });
+
+    // Touch drag
+    wrap.addEventListener('touchstart', function (e) {
+        e.stopPropagation();
+        LF.radio._seeking = true;
+        if (e.touches && e.touches[0]) {
+            LF.radio._seekToPosition(e.touches[0].clientX);
+        }
+    });
+
+    wrap.addEventListener('touchmove', function (e) {
+        if (LF.radio._seeking && e.touches && e.touches[0]) {
+            e.preventDefault();
+            LF.radio._seekToPosition(e.touches[0].clientX);
+        }
+    });
+
+    wrap.addEventListener('touchend', function () {
+        LF.radio._seeking = false;
+    });
+
+    // Mouse drag
+    wrap.addEventListener('mousedown', function (e) {
+        e.stopPropagation();
+        LF.radio._seeking = true;
+        LF.radio._seekToPosition(e.clientX);
+
+        var onMove = function (ev) {
+            if (LF.radio._seeking) {
+                LF.radio._seekToPosition(ev.clientX);
+            }
+        };
+        var onUp = function () {
+            LF.radio._seeking = false;
+            document.removeEventListener('mousemove', onMove);
+            document.removeEventListener('mouseup', onUp);
+        };
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onUp);
+    });
+};
+
 /**
  * Khởi tạo — bind events
  */
@@ -379,6 +534,7 @@ LF.radio.init = function () {
     LF.radio._updatePlayBtn();
     LF.radio._updateChannelLabel();
     LF.radio._updateVolumeLabel();
+    LF.radio._bindProgressEvents();
 };
 
 // Callback toàn cục cho YouTube IFrame API
