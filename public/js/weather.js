@@ -16,6 +16,7 @@ LF.weather.CACHE_TTL = 1800000;
 LF.weather.CACHE_KEY_CURRENT = 'weather';
 LF.weather.CACHE_KEY_FORECAST = 'weather_forecast';
 LF.weather.CACHE_KEY_AQI = 'aqi';
+LF.weather.CACHE_KEY_UV = 'uv_index';
 
 /** Lưu vị trí hiện tại để dùng lại */
 LF.weather._city = '';
@@ -520,4 +521,89 @@ LF.weather._showCachedOrError = function (cacheKey, widgetType) {
         if (aqiValEl) { aqiValEl.textContent = '--'; }
         if (aqiDescEl) { aqiDescEl.textContent = errorMsg; }
     }
+};
+
+
+/**
+ * UV Index SVG icon (mặt trời nhỏ)
+ */
+LF.weather._uvSvg = '<svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" style="vertical-align:-0.15em"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"/></svg>';
+
+/**
+ * Lấy mô tả + màu cho mức UV
+ * @param {number} uvi
+ * @returns {{ desc: string, color: string }}
+ */
+LF.weather._getUVLevel = function (uvi) {
+    if (uvi <= 2) { return { desc: 'Th\u1EA5p', color: '#2ecc71' }; }
+    if (uvi <= 5) { return { desc: 'TB', color: '#f1c40f' }; }
+    if (uvi <= 7) { return { desc: 'Cao', color: '#e67e22' }; }
+    if (uvi <= 10) { return { desc: 'R\u1EA5t cao', color: '#e74c3c' }; }
+    return { desc: 'Nguy hi\u1EC3m', color: '#8e44ad' };
+};
+
+/**
+ * Tải UV Index từ currentuvindex.com
+ * Gọi sau khi có tọa độ từ weather
+ */
+LF.weather.loadUV = function () {
+    var cached = LF.utils.cacheGet(LF.weather.CACHE_KEY_UV);
+    if (cached && typeof cached.uvi === 'number') {
+        LF.weather._applyUV(cached.uvi);
+        return;
+    }
+
+    var lat = LF.weather._lat;
+    var lon = LF.weather._lon;
+
+    if (lat === null || lon === null) {
+        // Chờ tọa độ, thử lại sau 5s
+        setTimeout(function () {
+            if (LF.weather._lat !== null && LF.weather._lon !== null) {
+                LF.weather.loadUV();
+            }
+        }, 5000);
+        return;
+    }
+
+    LF.weather._fetchUV(lat, lon);
+};
+
+/**
+ * Fetch UV từ API
+ * @param {number} lat
+ * @param {number} lon
+ */
+LF.weather._fetchUV = function (lat, lon) {
+    var url = 'https://currentuvindex.com/api/v1/uvi?latitude=' + lat + '&longitude=' + lon;
+
+    LF.utils.makeRequest(url, function (err, data) {
+        if (err || !data || !data.ok || !data.now || typeof data.now.uvi !== 'number') {
+            return;
+        }
+
+        var uvi = data.now.uvi;
+        LF.weather._applyUV(uvi);
+
+        LF.utils.cacheSet(LF.weather.CACHE_KEY_UV, {
+            uvi: uvi,
+            ts: Date.now()
+        }, LF.weather.CACHE_TTL);
+    }, 8000);
+};
+
+/**
+ * Áp dụng UV Index lên DOM
+ * @param {number} uvi
+ */
+LF.weather._applyUV = function (uvi) {
+    var el = document.getElementById('weather-uv');
+    if (!el) { return; }
+
+    var level = LF.weather._getUVLevel(uvi);
+    var rounded = Math.round(uvi * 10) / 10;
+
+    el.innerHTML = LF.weather._uvSvg + ' UV ' + rounded + ' (' + level.desc + ')';
+    el.style.color = level.color;
+    el.style.display = '';
 };

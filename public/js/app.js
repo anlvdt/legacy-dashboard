@@ -327,6 +327,13 @@ LF.app._refreshAllAPIs = function () {
         }
     }, 20000);
 
+    // UV Index: sau 22 giây
+    setTimeout(function () {
+        if (LF.weather && LF.weather.loadUV) {
+            LF.weather.loadUV();
+        }
+    }, 22000);
+
     // Thiên tai: sau 25 giây
     LF.app._onlineRefreshTimer = setTimeout(function () {
         if (LF.disaster && LF.disaster.load) {
@@ -523,6 +530,13 @@ LF.app.init = function () {
             setTimeout(function () {
                 LF.weather.loadAQI();
             }, 5000);
+        }
+
+        // UV Index (lazy-load — sau AQI)
+        if (!current.clockOnlyMode && LF.weather && LF.weather.loadUV) {
+            setTimeout(function () {
+                LF.weather.loadUV();
+            }, 7000);
         }
 
         // Tin tức (lazy-load)

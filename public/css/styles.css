@@ -518,6 +518,13 @@ body.power-save-mode #background-container {
     font-weight: 400;
 }
 
+.weather-uv {
+    font-size: 1.2vmin;
+    font-weight: 700;
+    margin-left: 0.8vmin;
+    white-space: nowrap;
+}
+
 /* ================================================================
  * FORECAST — 24h hourly weather forecast
  * Requirements: 5.6
