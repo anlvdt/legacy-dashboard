@@ -391,3 +391,145 @@ LF.calendar.updateMainDate = function () {
         eventEl.textContent = lunar.holiday || '';
     }
 };
+
+
+/**
+ * Danh sách ngày nghỉ lễ chính thức (có nghỉ) — dùng cho countdown
+ * Bao gồm cả dương lịch và âm lịch
+ */
+LF.calendar._officialHolidays = {
+    solar: {
+        '1/1': 'Tết Dương lịch',
+        '30/4': 'Giải phóng miền Nam',
+        '1/5': 'Quốc tế Lao động',
+        '2/9': 'Quốc khánh'
+    },
+    lunar: {
+        '1/1': 'Tết Nguyên Đán',
+        '10/3': 'Giỗ Tổ Hùng Vương',
+        '15/1': 'Tết Nguyên Tiêu'
+    }
+};
+
+/**
+ * Chuyển ngày âm lịch sang dương lịch (tìm ngày dương tương ứng)
+ * Duyệt từ ngày bắt đầu, tìm ngày dương có âm lịch khớp
+ * @param {number} lunarDay
+ * @param {number} lunarMonth
+ * @param {number} year - năm dương lịch để tìm
+ * @returns {Date|null}
+ */
+LF.calendar._lunarToSolar = function (lunarDay, lunarMonth, year) {
+    // Duyệt từ tháng 1 đến tháng 12 của năm, tìm ngày dương có âm lịch khớp
+    var d, m, lunar;
+    for (m = 1; m <= 12; m++) {
+        var daysInMonth = new Date(year, m, 0).getDate();
+        for (d = 1; d <= daysInMonth; d++) {
+            try {
+                lunar = LF.calendar.solarToLunar(d, m, year);
+                if (lunar.day === lunarDay && lunar.lunarMonth === lunarMonth && !lunar.isLeap) {
+                    return new Date(year, m - 1, d);
+                }
+            } catch (e) {
+                // skip
+            }
+        }
+    }
+    return null;
+};
+
+/**
+ * Lấy ngày nghỉ lễ tiếp theo và số ngày còn lại
+ * @returns {Object} {name, date, daysLeft} hoặc null
+ */
+LF.calendar.getNextHoliday = function () {
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var year = now.getFullYear();
+    var candidates = [];
+    var key, parts, d, m, solarDate;
+
+    // Thu thập tất cả ngày lễ dương lịch trong năm nay và năm sau
+    var years = [year, year + 1];
+    var yi;
+    for (yi = 0; yi < years.length; yi++) {
+        var y = years[yi];
+        for (key in LF.calendar._officialHolidays.solar) {
+            if (!LF.calendar._officialHolidays.solar.hasOwnProperty(key)) { continue; }
+            parts = key.split('/');
+            d = parseInt(parts[0], 10);
+            m = parseInt(parts[1], 10);
+            solarDate = new Date(y, m - 1, d);
+            if (solarDate >= today) {
+                candidates.push({
+                    name: LF.calendar._officialHolidays.solar[key],
+                    date: solarDate
+                });
+            }
+        }
+
+        // Thu thập ngày lễ âm lịch — chuyển sang dương lịch
+        for (key in LF.calendar._officialHolidays.lunar) {
+            if (!LF.calendar._officialHolidays.lunar.hasOwnProperty(key)) { continue; }
+            parts = key.split('/');
+            d = parseInt(parts[0], 10);
+            m = parseInt(parts[1], 10);
+            solarDate = LF.calendar._lunarToSolar(d, m, y);
+            if (solarDate && solarDate >= today) {
+                candidates.push({
+                    name: LF.calendar._officialHolidays.lunar[key],
+                    date: solarDate
+                });
+            }
+        }
+    }
+
+    if (candidates.length === 0) { return null; }
+
+    // Sắp xếp theo ngày gần nhất
+    candidates.sort(function (a, b) {
+        return a.date.getTime() - b.date.getTime();
+    });
+
+    var next = candidates[0];
+    var diff = next.date.getTime() - today.getTime();
+    var daysLeft = Math.ceil(diff / 86400000);
+
+    return {
+        name: next.name,
+        date: next.date,
+        daysLeft: daysLeft
+    };
+};
+
+/**
+ * Render countdown nghỉ lễ vào DOM
+ * Hiển thị trong #holiday-countdown (nằm dưới calendar widget)
+ */
+LF.calendar.renderHolidayCountdown = function () {
+    var el = document.getElementById('holiday-countdown');
+    if (!el) { return; }
+
+    var info = LF.calendar.getNextHoliday();
+    if (!info) {
+        el.style.display = 'none';
+        return;
+    }
+
+    var dateStr = ('0' + info.date.getDate()).slice(-2) + '/' +
+        ('0' + (info.date.getMonth() + 1)).slice(-2);
+
+    var html = '';
+    if (info.daysLeft === 0) {
+        html = '<span class="holiday-icon"><svg viewBox="0 0 24 24" width="1.6vmin" height="1.6vmin" fill="#e74c3c"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></span>' +
+            '<span class="holiday-name">' + info.name + '</span>' +
+            '<span class="holiday-today">H\u00F4m nay!</span>';
+    } else {
+        html = '<span class="holiday-icon"><svg viewBox="0 0 24 24" width="1.6vmin" height="1.6vmin" fill="#f39c12"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg></span>' +
+            '<span class="holiday-name">' + info.name + ' (' + dateStr + ')</span>' +
+            '<span class="holiday-days">' + info.daysLeft + ' ng\u00E0y</span>';
+    }
+
+    el.innerHTML = html;
+    el.style.display = '';
+};

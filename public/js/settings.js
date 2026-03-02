@@ -28,6 +28,7 @@ LF.settings.defaults = {
     showFinanceWidget: true,
     showDisasterAlerts: false,
     showNewsTicker: true,
+    showAgriWidget: true,
     // Nguồn ảnh
     useOnlinePhotos: false,
     slideshowInterval: 12000,
@@ -61,7 +62,7 @@ LF.settings.sections = [
     },
     {
         title: 'Thành phần',
-        items: ['slideshowHidden', 'dateHidden', 'calendarHidden', 'weatherHidden', 'quoteHidden', 'aqiHidden', 'showFinanceWidget', 'showDisasterAlerts', 'showNewsTicker']
+        items: ['slideshowHidden', 'dateHidden', 'calendarHidden', 'weatherHidden', 'quoteHidden', 'aqiHidden', 'showFinanceWidget', 'showDisasterAlerts', 'showNewsTicker', 'showAgriWidget']
     },
     {
         title: 'Nguồn ảnh',
@@ -97,6 +98,7 @@ LF.settings.labels = {
     showFinanceWidget: 'tài chính',
     showDisasterAlerts: 'cảnh báo thiên tai',
     showNewsTicker: 'tin tức',
+    showAgriWidget: 'nông sản',
     useOnlinePhotos: 'ảnh trực tuyến',
     newsMultiSource: 'đa nguồn tin',
     enableTTS: 'đọc tin bằng giọng nói',
@@ -238,6 +240,7 @@ LF.settings.apply = function () {
     LF.settings._setVisibility('disaster-banner', current.showDisasterAlerts);
     LF.settings._setVisibility('news-ticker', current.showNewsTicker);
     LF.settings._setVisibility('news-widget', current.showNewsTicker);
+    LF.settings._setVisibility('agriculture-widget', current.showAgriWidget);
 
     // Flags trên container cho layout 3-row mới
     if (mainContainer) {

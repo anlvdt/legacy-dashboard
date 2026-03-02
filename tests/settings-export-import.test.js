@@ -42,6 +42,7 @@ function settingsArbitrary() {
     showFinanceWidget: fc.boolean(),
     showDisasterAlerts: fc.boolean(),
     showNewsTicker: fc.boolean(),
+    showAgriWidget: fc.boolean(),
     useOnlinePhotos: fc.boolean(),
     slideshowInterval: fc.constantFrom(10000, 12000, 15000, 30000, 60000),
     newsSourceIndex: fc.integer({ min: 0, max: 10 }),

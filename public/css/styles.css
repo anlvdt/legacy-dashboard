@@ -2833,3 +2833,156 @@ body.power-save-mode #news-tts-btn {
     margin: 0 !important;
     max-height: 100%;
 }
+
+
+/* ================================================================
+ * HOLIDAY COUNTDOWN — Đếm ngược ngày nghỉ lễ
+ * Nằm dưới vạn niên trong calendar widget
+ * ================================================================ */
+.holiday-countdown {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background: rgba(243, 156, 18, 0.12);
+    border: 1px solid rgba(243, 156, 18, 0.25);
+    border-radius: 1.5vmin;
+    padding: 0.8vmin 1.5vmin;
+    margin-top: 1vmin;
+    text-align: center;
+}
+
+.holiday-icon {
+    margin-right: 0.8vmin;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.holiday-name {
+    font-size: 1.2vmin;
+    color: #F5F5F5;
+    font-weight: 600;
+    margin-right: 0.8vmin;
+}
+
+.holiday-days {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.4vmin;
+    font-weight: 800;
+    color: #f39c12;
+    text-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.6);
+}
+
+.holiday-today {
+    font-size: 1.3vmin;
+    font-weight: 800;
+    color: #e74c3c;
+}
+
+/* ================================================================
+ * AGRICULTURE WIDGET — Giá nông sản (cà phê, hồ tiêu)
+ * Cấu trúc giống fuel/kqxs widget
+ * ================================================================ */
+.agri-wrapper {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    background: rgba(20, 20, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
+    border-radius: 2vmin;
+    padding: 1.5vmin 2.5vmin;
+    -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 48vmin;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.agri-header {
+    font-size: 1.6vmin;
+    color: #f39c12;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 800;
+    margin-bottom: 1vmin;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5vmin;
+}
+
+.agri-row {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0.8vmin 0;
+}
+
+.agri-type {
+    font-size: 1.4vmin;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    margin-right: 1vmin;
+}
+
+.agri-value {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 2.2vmin;
+    color: #F5F5F5;
+    text-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.6);
+}
+
+.agri-value.loading {
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 600;
+    font-size: 1.2vmin;
+}
+
+.agri-divider {
+    height: 1px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 0.2vmin 0;
+}
+
+/* Bottom-row override: transparent inner wrapper */
+#dashboard-bottom-row .agri-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    -webkit-flex-direction: column !important;
+    flex-direction: column !important;
+    -webkit-justify-content: space-between !important;
+    justify-content: space-between !important;
+}

@@ -125,7 +125,8 @@ LF.app.applyClockOnlyMode = function () {
         'news-ticker',
         'news-widget',
         'quote-widget',
-        'aqi-widget'
+        'aqi-widget',
+        'agriculture-widget'
     ];
 
     var i, el;
@@ -303,6 +304,7 @@ LF.app._refreshAllAPIs = function () {
         if (LF.finance && LF.finance.render) LF.finance.render();
         if (LF.fuel && LF.fuel.init) LF.fuel.init();
         if (LF.kqxs && LF.kqxs.init) LF.kqxs.init();
+        if (LF.agriculture && LF.agriculture.init) LF.agriculture.init();
     }, 5000);
 
     // Tin tức: sau 10 giây
@@ -454,6 +456,9 @@ LF.app.init = function () {
     if (LF.calendar && LF.calendar.render) {
         LF.calendar.render(new Date());
     }
+    if (LF.calendar && LF.calendar.renderHolidayCountdown) {
+        LF.calendar.renderHolidayCountdown();
+    }
 
     // 8. Init ca dao (offline OK)
     if (LF.quotes && LF.quotes.rotate) {
@@ -507,6 +512,9 @@ LF.app.init = function () {
             }
             if (LF.kqxs && LF.kqxs.init) {
                 LF.kqxs.init();
+            }
+            if (current.showAgriWidget && LF.agriculture && LF.agriculture.init) {
+                LF.agriculture.init();
             }
         }
 

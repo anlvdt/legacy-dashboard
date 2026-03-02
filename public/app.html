@@ -173,6 +173,7 @@
                         </div>
                         <div id="calendar-grid"></div>
                         <div id="van-nien-summary" class="van-nien-summary"></div>
+                        <div id="holiday-countdown" class="holiday-countdown"></div>
                     </div>
                 </div>
 
@@ -195,6 +196,43 @@
                             <span class="kqxs-value loading">Đang tải...</span>
                         </div>
                         <div class="source-credit">Nguồn: xskt.com.vn</div>
+                    </div>
+                </div>
+
+                <!-- AQI Widget -->
+                <div id="aqi-widget" class="info-block">
+
+                <!-- AGRICULTURE WIDGET -->
+                <div id="agriculture-widget" class="info-block">
+                    <div class="agri-wrapper">
+                        <div class="agri-header">Gi\u00E1 N\u00F4ng S\u1EA3n</div>
+                        <div class="agri-row">
+                            <span class="agri-type">C\u00E0 ph\u00EA Robusta</span>
+                            <span class="agri-value loading" id="agri-coffee-value">\u0110ang t\u1EA3i...</span>
+                        </div>
+                        <div class="agri-divider"></div>
+                        <div class="agri-row">
+                            <span class="agri-type">H\u1ED3 ti\u00EAu</span>
+                            <span class="agri-value loading" id="agri-pepper-value">\u0110ang t\u1EA3i...</span>
+                        </div>
+                        <div class="source-credit">Ngu\u1ED3n: giacaphe.com</div>
+                    </div>
+                </div>
+
+                <!-- AGRICULTURE WIDGET -->
+                <div id="agriculture-widget" class="info-block">
+                    <div class="agri-wrapper">
+                        <div class="agri-header">Giá Nông Sản</div>
+                        <div class="agri-row">
+                            <span class="agri-type">Cà phê Robusta</span>
+                            <span class="agri-value loading" id="agri-coffee-value">Đang tải...</span>
+                        </div>
+                        <div class="agri-divider"></div>
+                        <div class="agri-row">
+                            <span class="agri-type">Hồ tiêu</span>
+                            <span class="agri-value loading" id="agri-pepper-value">Đang tải...</span>
+                        </div>
+                        <div class="source-credit">Nguồn: giacaphe.com</div>
                     </div>
                 </div>
 
@@ -262,6 +300,7 @@
                 <button class="settings-btn" id="btn-showFinanceWidget">Tắt tài chính</button>
                 <button class="settings-btn" id="btn-showDisasterAlerts">Bật cảnh báo thiên tai</button>
                 <button class="settings-btn" id="btn-showNewsTicker">Tắt tin tức</button>
+                <button class="settings-btn" id="btn-showAgriWidget">Tắt nông sản</button>
                 <hr class="settings-divider">
 
                 <!-- Section: Nguồn ảnh -->
@@ -370,6 +409,7 @@
         <script src="js/quotes.js"></script>
         <script src="js/settings.js"></script>
         <script src="js/kqxs_fuel.js"></script>
+        <script src="js/agriculture.js"></script>
         <script src="js/app.js"></script>
 </body>
 

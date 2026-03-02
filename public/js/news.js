@@ -19,6 +19,41 @@ LF.news.sources = [
     { name: 'Tuổi Trẻ', url: 'https://tuoitre.vn/rss/tin-moi-nhat.rss' }
 ];
 
+/** Danh sách từ khoá chuyên mục cần lọc bỏ (nội dung không phù hợp) */
+LF.news.BLOCKED_KEYWORDS = [
+    'tam su tham kin', 'tâm sự thầm kín',
+    'tam su', 'tâm sự',
+    'gioi tinh', 'giới tính',
+    'chuyen ay', 'chuyện ấy',
+    'phong the', 'phòng the',
+    'suc khoe gioi tinh', 'sức khỏe giới tính',
+    'tinh duc', 'tình dục'
+];
+
+/**
+ * Kiểm tra xem bài viết có thuộc chuyên mục bị chặn không
+ * @param {string} title
+ * @param {string} link
+ * @param {string} description
+ * @returns {boolean} true nếu bị chặn
+ */
+LF.news._isBlocked = function (title, link, description) {
+    var text = ((title || '') + ' ' + (link || '') + ' ' + (description || '')).toLowerCase();
+    // Bỏ dấu tiếng Việt để so sánh
+    var normalized = text;
+    try {
+        normalized = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    } catch (e) {
+        // normalize() không hỗ trợ trên thiết bị cũ, dùng text gốc
+    }
+    var i;
+    for (i = 0; i < LF.news.BLOCKED_KEYWORDS.length; i++) {
+        if (text.indexOf(LF.news.BLOCKED_KEYWORDS[i]) !== -1) { return true; }
+        if (normalized.indexOf(LF.news.BLOCKED_KEYWORDS[i]) !== -1) { return true; }
+    }
+    return false;
+};
+
 /** Cache key và TTL (15 phút) */
 LF.news.CACHE_KEY = 'news';
 LF.news.CACHE_TTL = 900000;
@@ -108,6 +143,9 @@ LF.news.parseRSS = function (xmlString, sourceName) {
         }
 
         if (title) {
+            // Lọc bỏ bài thuộc chuyên mục bị chặn
+            if (LF.news._isBlocked(title, link, description)) { continue; }
+
             items.push({
                 title: title,
                 description: description,
