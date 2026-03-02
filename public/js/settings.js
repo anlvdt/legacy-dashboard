@@ -30,7 +30,7 @@ LF.settings.defaults = {
     showNewsTicker: true,
     showAgriWidget: true,
     // Radio cải lương
-    showRadio: false,
+    showRadio: true,
     // Nguồn ảnh
     useOnlinePhotos: false,
     slideshowInterval: 12000,

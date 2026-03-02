@@ -2967,7 +2967,7 @@ body.power-save-mode #news-tts-btn {
     background: rgba(10, 10, 15, 0.92);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     z-index: 49;
-    padding: 0.6vmin 1.5vmin;
+    padding: 1vmin 2vmin;
     display: -webkit-flex;
     display: -webkit-box;
     display: flex;
@@ -2995,8 +2995,8 @@ body.power-save-mode #news-tts-btn {
     background: none;
     border: none;
     color: rgba(255, 255, 255, 0.8);
-    font-size: 2vmin;
-    padding: 0.3vmin 0.5vmin;
+    font-size: 2.8vmin;
+    padding: 0.5vmin 0.8vmin;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     outline: none;
@@ -3008,12 +3008,12 @@ body.power-save-mode #news-tts-btn {
 }
 
 .radio-btn-play {
-    font-size: 2.4vmin;
+    font-size: 3.2vmin;
     color: #f39c12;
 }
 
 .radio-channel-btn {
-    font-size: 1.3vmin;
+    font-size: 1.6vmin;
     color: rgba(255, 255, 255, 0.7);
     display: -webkit-inline-flex;
     display: inline-flex;
@@ -3028,14 +3028,14 @@ body.power-save-mode #news-tts-btn {
 
 .radio-sep {
     color: rgba(255, 255, 255, 0.15);
-    font-size: 1.3vmin;
-    margin: 0 0.4vmin;
+    font-size: 1.6vmin;
+    margin: 0 0.6vmin;
 }
 
 .radio-volume {
-    font-size: 1.1vmin;
+    font-size: 1.4vmin;
     color: rgba(255, 255, 255, 0.5);
-    min-width: 3vmin;
+    min-width: 3.5vmin;
     text-align: center;
 }
 
@@ -3055,14 +3055,14 @@ body.power-save-mode #news-tts-btn {
 
 .radio-icon {
     color: #f39c12;
-    font-size: 1.5vmin;
-    margin-right: 0.5vmin;
+    font-size: 1.8vmin;
+    margin-right: 0.6vmin;
     -webkit-flex-shrink: 0;
     flex-shrink: 0;
 }
 
 .radio-title {
-    font-size: 1.2vmin;
+    font-size: 1.5vmin;
     color: rgba(255, 255, 255, 0.6);
     white-space: nowrap;
     overflow: hidden;

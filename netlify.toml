@@ -26,3 +26,8 @@
   from = "/api/agriculture"
   to = "/.netlify/functions/agriculture"
   status = 200
+
+[[redirects]]
+  from = "/api/youtube-search"
+  to = "/.netlify/functions/youtube-search"
+  status = 200

@@ -1,84 +1,74 @@
 /**
  * radio.js — Module radio cải lương xưa cho Legacy Frame
- * Dùng YouTube IFrame API để stream audio từ các video cải lương
- * Tất cả cú pháp ES5 (var, function) — không dùng let/const/arrow/template literals
+ * Dùng YouTube IFrame API + proxy search để stream audio
+ * Tất cả cú pháp ES5 (var, function)
  */
 
 var LF = LF || {};
 
 LF.radio = {};
 
-/** Trạng thái */
 LF.radio._player = null;
 LF.radio._ready = false;
 LF.radio._playing = false;
-LF.radio._currentIndex = 0;
 LF.radio._volume = 70;
 LF.radio._apiLoaded = false;
 LF.radio._retryCount = 0;
-LF.radio._titleTimer = null;
+LF.radio._currentChannel = 0;
+LF.radio._initDone = false;
+LF.radio._pendingPlay = false;
+LF.radio._videoIds = [];
+LF.radio._videoIndex = 0;
+
+LF.radio.CACHE_KEY = 'radio_videos';
+LF.radio.CACHE_TTL = 3600000; // 1 giờ
 
 /**
- * Danh sách kênh radio (mỗi kênh là 1 search query hoặc playlist)
- * YouTube IFrame API hỗ trợ listType: 'search' để tìm và phát tự động
+ * Danh sách kênh — mỗi kênh là 1 search query
  */
 LF.radio.channels = [
-    { name: 'Cải lương xưa', query: 'cải lương xưa trước 1975 trọn tuồng', type: 'search' },
-    { name: 'Vọng cổ hay', query: 'vọng cổ hơi dài hay nhất', type: 'search' },
-    { name: 'Tân cổ giao duyên', query: 'tân cổ giao duyên hay nhất', type: 'search' },
-    { name: 'Ca cổ Miền Tây', query: 'ca cổ cải lương miền tây hay nhất', type: 'search' },
-    { name: 'Thanh Nga', query: 'cải lương Thanh Nga trọn tuồng', type: 'search' },
-    { name: 'Lệ Thủy Minh Vương', query: 'cải lương Lệ Thủy Minh Vương', type: 'search' },
-    { name: 'Út Trà Ôn', query: 'vọng cổ Út Trà Ôn hay nhất', type: 'search' },
-    { name: 'Phượng Hằng Châu Thanh', query: 'tân cổ Phượng Hằng Châu Thanh', type: 'search' }
+    { name: 'Cải Lương Xưa', query: 'cải lương xưa trước 1975 trọn tuồng hay nhất' },
+    { name: 'Vọng Cổ Hay', query: 'vọng cổ hơi dài hay nhất tuyển chọn' },
+    { name: 'Tân Cổ Giao Duyên', query: 'tân cổ giao duyên hay nhất tuyển chọn' },
+    { name: 'Ca Cổ Miền Tây', query: 'ca cổ cải lương miền tây hay nhất' },
+    { name: 'Thanh Nga', query: 'cải lương Thanh Nga trọn tuồng hay nhất' },
+    { name: 'Lệ Thủy Minh Vương', query: 'cải lương Lệ Thủy Minh Vương trọn tuồng' },
+    { name: 'Út Trà Ôn', query: 'vọng cổ Út Trà Ôn tuyển chọn hay nhất' },
+    { name: 'Châu Thanh Phượng Hằng', query: 'tân cổ Châu Thanh Phượng Hằng hay nhất' }
 ];
-
-LF.radio._currentChannel = 0;
 
 /**
  * Tải YouTube IFrame API
  */
 LF.radio._loadAPI = function () {
     if (LF.radio._apiLoaded) { return; }
+    LF.radio._apiLoaded = true;
+
     if (typeof YT !== 'undefined' && YT.Player) {
-        LF.radio._apiLoaded = true;
-        LF.radio._createPlayer();
+        LF.radio._onAPIReady();
         return;
     }
 
-    LF.radio._apiLoaded = true;
     var tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
     var first = document.getElementsByTagName('script')[0];
     if (first && first.parentNode) {
         first.parentNode.insertBefore(tag, first);
     }
+
+    var titleEl = document.getElementById('radio-title');
+    if (titleEl) { titleEl.textContent = 'Đang tải trình phát...'; }
 };
 
 /**
- * Callback toàn cục khi YouTube API sẵn sàng
+ * Khi YouTube API sẵn sàng
  */
-
-// Gắn callback toàn cục — YouTube API gọi window.onYouTubeIframeAPIReady
-(function () {
-    var _origCallback = window.onYouTubeIframeAPIReady;
-    window.onYouTubeIframeAPIReady = function () {
-        if (typeof _origCallback === 'function') { _origCallback(); }
-        LF.radio._createPlayer();
-    };
-})();
-
-/**
- * Tạo YouTube player ẩn (1x1 pixel, off-screen)
- */
-LF.radio._createPlayer = function () {
+LF.radio._onAPIReady = function () {
     if (LF.radio._player) { return; }
     if (typeof YT === 'undefined' || !YT.Player) { return; }
 
     var container = document.getElementById('yt-radio-player');
     if (!container) { return; }
-
-    var channel = LF.radio.channels[LF.radio._currentChannel] || LF.radio.channels[0];
 
     LF.radio._player = new YT.Player('yt-radio-player', {
         height: '1',
@@ -88,30 +78,32 @@ LF.radio._createPlayer = function () {
             controls: 0,
             disablekb: 1,
             fs: 0,
+            iv_load_policy: 3,
             modestbranding: 1,
             playsinline: 1,
-            rel: 0,
-            showinfo: 0
+            rel: 0
         },
         events: {
             onReady: function (event) {
                 LF.radio._ready = true;
                 event.target.setVolume(LF.radio._volume);
-                // Tải kênh đầu tiên
-                LF.radio._loadChannel(LF.radio._currentChannel);
+                if (LF.radio._pendingPlay) {
+                    LF.radio._pendingPlay = false;
+                    LF.radio._startPlaying();
+                }
             },
             onStateChange: function (event) {
                 LF.radio._onStateChange(event);
             },
-            onError: function (event) {
-                // Video lỗi (bị xóa, chặn) → chuyển bài tiếp
+            onError: function () {
                 LF.radio._retryCount++;
                 if (LF.radio._retryCount < 5) {
-                    setTimeout(function () {
-                        if (LF.radio._player && LF.radio._player.nextVideo) {
-                            LF.radio._player.nextVideo();
-                        }
-                    }, 1000);
+                    LF.radio._videoIndex++;
+                    if (LF.radio._videoIndex < LF.radio._videoIds.length) {
+                        setTimeout(function () {
+                            LF.radio._playCurrentVideo();
+                        }, 1000);
+                    }
                 }
             }
         }
@@ -119,69 +111,199 @@ LF.radio._createPlayer = function () {
 };
 
 /**
- * Xử lý thay đổi trạng thái player
+ * Xử lý state change
  */
 LF.radio._onStateChange = function (event) {
     var state = event.data;
-
-    // YT.PlayerState: PLAYING=1, PAUSED=2, ENDED=0, BUFFERING=3
     if (state === 1) {
-        // Đang phát
         LF.radio._playing = true;
         LF.radio._retryCount = 0;
-        LF.radio._updateUI();
+        LF.radio._updatePlayBtn();
         LF.radio._updateTitle();
     } else if (state === 2) {
-        // Tạm dừng
         LF.radio._playing = false;
-        LF.radio._updateUI();
+        LF.radio._updatePlayBtn();
     } else if (state === 0) {
-        // Kết thúc → phát bài tiếp
-        if (LF.radio._player && LF.radio._player.nextVideo) {
-            LF.radio._player.nextVideo();
+        // Hết bài → phát bài tiếp
+        LF.radio._videoIndex++;
+        if (LF.radio._videoIndex >= LF.radio._videoIds.length) {
+            LF.radio._videoIndex = 0;
+        }
+        LF.radio._playCurrentVideo();
+    }
+};
+
+/**
+ * Tìm video IDs qua proxy rồi phát
+ */
+LF.radio._startPlaying = function () {
+    var ch = LF.radio.channels[LF.radio._currentChannel];
+    if (!ch) { return; }
+
+    var titleEl = document.getElementById('radio-title');
+    if (titleEl) { titleEl.textContent = 'Đang tìm bài hát...'; }
+
+    // Kiểm tra cache
+    var cacheKey = LF.radio.CACHE_KEY + '_' + LF.radio._currentChannel;
+    var cached = null;
+    if (LF.utils && LF.utils.cacheGet) {
+        cached = LF.utils.cacheGet(cacheKey, LF.radio.CACHE_TTL);
+    }
+
+    if (cached && cached.length > 0) {
+        LF.radio._videoIds = cached;
+        LF.radio._videoIndex = 0;
+        LF.radio._shuffle(LF.radio._videoIds);
+        LF.radio._playCurrentVideo();
+        return;
+    }
+
+    // Fetch từ proxy
+    var url = '/api/youtube-search?q=' + encodeURIComponent(ch.query) + '&n=20';
+    if (LF.utils && LF.utils.makeRequest) {
+        LF.utils.makeRequest(url, function (err, data) {
+            if (err || !data || !data.items || data.items.length === 0) {
+                if (titleEl) { titleEl.textContent = 'Không tìm thấy bài. Thử đổi kênh.'; }
+                return;
+            }
+
+            var ids = [];
+            for (var i = 0; i < data.items.length; i++) {
+                if (data.items[i].id) {
+                    ids.push(data.items[i].id);
+                }
+            }
+
+            if (ids.length === 0) {
+                if (titleEl) { titleEl.textContent = 'Không tìm thấy bài.'; }
+                return;
+            }
+
+            // Cache kết quả
+            if (LF.utils && LF.utils.cacheSet) {
+                LF.utils.cacheSet(cacheKey, ids, LF.radio.CACHE_TTL);
+            }
+
+            LF.radio._videoIds = ids;
+            LF.radio._videoIndex = 0;
+            LF.radio._shuffle(LF.radio._videoIds);
+            LF.radio._playCurrentVideo();
+        }, 15000);
+    }
+};
+
+/**
+ * Phát video hiện tại theo index
+ */
+LF.radio._playCurrentVideo = function () {
+    if (!LF.radio._player || !LF.radio._ready) { return; }
+    if (LF.radio._videoIds.length === 0) { return; }
+
+    var vid = LF.radio._videoIds[LF.radio._videoIndex];
+    if (!vid) { return; }
+
+    LF.radio._player.loadVideoById({
+        videoId: vid,
+        suggestedQuality: 'small'
+    });
+    LF.radio._player.setVolume(LF.radio._volume);
+};
+
+/**
+ * Shuffle mảng (Fisher-Yates)
+ */
+LF.radio._shuffle = function (arr) {
+    var i, j, tmp;
+    for (i = arr.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+};
+
+/**
+ * Toggle play/pause
+ */
+LF.radio.togglePlay = function () {
+    if (!LF.radio._apiLoaded) {
+        LF.radio._pendingPlay = true;
+        LF.radio._loadAPI();
+        return;
+    }
+    if (!LF.radio._ready) {
+        LF.radio._pendingPlay = true;
+        return;
+    }
+    if (LF.radio._playing) {
+        LF.radio._player.pauseVideo();
+    } else {
+        if (LF.radio._videoIds.length === 0) {
+            LF.radio._startPlaying();
+        } else {
+            LF.radio._player.playVideo();
         }
     }
 };
 
-/**
- * Tải một kênh (search query) vào player
- * @param {number} channelIndex
- */
-LF.radio._loadChannel = function (channelIndex) {
-    if (!LF.radio._player || !LF.radio._ready) { return; }
-
-    var channel = LF.radio.channels[channelIndex];
-    if (!channel) { return; }
-
-    LF.radio._currentChannel = channelIndex;
-
-    if (channel.type === 'playlist' && channel.listId) {
-        LF.radio._player.loadPlaylist({
-            list: channel.listId,
-            listType: 'playlist',
-            index: 0,
-            suggestedQuality: 'small'
-        });
-    } else {
-        LF.radio._player.loadPlaylist({
-            list: channel.query,
-            listType: 'search',
-            index: 0,
-            suggestedQuality: 'small'
-        });
+LF.radio.next = function () {
+    if (LF.radio._videoIds.length === 0) { return; }
+    LF.radio._videoIndex++;
+    if (LF.radio._videoIndex >= LF.radio._videoIds.length) {
+        LF.radio._videoIndex = 0;
     }
+    LF.radio._playCurrentVideo();
+};
 
-    LF.radio._player.setVolume(LF.radio._volume);
+LF.radio.prev = function () {
+    if (LF.radio._videoIds.length === 0) { return; }
+    LF.radio._videoIndex--;
+    if (LF.radio._videoIndex < 0) {
+        LF.radio._videoIndex = LF.radio._videoIds.length - 1;
+    }
+    LF.radio._playCurrentVideo();
+};
+
+LF.radio.nextChannel = function () {
+    LF.radio._currentChannel = (LF.radio._currentChannel + 1) % LF.radio.channels.length;
+    LF.radio._videoIds = [];
+    LF.radio._videoIndex = 0;
     LF.radio._updateChannelLabel();
+    if (LF.radio._ready) {
+        LF.radio._startPlaying();
+    }
+};
+
+LF.radio.volumeUp = function () {
+    LF.radio._volume = Math.min(100, LF.radio._volume + 10);
+    if (LF.radio._player && LF.radio._ready) {
+        LF.radio._player.setVolume(LF.radio._volume);
+    }
+    LF.radio._updateVolumeLabel();
+};
+
+LF.radio.volumeDown = function () {
+    LF.radio._volume = Math.max(0, LF.radio._volume - 10);
+    if (LF.radio._player && LF.radio._ready) {
+        LF.radio._player.setVolume(LF.radio._volume);
+    }
+    LF.radio._updateVolumeLabel();
+};
+
+LF.radio.stop = function () {
+    if (LF.radio._player && LF.radio._ready) {
+        LF.radio._player.stopVideo();
+    }
+    LF.radio._playing = false;
+    LF.radio._updatePlayBtn();
 };
 
 /**
- * Cập nhật tên bài đang phát
+ * Cập nhật tên bài
  */
 LF.radio._updateTitle = function () {
     var titleEl = document.getElementById('radio-title');
     if (!titleEl || !LF.radio._player) { return; }
-
     try {
         var data = LF.radio._player.getVideoData();
         if (data && data.title) {
@@ -194,25 +316,16 @@ LF.radio._updateTitle = function () {
     }
 };
 
-/**
- * Cập nhật label kênh hiện tại
- */
 LF.radio._updateChannelLabel = function () {
-    var labelEl = document.getElementById('radio-channel');
-    if (!labelEl) { return; }
-    var channel = LF.radio.channels[LF.radio._currentChannel];
-    if (channel) {
-        labelEl.textContent = channel.name;
-    }
+    var el = document.getElementById('radio-channel');
+    if (!el) { return; }
+    var ch = LF.radio.channels[LF.radio._currentChannel];
+    if (ch) { el.textContent = ch.name; }
 };
 
-/**
- * Cập nhật UI (nút play/pause)
- */
-LF.radio._updateUI = function () {
+LF.radio._updatePlayBtn = function () {
     var btn = document.getElementById('radio-play-btn');
     if (!btn) { return; }
-
     if (LF.radio._playing) {
         btn.innerHTML = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
         btn.title = 'Tạm dừng';
@@ -222,161 +335,52 @@ LF.radio._updateUI = function () {
     }
 };
 
-/**
- * Phát / Tạm dừng
- */
-LF.radio.togglePlay = function () {
-    if (!LF.radio._player || !LF.radio._ready) {
-        // Chưa sẵn sàng → tải API
-        LF.radio._loadAPI();
-        return;
-    }
-
-    if (LF.radio._playing) {
-        LF.radio._player.pauseVideo();
-    } else {
-        LF.radio._player.playVideo();
-    }
-};
-
-/**
- * Chuyển bài tiếp theo
- */
-LF.radio.next = function () {
-    if (!LF.radio._player || !LF.radio._ready) { return; }
-    LF.radio._player.nextVideo();
-};
-
-/**
- * Chuyển bài trước
- */
-LF.radio.prev = function () {
-    if (!LF.radio._player || !LF.radio._ready) { return; }
-    LF.radio._player.previousVideo();
-};
-
-/**
- * Chuyển kênh (cycle qua danh sách)
- */
-LF.radio.nextChannel = function () {
-    var next = (LF.radio._currentChannel + 1) % LF.radio.channels.length;
-    LF.radio._loadChannel(next);
-};
-
-/**
- * Tăng âm lượng (+10)
- */
-LF.radio.volumeUp = function () {
-    LF.radio._volume = Math.min(100, LF.radio._volume + 10);
-    if (LF.radio._player && LF.radio._ready) {
-        LF.radio._player.setVolume(LF.radio._volume);
-    }
-    LF.radio._updateVolumeLabel();
-};
-
-/**
- * Giảm âm lượng (-10)
- */
-LF.radio.volumeDown = function () {
-    LF.radio._volume = Math.max(0, LF.radio._volume - 10);
-    if (LF.radio._player && LF.radio._ready) {
-        LF.radio._player.setVolume(LF.radio._volume);
-    }
-    LF.radio._updateVolumeLabel();
-};
-
-/**
- * Cập nhật label âm lượng
- */
 LF.radio._updateVolumeLabel = function () {
     var el = document.getElementById('radio-volume');
-    if (el) {
-        el.textContent = LF.radio._volume + '%';
-    }
+    if (el) { el.textContent = LF.radio._volume + '%'; }
 };
 
 /**
- * Dừng hoàn toàn
- */
-LF.radio.stop = function () {
-    if (LF.radio._player && LF.radio._ready) {
-        LF.radio._player.stopVideo();
-    }
-    LF.radio._playing = false;
-    LF.radio._updateUI();
-};
-
-/**
- * Khởi tạo radio — bind events cho các nút
+ * Khởi tạo — bind events
  */
 LF.radio.init = function () {
-    // Bind play/pause
-    var playBtn = document.getElementById('radio-play-btn');
-    if (playBtn) {
-        playBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            if (!LF.radio._apiLoaded) {
-                LF.radio._loadAPI();
-                // Đợi API load xong rồi phát
-                var waitReady = setInterval(function () {
-                    if (LF.radio._ready) {
-                        clearInterval(waitReady);
-                        LF.radio.togglePlay();
-                    }
-                }, 500);
-                setTimeout(function () { clearInterval(waitReady); }, 15000);
-                return;
+    if (LF.radio._initDone) { return; }
+    LF.radio._initDone = true;
+
+    var ids = ['radio-play-btn', 'radio-next-btn', 'radio-prev-btn',
+               'radio-channel-btn', 'radio-vol-up', 'radio-vol-down'];
+    var fns = [
+        function () { LF.radio.togglePlay(); },
+        function () { LF.radio.next(); },
+        function () { LF.radio.prev(); },
+        function () { LF.radio.nextChannel(); },
+        function () { LF.radio.volumeUp(); },
+        function () { LF.radio.volumeDown(); }
+    ];
+
+    for (var i = 0; i < ids.length; i++) {
+        (function (idx) {
+            var el = document.getElementById(ids[idx]);
+            if (el) {
+                el.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    fns[idx]();
+                });
             }
-            LF.radio.togglePlay();
-        });
+        })(i);
     }
 
-    // Bind next
-    var nextBtn = document.getElementById('radio-next-btn');
-    if (nextBtn) {
-        nextBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            LF.radio.next();
-        });
-    }
-
-    // Bind prev
-    var prevBtn = document.getElementById('radio-prev-btn');
-    if (prevBtn) {
-        prevBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            LF.radio.prev();
-        });
-    }
-
-    // Bind channel switch
-    var channelBtn = document.getElementById('radio-channel-btn');
-    if (channelBtn) {
-        channelBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            LF.radio.nextChannel();
-        });
-    }
-
-    // Bind volume
-    var volUpBtn = document.getElementById('radio-vol-up');
-    if (volUpBtn) {
-        volUpBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            LF.radio.volumeUp();
-        });
-    }
-
-    var volDownBtn = document.getElementById('radio-vol-down');
-    if (volDownBtn) {
-        volDownBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            LF.radio.volumeDown();
-        });
-    }
-
-    // Cập nhật UI ban đầu
-    LF.radio._updateUI();
+    LF.radio._updatePlayBtn();
     LF.radio._updateChannelLabel();
     LF.radio._updateVolumeLabel();
 };
+
+// Callback toàn cục cho YouTube IFrame API
+(function () {
+    if (typeof window === 'undefined') { return; }
+    var _prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () {
+        if (typeof _prev === 'function') { _prev(); }
+        LF.radio._onAPIReady();
+    };
+})();

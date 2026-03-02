@@ -70,6 +70,7 @@ app.get('/api/fuel', (req, res) => runNetlifyFunction(req, res, 'fuel'));
 app.get('/api/kqxs', (req, res) => runNetlifyFunction(req, res, 'kqxs'));
 app.get('/api/weather', (req, res) => runNetlifyFunction(req, res, 'weather'));
 app.get('/api/agriculture', (req, res) => runNetlifyFunction(req, res, 'agriculture'));
+app.get('/api/youtube-search', (req, res) => runNetlifyFunction(req, res, 'youtube-search'));
 
 // Chạy server tại cổng 8080
 app.listen(8080, () => {
