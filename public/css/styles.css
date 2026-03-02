@@ -1087,10 +1087,16 @@ body.power-save-mode #background-container {
 .container.clock-only-mode .qr-column,
 .container.clock-only-mode #date-weather-group,
 .container.clock-only-mode #calendar-wrapper,
-.container.clock-only-mode #settings-container,
 .container.clock-only-mode #finance-widget,
 .container.clock-only-mode #forecast-container {
     display: none;
+}
+
+/* Clock-only: ẩn nút hamburger nhưng giữ panel hoạt động (mở bằng tap) */
+.container.clock-only-mode ~ #settings-container #settings-toggle,
+.container.clock-only-mode #settings-toggle {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .container.clock-only-mode.show-dates #clock-only-date-container {
@@ -1254,7 +1260,7 @@ body.power-save-mode .today .solar-day {
     position: absolute;
     top: 3.5rem;
     right: 0;
-    background: rgba(20, 20, 20, 0.9);
+    background: rgba(20, 20, 20, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 0.5rem;
     padding: 0.7rem;
@@ -1270,11 +1276,30 @@ body.power-save-mode .today .solar-day {
     transition: opacity 0.25s ease, transform 0.25s ease;
     max-height: 85vh;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Custom scrollbar cho settings panel */
+#settings-panel::-webkit-scrollbar {
+    width: 4px;
+}
+
+#settings-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#settings-panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+#settings-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.35);
 }
 
 @supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
     #settings-panel {
-        background: rgba(30, 30, 30, 0.85);
+        background: rgba(25, 25, 30, 0.88);
         -webkit-backdrop-filter: blur(20px);
         backdrop-filter: blur(20px);
     }
@@ -1318,7 +1343,7 @@ body.power-save-mode .today .solar-day {
     min-height: 44px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .settings-btn:active {
@@ -1326,9 +1351,16 @@ body.power-save-mode .today .solar-day {
 }
 
 .settings-btn.sub-option {
-    background-color: rgba(55, 55, 55, 0.7);
+    background-color: rgba(55, 55, 55, 0.6);
     padding-left: 1.5rem;
     font-size: 0.88rem;
+    border-left: 2px solid rgba(243, 156, 18, 0.35);
+}
+
+/* Action buttons (export/import/fullscreen) — viền nhẹ để phân biệt với toggle */
+.settings-btn.settings-action {
+    background: rgba(60, 60, 65, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .settings-input-group {
@@ -1352,7 +1384,15 @@ body.power-save-mode .today .solar-day {
     font-size: 0.85rem;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Settings divider — đường kẻ phân cách giữa các section */
+.settings-divider {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0.5rem 0 0.3rem;
 }
 
 .settings-input:focus {
@@ -1449,7 +1489,7 @@ body.power-save-mode .today .solar-day {
     border-radius: 0.4rem;
     cursor: pointer;
     font-size: 1rem;
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
     min-height: 44px;
 }
 
