@@ -19,6 +19,7 @@ LF.radio._initDone = false;
 LF.radio._pendingPlay = false;
 LF.radio._videoIds = [];
 LF.radio._videoIndex = 0;
+LF.radio._fetching = false;
 
 LF.radio.CACHE_KEY = 'radio_videos';
 LF.radio.CACHE_TTL = 3600000; // 1 giờ
@@ -137,6 +138,8 @@ LF.radio._onStateChange = function (event) {
  * Tìm video IDs qua proxy rồi phát
  */
 LF.radio._startPlaying = function () {
+    if (LF.radio._fetching) { return; }
+
     var ch = LF.radio.channels[LF.radio._currentChannel];
     if (!ch) { return; }
 
@@ -159,9 +162,12 @@ LF.radio._startPlaying = function () {
     }
 
     // Fetch từ proxy
+    LF.radio._fetching = true;
     var url = '/api/youtube-search?q=' + encodeURIComponent(ch.query) + '&n=20';
     if (LF.utils && LF.utils.makeRequest) {
         LF.utils.makeRequest(url, function (err, data) {
+            LF.radio._fetching = false;
+
             if (err || !data || !data.items || data.items.length === 0) {
                 if (titleEl) { titleEl.textContent = 'Không tìm thấy bài. Thử đổi kênh.'; }
                 return;
