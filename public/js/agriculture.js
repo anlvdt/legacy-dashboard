@@ -27,7 +27,13 @@ LF.agriculture.fetchData = function () {
             LF.utils.cacheSet(LF.agriculture.CACHE_KEY, response.data, LF.agriculture.CACHE_TTL);
             LF.agriculture.render(response.data);
         } else {
-            LF.agriculture.renderError();
+            // Thử stale cache trước khi hiện lỗi
+            var stale = LF.utils.cacheGetStale(LF.agriculture.CACHE_KEY);
+            if (stale) {
+                LF.agriculture.render(stale);
+            } else {
+                LF.agriculture.renderError();
+            }
         }
     });
 };

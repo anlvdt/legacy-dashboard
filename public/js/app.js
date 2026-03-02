@@ -492,6 +492,9 @@ LF.app.init = function () {
         LF.app.applyPowerSaveMode();
     }
 
+    // 9.5. Setup offline handling SỚM — trước khi gọi API
+    LF.app._setupOfflineHandling();
+
     // 10. Init slideshow (nếu không ở power save hoặc clock-only, và bật ảnh trực tuyến)
     if (!current.powerSaveMode && !current.clockOnlyMode) {
         if (LF.slideshow && LF.slideshow.init) {
@@ -573,16 +576,75 @@ LF.app.init = function () {
                 LF.disaster.init();
             }, 6000);
         }
+    } else {
+        // OFFLINE: hiển thị dữ liệu cache cũ (bỏ qua TTL) cho các widget
+        LF.app._loadStaleCache(current);
     }
 
     // 12. Setup event handlers
-    LF.app._setupOfflineHandling();
     LF.app._setupOrientationChange();
     LF.app._setupClockOnlyTouch();
 
     // 13. Đồng hồ giây
     if (LF.clock && LF.clock.toggleSeconds) {
         LF.clock.toggleSeconds(!!current.secondsVisible);
+    }
+};
+
+/**
+ * Khi offline: hiển thị dữ liệu cache cũ (bỏ qua TTL)
+ * Đảm bảo user thấy dữ liệu gần nhất thay vì "Đang tải..." mãi
+ */
+LF.app._loadStaleCache = function (current) {
+    // Thời tiết
+    if (LF.weather && LF.weather.applyWeatherData) {
+        var weatherData = LF.utils.cacheGetStale('weather');
+        if (weatherData && weatherData.city && weatherData.info && weatherData.tempC) {
+            LF.weather.applyWeatherData(weatherData.city, weatherData.info, weatherData.tempC);
+        }
+    }
+
+    // Dự báo
+    if (LF.weather && LF.weather._renderForecast) {
+        var forecastData = LF.utils.cacheGetStale('weather_forecast');
+        if (forecastData && forecastData.forecast && forecastData.forecast.length > 0) {
+            LF.weather._renderForecast(forecastData.forecast);
+            if (forecastData.sunrise && forecastData.sunset && LF.weather._applySunriseSunset) {
+                LF.weather._applySunriseSunset(forecastData.sunrise, forecastData.sunset);
+            }
+        }
+    }
+
+    // AQI
+    if (!current.aqiHidden && LF.weather && LF.weather._applyAQI) {
+        var aqiData = LF.utils.cacheGetStale('aqi');
+        if (aqiData && typeof aqiData.value === 'number') {
+            LF.weather._applyAQI(aqiData.value);
+        }
+    }
+
+    // UV
+    if (LF.weather && LF.weather._applyUV) {
+        var uvData = LF.utils.cacheGetStale('uv_index');
+        if (uvData && typeof uvData.uvi === 'number') {
+            LF.weather._applyUV(uvData.uvi);
+        }
+    }
+
+    // Tin tức
+    if (current.showNewsTicker && LF.news && LF.news._renderInline) {
+        var newsData = LF.utils.cacheGetStale('news');
+        if (newsData && newsData.length > 0) {
+            LF.news._renderInline(newsData, true);
+        }
+    }
+
+    // FX Ticker
+    if (LF.fxticker && LF.fxticker._render) {
+        var fxData = LF.utils.cacheGetStale('fx_ticker');
+        if (fxData && fxData.items && fxData.items.length > 0) {
+            LF.fxticker._render(fxData.items);
+        }
     }
 };
 

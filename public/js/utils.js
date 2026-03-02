@@ -99,10 +99,28 @@ LF.utils.cacheGet = function (key) {
             return null;
         }
         if (Date.now() > entry.ts + entry.ttl) {
-            // Hết hạn — xóa luôn
-            try { localStorage.removeItem(storageKey); } catch (e) { /* ignore */ }
+            // Hết hạn — trả null nhưng KHÔNG xóa (để cacheGetStale dùng khi offline)
             return null;
         }
+        return entry.data;
+    } catch (e) {
+        return null;
+    }
+};
+
+/**
+ * Đọc cache BỎ QUA TTL — dùng khi offline để hiện dữ liệu cũ
+ * Key prefix: "lf_cache_"
+ * @param {string} key
+ * @returns {*|null}
+ */
+LF.utils.cacheGetStale = function (key) {
+    var storageKey = 'lf_cache_' + key;
+    try {
+        var raw = localStorage.getItem(storageKey);
+        if (raw === null) { return null; }
+        var entry = JSON.parse(raw);
+        if (!entry || !entry.data) { return null; }
         return entry.data;
     } catch (e) {
         return null;

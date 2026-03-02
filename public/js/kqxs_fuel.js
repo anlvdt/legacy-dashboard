@@ -27,7 +27,13 @@ LF.kqxs.fetchData = function () {
             LF.utils.cacheSet(LF.kqxs.CACHE_KEY, data, LF.kqxs.CACHE_TTL);
             LF.kqxs.render(data);
         } else {
-            LF.kqxs.renderError();
+            // Thử stale cache trước khi hiện lỗi
+            var stale = LF.utils.cacheGetStale(LF.kqxs.CACHE_KEY);
+            if (stale) {
+                LF.kqxs.render(stale);
+            } else {
+                LF.kqxs.renderError();
+            }
         }
     });
 };
@@ -96,7 +102,13 @@ LF.fuel.fetchData = function () {
             LF.utils.cacheSet(LF.fuel.CACHE_KEY, response.data, LF.fuel.CACHE_TTL);
             LF.fuel.render(response.data);
         } else {
-            LF.fuel.renderError();
+            // Thử stale cache trước khi hiện lỗi
+            var stale = LF.utils.cacheGetStale(LF.fuel.CACHE_KEY);
+            if (stale) {
+                LF.fuel.render(stale);
+            } else {
+                LF.fuel.renderError();
+            }
         }
     });
 };
