@@ -30,6 +30,9 @@ LF.slideshow._intervalId = null;
 /** Trạng thái đang chạy */
 LF.slideshow._running = false;
 
+/** Key lưu ảnh nền cuối cùng vào localStorage */
+LF.slideshow._CACHE_KEY = 'lf_bg_image';
+
 /**
  * Validate interval — chỉ chấp nhận {10000, 15000, 30000, 60000}, mặc định 12000
  * @param {*} intervalMs
@@ -98,6 +101,9 @@ LF.slideshow.preloadNext = function (callback) {
     var timer;
     var url = LF.slideshow._getPicsumUrl();
 
+    // Cho phép canvas đọc pixel (cần cho cache offline)
+    img.crossOrigin = 'anonymous';
+
     timer = setTimeout(function () {
         if (done) { return; }
         done = true;
@@ -159,11 +165,69 @@ LF.slideshow.changeImage = function () {
     setTimeout(function () {
         bgEl.style.backgroundImage = 'url(' + img.src + ')';
         bgEl.style.opacity = '1';
+        bgEl.className = (bgEl.className.indexOf('loaded') === -1) ? bgEl.className + ' loaded' : bgEl.className;
+
+        // Cache ảnh vào localStorage cho offline
+        LF.slideshow._cacheImage(img);
+
         LF.slideshow.preloadedImage = null;
 
         // Preload ảnh tiếp theo
         LF.slideshow.preloadNext();
     }, LF.slideshow._fadeDuration);
+};
+
+/**
+ * Cache ảnh vào localStorage dưới dạng data URL (JPEG, quality thấp)
+ * Dùng canvas để convert — giới hạn 640x480 để tiết kiệm dung lượng
+ * @param {HTMLImageElement} img
+ */
+LF.slideshow._cacheImage = function (img) {
+    try {
+        var canvas = document.createElement('canvas');
+        var maxW = 640;
+        var maxH = 480;
+        var w = img.naturalWidth || img.width;
+        var h = img.naturalHeight || img.height;
+
+        if (w === 0 || h === 0) { return; }
+
+        // Scale down giữ tỷ lệ
+        var ratio = Math.min(maxW / w, maxH / h, 1);
+        canvas.width = Math.round(w * ratio);
+        canvas.height = Math.round(h * ratio);
+
+        var ctx = canvas.getContext('2d');
+        if (!ctx) { return; }
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        var dataUrl = canvas.toDataURL('image/jpeg', 0.5);
+        localStorage.setItem(LF.slideshow._CACHE_KEY, dataUrl);
+    } catch (e) {
+        // Canvas tainted (CORS), localStorage đầy, hoặc thiết bị không hỗ trợ
+    }
+};
+
+/**
+ * Khôi phục ảnh nền từ localStorage cache (dùng khi offline)
+ * @returns {boolean} true nếu khôi phục thành công
+ */
+LF.slideshow.restoreCached = function () {
+    var bgEl = document.getElementById('background-slideshow');
+    if (!bgEl) { return false; }
+
+    try {
+        var dataUrl = localStorage.getItem(LF.slideshow._CACHE_KEY);
+        if (dataUrl && dataUrl.indexOf('data:image') === 0) {
+            bgEl.style.backgroundImage = 'url(' + dataUrl + ')';
+            bgEl.style.opacity = '1';
+            bgEl.className = (bgEl.className.indexOf('loaded') === -1) ? bgEl.className + ' loaded' : bgEl.className;
+            return true;
+        }
+    } catch (e) {
+        // localStorage không khả dụng
+    }
+    return false;
 };
 
 /**
@@ -177,6 +241,9 @@ LF.slideshow.init = function () {
         bgEl.style.webkitTransition = 'opacity ' + (LF.slideshow._fadeDuration / 1000) + 's ease';
         bgEl.style.opacity = '1';
     }
+
+    // Khôi phục ảnh cached ngay lập tức (hiện ảnh cũ trong khi tải ảnh mới)
+    LF.slideshow.restoreCached();
 
     // Preload ảnh đầu tiên
     LF.slideshow.preloadNext();

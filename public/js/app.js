@@ -596,6 +596,11 @@ LF.app.init = function () {
  * Đảm bảo user thấy dữ liệu gần nhất thay vì "Đang tải..." mãi
  */
 LF.app._loadStaleCache = function (current) {
+    // Ảnh nền: khôi phục từ cache
+    if (!current.slideshowHidden && LF.slideshow && LF.slideshow.restoreCached) {
+        LF.slideshow.restoreCached();
+    }
+
     // Thời tiết
     if (LF.weather && LF.weather.applyWeatherData) {
         var weatherData = LF.utils.cacheGetStale('weather');
