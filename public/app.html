@@ -277,6 +277,7 @@
                 <button class="settings-btn" id="btn-showDisasterAlerts">Bật cảnh báo thiên tai</button>
                 <button class="settings-btn" id="btn-showNewsTicker">Tắt tin tức</button>
                 <button class="settings-btn" id="btn-showAgriWidget">Tắt nông sản</button>
+                <button class="settings-btn" id="btn-showRadio">Bật radio cải lương</button>
                 <hr class="settings-divider">
 
                 <!-- Section: Nguồn ảnh -->
@@ -371,6 +372,45 @@
     </div><!-- /main-container -->
 
         <!-- ============================================================
+         RADIO CẢI LƯƠNG — Thanh điều khiển radio
+         ============================================================ -->
+        <div id="radio-bar" class="radio-bar" style="display:none;">
+            <div class="radio-controls">
+                <button id="radio-prev-btn" class="radio-btn" type="button" title="Bài trước">
+                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                </button>
+                <button id="radio-play-btn" class="radio-btn radio-btn-play" type="button" title="Phát">
+                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <button id="radio-next-btn" class="radio-btn" type="button" title="Bài tiếp">
+                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                </button>
+                <span class="radio-sep">|</span>
+                <button id="radio-channel-btn" class="radio-btn radio-channel-btn" type="button" title="Đổi kênh">
+                    <svg viewBox="0 0 24 24" width="0.9em" height="0.9em" fill="currentColor" style="vertical-align:-0.1em;margin-right:0.2em"><path d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.89 2 2 2h16c1.11 0 2-.9 2-2V8c0-1.1-.9-2-2-2H8.3l8.26-3.34-.37-.92-13 5.26.01.15zM7 20c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-8h-2v-2h-2v2H4V8h16v4z"/></svg>
+                    <span id="radio-channel">Cải lương xưa</span>
+                </button>
+                <span class="radio-sep">|</span>
+                <button id="radio-vol-down" class="radio-btn" type="button" title="Giảm âm lượng">
+                    <svg viewBox="0 0 24 24" width="0.9em" height="0.9em" fill="currentColor"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg>
+                </button>
+                <span id="radio-volume" class="radio-volume">70%</span>
+                <button id="radio-vol-up" class="radio-btn" type="button" title="Tăng âm lượng">
+                    <svg viewBox="0 0 24 24" width="0.9em" height="0.9em" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                </button>
+            </div>
+            <div class="radio-title-wrap">
+                <span class="radio-icon">
+                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
+                </span>
+                <span id="radio-title" class="radio-title">Nhấn Play để nghe cải lương</span>
+            </div>
+        </div>
+
+        <!-- YouTube Player ẩn (off-screen, 1x1px) -->
+        <div id="yt-radio-player" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;"></div>
+
+        <!-- ============================================================
          EXCHANGE RATE TICKER — Chạy ngang cạnh dưới màn hình
          ============================================================ -->
         <div id="fx-ticker" class="fx-ticker" style="display:none;">
@@ -397,6 +437,7 @@
         <script src="js/kqxs_fuel.js"></script>
         <script src="js/agriculture.js"></script>
         <script src="js/fxticker.js"></script>
+        <script src="js/radio.js"></script>
         <script src="js/app.js"></script>
 </body>
 

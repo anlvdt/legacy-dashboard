@@ -127,7 +127,8 @@ LF.app.applyClockOnlyMode = function () {
         'quote-widget',
         'aqi-widget',
         'agriculture-widget',
-        'fx-ticker'
+        'fx-ticker',
+        'radio-bar'
     ];
 
     var i, el;
@@ -224,6 +225,11 @@ LF.app._pauseNonEssentialIntervals = function () {
     }
     if (LF.news && LF.news.stopRefresh) {
         LF.news.stopRefresh();
+    }
+
+    // Dừng radio
+    if (LF.radio && LF.radio.stop) {
+        LF.radio.stop();
     }
 };
 
@@ -579,6 +585,11 @@ LF.app.init = function () {
     } else {
         // OFFLINE: hiển thị dữ liệu cache cũ (bỏ qua TTL) cho các widget
         LF.app._loadStaleCache(current);
+    }
+
+    // Radio cải lương — init luôn (không cần mạng cho đến khi nhấn Play)
+    if (current.showRadio && LF.radio && LF.radio.init) {
+        LF.radio.init();
     }
 
     // 12. Setup event handlers

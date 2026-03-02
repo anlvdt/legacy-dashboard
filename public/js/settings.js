@@ -29,6 +29,8 @@ LF.settings.defaults = {
     showDisasterAlerts: false,
     showNewsTicker: true,
     showAgriWidget: true,
+    // Radio cải lương
+    showRadio: false,
     // Nguồn ảnh
     useOnlinePhotos: false,
     slideshowInterval: 12000,
@@ -62,7 +64,7 @@ LF.settings.sections = [
     },
     {
         title: 'Thành phần',
-        items: ['slideshowHidden', 'dateHidden', 'calendarHidden', 'weatherHidden', 'quoteHidden', 'aqiHidden', 'showFinanceWidget', 'showDisasterAlerts', 'showNewsTicker', 'showAgriWidget']
+        items: ['slideshowHidden', 'dateHidden', 'calendarHidden', 'weatherHidden', 'quoteHidden', 'aqiHidden', 'showFinanceWidget', 'showDisasterAlerts', 'showNewsTicker', 'showAgriWidget', 'showRadio']
     },
     {
         title: 'Nguồn ảnh',
@@ -99,6 +101,7 @@ LF.settings.labels = {
     showDisasterAlerts: 'cảnh báo thiên tai',
     showNewsTicker: 'tin tức',
     showAgriWidget: 'nông sản',
+    showRadio: 'radio cải lương',
     useOnlinePhotos: 'ảnh trực tuyến',
     newsMultiSource: 'đa nguồn tin',
     enableTTS: 'đọc tin bằng giọng nói',
@@ -241,6 +244,7 @@ LF.settings.apply = function () {
     LF.settings._setVisibility('news-ticker', current.showNewsTicker);
     LF.settings._setVisibility('news-widget', current.showNewsTicker);
     LF.settings._setVisibility('agriculture-widget', current.showAgriWidget);
+    LF.settings._setVisibility('radio-bar', current.showRadio);
 
     // Flags trên container cho layout 3-row mới
     if (mainContainer) {
@@ -540,6 +544,13 @@ LF.settings.bindEvents = function () {
                         }
                         if ((k === 'showNewsTicker' || k === 'newsMultiSource') && LF.news && LF.news.loadMultiSource) {
                             LF.news.loadMultiSource();
+                        }
+                        if (k === 'showRadio') {
+                            if (LF.settings.current.showRadio && LF.radio && LF.radio.init) {
+                                LF.radio.init();
+                            } else if (!LF.settings.current.showRadio && LF.radio && LF.radio.stop) {
+                                LF.radio.stop();
+                            }
                         }
                     });
                 }
