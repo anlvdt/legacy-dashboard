@@ -35,6 +35,8 @@ body {
     background-color: #000;
     color: #F5F5F5;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
@@ -1907,6 +1909,7 @@ body.has-ticker #img-loading {
     font-size: 1.25rem;
     color: #f39c12;
     letter-spacing: 0.02em;
+    text-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.6);
 }
 
 .finance-sub {
