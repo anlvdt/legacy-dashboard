@@ -124,10 +124,10 @@ describe('Feature: legacy-frame-upgrade, Property 11: Banner cảnh báo mức R
           const banner = document.getElementById('disaster-banner');
           expect(banner).not.toBeNull();
 
-          // Check for warning icon
+          // Check for warning icon (SVG inline, not emoji)
           const icon = banner.querySelector('.disaster-icon');
           expect(icon).not.toBeNull();
-          expect(icon.textContent).toBe('⚠');
+          expect(icon.querySelector('svg')).not.toBeNull();
 
           // Check for event title text
           const textEl = banner.querySelector('.disaster-text');
