@@ -19,77 +19,34 @@ LF.quotes._currentIndex = -1;
  * Bộ sưu tập 54 câu ca dao, tục ngữ, danh ngôn tiếng Việt
  * Phân loại theo chủ đề: gia-dinh, hoc-tap, dao-duc, mua-vu, cuoc-song, tinh-yeu
  */
-LF.quotes.collection = [
-    // === gia-dinh (9 câu) ===
-    { text: 'Công cha như núi Thái Sơn, nghĩa mẹ như nước trong nguồn chảy ra.', author: 'Ca dao', category: 'gia-dinh' },
-    { text: 'Một giọt máu đào hơn ao nước lã.', author: 'Tục ngữ', category: 'gia-dinh' },
-    { text: 'Chị ngã em nâng.', author: 'Tục ngữ', category: 'gia-dinh' },
-    { text: 'Con có cha như nhà có nóc.', author: 'Tục ngữ', category: 'gia-dinh' },
-    { text: 'Cá không ăn muối cá ươn, con cãi cha mẹ trăm đường con hư.', author: 'Ca dao', category: 'gia-dinh' },
-    { text: 'Anh em như thể tay chân, rách lành đùm bọc dở hay đỡ đần.', author: 'Ca dao', category: 'gia-dinh' },
-    { text: 'Thuận vợ thuận chồng tát Biển Đông cũng cạn.', author: 'Tục ngữ', category: 'gia-dinh' },
-    { text: 'Đi khắp thế gian không ai tốt bằng mẹ, gánh nặng cuộc đời không ai khổ bằng cha.', author: 'Ca dao', category: 'gia-dinh' },
-    { text: 'Giàu vì bạn, sang vì vợ.', author: 'Tục ngữ', category: 'gia-dinh' },
+LF.quotes.collection = [];
 
-    // === hoc-tap (9 câu) ===
-    { text: 'Học ăn, học nói, học gói, học mở.', author: 'Tục ngữ', category: 'hoc-tap' },
-    { text: 'Không thầy đố mày làm nên.', author: 'Tục ngữ', category: 'hoc-tap' },
-    { text: 'Học thầy không tày học bạn.', author: 'Tục ngữ', category: 'hoc-tap' },
-    { text: 'Dốt đến đâu học lâu cũng biết.', author: 'Tục ngữ', category: 'hoc-tap' },
-    { text: 'Đi một ngày đàng, học một sàng khôn.', author: 'Tục ngữ', category: 'hoc-tap' },
-    { text: 'Người không học như ngọc không mài.', author: 'Tục ngữ', category: 'hoc-tap' },
-    { text: 'Muốn biết phải hỏi, muốn giỏi phải học.', author: 'Tục ngữ', category: 'hoc-tap' },
-    { text: 'Học hành vất vả kết quả ngọt bùi.', author: 'Tục ngữ', category: 'hoc-tap' },
-    { text: 'Ăn vóc học hay.', author: 'Tục ngữ', category: 'hoc-tap' },
+/**
+ * Tải danh sách ca dao, tục ngữ từ API
+ * @param {function} callback
+ */
+LF.quotes.loadData = function (callback) {
+    if (LF.quotes.collection && LF.quotes.collection.length > 0) {
+        if (callback) callback();
+        return;
+    }
 
-    // === dao-duc (9 câu) ===
-    { text: 'Ở hiền gặp lành.', author: 'Tục ngữ', category: 'dao-duc' },
-    { text: 'Thương người như thể thương thân.', author: 'Ca dao', category: 'dao-duc' },
-    { text: 'Lá lành đùm lá rách.', author: 'Tục ngữ', category: 'dao-duc' },
-    { text: 'Một cây làm chẳng nên non, ba cây chụm lại nên hòn núi cao.', author: 'Ca dao', category: 'dao-duc' },
-    { text: 'Ăn quả nhớ kẻ trồng cây.', author: 'Tục ngữ', category: 'dao-duc' },
-    { text: 'Uống nước nhớ nguồn.', author: 'Tục ngữ', category: 'dao-duc' },
-    { text: 'Tốt gỗ hơn tốt nước sơn.', author: 'Tục ngữ', category: 'dao-duc' },
-    { text: 'Đói cho sạch, rách cho thơm.', author: 'Tục ngữ', category: 'dao-duc' },
-    { text: 'Cái nết đánh chết cái đẹp.', author: 'Tục ngữ', category: 'dao-duc' },
-
-    // === mua-vu (9 câu) ===
-    { text: 'Trời nắng tốt dưa, trời mưa tốt lúa.', author: 'Tục ngữ', category: 'mua-vu' },
-    { text: 'Nhất nước, nhì phân, tam cần, tứ giống.', author: 'Tục ngữ', category: 'mua-vu' },
-    { text: 'Tháng giêng là tháng ăn chơi, tháng hai trồng đậu, tháng ba trồng cà.', author: 'Ca dao', category: 'mua-vu' },
-    { text: 'Lúa chiêm lấp ló đầu bờ, hễ nghe tiếng sấm phất cờ mà lên.', author: 'Ca dao', category: 'mua-vu' },
-    { text: 'Người ta đi cấy lấy công, tôi nay đi cấy còn trông nhiều bề.', author: 'Ca dao', category: 'mua-vu' },
-    { text: 'Chuồn chuồn bay thấp thì mưa, bay cao thì nắng, bay vừa thì râm.', author: 'Ca dao', category: 'mua-vu' },
-    { text: 'Mồng chín tháng chín có mưa, thì con sắm sửa cày bừa làm ăn.', author: 'Ca dao', category: 'mua-vu' },
-    { text: 'Ráng mỡ gà thì gió, ráng mỡ chó thì mưa.', author: 'Tục ngữ', category: 'mua-vu' },
-    { text: 'Tấc đất tấc vàng.', author: 'Tục ngữ', category: 'mua-vu' },
-
-    // === cuoc-song (9 câu) ===
-    { text: 'Có công mài sắt có ngày nên kim.', author: 'Tục ngữ', category: 'cuoc-song' },
-    { text: 'Kiến tha lâu cũng đầy tổ.', author: 'Tục ngữ', category: 'cuoc-song' },
-    { text: 'Thất bại là mẹ thành công.', author: 'Tục ngữ', category: 'cuoc-song' },
-    { text: 'Có chí thì nên.', author: 'Tục ngữ', category: 'cuoc-song' },
-    { text: 'Năng nhặt chặt bị.', author: 'Tục ngữ', category: 'cuoc-song' },
-    { text: 'Gần mực thì đen, gần đèn thì sáng.', author: 'Tục ngữ', category: 'cuoc-song' },
-    { text: 'Ăn cây nào rào cây nấy.', author: 'Tục ngữ', category: 'cuoc-song' },
-    { text: 'Đường đi khó không khó vì ngăn sông cách núi mà khó vì lòng người ngại núi e sông.', author: 'Nguyễn Bá Học', category: 'cuoc-song' },
-    { text: 'Ai ơi bưng bát cơm đầy, dẻo thơm một hạt đắng cay muôn phần.', author: 'Ca dao', category: 'cuoc-song' },
-
-    // === tinh-yeu (9 câu) ===
-    { text: 'Yêu nhau mấy núi cũng trèo, mấy sông cũng lội, mấy đèo cũng qua.', author: 'Ca dao', category: 'tinh-yeu' },
-    { text: 'Thuyền về có nhớ bến chăng, bến thì một dạ khăng khăng đợi thuyền.', author: 'Ca dao', category: 'tinh-yeu' },
-    { text: 'Đôi ta như lửa mới nhen, như trăng mới mọc, như đèn mới khêu.', author: 'Ca dao', category: 'tinh-yeu' },
-    { text: 'Qua đình ngả nón trông đình, đình bao nhiêu ngói thương mình bấy nhiêu.', author: 'Ca dao', category: 'tinh-yeu' },
-    { text: 'Râu tôm nấu với ruột bầu, chồng chan vợ húp gật đầu khen ngon.', author: 'Ca dao', category: 'tinh-yeu' },
-    { text: 'Muối ba năm muối đang còn mặn, gừng chín tháng gừng hãy còn cay.', author: 'Ca dao', category: 'tinh-yeu' },
-    { text: 'Tình yêu là ngọn lửa sáng, ai cũng cần hơi ấm của nó.', author: 'Danh ngôn', category: 'tinh-yeu' },
-    { text: 'Trầu này trầu tính trầu tình, ăn vào cho đỏ môi mình môi ta.', author: 'Ca dao', category: 'tinh-yeu' },
-    { text: 'Gió đưa cành trúc la đà, tiếng chuông Trấn Vũ canh gà Thọ Xương.', author: 'Ca dao', category: 'tinh-yeu' }
-];
+    LF.utils.makeRequest('/api/quotes.json', function (err, data) {
+        if (!err && data && data.length > 0) {
+            LF.quotes.collection = data;
+        } else {
+            // Fallback khi không load được API
+            LF.quotes.collection = [
+                { text: 'Có công mài sắt có ngày nên kim.', author: 'Tục ngữ', category: 'cuoc-song' }
+            ];
+        }
+        if (callback) callback();
+    });
+};
 
 /**
  * Hiển thị câu ca dao ngẫu nhiên lên DOM
- * Không gọi API — hoạt động offline
+ * Lấy ngẫu nhiên từ biến LF.quotes.collection (nạp qua loadData)
  */
 LF.quotes.showRandom = function () {
     var collection = LF.quotes.collection;
@@ -127,17 +84,19 @@ LF.quotes.showRandom = function () {
 LF.quotes.rotate = function (intervalMs) {
     var interval = intervalMs || 60000;
 
-    // Dừng rotate cũ nếu có
-    if (LF.quotes._rotateInterval) {
-        clearInterval(LF.quotes._rotateInterval);
-        LF.quotes._rotateInterval = null;
-    }
+    LF.quotes.loadData(function () {
+        // Dừng rotate cũ nếu có
+        if (LF.quotes._rotateInterval) {
+            clearInterval(LF.quotes._rotateInterval);
+            LF.quotes._rotateInterval = null;
+        }
 
-    // Hiển thị câu đầu tiên ngay
-    LF.quotes.showRandom();
-
-    // Đặt interval đổi câu
-    LF.quotes._rotateInterval = setInterval(function () {
+        // Hiển thị câu đầu tiên ngay
         LF.quotes.showRandom();
-    }, interval);
+
+        // Đặt interval đổi câu
+        LF.quotes._rotateInterval = setInterval(function () {
+            LF.quotes.showRandom();
+        }, interval);
+    });
 };

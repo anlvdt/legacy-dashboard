@@ -1847,7 +1847,19 @@ body.has-ticker #img-loading {
  * Requirements: 3.8 (column on portrait mobile), 5.4, 5.5
  * Không dùng CSS variables
  * ================================================================ */
+
+/* Default .info-block applies to #finance-widget. We style the inner wrapper: */
 #finance-widget {
+    padding: 0;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#finance-widget .finance-wrapper {
     display: -webkit-flex;
     display: -webkit-box;
     display: flex;
@@ -1871,63 +1883,32 @@ body.has-ticker #img-loading {
     flex-wrap: wrap;
     -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
     box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    width: 100%;
 }
 
 /* Fallback cho thiết bị không có backdrop-filter */
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-    #finance-widget {
+    #finance-widget .finance-wrapper {
         background: rgba(20, 20, 20, 0.75);
     }
 }
 
-.finance-item {
+.finance-value {
+    color: #f3ce49;
+    /* Vàng SJC sang trọng */
+}
+
+.finance-value-box {
     display: -webkit-flex;
     display: -webkit-box;
     display: flex;
-    -webkit-flex-direction: column;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    flex-direction: column;
     -webkit-align-items: center;
     -webkit-box-align: center;
     align-items: center;
+    -webkit-justify-content: flex-end;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
     min-width: 6rem;
-    padding: 0.5vmin;
-}
-
-.finance-label {
-    font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.45);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.5vmin;
-}
-
-.finance-value {
-    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 800;
-    font-size: 1.25rem;
-    color: #f39c12;
-    letter-spacing: 0.02em;
-    text-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.6);
-}
-
-.finance-sub {
-    font-size: 0.55rem;
-    color: rgba(255, 255, 255, 0.3);
-    margin-top: 0.5vmin;
-}
-
-.finance-divider {
-    width: 1px;
-    height: 2rem;
-    background: rgba(255, 255, 255, 0.12);
-    -webkit-flex-shrink: 0;
-    flex-shrink: 0;
-}
-
-.finance-value.loading {
-    color: rgba(243, 156, 18, 0.35);
 }
 
 /* Finance trend indicators */
@@ -1935,6 +1916,9 @@ body.has-ticker #img-loading {
     font-size: 0.75rem;
     font-weight: 700;
     margin-left: 0.5vmin;
+    width: 1rem;
+    text-align: right;
+    display: inline-block;
 }
 
 .finance-trend-up {
@@ -1985,7 +1969,8 @@ body.has-ticker #img-loading {
 }
 
 .kqxs-header,
-.fuel-header {
+.fuel-header,
+.finance-header {
     font-size: 0.85rem;
     color: #f39c12;
     text-transform: uppercase;
@@ -1998,7 +1983,8 @@ body.has-ticker #img-loading {
 }
 
 .kqxs-row,
-.fuel-row {
+.fuel-row,
+.finance-row {
     display: -webkit-flex;
     display: -webkit-box;
     display: flex;
@@ -2012,14 +1998,16 @@ body.has-ticker #img-loading {
 }
 
 .kqxs-region,
-.fuel-type {
+.fuel-type,
+.finance-type {
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 600;
 }
 
 .kqxs-value,
-.fuel-value {
+.fuel-value,
+.finance-value {
     font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
     font-weight: 800;
     font-size: 1.1rem;
@@ -2028,14 +2016,16 @@ body.has-ticker #img-loading {
 }
 
 .kqxs-value.loading,
-.fuel-value.loading {
+.fuel-value.loading,
+.finance-value.loading {
     color: rgba(255, 255, 255, 0.4);
     font-weight: 600;
     font-size: 0.85rem;
 }
 
 .kqxs-divider,
-.fuel-divider {
+.fuel-divider,
+.finance-divider {
     height: 1px;
     width: 100%;
     background: rgba(255, 255, 255, 0.05);
@@ -2188,19 +2178,7 @@ body.legacy-device .today .solar-day {
         right: 5vw;
     }
 
-    /* Finance widget column layout on portrait mobile */
-    #finance-widget {
-        -webkit-flex-direction: column;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        flex-direction: column;
-    }
 
-    .finance-divider {
-        width: 80%;
-        height: 1px;
-        margin: 0.5vmin 0;
-    }
 
     .finance-value {
         font-size: 1.05rem;
@@ -2271,19 +2249,7 @@ body.legacy-device .today .solar-day {
         padding: 0 1rem;
     }
 
-    /* Finance column on portrait mobile — Requirements: 3.8 */
-    #finance-widget {
-        -webkit-flex-direction: column;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        flex-direction: column;
-    }
 
-    .finance-divider {
-        width: 80%;
-        height: 1px;
-        margin: 0.5vmin 0;
-    }
 }
 
 /* Tablet portrait */
