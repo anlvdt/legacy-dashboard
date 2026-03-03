@@ -1814,13 +1814,8 @@ body.power-save-mode .today .solar-day {
 /* ================================================================
  * LEGACY DEVICE — Thiết bị cũ overrides
  * Requirements: 11.5
+ * Không ẩn weather widget — hiển thị thông báo phù hợp thay vì ẩn
  * ================================================================ */
-body.legacy-device #weather-widget,
-body.legacy-device #clock-only-weather-container,
-body.legacy-device #weather-toggle,
-body.legacy-device #clock-only-weather-toggle {
-    display: none !important;
-}
 
 body.legacy-device .clock-segment,
 body.legacy-device #calendar-container,
@@ -1852,6 +1847,21 @@ body.legacy-device .clock-segment span {
 body.legacy-device .today .solar-day {
     -webkit-filter: none;
     filter: none;
+}
+
+/* Weather widget trên legacy: nền đục, giữ hiển thị */
+body.legacy-device #weather-widget {
+    background: rgba(15, 15, 15, 0.88) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+/* Legacy unavailable — thông báo "không khả dụng" gọn nhẹ */
+.legacy-unavailable {
+    font-size: 1.2vmin !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    font-style: italic;
+    font-weight: 400 !important;
 }
 
 /* ================================================================

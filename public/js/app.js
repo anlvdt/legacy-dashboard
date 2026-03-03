@@ -61,6 +61,7 @@ LF.app._loadGoogleFonts = function () {
 /**
  * Phát hiện thiết bị cũ và bật chế độ tương thích
  * Tắt backdrop-filter, dùng background solid, giảm animation
+ * Hiển thị thông báo phù hợp cho widget phụ thuộc API
  * Requirements: 2.3, 11.5
  */
 LF.app._enableLegacyMode = function () {
@@ -99,6 +100,60 @@ LF.app._enableLegacyMode = function () {
     if (head) {
         head.appendChild(style);
     }
+};
+
+/**
+ * Hiển thị thông báo "không khả dụng" cho widget phụ thuộc API trên thiết bị cũ
+ * Gọi sau khi DOM đã sẵn sàng
+ */
+LF.app._showLegacyMessages = function () {
+    var msg = 'Không khả dụng trên thiết bị cũ';
+    var pairs = [
+        ['finance-gold-sjc-value', msg],
+        ['finance-gold-world-value', msg],
+        ['finance-usd-value', msg],
+        ['fuel-ron95-value', msg],
+        ['fuel-e5-value', msg],
+        ['fuel-do-value', msg],
+        ['weather-desc', msg],
+        ['aqi-desc', msg]
+    ];
+    var i, el;
+    for (i = 0; i < pairs.length; i++) {
+        el = document.getElementById(pairs[i][0]);
+        if (el) {
+            el.textContent = pairs[i][1];
+            el.className = (el.className || '') + ' legacy-unavailable';
+        }
+    }
+
+    // KQXS rows
+    var kqxsIds = ['kqxs-mb', 'kqxs-mt', 'kqxs-mn'];
+    for (i = 0; i < kqxsIds.length; i++) {
+        el = document.getElementById(kqxsIds[i]);
+        if (el) {
+            var valSpan = el.getElementsByTagName('span');
+            var j;
+            for (j = 0; j < valSpan.length; j++) {
+                if (valSpan[j].className && valSpan[j].className.indexOf('kqxs-value') !== -1) {
+                    valSpan[j].textContent = msg;
+                    valSpan[j].className = valSpan[j].className + ' legacy-unavailable';
+                }
+            }
+        }
+    }
+
+    // AQI value
+    var aqiVal = document.getElementById('aqi-value');
+    if (aqiVal) { aqiVal.textContent = '--'; }
+
+    // Weather location
+    var weatherLoc = document.getElementById('weather-location');
+    if (weatherLoc) { weatherLoc.textContent = ''; }
+    var weatherTemp = document.getElementById('weather-temp');
+    if (weatherTemp) { weatherTemp.textContent = ''; }
+    var weatherIcon = document.getElementById('weather-icon');
+    if (weatherIcon) { weatherIcon.innerHTML = ''; }
 };
 
 /**
@@ -511,8 +566,22 @@ LF.app.init = function () {
         }
     }
 
-    // 11. Tải dữ liệu từ API (nếu online và không ở clock-only)
-    if (!LF.app._isOffline) {
+    // 11. Tải dữ liệu từ API
+    if (LF.app._isLegacy) {
+        // LEGACY DEVICE: Hiển thị thông báo ngay, bỏ qua API calls
+        // iOS 9 không hỗ trợ TLS hiện đại → API sẽ timeout/fail
+        LF.app._showLegacyMessages();
+
+        // Ẩn widgets phụ thuộc API nặng (FX ticker, news, disaster)
+        var fxEl = document.getElementById('fx-ticker');
+        if (fxEl) { fxEl.style.display = 'none'; }
+        var newsEl = document.getElementById('news-widget');
+        if (newsEl) { newsEl.style.display = 'none'; }
+
+        // Vẫn thử tải weather (cache hoặc API cơ bản) — giảm timeout
+        LF.app._loadStaleCache(current);
+
+    } else if (!LF.app._isOffline) {
         // Thời tiết
         if (LF.weather && LF.weather.loadCurrent) {
             LF.weather.loadCurrent();
