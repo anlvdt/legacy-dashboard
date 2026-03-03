@@ -146,13 +146,21 @@ LF.fxticker._startScroll = function () {
         }
         content.style.webkitTransform = 'translateX(' + LF.fxticker._position + 'px)';
         content.style.transform = 'translateX(' + LF.fxticker._position + 'px)';
-        LF.fxticker._animId = requestAnimationFrame(step);
+        LF.fxticker._animId = (typeof requestAnimationFrame === 'function')
+            ? requestAnimationFrame(step)
+            : setTimeout(step, 16);
     }
 
     if (LF.fxticker._animId) {
-        cancelAnimationFrame(LF.fxticker._animId);
+        if (typeof cancelAnimationFrame === 'function') {
+            cancelAnimationFrame(LF.fxticker._animId);
+        } else {
+            clearTimeout(LF.fxticker._animId);
+        }
     }
-    LF.fxticker._animId = requestAnimationFrame(step);
+    LF.fxticker._animId = (typeof requestAnimationFrame === 'function')
+        ? requestAnimationFrame(step)
+        : setTimeout(step, 16);
 };
 
 /**
@@ -160,7 +168,11 @@ LF.fxticker._startScroll = function () {
  */
 LF.fxticker.stop = function () {
     if (LF.fxticker._animId) {
-        cancelAnimationFrame(LF.fxticker._animId);
+        if (typeof cancelAnimationFrame === 'function') {
+            cancelAnimationFrame(LF.fxticker._animId);
+        } else {
+            clearTimeout(LF.fxticker._animId);
+        }
         LF.fxticker._animId = null;
     }
 };

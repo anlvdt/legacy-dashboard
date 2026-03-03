@@ -530,6 +530,9 @@ LF.weather._showCachedOrError = function (cacheKey, widgetType) {
         var aqiDescEl = document.getElementById('aqi-desc');
         if (aqiValEl) { aqiValEl.textContent = '--'; }
         if (aqiDescEl) { aqiDescEl.textContent = errorMsg; }
+        // Ẩn widget khi không có dữ liệu nào
+        var aqiWidget = document.getElementById('aqi-widget');
+        if (aqiWidget) { aqiWidget.style.display = 'none'; }
     }
 };
 

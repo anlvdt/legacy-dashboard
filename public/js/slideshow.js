@@ -227,6 +227,9 @@ LF.slideshow.restoreCached = function () {
     } catch (e) {
         // localStorage không khả dụng
     }
+    // Không có cache — hiển thị gradient fallback từ CSS
+    bgEl.style.opacity = '1';
+    bgEl.className = (bgEl.className.indexOf('loaded') === -1) ? bgEl.className + ' loaded' : bgEl.className;
     return false;
 };
 

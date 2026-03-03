@@ -66,6 +66,10 @@ body.power-save-mode #background-container {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    /* Fallback gradient cho offline — hiển thị khi chưa có ảnh */
+    background-color: #0a0a12;
+    background-image: -webkit-linear-gradient(315deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+    background-image: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
     -webkit-transition: opacity 1.5s ease-in-out;
     transition: opacity 1.5s ease-in-out;
     opacity: 0;
@@ -1093,7 +1097,7 @@ body.power-save-mode #background-container {
 }
 
 /* Clock-only: ẩn nút hamburger nhưng giữ panel hoạt động (mở bằng tap) */
-.container.clock-only-mode ~ #settings-container #settings-toggle,
+.container.clock-only-mode~#settings-container #settings-toggle,
 .container.clock-only-mode #settings-toggle {
     opacity: 0;
     pointer-events: none;
@@ -1880,10 +1884,20 @@ body.legacy-device .today .solar-day {
     }
 
     #dashboard-bottom-row .info-block {
-        -webkit-flex: 1 1 45%;
-        flex: 1 1 45%;
+        -webkit-flex: 1 1 auto;
+        flex: 1 1 auto;
+        min-width: 0;
         max-width: none;
         padding: 1.5vmin;
+    }
+
+    /* Ẩn calendar và agriculture trên màn hình nhỏ để tránh wrap xuống dòng */
+    #calendar-container {
+        display: none !important;
+    }
+
+    #agri-widget {
+        display: none !important;
     }
 
     .shop-name {
@@ -1953,11 +1967,25 @@ body.legacy-device .today .solar-day {
         right: 5vw;
     }
 
+    #dashboard-bottom-row {
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
     #dashboard-bottom-row .info-block {
-        -webkit-flex: 1 1 100%;
-        flex: 1 1 100%;
+        -webkit-flex: 1 1 46%;
+        flex: 1 1 46%;
         max-width: none;
-        padding: 1.5vmin;
+        padding: 1vmin;
+    }
+
+    /* Ẩn các widget ít quan trọng trên diđện thoại nhỏ */
+    #calendar-container {
+        display: none !important;
+    }
+
+    #agri-widget {
+        display: none !important;
     }
 
     .finance-value {
@@ -2154,6 +2182,206 @@ body.legacy-device .today .solar-day {
 }
 
 /* ================================================================
+ * RESPONSIVE — Landscape small phones (height ≤ 480px)
+ * Giảm padding/size để fit nội dung vào màn hình ngang nhỏ
+ * ================================================================ */
+@media (max-height: 480px) and (orientation: landscape) {
+    .container {
+        padding: 0.5vmin 1.5vmin 0 1.5vmin;
+    }
+
+    .content-wrapper {
+        padding-bottom: 6vmin;
+    }
+
+    #dashboard-top-row {
+        margin-bottom: 0.3vmin;
+    }
+
+    .clock-segment span {
+        font-size: 7vmin;
+    }
+
+    .clock-separator {
+        font-size: 5vmin;
+    }
+
+    .clock-segment {
+        padding: 0.3vmin 1.2vmin;
+    }
+
+    .date-container {
+        font-size: 1.8vmin;
+        padding: 0.3vmin 0.8vmin;
+    }
+
+    .date-container p {
+        margin: 0.1vmin 0;
+    }
+
+    .holiday-countdown {
+        padding: 0.2vmin 0.5vmin;
+        margin-top: 0.2vmin;
+    }
+
+    #weather-widget {
+        font-size: 1.8vmin;
+        padding: 0.3vmin 0.8vmin;
+    }
+
+    #weather-location {
+        font-size: 1.3vmin;
+        margin-bottom: 0.2vmin;
+    }
+
+    #forecast-container {
+        padding: 0.4vmin 0.3vmin;
+        margin-top: 0.5vmin;
+        font-size: 1vmin;
+    }
+
+    .forecast-hour {
+        padding: 0.1vmin 0.2vmin;
+    }
+
+    .info-block {
+        margin: 0.2vmin;
+    }
+
+    .quote-text {
+        font-size: 1.8vmin;
+    }
+
+    .quote-author {
+        font-size: 1.3vmin;
+    }
+
+    #dashboard-mid-row {
+        margin: 0;
+    }
+
+    /* Radio bar siêu gọn cho landscape nhỏ */
+    .radio-bar {
+        bottom: 2.5vmin;
+        padding: 0.3vmin 1vmin 0.2vmin 1vmin;
+    }
+
+    .radio-btn {
+        font-size: 2.8vmin;
+        padding: 0.4vmin 0.6vmin;
+    }
+
+    .radio-btn-play {
+        font-size: 3.2vmin;
+    }
+
+    .radio-title {
+        font-size: 1.4vmin;
+    }
+
+    .radio-time {
+        font-size: 1.2vmin;
+    }
+
+    .radio-volume {
+        font-size: 1.2vmin;
+    }
+
+    .radio-channel-btn {
+        font-size: 1.4vmin;
+    }
+
+    .radio-progress-wrap {
+        padding: 0.3vmin 0 0.1vmin 0;
+    }
+
+    .radio-progress-bar {
+        height: 0.5vmin;
+    }
+
+    /* FX ticker gọn cho landscape nhỏ */
+    .fx-ticker {
+        height: 2.2vmin;
+        line-height: 2.2vmin;
+    }
+
+    .fx-code,
+    .fx-val,
+    .fx-sep {
+        font-size: 1vmin;
+    }
+}
+
+/* ================================================================
+ * RESPONSIVE — Portrait phones ≤ 480px width
+ * Radio bar + FX ticker gọn, padding bottom cho content
+ * ================================================================ */
+@media (max-width: 480px) and (orientation: portrait) {
+    .content-wrapper {
+        padding-bottom: 8vmin;
+    }
+
+    #dashboard-bottom-row {
+        padding-bottom: 0.5vmin;
+    }
+
+    .info-block {
+        margin: 0.3vmin;
+    }
+
+    /* Radio bar gọn cho mobile portrait */
+    .radio-bar {
+        bottom: 2.8vmin;
+        padding: 0.5vmin 1.2vmin 0.3vmin 1.2vmin;
+    }
+
+    .radio-btn {
+        font-size: 3vmin;
+        padding: 0.5vmin 0.8vmin;
+    }
+
+    .radio-btn-play {
+        font-size: 3.5vmin;
+    }
+
+    .radio-title {
+        font-size: 1.5vmin;
+    }
+
+    .radio-time {
+        font-size: 1.3vmin;
+    }
+
+    .radio-volume {
+        font-size: 1.3vmin;
+    }
+
+    .radio-channel-btn {
+        font-size: 1.5vmin;
+    }
+
+    .radio-progress-wrap {
+        padding: 0.4vmin 0 0.2vmin 0;
+    }
+
+    .radio-progress-bar {
+        height: 0.6vmin;
+    }
+
+    /* FX ticker gọn */
+    .fx-ticker {
+        height: 2.5vmin;
+        line-height: 2.5vmin;
+    }
+
+    .fx-code,
+    .fx-val,
+    .fx-sep {
+        font-size: 1vmin;
+    }
+}
+
+/* ================================================================
  * RESPONSIVE — Large screens (> 1200px)
  * ================================================================ */
 @media (min-width: 1200px) {
@@ -2313,7 +2541,7 @@ a.news-ticker-item {
     align-items: center;
 }
 
-.news-panel-header-actions > * {
+.news-panel-header-actions>* {
     margin-left: 0.5rem;
 }
 
@@ -2413,7 +2641,7 @@ a.news-ticker-item {
     flex-wrap: wrap;
 }
 
-.news-panel-actions > * {
+.news-panel-actions>* {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
 }
@@ -3145,6 +3373,7 @@ body.power-save-mode #news-tts-btn {
     left: 0;
     right: 0;
     height: 3.2vmin;
+    line-height: 3.2vmin;
     background: rgba(0, 0, 0, 0.85);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     overflow: hidden;
@@ -3166,7 +3395,7 @@ body.power-save-mode #news-tts-btn {
 .fx-ticker-content {
     display: inline-block;
     white-space: nowrap;
-    will-change: transform;
+    /* Removed will-change: transform — causes visual jank on old browsers */
 }
 
 .fx-item {

@@ -20,6 +20,10 @@ LF.finance.CACHE_KEY_GOLD_SJC = 'finance_gold_sjc';
 /** Lưu giá trị trước đó để tính xu hướng */
 LF.finance.previousValues = { usd: null, goldWorld: null, goldSJC: null };
 
+/** Đếm số sub-widget bị lỗi (không có dữ liệu) để auto-hide */
+LF.finance._failCount = 0;
+LF.finance._loadCount = 0;
+
 /**
  * Tính xu hướng tăng/giảm so với lần trước
  * @param {number} current - giá trị hiện tại
@@ -125,6 +129,13 @@ LF.finance._showCachedOrError = function (cacheKey, type, elementId) {
     }
 
     el.textContent = LF.finance.getErrorMessage(type);
+
+    // Đếm lỗi — nếu tất cả 3 sub-widget đều lỗi, ẩn widget
+    LF.finance._failCount++;
+    if (LF.finance._failCount >= 3) {
+        var widget = document.getElementById('finance-widget');
+        if (widget) { widget.style.display = 'none'; }
+    }
 };
 
 /**
@@ -353,6 +364,8 @@ LF.finance._applyGoldSJC = function (priceMillionVND) {
  * Gọi tất cả load functions
  */
 LF.finance.render = function () {
+    LF.finance._failCount = 0;
+    LF.finance._loadCount = 0;
     LF.finance.loadUSD();
     LF.finance.loadGoldWorld();
     LF.finance.loadGoldSJC();

@@ -47,14 +47,24 @@ LF.agriculture.render = function (data) {
     var coffeeEl = document.getElementById('agri-coffee-value');
     if (coffeeEl) {
         coffeeEl.className = 'agri-value';
-        coffeeEl.textContent = parseInt(data.coffee, 10).toLocaleString('vi-VN') + ' \u0111/kg';
+        var n = parseInt(data.coffee, 10);
+        var s = '' + n;
+        var r = '';
+        var c = 0;
+        var ii;
+        for (ii = s.length - 1; ii >= 0; ii--) {
+            r = s[ii] + r;
+            c++;
+            if (c % 3 === 0 && ii > 0 && s[ii - 1] !== '-') {
+                r = '.' + r;
+            }
+        }
+        coffeeEl.textContent = r + ' \u0111/kg';
     }
 };
 
 LF.agriculture.renderError = function () {
-    var el = document.getElementById('agri-coffee-value');
-    if (el) {
-        el.className = 'agri-value loading';
-        el.textContent = 'L\u1ED7i d\u1EEF li\u1EC7u';
-    }
+    // Ẩn widget khi không có dữ liệu nào
+    var widget = document.getElementById('agriculture-widget');
+    if (widget) { widget.style.display = 'none'; }
 };

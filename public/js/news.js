@@ -309,6 +309,9 @@ LF.news._renderInline = function (items, isStale) {
     // Hiện widget
     if (items && items.length > 0) {
         widget.style.display = '';
+    } else {
+        // Ẩn widget khi không có tin tức
+        widget.style.display = 'none';
     }
 
     // Hiện nút TTS

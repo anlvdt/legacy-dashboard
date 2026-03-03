@@ -66,17 +66,9 @@ LF.kqxs.render = function (data) {
 };
 
 LF.kqxs.renderError = function () {
-    var ids = ['kqxs-mb', 'kqxs-mt', 'kqxs-mn'];
-    for (var i = 0; i < ids.length; i++) {
-        var el = document.getElementById(ids[i]);
-        if (el) {
-            var valSpan = el.querySelector('.kqxs-value');
-            if (valSpan) {
-                valSpan.className = 'kqxs-value loading';
-                valSpan.textContent = 'Lỗi kết nối';
-            }
-        }
-    }
+    // Ẩn widget khi không có dữ liệu nào
+    var widget = document.getElementById('kqxs-widget');
+    if (widget) { widget.style.display = 'none'; }
 };
 
 
@@ -121,7 +113,19 @@ LF.fuel.render = function (data) {
 
     var format = function (val) {
         if (!val) return '---';
-        return parseInt(val, 10).toLocaleString('vi-VN') + ' đ';
+        var n = parseInt(val, 10);
+        var s = '' + n;
+        var r = '';
+        var c = 0;
+        var i;
+        for (i = s.length - 1; i >= 0; i--) {
+            r = s[i] + r;
+            c++;
+            if (c % 3 === 0 && i > 0 && s[i - 1] !== '-') {
+                r = '.' + r;
+            }
+        }
+        return r + ' \u0111';
     };
 
     var e95 = document.getElementById('fuel-ron95-value');
@@ -134,12 +138,7 @@ LF.fuel.render = function (data) {
 };
 
 LF.fuel.renderError = function () {
-    var ids = ['fuel-ron95-value', 'fuel-e5-value', 'fuel-do-value'];
-    for (var i = 0; i < ids.length; i++) {
-        var el = document.getElementById(ids[i]);
-        if (el) {
-            el.className = 'fuel-value loading';
-            el.textContent = 'Lỗi dữ liệu';
-        }
-    }
+    // Ẩn widget khi không có dữ liệu nào
+    var widget = document.getElementById('fuel-widget');
+    if (widget) { widget.style.display = 'none'; }
 };
