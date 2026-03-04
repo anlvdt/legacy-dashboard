@@ -82,17 +82,22 @@ const parseCoffeePrice = (html) => {
 
 /**
  * Parse giá cà phê Robusta ICE London (USD/tấn)
- * Tìm pattern "Robusta London" hoặc "ICE" + số USD
+ * Table in section#robusta-london with data-price attributes
  */
 const parseCoffeeWorld = (html) => {
     if (!html) return null;
-    // Pattern: "Robusta" ... "X,XXX" hoặc "X.XXX" USD/tấn
-    const match = html.match(/[Rr]obusta[^0-9]{0,60}?(\d{1,2}[.,]\d{3})\s*(?:USD|usd|\$)/);
-    if (match && match[1]) {
-        return parseInt(match[1].replace(/[.,]/g, ''), 10);
+    // Find the robusta-london section and get first data-price
+    var sectionMatch = html.match(/id=["']robusta-london["'][\s\S]{0,2000}?data-price=["'](\d+(?:\.\d+)?)["']/i);
+    if (sectionMatch && sectionMatch[1]) {
+        return parseInt(sectionMatch[1], 10);
     }
-    // Pattern 2: "London" + giá
-    const match2 = html.match(/London[^0-9]{0,40}?(\d{1,2}[.,]\d{3})/);
+    // Fallback: look for "Robusta London" heading then data-price
+    var fallback = html.match(/Robusta\s*London[\s\S]{0,1000}?data-price=["'](\d+(?:\.\d+)?)["']/i);
+    if (fallback && fallback[1]) {
+        return parseInt(fallback[1], 10);
+    }
+    // Fallback 2: text match "X,XXX USD/tấn"
+    var match2 = html.match(/London[^0-9]{0,40}?(\d{1,2}[.,]\d{3})/);
     if (match2 && match2[1]) {
         return parseInt(match2[1].replace(/[.,]/g, ''), 10);
     }
@@ -107,32 +112,39 @@ const parseCoffeeRegions = (html) => {
     if (!html) return [];
     var regions = [];
     var regionNames = [
-        { name: 'Đắk Lắk', aliases: ['[ĐD][aắ][kc]\\s*L[aắ][kc]', 'Dak\\s*Lak'] },
-        { name: 'Lâm Đồng', aliases: ['L[aâ]m\\s*[ĐD][oồ]ng', 'Lam\\s*Dong'] },
-        { name: 'Gia Lai', aliases: ['Gia\\s*Lai'] },
-        { name: 'Đắk Nông', aliases: ['[ĐD][aắ][kc]\\s*N[oô]ng', 'Dak\\s*Nong'] }
+        { name: 'Đắk Lắk', aliases: ['Đắk Lắk', 'Đắk\\s*Lắk', 'Dak Lak'] },
+        { name: 'Lâm Đồng', aliases: ['Lâm Đồng', 'Lâm\\s*Đồng', 'Lam Dong'] },
+        { name: 'Gia Lai', aliases: ['Gia Lai', 'Gia\\s*Lai'] },
+        { name: 'Đắk Nông', aliases: ['Đắk Nông', 'Đắk\\s*Nông', 'Dak Nong'] }
     ];
 
+    // The domestic table uses CSS obfuscation (spans with random classes, no text).
+    // Prices are in the page's structured text or occasionally in  text nodes.
+    // Try multiple approaches.
     for (var i = 0; i < regionNames.length; i++) {
         var r = regionNames[i];
-        for (var j = 0; j < r.aliases.length; j++) {
+        var found = false;
+        for (var j = 0; j < r.aliases.length && !found; j++) {
             try {
-                // Match: region name ... price ... change (optional negative)
-                var regex = new RegExp(r.aliases[j] + '[^0-9]{0,30}?([0-9]+[.,][0-9]{3})[^0-9]{0,20}?(-?[0-9]+[.,]?[0-9]*)', 'i');
+                // Approach 1: text near region name "94,800" or "94.800"
+                var regex = new RegExp(r.aliases[j] + '[^0-9]{0,50}?([0-9]{2,3}[.,][0-9]{3})', 'i');
                 var m = html.match(regex);
                 if (m && m[1]) {
-                    var entry = {
-                        name: r.name,
-                        price: parseInt(m[1].replace(/[.,]/g, ''), 10)
-                    };
-                    if (m[2]) {
-                        entry.change = parseInt(m[2].replace(/[.,]/g, ''), 10);
+                    var price = parseInt(m[1].replace(/[.,]/g, ''), 10);
+                    if (price > 10000 && price < 500000) { // reasonable coffee price range
+                        var entry = { name: r.name, price: price };
+                        // Try to find change value nearby
+                        var changeRegex = new RegExp(r.aliases[j] + '[^0-9]{0,80}?[0-9]{2,3}[.,][0-9]{3}[^0-9]{0,30}?(-[0-9]+[.,]?[0-9]*)', 'i');
+                        var cm = html.match(changeRegex);
+                        if (cm && cm[1]) {
+                            entry.change = parseInt(cm[1].replace(/[.,]/g, ''), 10);
+                        }
+                        regions.push(entry);
+                        found = true;
                     }
-                    regions.push(entry);
-                    break;
                 }
             } catch (e) {
-                // skip invalid regex
+                // skip
             }
         }
     }
@@ -160,33 +172,53 @@ const parseCoffeeChange = (html) => {
 
 /**
  * Parse giá Arabica New York (USD cent/lb)
- * Tìm pattern "Arabica" ... giá hoặc data-price trong bảng Arabica
+ * Table in section#arabica-newyork or similar with data-price attributes
  */
 const parseArabicaPrice = (html) => {
     if (!html) return null;
-    // Pattern 1: data-price attribute in Arabica table
-    var match = html.match(/Arabica[\s\S]{0,500}?data-price="([\d.]+)"/i);
-    if (match && match[1]) {
-        return parseFloat(match[1]);
+    // Find arabica-newyork section and get first data-price
+    var sectionMatch = html.match(/id=["']arabica-(?:newyork|new-york|ny)["'][\s\S]{0,2000}?data-price=["']([\d.]+)["']/i);
+    if (sectionMatch && sectionMatch[1]) {
+        return parseFloat(sectionMatch[1]);
     }
-    // Pattern 2: "Arabica" ... "XXX.XX" cent/lb
-    var match2 = html.match(/[Aa]rabica[^0-9]{0,60}?(\d{2,3}\.\d{1,2})/);
-    if (match2 && match2[1]) {
-        return parseFloat(match2[1]);
+    // Fallback: "Arabica New York" heading then data-price  
+    var fallback = html.match(/Arabica\s*(?:New\s*York|NY)[\s\S]{0,1000}?data-price=["']([\d.]+)["']/i);
+    if (fallback && fallback[1]) {
+        return parseFloat(fallback[1]);
+    }
+    // Fallback 2: Find second table with data-price (first is Robusta)
+    // Find all data-price values in livequote tables
+    var tables = html.match(/class=["'][^"']*livequote[^"']*["'][\s\S]*?<\/table>/gi);
+    if (tables && tables.length >= 2) {
+        var arabicaTable = tables[1]; // second livequote table
+        var priceMatch = arabicaTable.match(/data-price=["']([\d.]+)["']/i);
+        if (priceMatch && priceMatch[1]) {
+            return parseFloat(priceMatch[1]);
+        }
     }
     return null;
 };
 
 /**
  * Parse giá Hồ tiêu (VND/kg)
- * Tìm pattern "Hồ tiêu" hoặc "H. tiêu" + giá
+ * Domestic table uses CSS obfuscation - try data-price or text patterns
  */
 const parsePepperPrice = (html) => {
     if (!html) return null;
-    // Pattern: "Hồ tiêu" ... "XXX,XXX" or "XXX.XXX"
-    var match = html.match(/[Hh][ồô]\s*ti[eê]u[^0-9]{0,30}?([0-9]+[.,][0-9]{3})/i);
+    // Approach 1: find "Hồ tiêu" in table, look for data-price nearby
+    var match = html.match(/[Hh]ồ\s*tiêu[\s\S]{0,300}?data-price=["']([\d,.]+)["']/i);
     if (match && match[1]) {
         return parseInt(match[1].replace(/[.,]/g, ''), 10);
+    }
+    // Approach 2: find structured data or JSON-LD with pepper price
+    var jsonMatch = html.match(/["']pepper["']\s*:\s*([\d,]+)/i);
+    if (jsonMatch && jsonMatch[1]) {
+        return parseInt(jsonMatch[1].replace(/[.,]/g, ''), 10);
+    }
+    // Approach 3: "Hồ tiêu" ... "XXX,XXX" in text (not in obfuscated table)
+    var textMatch = html.match(/[Hh]ồ\s*tiêu[^<]{0,50}?([0-9]{2,3}[.,][0-9]{3})/i);
+    if (textMatch && textMatch[1]) {
+        return parseInt(textMatch[1].replace(/[.,]/g, ''), 10);
     }
     return null;
 };
