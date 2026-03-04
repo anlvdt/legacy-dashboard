@@ -1416,7 +1416,7 @@ body.power-save-mode .today .solar-day {
 
 .settings-label {
     display: block;
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     color: rgba(255, 255, 255, 0.45);
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -1544,7 +1544,7 @@ body.power-save-mode .today .solar-day {
     background: transparent;
     border: none;
     color: #F5F5F5;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
     text-align: left;
     -webkit-transition: background 0.12s ease;
