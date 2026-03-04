@@ -3,6 +3,9 @@
  * Tất cả cú pháp ES5 (var, function) — không dùng let/const/arrow/template literals
  *
  * Hiển thị giá cà phê Robusta nội địa (Tây Nguyên)
+ * + Giá Robusta ICE London (USD/tấn)
+ * + Xu hướng tăng/giảm
+ * + Giá theo vùng
  */
 
 var LF = LF || {};
@@ -38,28 +41,78 @@ LF.agriculture.fetchData = function () {
     });
 };
 
+/**
+ * Format số có dấu chấm phân cách hàng nghìn
+ * @param {number} n
+ * @returns {string}
+ */
+LF.agriculture._formatNumber = function (n) {
+    var s = '' + n;
+    var r = '';
+    var c = 0;
+    var ii;
+    for (ii = s.length - 1; ii >= 0; ii--) {
+        r = s[ii] + r;
+        c++;
+        if (c % 3 === 0 && ii > 0 && s[ii - 1] !== '-') {
+            r = '.' + r;
+        }
+    }
+    return r;
+};
+
 LF.agriculture.render = function (data) {
     if (!data || !data.coffee) {
         LF.agriculture.renderError();
         return;
     }
 
+    // Giá Robusta nội địa (Tây Nguyên)
     var coffeeEl = document.getElementById('agri-coffee-value');
     if (coffeeEl) {
         coffeeEl.className = 'agri-value';
-        var n = parseInt(data.coffee, 10);
-        var s = '' + n;
-        var r = '';
-        var c = 0;
-        var ii;
-        for (ii = s.length - 1; ii >= 0; ii--) {
-            r = s[ii] + r;
-            c++;
-            if (c % 3 === 0 && ii > 0 && s[ii - 1] !== '-') {
-                r = '.' + r;
-            }
+        coffeeEl.textContent = LF.agriculture._formatNumber(data.coffee) + ' \u0111/kg';
+    }
+
+    // Giá Robusta ICE London
+    var worldEl = document.getElementById('agri-coffee-world');
+    var worldRow = document.getElementById('agri-world-row');
+    if (worldEl && data.coffeeWorld) {
+        worldEl.textContent = LF.agriculture._formatNumber(data.coffeeWorld) + ' USD/t\u1EA5n';
+        if (worldRow) { worldRow.style.display = ''; }
+    }
+
+    // Xu hướng tăng/giảm
+    var changeEl = document.getElementById('agri-coffee-change');
+    if (changeEl && data.coffeeChange !== null && data.coffeeChange !== undefined) {
+        var change = data.coffeeChange;
+        if (change > 0) {
+            changeEl.textContent = '\u25B2 +' + LF.agriculture._formatNumber(change);
+            changeEl.className = 'agri-change agri-change-up';
+        } else if (change < 0) {
+            changeEl.textContent = '\u25BC ' + LF.agriculture._formatNumber(change);
+            changeEl.className = 'agri-change agri-change-down';
+        } else {
+            changeEl.textContent = '\u25AC 0';
+            changeEl.className = 'agri-change agri-change-flat';
         }
-        coffeeEl.textContent = r + ' \u0111/kg';
+        changeEl.style.display = '';
+    }
+
+    // Giá theo vùng
+    var regionsEl = document.getElementById('agri-coffee-regions');
+    if (regionsEl && data.coffeeRegions && data.coffeeRegions.length > 0) {
+        var html = '';
+        var i;
+        for (i = 0; i < data.coffeeRegions.length; i++) {
+            var region = data.coffeeRegions[i];
+            html += '<div class="agri-region-item">';
+            html += '<span class="agri-region-name">' + region.name + '</span>';
+            html += '<span class="agri-region-price">' + LF.agriculture._formatNumber(region.price) + '</span>';
+            html += '</div>';
+        }
+        regionsEl.innerHTML = html;
+        regionsEl.style.display = '';
     }
 };
 

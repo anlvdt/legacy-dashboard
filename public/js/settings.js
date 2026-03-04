@@ -12,6 +12,7 @@ LF.settings = {};
 /** Giá trị mặc định cho tất cả cài đặt */
 LF.settings.defaults = {
     // Hiển thị
+    liteMode: false,
     powerSaveMode: false,
     clockOnlyMode: false,
     clockOnlyShowGregorian: false,
@@ -60,7 +61,7 @@ LF.settings._animationDuration = 250;
 LF.settings.sections = [
     {
         title: 'Hiển thị',
-        items: ['powerSaveMode', 'clockOnlyMode', 'clockOnlyShowGregorian', 'clockOnlyShowLunar', 'clockOnlyShowWeather', 'secondsVisible']
+        items: ['liteMode', 'powerSaveMode', 'clockOnlyMode', 'clockOnlyShowGregorian', 'clockOnlyShowLunar', 'clockOnlyShowWeather', 'secondsVisible']
     },
     {
         title: 'Thành phần',
@@ -85,6 +86,7 @@ LF.settings.sections = [
  * Dùng cho getButtonText()
  */
 LF.settings.labels = {
+    liteMode: 'chế độ nhẹ (thiết bị cũ)',
     powerSaveMode: 'tiết kiệm điện',
     clockOnlyMode: 'chế độ nhìn xa',
     clockOnlyShowGregorian: 'ngày dương lịch (nhìn xa)',
@@ -535,6 +537,9 @@ LF.settings.bindEvents = function () {
                         }
                         if ((k === 'clockOnlyShowGregorian' || k === 'clockOnlyShowLunar' || k === 'clockOnlyShowWeather') && LF.app && LF.app.applyClockOnlyMode) {
                             LF.app.applyClockOnlyMode();
+                        }
+                        if (k === 'liteMode' && LF.app && LF.app.applyLiteMode) {
+                            LF.app.applyLiteMode();
                         }
                         if (k === 'powerSaveMode' && LF.app && LF.app.applyPowerSaveMode) {
                             LF.app.applyPowerSaveMode();

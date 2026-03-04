@@ -8,12 +8,10 @@
     <title>Legacy Frame by An Le - Make your old devices great again!</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css?family=Inter:400,600,700|Outfit:400,600,800&display=swap"
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700|Outfit:400,600,800&display=swap"
         rel="stylesheet" media="print" onload="this.media='all'">
     <noscript>
-        <link
-            href="https://fonts.googleapis.com/css?family=Inter:400,600,700|Outfit:400,600,800&display=swap"
+        <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700|Outfit:400,600,800&display=swap"
             rel="stylesheet">
     </noscript>
     <link rel="stylesheet" href="css/styles.css">
@@ -204,10 +202,16 @@
                 <div id="agriculture-widget" class="info-block">
                     <div class="agri-wrapper">
                         <div class="agri-header">Giá Cà Phê Nội Địa</div>
-                        <div class="agri-row">
+                        <div class="agri-row agri-row-main">
                             <span class="agri-type">Robusta (Tây Nguyên)</span>
                             <span class="agri-value loading" id="agri-coffee-value">Đang tải...</span>
+                            <span class="agri-change" id="agri-coffee-change" style="display:none;"></span>
                         </div>
+                        <div class="agri-row agri-row-world" style="display:none;" id="agri-world-row">
+                            <span class="agri-type">Robusta ICE London</span>
+                            <span class="agri-value-sm" id="agri-coffee-world"></span>
+                        </div>
+                        <div class="agri-regions" id="agri-coffee-regions" style="display:none;"></div>
                         <div class="source-credit">Nguồn: giacaphe.com</div>
                     </div>
                 </div>
@@ -228,7 +232,12 @@
                     <div class="news-inline-wrapper">
                         <div class="news-inline-header">
                             <span class="news-inline-label">TIN TỨC</span>
-                            <button id="news-inline-tts-btn" class="news-inline-tts" type="button" title="Đọc tin tức"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" style="vertical-align:-0.1em"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button>
+                            <button id="news-inline-tts-btn" class="news-inline-tts" type="button"
+                                title="Đọc tin tức"><svg viewBox="0 0 24 24" width="1em" height="1em"
+                                    fill="currentColor" style="vertical-align:-0.1em">
+                                    <path
+                                        d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                                </svg></button>
                         </div>
                         <div class="news-inline-scroll-view" id="news-inline-scroll-view">
                             <div class="news-inline-scroll-content" id="news-inline-scroll-content"></div>
@@ -254,6 +263,7 @@
 
                 <!-- Section: Hiển thị -->
                 <span class="settings-label">Hiển thị</span>
+                <button class="settings-btn" id="btn-liteMode">Bật chế độ nhẹ (thiết bị cũ)</button>
                 <button class="settings-btn" id="btn-powerSaveMode">Bật tiết kiệm điện</button>
                 <button class="settings-btn" id="btn-clockOnlyMode">Bật chế độ nhìn xa</button>
                 <button class="settings-btn sub-option" id="btn-clockOnlyShowGregorian">Bật ngày dương lịch (nhìn
@@ -371,83 +381,103 @@
 
     </div><!-- /main-container -->
 
-        <!-- ============================================================
+    <!-- ============================================================
          RADIO CẢI LƯƠNG — Thanh điều khiển radio
          ============================================================ -->
-        <div id="radio-bar" class="radio-bar" style="display:none;">
-            <div class="radio-top-row">
+    <div id="radio-bar" class="radio-bar" style="display:none;">
+        <div class="radio-top-row">
             <div class="radio-controls">
                 <button id="radio-prev-btn" class="radio-btn" type="button" title="Bài trước">
-                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+                    </svg>
                 </button>
                 <button id="radio-play-btn" class="radio-btn radio-btn-play" type="button" title="Phát">
-                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
                 </button>
                 <button id="radio-next-btn" class="radio-btn" type="button" title="Bài tiếp">
-                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+                    </svg>
                 </button>
                 <span class="radio-sep">|</span>
                 <button id="radio-channel-btn" class="radio-btn radio-channel-btn" type="button" title="Đổi kênh">
-                    <svg viewBox="0 0 24 24" width="0.9em" height="0.9em" fill="currentColor" style="vertical-align:-0.1em;margin-right:0.2em"><path d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.89 2 2 2h16c1.11 0 2-.9 2-2V8c0-1.1-.9-2-2-2H8.3l8.26-3.34-.37-.92-13 5.26.01.15zM7 20c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-8h-2v-2h-2v2H4V8h16v4z"/></svg>
+                    <svg viewBox="0 0 24 24" width="0.9em" height="0.9em" fill="currentColor"
+                        style="vertical-align:-0.1em;margin-right:0.2em">
+                        <path
+                            d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.89 2 2 2h16c1.11 0 2-.9 2-2V8c0-1.1-.9-2-2-2H8.3l8.26-3.34-.37-.92-13 5.26.01.15zM7 20c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-8h-2v-2h-2v2H4V8h16v4z" />
+                    </svg>
                     <span id="radio-channel">Cải lương xưa</span>
                 </button>
                 <span class="radio-sep">|</span>
                 <button id="radio-vol-down" class="radio-btn" type="button" title="Giảm âm lượng">
-                    <svg viewBox="0 0 24 24" width="0.9em" height="0.9em" fill="currentColor"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg>
+                    <svg viewBox="0 0 24 24" width="0.9em" height="0.9em" fill="currentColor">
+                        <path
+                            d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z" />
+                    </svg>
                 </button>
                 <span id="radio-volume" class="radio-volume">70%</span>
                 <button id="radio-vol-up" class="radio-btn" type="button" title="Tăng âm lượng">
-                    <svg viewBox="0 0 24 24" width="0.9em" height="0.9em" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                    <svg viewBox="0 0 24 24" width="0.9em" height="0.9em" fill="currentColor">
+                        <path
+                            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                    </svg>
                 </button>
             </div>
             <div class="radio-title-wrap">
                 <span class="radio-icon">
-                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
+                    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+                        <path
+                            d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z" />
+                    </svg>
                 </span>
                 <span id="radio-title" class="radio-title">Nhấn Play để nghe cải lương</span>
                 <span id="radio-time" class="radio-time"></span>
             </div>
-            </div>
-            <div class="radio-progress-wrap" id="radio-progress-wrap">
-                <div class="radio-progress-bar" id="radio-progress-bar">
-                    <div class="radio-progress-fill" id="radio-progress-fill"></div>
-                    <div class="radio-progress-thumb" id="radio-progress-thumb"></div>
-                </div>
+        </div>
+        <div class="radio-progress-wrap" id="radio-progress-wrap">
+            <div class="radio-progress-bar" id="radio-progress-bar">
+                <div class="radio-progress-fill" id="radio-progress-fill"></div>
+                <div class="radio-progress-thumb" id="radio-progress-thumb"></div>
             </div>
         </div>
+    </div>
 
-        <!-- YouTube Player ẩn (off-screen, 1x1px) -->
-        <div id="yt-radio-player" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;"></div>
+    <!-- YouTube Player ẩn (off-screen, 1x1px) -->
+    <div id="yt-radio-player" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;">
+    </div>
 
-        <!-- ============================================================
+    <!-- ============================================================
          EXCHANGE RATE TICKER — Chạy ngang cạnh dưới màn hình
          ============================================================ -->
-        <div id="fx-ticker" class="fx-ticker" style="display:none;">
-            <div class="fx-ticker-track">
-                <div class="fx-ticker-content" id="fx-ticker-content"></div>
-            </div>
+    <div id="fx-ticker" class="fx-ticker" style="display:none;">
+        <div class="fx-ticker-track">
+            <div class="fx-ticker-content" id="fx-ticker-content"></div>
         </div>
+    </div>
 
-        <!-- ============================================================
+    <!-- ============================================================
          JAVASCRIPT — External modules loaded in dependency order
          ============================================================ -->
-        <script src="amlich.js"></script>
-        <script src="js/utils.js"></script>
-        <script src="js/clock.js"></script>
-        <script src="js/calendar.js"></script>
-        <script src="js/weather.js"></script>
-        <script src="js/finance.js"></script>
-        <script src="js/news.js"></script>
-        <script src="js/tts.js"></script>
-        <script src="js/slideshow.js"></script>
-        <script src="js/disaster.js"></script>
-        <script src="js/quotes.js"></script>
-        <script src="js/settings.js"></script>
-        <script src="js/kqxs_fuel.js"></script>
-        <script src="js/agriculture.js"></script>
-        <script src="js/fxticker.js"></script>
-        <script src="js/radio.js"></script>
-        <script src="js/app.js"></script>
+    <script src="amlich.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/clock.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/finance.js"></script>
+    <script src="js/news.js"></script>
+    <script src="js/tts.js"></script>
+    <script src="js/slideshow.js"></script>
+    <script src="js/disaster.js"></script>
+    <script src="js/quotes.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/kqxs_fuel.js"></script>
+    <script src="js/agriculture.js"></script>
+    <script src="js/fxticker.js"></script>
+    <script src="js/radio.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>

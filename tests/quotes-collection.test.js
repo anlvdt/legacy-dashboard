@@ -29,7 +29,7 @@ function loadModulesGlobal() {
   fn();
 }
 
-const VALID_CATEGORIES = ['gia-dinh', 'hoc-tap', 'dao-duc', 'mua-vu', 'cuoc-song', 'tinh-yeu'];
+const VALID_CATEGORIES = ['gia-dinh', 'hoc-tap', 'dao-duc', 'mua-vu', 'cuoc-song', 'tinh-yeu', 'truyen-cam-hung', 'lich-su'];
 
 describe('Feature: legacy-frame-upgrade, Property 8: Bộ sưu tập ca dao đầy đủ và có cấu trúc', () => {
   beforeEach(() => {
@@ -85,7 +85,7 @@ describe('Feature: legacy-frame-upgrade, Property 8: Bộ sưu tập ca dao đ�
    *
    * **Validates: Requirements 5.7**
    */
-  it('all six categories are represented in the collection', () => {
+  it('all eight categories are represented in the collection', () => {
     const collection = globalThis.LF.quotes.collection;
     const categoriesFound = {};
 

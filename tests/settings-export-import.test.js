@@ -27,6 +27,7 @@ function loadSettingsGlobal() {
  */
 function settingsArbitrary() {
   return fc.record({
+    liteMode: fc.boolean(),
     powerSaveMode: fc.boolean(),
     clockOnlyMode: fc.boolean(),
     clockOnlyShowGregorian: fc.boolean(),

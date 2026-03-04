@@ -72,33 +72,24 @@ LF.app._enableLegacyMode = function () {
     if (body.className.indexOf('legacy-device') === -1) {
         body.className = body.className + ' legacy-device';
     }
+};
 
-    // Tắt backdrop-filter bằng cách thêm CSS className
-    // className 'legacy-device' sẽ override backdrop-filter, box-shadow, animation
-    var style = document.createElement('style');
-    style.type = 'text/css';
-    var css = '.legacy-device * { '
-        + '-webkit-backdrop-filter: none !important; '
-        + 'backdrop-filter: none !important; '
-        + '-webkit-animation-duration: 0.01s !important; '
-        + 'animation-duration: 0.01s !important; '
-        + '} '
-        + '.legacy-device .widget-glass { '
-        + 'background: rgba(0,0,0,0.7) !important; '
-        + '-webkit-backdrop-filter: none !important; '
-        + 'backdrop-filter: none !important; '
-        + '}';
+/**
+ * Áp dụng chế độ nhẹ (lite mode)
+ * Tắt backdrop-filter, giảm animation, dùng nền đục
+ * Dùng cho thiết bị cũ hoặc khi user chọn thủ công
+ */
+LF.app.applyLiteMode = function () {
+    var current = LF.settings && LF.settings.current ? LF.settings.current : {};
+    var body = document.body;
+    if (!body) { return; }
 
-    if (style.styleSheet) {
-        // IE8 và trình duyệt cũ
-        style.styleSheet.cssText = css;
+    if (current.liteMode) {
+        if (body.className.indexOf('lite-mode') === -1) {
+            body.className = body.className + ' lite-mode';
+        }
     } else {
-        style.appendChild(document.createTextNode(css));
-    }
-
-    var head = document.getElementsByTagName('head')[0];
-    if (head) {
-        head.appendChild(style);
+        body.className = body.className.replace(/\s*lite-mode/g, '');
     }
 };
 
@@ -504,10 +495,32 @@ LF.app.init = function () {
         LF.settings.load();
     }
 
+    // 4.5. Auto-enable lite mode cho thiết bị cũ (lần đầu tiên)
+    if (LF.app._isLegacy) {
+        var hasExplicitSetting = false;
+        try {
+            var saved = localStorage.getItem(LF.settings._storageKey);
+            if (saved) {
+                var parsed = JSON.parse(saved);
+                if (parsed && typeof parsed.liteMode === 'boolean') {
+                    hasExplicitSetting = true;
+                }
+            }
+        } catch (e) { /* ignore */ }
+
+        if (!hasExplicitSetting) {
+            LF.settings.current.liteMode = true;
+            LF.settings.save();
+        }
+    }
+
     // 5. Áp dụng settings lên DOM
     if (LF.settings && LF.settings.apply) {
         LF.settings.apply();
     }
+
+    // 5.3. Áp dụng lite mode
+    LF.app.applyLiteMode();
 
     // 5.5 Bind settings event listeners
     if (LF.settings && LF.settings.bindEvents) {
@@ -566,22 +579,9 @@ LF.app.init = function () {
         }
     }
 
-    // 11. Tải dữ liệu từ API
-    if (LF.app._isLegacy) {
-        // LEGACY DEVICE: Hiển thị thông báo ngay, bỏ qua API calls
-        // iOS 9 không hỗ trợ TLS hiện đại → API sẽ timeout/fail
-        LF.app._showLegacyMessages();
-
-        // Ẩn widgets phụ thuộc API nặng (FX ticker, news, disaster)
-        var fxEl = document.getElementById('fx-ticker');
-        if (fxEl) { fxEl.style.display = 'none'; }
-        var newsEl = document.getElementById('news-widget');
-        if (newsEl) { newsEl.style.display = 'none'; }
-
-        // Vẫn thử tải weather (cache hoặc API cơ bản) — giảm timeout
-        LF.app._loadStaleCache(current);
-
-    } else if (!LF.app._isOffline) {
+    // 11. Tải dữ liệu từ API — tất cả thiết bị đều gọi API bình thường
+    // iOS 9.3 hỗ trợ TLS 1.2 nên API qua HTTPS hoạt động được
+    if (!LF.app._isOffline) {
         // Thời tiết
         if (LF.weather && LF.weather.loadCurrent) {
             LF.weather.loadCurrent();

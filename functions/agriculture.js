@@ -56,6 +56,79 @@ const parseCoffeePrice = (html) => {
     return null;
 };
 
+/**
+ * Parse giá cà phê Robusta ICE London (USD/tấn)
+ * Tìm pattern "Robusta London" hoặc "ICE" + số USD
+ */
+const parseCoffeeWorld = (html) => {
+    if (!html) return null;
+    // Pattern: "Robusta" ... "X,XXX" hoặc "X.XXX" USD/tấn
+    const match = html.match(/[Rr]obusta[^0-9]{0,60}?(\d{1,2}[.,]\d{3})\s*(?:USD|usd|\$)/);
+    if (match && match[1]) {
+        return parseInt(match[1].replace(/[.,]/g, ''), 10);
+    }
+    // Pattern 2: "London" + giá
+    const match2 = html.match(/London[^0-9]{0,40}?(\d{1,2}[.,]\d{3})/);
+    if (match2 && match2[1]) {
+        return parseInt(match2[1].replace(/[.,]/g, ''), 10);
+    }
+    return null;
+};
+
+/**
+ * Parse giá cà phê theo vùng
+ * Tìm tên vùng + giá: "Đắk Lắk: XX,XXX" etc.
+ */
+const parseCoffeeRegions = (html) => {
+    if (!html) return [];
+    var regions = [];
+    var regionNames = [
+        { name: 'Đắk Lắk', aliases: ['[ĐD][aắ][kc]\\s*L[aắ][kc]', 'Dak\\s*Lak'] },
+        { name: 'Lâm Đồng', aliases: ['L[aâ]m\\s*[ĐD][oồ]ng', 'Lam\\s*Dong'] },
+        { name: 'Gia Lai', aliases: ['Gia\\s*Lai'] },
+        { name: 'Đắk Nông', aliases: ['[ĐD][aắ][kc]\\s*N[oô]ng', 'Dak\\s*Nong'] }
+    ];
+
+    for (var i = 0; i < regionNames.length; i++) {
+        var r = regionNames[i];
+        for (var j = 0; j < r.aliases.length; j++) {
+            try {
+                var regex = new RegExp(r.aliases[j] + '[^0-9]{0,30}?([0-9]+[.,][0-9]{3})', 'i');
+                var m = html.match(regex);
+                if (m && m[1]) {
+                    regions.push({
+                        name: r.name,
+                        price: parseInt(m[1].replace(/[.,]/g, ''), 10)
+                    });
+                    break;
+                }
+            } catch (e) {
+                // skip invalid regex
+            }
+        }
+    }
+    return regions;
+};
+
+/**
+ * Parse thay đổi giá (tăng/giảm)
+ * Tìm pattern "tăng/giảm XX đồng" hoặc "+/-XX"
+ */
+const parseCoffeeChange = (html) => {
+    if (!html) return null;
+    // Pattern: "tăng XX" hoặc "giảm XX"
+    var matchUp = html.match(/tăng[^0-9]{0,20}?([0-9]+[.,]?[0-9]*)/i);
+    var matchDown = html.match(/giảm[^0-9]{0,20}?([0-9]+[.,]?[0-9]*)/i);
+
+    if (matchUp && matchUp[1]) {
+        return parseInt(matchUp[1].replace(/[.,]/g, ''), 10);
+    }
+    if (matchDown && matchDown[1]) {
+        return -parseInt(matchDown[1].replace(/[.,]/g, ''), 10);
+    }
+    return 0;
+};
+
 exports.handler = async function (event, context) {
     try {
         const html = await fetchViaProxy('https://giacaphe.com/gia-ca-phe-noi-dia/', 12000);
@@ -69,6 +142,11 @@ exports.handler = async function (event, context) {
             };
         }
 
+        // Parse thêm dữ liệu mở rộng
+        const coffeeWorld = parseCoffeeWorld(html);
+        const coffeeRegions = parseCoffeeRegions(html);
+        const coffeeChange = parseCoffeeChange(html);
+
         return {
             statusCode: 200,
             headers: {
@@ -76,7 +154,13 @@ exports.handler = async function (event, context) {
                 'Content-Type': 'application/json; charset=utf-8'
             },
             body: JSON.stringify({
-                data: { coffee: coffee, timestamp: new Date().toISOString() }
+                data: {
+                    coffee: coffee,
+                    coffeeWorld: coffeeWorld,
+                    coffeeRegions: coffeeRegions,
+                    coffeeChange: coffeeChange,
+                    timestamp: new Date().toISOString()
+                }
             })
         };
     } catch (e) {
