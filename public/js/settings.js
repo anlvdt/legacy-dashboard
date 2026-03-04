@@ -772,6 +772,41 @@ LF.settings.bindEvents = function () {
         });
     }
 
+    // External fullscreen button (next to gear icon)
+    var fsExtBtn = document.getElementById('fullscreen-btn');
+    if (fsExtBtn) {
+        fsExtBtn.addEventListener('click', function () {
+            try {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    if (document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen();
+                    } else if (document.documentElement.webkitRequestFullscreen) {
+                        document.documentElement.webkitRequestFullscreen();
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                }
+            } catch (e) { }
+        });
+        // Update icon on fullscreen change
+        var updateFsIcon = function () {
+            var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+            var svg = fsExtBtn.querySelector('path');
+            if (svg) {
+                svg.setAttribute('d', isFs
+                    ? 'M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z'
+                    : 'M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z'
+                );
+            }
+        };
+        document.addEventListener('fullscreenchange', updateFsIcon);
+        document.addEventListener('webkitfullscreenchange', updateFsIcon);
+    }
+
     // Refresh photos button — tải ảnh mới ngay lập tức
     var refreshPhotosBtn = document.getElementById('refresh-photos-btn');
     if (refreshPhotosBtn) {
