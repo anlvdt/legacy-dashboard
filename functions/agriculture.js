@@ -225,7 +225,20 @@ exports.handler = async function (event, context) {
                     coffeeChange: coffeeChange,
                     arabica: arabica,
                     pepper: pepper,
-                    timestamp: new Date().toISOString()
+                    timestamp: new Date().toISOString(),
+                    _debug: {
+                        htmlLen: html ? html.length : 0,
+                        hasRobusta: html ? html.indexOf('Robusta') > -1 || html.indexOf('robusta') > -1 : false,
+                        hasArabica: html ? html.indexOf('Arabica') > -1 || html.indexOf('arabica') > -1 : false,
+                        hasTieu: html ? html.indexOf('tiêu') > -1 || html.indexOf('ti\u00eau') > -1 : false,
+                        hasLondon: html ? html.indexOf('London') > -1 : false,
+                        hasDakLak: html ? html.indexOf('Lắk') > -1 || html.indexOf('Lak') > -1 : false,
+                        hasDataPrice: html ? html.indexOf('data-price') > -1 : false,
+                        robustaCtx: html ? (function () { var i = html.indexOf('Robusta'); return i > -1 ? html.substring(i, i + 200) : 'NOT FOUND'; })() : null,
+                        arabicaCtx: html ? (function () { var i = html.indexOf('Arabica'); return i > -1 ? html.substring(i, i + 200) : 'NOT FOUND'; })() : null,
+                        pepperCtx: html ? (function () { var i = html.search(/[Hh][\u1ed3\u00f4]\s*ti[e\u00ea]u/); return i > -1 ? html.substring(i, i + 200) : 'NOT FOUND'; })() : null,
+                        dakLakCtx: html ? (function () { var i = html.search(/[ĐD][aắ][kc]\s*L[aắ][kc]/i); return i > -1 ? html.substring(i, i + 200) : 'NOT FOUND'; })() : null
+                    }
                 }
             })
         };
