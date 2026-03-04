@@ -3028,8 +3028,8 @@ a.news-ticker-item {
 }
 
 .calendar-nav {
-    min-width: 48px;
-    min-height: 48px;
+    min-width: auto;
+    min-height: auto;
 }
 
 /* ================================================================
@@ -3478,8 +3478,14 @@ body.power-save-mode #news-tts-btn {
     display: flex !important;
     -webkit-flex-direction: column !important;
     flex-direction: column !important;
-    -webkit-justify-content: space-between !important;
-    justify-content: space-between !important;
+    -webkit-justify-content: flex-start !important;
+    justify-content: flex-start !important;
+}
+
+/* AQI wrapper — center content vertically */
+#dashboard-bottom-row .aqi-wrapper {
+    -webkit-justify-content: center !important;
+    justify-content: center !important;
 }
 
 /* AQI widget ẩn khi có tag .aqi-hidden */
