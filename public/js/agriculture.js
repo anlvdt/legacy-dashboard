@@ -61,6 +61,15 @@ LF.agriculture._formatNumber = function (n) {
     return r;
 };
 
+/**
+ * Format change value with sign: +100 or -1.400
+ */
+LF.agriculture._formatChange = function (val) {
+    if (!val || val === 0) return '';
+    var sign = val > 0 ? '+' : '';
+    return sign + LF.agriculture._formatNumber(val);
+};
+
 LF.agriculture.render = function (data) {
     if (!data || !data.coffee) {
         LF.agriculture.renderError();
@@ -78,7 +87,11 @@ LF.agriculture.render = function (data) {
     var worldEl = document.getElementById('agri-coffee-world');
     var worldRow = document.getElementById('agri-world-row');
     if (worldEl && data.coffeeWorld) {
-        worldEl.textContent = LF.agriculture._formatNumber(data.coffeeWorld) + ' USD/t\u1EA5n';
+        var wText = LF.agriculture._formatNumber(data.coffeeWorld) + ' USD/t\u1EA5n';
+        if (data.robustaChange) {
+            wText += ' ' + LF.agriculture._formatChange(data.robustaChange);
+        }
+        worldEl.textContent = wText;
         if (worldRow) { worldRow.style.display = ''; }
     }
 
@@ -86,7 +99,11 @@ LF.agriculture.render = function (data) {
     var arabicaEl = document.getElementById('agri-arabica-value');
     var arabicaRow = document.getElementById('agri-arabica-row');
     if (arabicaEl && data.arabica) {
-        arabicaEl.textContent = data.arabica + ' \u00A2/lb';
+        var aText = data.arabica + ' \u00A2/lb';
+        if (data.arabicaChange) {
+            aText += ' ' + LF.agriculture._formatChange(data.arabicaChange);
+        }
+        arabicaEl.textContent = aText;
         if (arabicaRow) { arabicaRow.style.display = ''; }
     }
 
@@ -96,8 +113,7 @@ LF.agriculture.render = function (data) {
     if (pepperEl && data.pepper) {
         var pepperText = LF.agriculture._formatNumber(data.pepper) + ' \u0111/kg';
         if (data.pepperChange && data.pepperChange !== 0) {
-            var pcSign = data.pepperChange > 0 ? '+' : '';
-            pepperText += ' ' + pcSign + LF.agriculture._formatNumber(data.pepperChange);
+            pepperText += ' ' + LF.agriculture._formatChange(data.pepperChange);
         }
         pepperEl.textContent = pepperText;
         if (pepperRow) { pepperRow.style.display = ''; }

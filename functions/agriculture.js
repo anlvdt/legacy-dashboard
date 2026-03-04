@@ -86,20 +86,53 @@ const parseCoffeePrice = (html) => {
  */
 const parseCoffeeWorld = (html) => {
     if (!html) return null;
-    // Find the robusta-london section and get first data-price
     var sectionMatch = html.match(/id=["']robusta-london["'][\s\S]{0,2000}?data-price=["'](\d+(?:\.\d+)?)["']/i);
     if (sectionMatch && sectionMatch[1]) {
         return parseInt(sectionMatch[1], 10);
     }
-    // Fallback: look for "Robusta London" heading then data-price
     var fallback = html.match(/Robusta\s*London[\s\S]{0,1000}?data-price=["'](\d+(?:\.\d+)?)["']/i);
     if (fallback && fallback[1]) {
         return parseInt(fallback[1], 10);
     }
-    // Fallback 2: text match "X,XXX USD/tấn"
     var match2 = html.match(/London[^0-9]{0,40}?(\d{1,2}[.,]\d{3})/);
     if (match2 && match2[1]) {
         return parseInt(match2[1].replace(/[.,]/g, ''), 10);
+    }
+    return null;
+};
+
+/**
+ * Parse thay đổi Robusta London
+ * In the table: data-price cell is followed by change cell
+ */
+const parseRobustaChange = (html) => {
+    if (!html) return null;
+    // Find robusta-london section, then first row: data-price TD, next TD has change
+    var section = html.match(/id=["']robusta-london["'][\s\S]{0,3000}?<\/table>/i);
+    if (!section) return null;
+    var tableHtml = section[0];
+    // Find first data-price td, then the next td with change value
+    var changeMatch = tableHtml.match(/data-price=["']\d+(?:\.\d+)?["'][^<]*<\/td>\s*<td[^>]*>([^<]*)<\/td>/i);
+    if (changeMatch && changeMatch[1]) {
+        var val = changeMatch[1].replace(/[^\d.+-]/g, '');
+        if (val) return parseInt(val, 10);
+    }
+    return null;
+};
+
+/**
+ * Parse thay đổi Arabica New York  
+ */
+const parseArabicaChange = (html) => {
+    if (!html) return null;
+    // Find second livequote table (Arabica), then first data-price + next td
+    var tables = html.match(/class=["'][^"']*livequote[^"']*["'][\s\S]*?<\/table>/gi);
+    if (!tables || tables.length < 2) return null;
+    var arabicaTable = tables[1];
+    var changeMatch = arabicaTable.match(/data-price=["'][\d.]+["'][^<]*<\/td>\s*<td[^>]*>([^<]*)<\/td>/i);
+    if (changeMatch && changeMatch[1]) {
+        var val = changeMatch[1].replace(/[^\d.+-]/g, '');
+        if (val) return parseFloat(val);
     }
     return null;
 };
@@ -264,6 +297,8 @@ exports.handler = async function (event, context) {
         const coffeeRegions = parseCoffeeRegions(html);
         const coffeeChange = parseCoffeeChange(html);
         const arabica = parseArabicaPrice(html);
+        const robustaChange = parseRobustaChange(html);
+        const arabicaChange = parseArabicaChange(html);
 
         // Parse hồ tiêu từ giatieu.com
         const pepper = parsePepperPrice(pepperHtml);
@@ -282,6 +317,8 @@ exports.handler = async function (event, context) {
                     coffeeRegions: coffeeRegions,
                     coffeeChange: coffeeChange,
                     arabica: arabica,
+                    robustaChange: robustaChange,
+                    arabicaChange: arabicaChange,
                     pepper: pepper,
                     pepperChange: pepperChange,
                     timestamp: new Date().toISOString()
