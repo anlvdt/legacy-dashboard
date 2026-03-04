@@ -1404,13 +1404,14 @@ body.power-save-mode .today .solar-day {
     display: flex;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
-    gap: 0;
+    gap: 0 0.8rem;
 }
 
 .settings-grid-col {
-    -webkit-flex: 1 1 48%;
-    flex: 1 1 48%;
-    min-width: 230px;
+    -webkit-flex: 1 1 46%;
+    flex: 1 1 46%;
+    min-width: 220px;
+    padding: 0 0.2rem;
 }
 
 .settings-label {
@@ -1543,7 +1544,7 @@ body.power-save-mode .today .solar-day {
     background: transparent;
     border: none;
     color: #F5F5F5;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
     text-align: left;
     -webkit-transition: background 0.12s ease;
@@ -1590,9 +1591,9 @@ body.power-save-mode .today .solar-day {
 /* ---- iOS Toggle Switch ---- */
 .ios-toggle {
     position: relative;
-    width: 51px;
-    height: 31px;
-    min-width: 51px;
+    width: 42px;
+    height: 26px;
+    min-width: 42px;
     -webkit-flex-shrink: 0;
     flex-shrink: 0;
 }
@@ -1611,7 +1612,7 @@ body.power-save-mode .today .solar-day {
     right: 0;
     bottom: 0;
     background: rgba(120, 120, 128, 0.36);
-    border-radius: 15.5px;
+    border-radius: 13px;
     -webkit-transition: background 0.25s ease;
     transition: background 0.25s ease;
 }
@@ -1624,8 +1625,8 @@ body.power-save-mode .today .solar-day {
     position: absolute;
     top: 2px;
     left: 2px;
-    width: 27px;
-    height: 27px;
+    width: 22px;
+    height: 22px;
     background: #FFFFFF;
     border-radius: 50%;
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
@@ -1635,8 +1636,8 @@ body.power-save-mode .today .solar-day {
 }
 
 .ios-toggle input:checked~.ios-toggle-knob {
-    -webkit-transform: translateX(20px);
-    transform: translateX(20px);
+    -webkit-transform: translateX(16px);
+    transform: translateX(16px);
 }
 
 /* ---- Action row (non-toggle) ---- */
