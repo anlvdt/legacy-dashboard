@@ -1,0 +1,2655 @@
+[
+  {
+    "id": 1,
+    "text": "Trời sinh voi trời sinh cỏ.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 2,
+    "text": "Trâu bò húc nhau ruồi muỗi chết.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 3,
+    "text": "Cá lớn nuốt cá bé.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 4,
+    "text": "Chó cắn người lành.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 5,
+    "text": "Chuồn chuồn bay thấp thì mưa, bay cao thì nắng, bay vừa thì râm.",
+    "author": "Ca dao",
+    "category": "thien-nhien",
+    "source": "Ca dao Việt Nam — Kinh nghiệm quan sát tự nhiên, truyền khẩu"
+  },
+  {
+    "id": 6,
+    "text": "Gió heo may chuồn chuồn bay thì bão.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Kinh nghiệm dự báo thời tiết dân gian"
+  },
+  {
+    "id": 7,
+    "text": "Cọp chết để da, người chết để tiếng.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 8,
+    "text": "Kiến tha lâu cũng đầy tổ.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 9,
+    "text": "Mèo già hóa cáo.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 10,
+    "text": "Cá nước lớn nhảy.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 11,
+    "text": "Chim khôn kêu tiếng rảnh rang, người khôn nói tiếng dịu dàng dễ nghe.",
+    "author": "Ca dao",
+    "category": "thien-nhien",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 12,
+    "text": "Ong non chưa biết giữ mật.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 13,
+    "text": "Rồng đến nhà tôm.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 14,
+    "text": "Sông có khúc, người có lúc.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 15,
+    "text": "Thuận vợ thuận chồng tát Biển Đông cũng cạn.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 16,
+    "text": "Trời đánh tránh miếng ăn.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 17,
+    "text": "Nước chảy chỗ trũng.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 18,
+    "text": "Voi giày thì giày, kiến cắn thì cắn.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 19,
+    "text": "Lên non mới biết non cao, lội sông mới biết sông sâu cạn nào.",
+    "author": "Ca dao",
+    "category": "thien-nhien",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 20,
+    "text": "Rừng vàng biển bạc.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian, ca ngợi tài nguyên nước Việt"
+  },
+  {
+    "text": "Ăn cá bỏ lờ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 21,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ăn cá bỏ xương, ăn quả bỏ hột",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 22,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ăn cơm với cáy thì ngáy o o, ăn cơm với thịt bò thì lo ngay ngáy",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 23,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ăn cướp cơm chim",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 24,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ăn như rồng cuốn ((, nói/uống như rồng leo), làm/mần như mèo mửa/như cà cuống lội ngược)",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 25,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ăn gan giời, trứng trâu, râu bể",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 26,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ba keo thì mèo mở mắt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 27,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Bắt bò cày triều",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 28,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Bắt cá hai tay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 29,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Bầu dục chấm mắm cáy",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 30,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Bịt mắt bắt chim",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 31,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cái sẩy nẩy cái ung",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 32,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cái trước đau cái sau rái",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 33,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cá lớn nuốt cá bé",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 34,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cá mè một lứa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 35,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cá nằm trốc thớt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 36,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cả thèm chóng chán",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 37,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cá vàng bụng bọ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 38,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cát bay vàng lại ra vàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 39,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chim có tổ, người có tông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 40,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chim sa cá lặn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 41,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chim Việt, cành Nam",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 42,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chó dữ mất láng giềng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 43,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chó ngáp phải ruồi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 44,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chó treo mèo đậy",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 45,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chó chê mèo lắm lông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 46,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chó cùng dứt/rứt giậu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 47,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chủ vắng nhà gà vọc niêu tôm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 48,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chân le chân vịt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 49,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chết trâu lại thêm mẻ rìu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 50,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chim tìm tổ, người tìm tông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 51,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chín đụn, mười trâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 52,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chuột chạy cùng sào",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 53,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chực như chó chực cứt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 54,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chửi như mất gà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 55,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Có ăn có chọi mới gọi là trâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 56,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Có cá đổ vạ cho cơm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 57,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Có công mài sắt, có ngày nên kim",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 58,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Có voi đòi tiên/Hai Bà Trưng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 59,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Có má ở nhà có cá mà ăn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 60,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cõng rắn về cắn gà nhà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 61,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cõng voi về dày mả tổ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 62,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cơm nhà chúa múa tối ngày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 63,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đi đêm có ngày gặp ma",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 64,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Được voi đòi tiên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 65,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đói, đầu gối phải bò",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 66,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đời cua cua máy, đời cáy cáy đào",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 67,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Được chim bẻ ná, được cá quên nơm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 68,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Gà què ăn quẩn cối xay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 69,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ai về Nhượng Bạn thì về, Gạo nhiều, cá lắm, dễ bề làm ăn.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 70,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đời người có một gang tay, Ai hay ngủ ngày còn có nửa gang.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 71,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đã cam quấn quít má đào, Những mong chim nhạn mai trao chỉ hồng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 72,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đôi ta như ngãi Phan Trần, Khi xa ngàn dặm, khi gần bên đôi.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 73,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đi ngang thấy ngọn đèn chong chóng, Thấy em nho nhỏ, muốn bồng mà ru.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 74,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đôi ta cùng bạn chăn trâu, Cùng mặc áo vá nhuộm nâu một hang. Bao giờ cho gạo bén sang, Cho trăng bén gió, cho nàng bén anh.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 75,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đố ai lặn xuống vực sâu, Mà đo miệng cá, uốn câu cho vừa.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 76,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đố ai bắt chạch đằng đuôi, Bắt chim đầu cánh, bắt người trong trăng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 77,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đố ai lượm đá quăng trời, Đem gầu tát biển, ghẹo người trong trăng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 78,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đói thì đầu gối phải bò, Cái chân hay chạy cái giò hay đi.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 79,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Em như hoa gạo trên cây Anh như một đám cỏ may bên đường. Lạy trời cho cả gió sương, Hoa gạo rụng xuống, lại luồn cỏ may. Em liều một cái bánh bò",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 80,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Gió đưa cành trúc la đà, Tiếng chuông Trấn Vũ, canh gà Thọ Xương Mịt mù khói tỏa ngàn sương Nhịp chày Yên Thái mặt gương Tây Hồ.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 81,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Gà nào hay bằng gà Cao Lãnh, Gái nào bảnh bằng gái Nha Mân?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 82,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Gái Tầm Vu đồng xu ba đứa, Trai Thủ Thừa cưỡi ngựa xuống mua.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 83,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Làng tôi có lũy tre xanh, Có sông Tô Lịch uốn quanh xóm làng. Bên bờ vải nhãn hai hàng, Dưới sông cá lội từng đàn tung tăng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 84,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Mười năm lưu lạc giang hồ, Một ngày tu tỉnh, cơ đồ lại nên.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 85,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Người ta bán vạn mua ngàn, Thân em buôn bán cơ hàn vẫn vui.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 86,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Phong lưu là cạm ở đời, Hồng nhan là bẫy những người tài hoa.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 87,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ra sông mới biết cạn sâu, Ở trong lạch hói, biết đâu mà dò.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 88,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Rượu nằm trong nhạo chờ nem, Qua nằm thuyền vắng chờ em một mình.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 89,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Số giàu tay trắng cũng giàu, Số nghèo chín đụn mười trâu cũng nghèo.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 90,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Trăm năm bia đá thì mòn, Ngàn năm bia miệng vẫn còn trơ trơ.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 91,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Trong đầm gì đẹp bằng sen, Lá xanh bông trắng lại chen nhị vàng. Nhị vàng bông trắng lá xanh, Gần bùn mà chẳng hôi tanh mùi bùn.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 92,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ta về ta tắm ao ta, Dù trong dù đục, ao nhà vẫn hơn.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 93,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Thân em như củ ấu gai, Ruột trong thì trắng, vỏ ngoài thì đen. Ai ơi, nếm thử mà xem Nếm ra, mới biết rằng em ngọt bùi.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 94,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Thân em như cá giữa rào, Kẻ chài, người lưới biết vào tay ai?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 95,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Thân em như rau muống dưới hồ, Nay chìm mai nổi biết ngày mô cho thành?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 96,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Thân em như cá trong lờ, Hết phương vùng vẫy biết nhờ nơi đâu.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 97,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Thân em như miếng bánh xèo, Nằm trong chạn bếp... biết mèo nào tha.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 98,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ước gì anh hóa ra gương, Để cho em cứ ngày thường em soi. Ước gì anh hóa ra cơi, Để cho em đựng cau tươi trầu vàng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 99,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ai đi muôn dặm non song",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 100,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Để ai chứa chất sầu đong vời đầy",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 101,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Phải chăng chú thợ mộc với cái cưa cái bào",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 102,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Phải chăng chú thợ mộc với cái bào cái cưa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 103,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "6. Ai kêu là rạch, em gọi là song",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 104,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cho chim xanh nỡ bay qua vườn hồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 105,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cái già sòng sọc nó thì theo sau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 106,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "15. Ai ơi chẳng chóng thì chầy",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 107,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Nửa đêm nó bắn rung rinh cái giường",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 108,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "33. Ăn cá nhả xương, ăn đường nuốt chậm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 109,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "42. Ăn đong cho đáng ăn đong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 110,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "51. Ầu ơ... Bồng bống bông bong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 111,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "53. Ầu ơ... Chim quyên lẻ bạn, than thở một mình",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 112,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ai cho bú thép ngày rày mang ơn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 113,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Về sông ăn cá về đồng ăn cua",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 114,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Bắt cá, cá lội trên đàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 115,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Tôm càng hát bội, cá thu cầm chầu",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 116,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "60. Ầu ơ... Ví dầu cá lóc nấu canh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 117,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Bậu câu cá bống chặt đầu kho tiêu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 118,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Mà anh ăn nói gió đưa ngọt ngào",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 119,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "66. Anh đâu phải mê bông quế mà bỏ phế cái bông lài",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 120,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "71. Anh đi kiệu lộng ba bong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 121,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "75. Anh hít cái bông bưởi, anh còn hửi cái bông cam",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 122,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Mong cho anh sớm thành tài",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 123,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "85. Anh say rượu ngày mai sẽ tỉnh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 124,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Như chim vào lồng, như cá cắn câu",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 125,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cá cắn câu biết đâu mà gỡ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 126,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chim vào lồng biết thuở nào ra",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 127,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ngày thì canh điếm tối dồn việc quan",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 128,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "6. Ba tiền một khúc cá buôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 129,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Dưới sông cá chốt trên bờ Triều Châu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 130,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Thay lông đổi cánh lại ra phượng hoàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 131,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "30. Bao phen lên ngựa ra về",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 132,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chim kêu, vượn hú, em nửa mừng nửa lo",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 133,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "41. Bữa ăn có cá cùng canh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 134,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chỉ là cơm nguội phòng khi đói long",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 135,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cá dưới sông biếng lội, chim trên nguồn biếng bay",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 136,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Bên này sông, qua lập cái huyện Hà Đông",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 137,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cái huyện Hà Đông để cho ông Bao Công xử kiện",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 138,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chim kêu dưới suối trên cành",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 139,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Bên kia sông em lập cái quán mười hai từng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 140,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Trời cao muôn trượng, cánh chim hồng bay cao",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 141,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cá ăn thì giựt, để lâu hết mồi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 142,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "67. Bờ sông lại lở xuống song",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 143,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cho nên mới có bồ trong bịch ngoài",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 144,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chửa đặt mình nằm gà gáy, chim kêu",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 145,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "75. Bươm bướm mà đậu cành bong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 146,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "3. Cá bống còn ở trong hang",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 147,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Câu lấy cá bống, nấu rau tập tang",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 148,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "4. Cá kèo mà gặp mắm tươi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 149,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "6. Cá nục nấu với dưa hồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 150,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "7. Cá tươi xem lấy đôi mang",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 151,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "9. Cái cò lặn lội bờ song",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 152,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "10. Cái cò mày đi ăn đêm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 153,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Nhà tao chín đụn, mười trâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 154,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Lại thêm ao cá bắc cầu rửa chân",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 155,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chớ rửa chân mày, chết cá ao anh",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 156,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "12. Cái Răng, Ba Láng, Vàm Xáng, Phong Điền",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 157,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "13. Cái Răng, Ba Láng, Vàm Xáng, Xà No",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 158,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "14. Cái ngủ mày ngủ cho lâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 159,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "15. Cái ngủ mày ngủ cho say",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 160,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "17. Cát bay vàng lại ra vàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 161,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "21. Cầm vàng mà lội qua song",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 162,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "23. Cậu cai nón dấu lông gà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 163,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cá dưới biển hoá long",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 164,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Hạt đen rễ trắng đố chàng là chi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 165,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Của dì, dì giữ ai bòn mặc ai",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 166,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chận ngang sông Mỹ có ngày gặp em",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 167,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "51. Chiều chiều chim vịt kêu chiều",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 168,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "56. Chiều chiều tui buồn tui ra sông cái, tự ải cho rồi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 169,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "57. Chiều chiều vịt lội cò bay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 170,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ông voi bẻ mía chạy n_ vô rừng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 171,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "58. Chim chìa vôi bay ngang đám thuốc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 172,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cá bãi trầu lội tuốt mương cau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 173,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "61. Chim quyên ăn trái nhãn lồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 174,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "62. Chim quyên xuống đất ăn trùng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 175,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chim quyên xuống đất cũng quyên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 176,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "63. Chim trời ai dễ đếm long",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 177,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "67. Chị kia bới tóc đuôi gà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 178,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Em lấy giò mèo em gặm em chơi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 179,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Thoảng vang trong gió rì rào chớm thu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 180,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "81. Chuột kêu chút chít trong rương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 181,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "84. Chừng nào đá nổi rong chìm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 182,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chim đa đa đậu nhánh đa đa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 183,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cái thủ, cái tai",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 184,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chúa hỏi chim gì",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 185,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đỏ mỏ xanh long",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 186,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Nó xoè cánh ra",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 187,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Nó kêu vịt chè",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 188,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Hỏi thăm chú chuột đi đâu vắng nhà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 189,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chú chuột đi chợ đường xa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 190,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Bên lở thì đục, bên bồi thì trong",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 191,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Biết rằng bên đục, bên trong bên nào!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 192,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "122. Có chum cá mới ở đià",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 193,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "124. Có công mài sắt có ngày nên kim",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 194,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Làm chi dở đục, dở trong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 195,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "142. Cõng rắn cắn gà nhà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 196,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Rước voi dày mả tổ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 197,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ngồi trong cửa sổ têm trầu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 198,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "149. Cơm kể ngày, cày kể buổi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 199,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chim kêu vượn hú thêm đau đớn long",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 200,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Mà cho chị mượn cả ngày lẫn đêm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 201,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Của người thì thả cho bò ăn no",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 202,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Một bề biển lớn, ba bề song",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 203,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Dấu giữa phù hoa, há lạt long",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 204,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Thuyền ai thấp thoáng bên song",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 205,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Dã tràng xe cát biển đông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 206,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Xức vô chót mũi, nổi điên tức thời",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 207,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ngủ ngày quen mắt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 208,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đàn đâu mà gảy tai trâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 209,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Trông cá cá lặn trông sao sao mờ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 210,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Thức trắng năm canh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 211,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cùng ăn một lá, cùng nằm một nong",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 212,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chợ trong bán chỉ, chợ ngoài bán kim",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 213,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đốt than nướng cá cho vàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 214,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đồng Tháp Mười cò bay thẳng cánh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 215,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đất lở chim bay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 216,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đêm tháng năm chưa nằm đã sáng, ngày tháng mười chưa cười đã tối.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 217,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đàn gảy tai trâu.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 218,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đèn nhà bên sáng, gà nhà ta thức",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 219,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đầu voi đuôi chuột: khởi đầu lớn lao, rốt cuộc tầm thường",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 220,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đi guốc trong bụng: tự hào hiểu rành mạch sự toan tính lo nghĩ của người",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 221,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đói đầu gối phải bò: nghèo túng bắt buộc phải xoay xở",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 222,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Đổi trắng thay đen: người ngược ngạo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 223,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Được chim bẻ ná, được cá quên nơm: được việc rồi, quên ơn, bỏ người đã giúp mình nên việc",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 224,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chắc có ngày anh sẽ bị ăn dao phay!",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 225,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Em liều một cái bánh bò",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 226,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Còn nào chót chét, cặp giò em chặt hai",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 227,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ai đó lau chùi, biết tới buổi nào xong?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 228,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Sợ rằng chị ả vắt dao trong mình",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 229,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Gà nào hay bằng gà Cao Lãnh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 230,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Gạo Ba Thắt trắng như bông bưởi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 231,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ngoài xanh trong trắng như ngà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 232,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Giàu từ trong trứng giàu ra",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 233,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Như cá cơm ghét cá rói",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 234,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Giận cá chém thớt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 235,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Gạn đục, khơi trong.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 236,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ai ơi đừng chóng chớ chầy",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 237,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cái tôm cái tép đi đưa bà còng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 238,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chó ăn đá, gà ăn muối .",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 239,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cô kia bới tóc đuôi gà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 240,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ăn xôi bỏ cháy, ăn gà bỏ xương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 241,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cái cò lặn lội bờ sông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 242,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Càng lay chân chõng, càng long chân giường",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 243,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Mới để trong nhà, cũ để ngoài sân",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 244,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cá buồn cá lội tung tăng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 245,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Hay là em để làm tin trong nhà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 246,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Cái vỏ vân vân",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 247,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Trông mặt mà bắt hình dong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 248,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Trong đầm gì đẹp bằng sen",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 249,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Lá xanh bông trắng lại chen nhụy vàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 250,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Nhụy vàng, bông trắng, lá xanh.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 251,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Thằng Bờm có cái quạt mo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 252,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Phú ông xin đổi ba bò, chín trâu",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 253,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Bờm rằng Bờm chẳng lấy trâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 254,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Phú ông xin đổi ao sâu cá mè",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 255,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Dù trong dù đục ao nhà vẫn hơn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 256,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Chim vào lồng biết thưở nào ra",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 257,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ngày còn khi sớm khi trưa nữa người",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 258,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Lên voi xuống chó.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 259,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Lùi một bước tiến ngàn dặm.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 260,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Lửa gần rơm lâu ngày cũng bén.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 261,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Mềm nắn, rắn buông.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 262,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Mèo mả gà đồng.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 263,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Mèo gặp mỡ.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 264,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Một lần ngại tốn, bốn lần chẳng xong.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 265,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Muốn ăn cá cả phải thả câu dài.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 266,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Mèo khen mèo dài đuôi.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 267,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Nuôi ong tay áo, nuôi cáo trong nhà.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 268,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Nhìn mặt mà bắt hình dong.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 269,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ông nói chó,bà nói mèo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 270,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ráng mỡ gà có nhà thì chống.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 271,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Rừng nào cọp nấy",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 272,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ráng mỡ gà,có nhà thì giữ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 273,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "T Ta về ta tắm ao ta, dù trong dù đục ao nhà vẫn hơn.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 274,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Tẩm ngẩm tầm ngầm mà đấm chết voi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 275,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Tôm đi chạng vạng, cá đi rạng đông.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 276,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Trâu buộc ghét trâu ăn.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 277,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Trâu cột ghét trâu ăn.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 278,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Trâu già thích gặm cỏ non.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 279,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Tránh voi chẳng xấu mặt nào.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 280,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Ướt như chuột lột",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 281,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Vắng chủ nhà gà vọc niêu tôm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 282,
+    "category": "thien-nhien"
+  },
+  {
+    "text": "Bắt cá hai tay.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 283
+  },
+  {
+    "text": "Cái khó ló cái khôn.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 284
+  },
+  {
+    "text": "Cái nết đánh chết cái đẹp.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 285
+  },
+  {
+    "text": "Chó sủa là chó không cắn.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 286
+  },
+  {
+    "text": "Chơi chó, chó liếm mặt",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 287
+  },
+  {
+    "text": "Đánh chết cái nết cũng không chừa.",
+    "author": "Tục ngữ",
+    "category": "thien-nhien",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 288
+  },
+  {
+    "text": "Ao sâu cá cả",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 289
+  },
+  {
+    "text": "Bạn bè như cái bẹn bà",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 290
+  },
+  {
+    "text": "Cá trê chui ống",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 291
+  },
+  {
+    "text": "Cái nết đánh chết cái đẹp",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 292
+  },
+  {
+    "text": "Chim trời cá nước",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 293
+  },
+  {
+    "text": "Chó ăn vã mắm",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 294
+  },
+  {
+    "text": "Chó cắn ma",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 295
+  },
+  {
+    "text": "Đất lành chim đậu",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 296
+  },
+  {
+    "text": "Đanh đá cá cầy",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 297
+  },
+  {
+    "text": "Đầu bẹt cá trê",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 298
+  },
+  {
+    "text": "Kén cá chọn canh",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 299
+  },
+  {
+    "text": "Khô như cá mắm",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 300
+  },
+  {
+    "text": "Lật cánh đánh đầu",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 301
+  },
+  {
+    "text": "Mèo già hoá cáo, cáo già ra ma",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 302
+  },
+  {
+    "text": "Mèo già thua gan chuột nhắt",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 303
+  },
+  {
+    "text": "Mèo lành chẳng ở mả, ả lành chẳng ở hàng cơm",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 304
+  },
+  {
+    "text": "Mèo già hoá cáo",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 305
+  },
+  {
+    "text": "Thịt thà cá mú",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 306
+  },
+  {
+    "text": "Trâu buộc ghét trâu ăn",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 307
+  },
+  {
+    "text": "Ai cười hở mười cái răng",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 308
+  },
+  {
+    "text": "Ăn như rồng cuốn, nói/uống như rồng leo, làm như mèo mửa",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 309
+  },
+  {
+    "text": "Canh cánh trong lòng",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 310
+  },
+  {
+    "text": "Chỉ bằng cái móng tay",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 311
+  },
+  {
+    "text": "Dán búa lồn/luồn mèo (= Gắn phù lồn/luồn mèo)",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 312
+  },
+  {
+    "text": "Đại công cáo thành",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 313
+  },
+  {
+    "text": "Đàn gảy tai trâu",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 314
+  },
+  {
+    "text": "Đánh chó phải coi mặt chủ",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 315
+  },
+  {
+    "text": "Gắn phù lồn/luồn mèo (= Dán búa lồn/luồn mèo)",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 316
+  },
+  {
+    "text": "Khỏe như trâu",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 317
+  },
+  {
+    "text": "Lên voi xuống chó",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 318
+  },
+  {
+    "text": "Liệu bò đo chuồng",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 319
+  },
+  {
+    "text": "Lo bò trắng răng",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 320
+  },
+  {
+    "text": "Mả táng hàm chó",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 321
+  },
+  {
+    "text": "Mắng chó chửi mèo/Mắng mèo chửi chó",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 322
+  },
+  {
+    "text": "Mặt gà chó đuổi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 323
+  },
+  {
+    "text": "Mất bò mới lo làm chuồng",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 324
+  },
+  {
+    "text": "Mèo khen mèo dài đuôi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 325
+  },
+  {
+    "text": "Môi mỏng dính như cánh chuồn chuồn",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 326
+  },
+  {
+    "text": "Nhăn như cái váy đụp",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 327
+  },
+  {
+    "text": "Nhất phao câu, nhì đầu/chéo cánh (gà)",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 328
+  },
+  {
+    "text": "Nước ngập tới đầu gối/mắt cá chân",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 329
+  },
+  {
+    "text": "Nước mắt cá sấu",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 330
+  },
+  {
+    "text": "Ra cái điều chó đéo bà đây",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 331
+  },
+  {
+    "text": "Xích chó bụi rậm",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 332
+  },
+  {
+    "text": "Âu cũng là cái liễn",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 333
+  },
+  {
+    "text": "Bóng chim tăm cá",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 334
+  },
+  {
+    "text": "Buộc chỉ chân voi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 335
+  },
+  {
+    "text": "Buổi đực buổi cái",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 336
+  },
+  {
+    "text": "Cá chậu chim lồng",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 337
+  },
+  {
+    "text": "Cái kim trong bọc sẽ có ngày lòi ra",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 338
+  },
+  {
+    "text": "Cái sảy nảy cái ung",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 339
+  },
+  {
+    "text": "Cánh tay phải",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 340
+  },
+  {
+    "text": "Câm như cá",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 341
+  },
+  {
+    "text": "Chạy rông như chó dái",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 342
+  },
+  {
+    "text": "Chim lồng cá chậu",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 343
+  },
+  {
+    "text": "Chó ăn đá gà ăn sỏi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 344
+  },
+  {
+    "text": "Chó cậy gần nhà",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 345
+  },
+  {
+    "text": "Chó chui gầm chạn",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 346
+  },
+  {
+    "text": "Chó cùng rứt giậu",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 347
+  },
+  {
+    "text": "Chót lưỡi đầu môi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 348
+  },
+  {
+    "text": "Chửi chó mắng mèo",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 349
+  },
+  {
+    "text": "Cọc tìm trâu",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 350
+  },
+  {
+    "text": "Cô hồn cát đảng",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 351
+  },
+  {
+    "text": "Cơm no bò cưỡi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 352
+  },
+  {
+    "text": "Đầu môi chót lưỡi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 353
+  },
+  {
+    "text": "Kề vai sát cánh",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 354
+  },
+  {
+    "text": "Khỏe như voi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 355
+  },
+  {
+    "text": "Khuynh cái hạ mã",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 356
+  },
+  {
+    "text": "Láu tôm láu cá",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 357
+  },
+  {
+    "text": "Mèo khen mèo dài đuôi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 358
+  },
+  {
+    "text": "Mèo mù vớ cá rán",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 359
+  },
+  {
+    "text": "Mì chính cánh",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 360
+  },
+  {
+    "text": "Mỡ để miệng mèo",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 361
+  },
+  {
+    "text": "Muỗi đốt chân voi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 362
+  },
+  {
+    "text": "Ngũ tử cướp cái",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 363
+  },
+  {
+    "text": "Như cá gặp nước",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 364
+  },
+  {
+    "text": "Nuôi cáo chuồng gà",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 365
+  },
+  {
+    "text": "Trâu già gặm cỏ non",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 366
+  },
+  {
+    "text": "Cái rốn của vũ trụ",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 367
+  },
+  {
+    "text": "Cáo chết ba năm quay đầu về núi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 368
+  },
+  {
+    "text": "Chẳng chóng thì chầy",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 369
+  },
+  {
+    "text": "Chó chê mèo mửa",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 370
+  },
+  {
+    "text": "Đã nghèo còn mắc cái eo",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 371
+  },
+  {
+    "text": "Đầu trâu mặt ngựa",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 372
+  },
+  {
+    "text": "Giấu như mèo giấu cứt",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 373
+  },
+  {
+    "text": "Làm trâu làm ngựa",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 374
+  },
+  {
+    "text": "Mèo mả gà đồng",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 375
+  },
+  {
+    "text": "Thề cá trê chui ống",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 376
+  },
+  {
+    "text": "Trong cái rủi có cái may",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 377
+  },
+  {
+    "text": "Chim mồi chó săn",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 378
+  },
+  {
+    "text": "Chó săn chim mồi",
+    "author": "Thành ngữ",
+    "category": "thien-nhien",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 379
+  }
+]

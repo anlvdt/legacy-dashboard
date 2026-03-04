@@ -1,0 +1,1171 @@
+[
+  {
+    "id": 1,
+    "text": "Không thầy đố mày làm nên.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian, ghi chép trong 'Tục ngữ phong dao' (Nguyễn Văn Ngọc, 1928)"
+  },
+  {
+    "id": 2,
+    "text": "Học ăn, học nói, học gói, học mở.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 3,
+    "text": "Đi một ngày đàng, học một sàng khôn.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 4,
+    "text": "Dao có mài mới sắc, người có học mới hay.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 5,
+    "text": "Muốn sang thì bắc cầu Kiều, muốn con hay chữ thì yêu lấy thầy.",
+    "author": "Ca dao",
+    "category": "hoc-tap",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 6,
+    "text": "Ăn vóc học hay.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 7,
+    "text": "Hay học thì sang, hay làm thì có.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 8,
+    "text": "Một kho vàng không bằng một nang chữ.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 9,
+    "text": "Học thầy không tầy học bạn.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 10,
+    "text": "Ông bảy mươi còn học ông bảy mốt.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 11,
+    "text": "Dốt đến đâu học lâu cũng biết.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 12,
+    "text": "Ếch ngồi đáy giếng.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — gốc thành ngữ Hán Việt 'tỉnh để chi oa'"
+  },
+  {
+    "id": 13,
+    "text": "Học như gạo, đãi như sàng.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 14,
+    "text": "Người không học như ngọc không mài.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — phỏng theo Tam Tự Kinh '玉不琢不成器'"
+  },
+  {
+    "id": 15,
+    "text": "Bán tự vi sư, nhất tự vi sư.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Hán Việt — gốc Hán '一字之師'"
+  },
+  {
+    "id": 16,
+    "text": "Có học mới hay, có cày mới biết.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 17,
+    "text": "Học hành vất vả kết quả ngọt bùi.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 18,
+    "text": "Ăn quả nhớ kẻ trồng cây.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 19,
+    "text": "Tiên học lễ, hậu học văn.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Hán Việt — truyền thống Nho giáo, phổ biến trong giáo dục Việt Nam"
+  },
+  {
+    "id": 20,
+    "text": "Thương cho roi cho vọt, ghét cho ngọt cho bùi.",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "text": "Ăn cơm nhà làm chuyện thiên hạ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 21,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Ăn cơm Phật, đốt râu thầy chùa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 22,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Bất học vô thuật",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 23,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Bụt nhà không thiêng(, đi cầu Thích Ca ngoài đường)",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 24,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Có đi mới đến, có học mới hay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 25,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Của thế gian đãi người ngoan thiên hạ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 26,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Dao có mài có sắc, người có học mới khôn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 27,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Dốt đặc hơn hay chữ lỏng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 28,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đi một ngày đàng, học một sàng khôn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 29,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Gần mực thì đen, gần đèn thì sáng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 30,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Học ăn học nói, học gói học mở",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 31,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Học, học nữa, học mãi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 32,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Học một biết mười",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 33,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Học thầy không tày/tầy/bằng học bạn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 34,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Học phải đi đôi với hành",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 35,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Anh về học lấy chữ hương, Chín trăng em đợi, mười thu em chờ.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 36,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Dã tràng se cát biển đông, Nhọc nhằn mà chẳng nên công cán gì.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 37,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đêm khuya thiếp mới hỏi chàng: Cau xanh ăn với trầu vàng xứng chăng? Trầu vàng nhá lẫn cau xanh, Duyên em sánh với tình anh tuyệt vời.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 38,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đêm đêm tưởng dải Ngân Hà, Chuôi sao Tinh Đẩu đã ba năm tròn. Đá mòn nhưng dạ chẳng mòn, Tào Khê nước chảy vẫn còn trơ trơ.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 39,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đố ai biết đá mấy hòn, Tua rua mấy chiếc, trăng tròn mấy đêm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 40,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đố ai tát bể Đông Khê, Tát sông Bồ Đề, trăng tròn mấy đêm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 41,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đồng Nai có bốn rồng vàng, Lộc họa Lễ phú San đàn Nghĩa thi.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 42,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đèn Sài Gòn ngọn xanh ngọn đỏ Đèn Mỹ Tho ngọn tỏ ngọn lu Anh về học lấy chữ Nhu Chín trăng em đợi mười thu em chờ.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 43,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Học trò xứ Quảng ra thi Thấy cô gái Huế bỏ đi không đành",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 44,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Rủ nhau xem cảnh Kiếm Hồ, Xem cầu Thê Húc, xem chùa Ngọc Sơn, Đài Nghiên, Tháp Bút chưa mòn, Hỏi ai gây dựng nên non nước này?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 45,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Rừng như biển thánh khôn dò, Nhỏ mà không học, lớn mò sao ra.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 46,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Văn chương đựng không đầy lá mít, Võ thì đá không bể nổi mảnh sành, Nghe vua treo bảng cũng xòng xành ra thi. Bảng đề không biết chữ chi, Mài nghiên, mút bút có khi hết ngày.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 47,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Văn chương phú lục chẳng hay, Trở về làng cũ, học cày cho xong. Sớm ngày vác cuốc thăm đồng, Hết nước thì lấy gàu sòng tát lên. Hết mạ ta lại quảy thêm, Hết lúa ta lại mang tiền đi đong. Nữa mai lúa chín đầy đồng, Gặp về đập sảy bõ công cấy cày.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 48,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Yêu nhau củ ấu cũng tròn, Ghét nhau thì củ bồ hòn cũng vuông.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 49,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đã đan thì lặn, tròn vành mới thôi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 50,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "19. Ai ơi đừng lấy học trò",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 51,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thiếp như sầu đượm thắp hoài năm canh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 52,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Học là học đạo làm người",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 53,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Sao anh không học đặng nhờ tấm thân?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 54,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Tôi đi chợ Tết, mua khô cá thiều",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 55,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "77. Anh mau thức dậy học bài",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 56,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Như thầy Tăng, thầy Lộ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 57,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Vì ai cho thiếp biết chàng từ đây",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 58,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Hễ ăn vóc học quen,",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 59,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Nát chùa Thiên Mụ mới phai lời nguyền",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 60,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "53. Bên kia sông, ai lập kiểng chùa Tân Thiện",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 61,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Cái chuà Tân Thiện nhiều kẻ tu hành",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 62,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đàn bà mà lấy đàn ông, thiệt gì",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 63,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đêm ngắn, ngày dài, thua thiệt người ta",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 64,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Chỉ phiền một nỗi nợ với duyên không tròn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 65,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "78. Bước vô trường án, vỗ ván cái rầm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 66,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Tim loan cháy lụn thiếp sầu tư một mình",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 67,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Ba vuông sánh với bảy tròn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 68,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "37. Chàng ôi, giận thiếp mà chi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 69,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thiếp như cơm nguội đỡ khi đói long",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 70,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Chỉ tham cái bút, cái nghiên anh đồ",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 71,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Cô ba ở lại lấy thầy Thông Ngôn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 72,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thác cho rồi đặng chữ thuỷ chung",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 73,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Nồi tròn, vung méo úp sao cho vừa",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 74,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "85. Chữ trinh đáng giá ngàn vàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 75,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Ông thầy ăn một",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 76,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "147. Cổ tay em trắng lại tròn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 77,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "155. Cùng nhau tớ trước thầy sau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 78,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Nhọc nhằn mà chẳng nên công cán gì",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 79,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Hải đường, thơm thiệt là thơm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 80,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Anh về học lấy chữ nhu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 81,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Em có thương anh thì ăn nói cho thiệt tình",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 82,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đêm khuya thiếp mới hỏi chàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 83,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Trách lòng người nghĩa, nói không thiệt lời",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 84,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đi đâu cho thiếp theo cùng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 85,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đói no thiếp chịu lạnh lùng thiếp cam",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 86,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thấy đôi liễn đỏ có bốn chữ vàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 87,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thích bốn chữ vàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 88,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đâm bị thóc, thọc bị gạo.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 89,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đào vi thượng sách: trong nguy nan, trốn đi là cách hay hơn cả",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 90,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đói ăn vụng, túng làm liều: khi thiếu thốn khiến người ta làm việc phi pháp bất lương.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 91,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Để anh theo anh chọc em hoài",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 92,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Tiếng chuông Thiên Mụ, canh gà Thọ Xương",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 93,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Tiếng chuông Xá Lợi, canh gà Thủ Thiêm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 94,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thầy bói gieo quẻ nói rằng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 95,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thiếp như cơm nguội phòng khi đói lòng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 96,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đi một ngày đàng, học một sàng khôn .",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 97,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Đi chơi cũng thiệt lọ là đi buôn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 98,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Còn hơn chính thiếp ngồi trong thuyền chài",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 99,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thứ ba học trò .... )",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 100,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Ở bầu thì tròn, ở ống thì dài",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 101,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Nay anh học gần",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 102,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Mai anh học xa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 103,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Bút nghiên, kinh sách thì là của anh",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 104,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Ra đường thiếp hãy còn son",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 105,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thao trường đổ mồ hôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 106,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Chiến trường bớt đổ máu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 107,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thương thì quả ấu cũng tròn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 108,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Học đi đôi với hành",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 109,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Học thầy không tày học bạn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 110,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Học mười năm biết một ngu si",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 111,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Chơi mà không học, mất cả tương lai",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 112,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Học tài thi phận",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 113,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Khi yêu trái ấu cũng tròn, ghét nhau bồ hòn cũng méo.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 114,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Kính thầy yêu bạn.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 115,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Muốn lành nghề, chớ nề học hỏi.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 116,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Muốn biết phải hỏi, muốn giỏi phải học.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 117,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Một chữ cũng là thầy, nửa chữ cũng là thầy.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 118,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Mưu sự tại nhân hành sự tại thiên.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 119,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Nói có sách, mách có chứng.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 120,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Nhất quỷ nhì ma, thứ ba học trò",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 121,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Nhân chi sơ tính bổn thiện",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 122,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Ngu dốt mà nhiệt tình thành phá hoại.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 123,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Phòng bệnh hơn chữa bệnh.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 124,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Sóng Trường Giang, sóng sau đập sóng trước",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 125,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Tiên học lễ hậu học văn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 126,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thua thầy một vạn không bằng kém bạn một li",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 127,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Thầy bói xem voi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 128,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Văn hay chữ tốt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 129,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "Xấu hay làm tốt, dốt hay nói chữ",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 130,
+    "category": "hoc-tap"
+  },
+  {
+    "text": "* {{cite book | last1 = Hoàng, (Vietnam) | year = 1994 | title = Kể chuyện thành ngữ, tục ngữ | publisher = Khoa học xãhội | page = 7}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 131
+  },
+  {
+    "text": "*{{cite book | last1 = Quang | year = 2004 | title = Khơi nguồn mỹ học dân tộc | publisher = Nhà xuất bản Chính trị quốc gia | page = 27}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 132
+  },
+  {
+    "text": "* {{cite book | last1 = Bảo | year = 2001 | title = Văn nghệ một thời đê nhớ | publisher = Văn học | page = 455}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 133
+  },
+  {
+    "text": "* {{cite book|author=Thái Hòa Nguyễn|title=Tục ngữ Việt Nam: cấu trúc và thi pháp|url=https://books.google.com/books?id=jxxlAAAAMAAJ|year=1997|publisher=Nhà xuất bản Khoa học xã hội|page=111}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 134
+  },
+  {
+    "text": "* {{cite book | last1 = Chơn, Tâm Chơn | year =  | title = Bóng trúc bên thềm | publisher = Nhàsách Quang Minh | page =119}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 135
+  },
+  {
+    "text": "* {{cite book | last1 = Sơn | year = 2001 | title = Truyện cỏ̂tích Việt Nam: bình giải | publisher = Vǎn học | page = 690}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 136
+  },
+  {
+    "text": "* {{cite book | last1 = (Vietnam) | year = 1999 | title = Tuyển tập văn học dân gian Việt Nam | publisher = Nhàxuất bản Giáo dục | page = 47}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 137
+  },
+  {
+    "text": "* {{cite book | last1 = Giáo sưHoàng Xuân Việt | year =  | title = Tìm hiểu lịch sửchữquốc ngữ | publisher = Công ty Văn hóa Hương Trang | page = 369}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 138
+  },
+  {
+    "text": "* {{cite book | last1 = Minh | year =  | title = Học tròkhông học buổi nào | publisher = Công ty Văn hóa Hương Trang | page = 81}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 139
+  },
+  {
+    "text": "*{{cite book | last1 = Minh | year =  | title = Gọi nắng xuân về | publisher = Nhàsách Quang Minh | page = 116}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 140
+  },
+  {
+    "text": "* {{cite book | last1 = Nguyê̋n, Lê, Vő, Viê̜t Nam, (Vietnam) | year = 2006 | title = Thông báo văn hoá dân gian 2005 | publisher = Nhà xuất bản Khoa học xã hội | page = 150}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 141
+  },
+  {
+    "text": "* {{cite book | last1 = Hoàng | year = 1998 | title = Vằng vặc sao khuê: tiểu thuyết lịch sử | publisher = Văn học | page =155}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 142
+  },
+  {
+    "text": "* {{cite book|title=Tạp chí văn học|url=https://books.google.com/books?id=jeF8yt1JBMsC|year=1991|page=50}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 143
+  },
+  {
+    "text": "*{{cite book|last1=Diên Chu|first1=Xuân |last2=Đang Lương|first2=Văn|title=Tục ngữ Việt Nam|url=https://books.google.com/books?id=dBplAAAAMAAJ|year=1993|publisher=Khoa học xã hội|page=232}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 144
+  },
+  {
+    "text": "* {{cite book | last1 = Minh | year =  | title = Hoa nhẫn nhục | publisher = Nhàsách Quang Minh | page = 15}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 145
+  },
+  {
+    "text": "* {{cite book | last1 = Diệu, Nguyễn | year = 2001 | title = Toàn tập Xuân Diệu | publisher = Văn học | page = 76}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 146
+  },
+  {
+    "text": "* {{cite book | last1 = Đinh, Nam | year = 2000 | title = Tỏ̂ng tập văn học Việt Nam | publisher = Khoa Học XãHội | page = 125}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 147
+  },
+  {
+    "text": "* {{cite book | last1 = (Vietnam) | year = 2005 | title = Tiếng Huế, người Huế\\& văn hóa Huế | publisher = Nhà xuất bản Văn học | page = 47}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 148
+  },
+  {
+    "text": "* {{cite book | last1 = Diệu Kim biên soạn | title = Đố vui Phật pháp | publisher = Nhà sách Quang Minh | page = 195}}",
+    "author": "Tục ngữ",
+    "category": "hoc-tap",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 149
+  },
+  {
+    "text": "Đào vi thượng sách",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 150
+  },
+  {
+    "text": "Mắt chữ o mồm chữ a",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 151
+  },
+  {
+    "text": "Ăn vóc học hay",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 152
+  },
+  {
+    "text": "Dốt đặc cán mai",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 153
+  },
+  {
+    "text": "Không thầy đố mày làm nên",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 154
+  },
+  {
+    "text": "Nói có sách, mách có chứng",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 155
+  },
+  {
+    "text": "Ông bảy mươi học ông bảy mốt",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 156
+  },
+  {
+    "text": "Phòng bệnh hơn chữa bệnh",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 157
+  },
+  {
+    "text": "Vô phương cứu chữa",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 158
+  },
+  {
+    "text": "Ăn vóc học hay",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 159
+  },
+  {
+    "text": "Chọc cứt ra mà ngửi",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 160
+  },
+  {
+    "text": "Chữ tác đánh chữ tộ",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 161
+  },
+  {
+    "text": "Một cổ hai tròng",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 162
+  },
+  {
+    "text": "Tốt tóc nhọc cột nhà",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 163
+  },
+  {
+    "text": "Cõng chữ lên non",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 164
+  },
+  {
+    "text": "Thọc gậy bánh xe",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 165
+  },
+  {
+    "text": "Vắt chân chữ ngũ",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 166
+  },
+  {
+    "text": "Tầm sư học đạo",
+    "author": "Thành ngữ",
+    "category": "hoc-tap",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 167
+  }
+]

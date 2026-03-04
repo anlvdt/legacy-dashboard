@@ -1,0 +1,60 @@
+{
+  "total": 4684,
+  "categories": [
+    {
+      "id": "cuoc-song",
+      "count": 1078,
+      "endpoint": "/api/v1/categories/cuoc-song.json"
+    },
+    {
+      "id": "dao-duc",
+      "count": 207,
+      "endpoint": "/api/v1/categories/dao-duc.json"
+    },
+    {
+      "id": "gia-dinh",
+      "count": 621,
+      "endpoint": "/api/v1/categories/gia-dinh.json"
+    },
+    {
+      "id": "hoc-tap",
+      "count": 167,
+      "endpoint": "/api/v1/categories/hoc-tap.json"
+    },
+    {
+      "id": "lao-dong",
+      "count": 186,
+      "endpoint": "/api/v1/categories/lao-dong.json"
+    },
+    {
+      "id": "lich-su",
+      "count": 125,
+      "endpoint": "/api/v1/categories/lich-su.json"
+    },
+    {
+      "id": "mua-vu",
+      "count": 120,
+      "endpoint": "/api/v1/categories/mua-vu.json"
+    },
+    {
+      "id": "thanh-ngu",
+      "count": 1377,
+      "endpoint": "/api/v1/categories/thanh-ngu.json"
+    },
+    {
+      "id": "thien-nhien",
+      "count": 379,
+      "endpoint": "/api/v1/categories/thien-nhien.json"
+    },
+    {
+      "id": "tinh-yeu",
+      "count": 404,
+      "endpoint": "/api/v1/categories/tinh-yeu.json"
+    },
+    {
+      "id": "truyen-cam-hung",
+      "count": 20,
+      "endpoint": "/api/v1/categories/truyen-cam-hung.json"
+    }
+  ]
+}
