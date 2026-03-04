@@ -94,7 +94,12 @@ LF.agriculture.render = function (data) {
     var pepperEl = document.getElementById('agri-pepper-value');
     var pepperRow = document.getElementById('agri-pepper-row');
     if (pepperEl && data.pepper) {
-        pepperEl.textContent = LF.agriculture._formatNumber(data.pepper) + ' \u0111/kg';
+        var pepperText = LF.agriculture._formatNumber(data.pepper) + ' \u0111/kg';
+        if (data.pepperChange && data.pepperChange !== 0) {
+            var pcSign = data.pepperChange > 0 ? '+' : '';
+            pepperText += ' ' + pcSign + LF.agriculture._formatNumber(data.pepperChange);
+        }
+        pepperEl.textContent = pepperText;
         if (pepperRow) { pepperRow.style.display = ''; }
     }
 

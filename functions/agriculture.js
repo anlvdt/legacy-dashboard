@@ -200,32 +200,55 @@ const parseArabicaPrice = (html) => {
 };
 
 /**
- * Parse giá Hồ tiêu (VND/kg)
- * Domestic table uses CSS obfuscation - try data-price or text patterns
+ * Parse giá Hồ tiêu từ giatieu.com/gia-tieu-hom-nay/
+ * Text format: "trung bình ở mức 143,800 VNĐ/kg giảm mạnh -1,900₫"
  */
 const parsePepperPrice = (html) => {
     if (!html) return null;
-    // Approach 1: find "Hồ tiêu" in table, look for data-price nearby
-    var match = html.match(/[Hh]ồ\s*tiêu[\s\S]{0,300}?data-price=["']([\d,.]+)["']/i);
+    // Pattern 1: "trung bình" ... "XXX,XXX" VNĐ/kg
+    var match = html.match(/trung b[\u00ec\u0300i]nh[^0-9]{0,30}?([0-9]{2,3}[.,][0-9]{3})/i);
     if (match && match[1]) {
         return parseInt(match[1].replace(/[.,]/g, ''), 10);
     }
-    // Approach 2: find structured data or JSON-LD with pepper price
-    var jsonMatch = html.match(/["']pepper["']\s*:\s*([\d,]+)/i);
-    if (jsonMatch && jsonMatch[1]) {
-        return parseInt(jsonMatch[1].replace(/[.,]/g, ''), 10);
+    // Pattern 2: title tag "Giá tiêu hôm nay ... XXX,XXX VNĐ/kg"
+    var titleMatch = html.match(/[Gg]i[\u00e1a]\s*ti[\u00eau]u[^0-9]{0,50}?([0-9]{2,3}[.,][0-9]{3})\s*VN/i);
+    if (titleMatch && titleMatch[1]) {
+        return parseInt(titleMatch[1].replace(/[.,]/g, ''), 10);
     }
-    // Approach 3: "Hồ tiêu" ... "XXX,XXX" in text (not in obfuscated table)
-    var textMatch = html.match(/[Hh]ồ\s*tiêu[^<]{0,50}?([0-9]{2,3}[.,][0-9]{3})/i);
-    if (textMatch && textMatch[1]) {
-        return parseInt(textMatch[1].replace(/[.,]/g, ''), 10);
+    // Pattern 3: og:description
+    var ogMatch = html.match(/og:description[^>]*content=["'][^"']*?([0-9]{2,3}[.,][0-9]{3})\s*VN/i);
+    if (ogMatch && ogMatch[1]) {
+        return parseInt(ogMatch[1].replace(/[.,]/g, ''), 10);
     }
     return null;
 };
 
+/**
+ * Parse thay đổi giá Hồ tiêu từ giatieu.com
+ * Pattern: "giảm -1,900" hoặc "tăng +X,XXX"
+ */
+const parsePepperChange = (html) => {
+    if (!html) return null;
+    // Pattern: "-X,XXX" or "+X,XXX" near "giảm/tăng" or after price
+    var downMatch = html.match(/gi[\u1ea3a]m[^0-9]{0,10}?-?([0-9]+[.,]?[0-9]*)/i);
+    if (downMatch && downMatch[1]) {
+        return -Math.abs(parseInt(downMatch[1].replace(/[.,]/g, ''), 10));
+    }
+    var upMatch = html.match(/t[\u0103a]ng[^0-9]{0,10}?\+?([0-9]+[.,]?[0-9]*)/i);
+    if (upMatch && upMatch[1]) {
+        return Math.abs(parseInt(upMatch[1].replace(/[.,]/g, ''), 10));
+    }
+    return 0;
+};
+
 exports.handler = async function (event, context) {
     try {
-        const html = await fetchViaProxy('https://giacaphe.com/gia-ca-phe-noi-dia/', 12000);
+        // Fetch coffee data from giacaphe.com and pepper from giatieu.com in parallel
+        const [html, pepperHtml] = await Promise.all([
+            fetchViaProxy('https://giacaphe.com/gia-ca-phe-noi-dia/', 12000),
+            fetchViaProxy('https://giatieu.com/gia-tieu-hom-nay/', 10000)
+        ]);
+
         const coffee = parseCoffeePrice(html);
 
         if (!coffee) {
@@ -236,12 +259,15 @@ exports.handler = async function (event, context) {
             };
         }
 
-        // Parse thêm dữ liệu mở rộng
+        // Parse cà phê từ giacaphe.com
         const coffeeWorld = parseCoffeeWorld(html);
         const coffeeRegions = parseCoffeeRegions(html);
         const coffeeChange = parseCoffeeChange(html);
         const arabica = parseArabicaPrice(html);
-        const pepper = parsePepperPrice(html);
+
+        // Parse hồ tiêu từ giatieu.com
+        const pepper = parsePepperPrice(pepperHtml);
+        const pepperChange = parsePepperChange(pepperHtml);
 
         return {
             statusCode: 200,
@@ -257,6 +283,7 @@ exports.handler = async function (event, context) {
                     coffeeChange: coffeeChange,
                     arabica: arabica,
                     pepper: pepper,
+                    pepperChange: pepperChange,
                     timestamp: new Date().toISOString()
                 }
             })
