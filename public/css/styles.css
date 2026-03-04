@@ -857,12 +857,30 @@ body.power-save-mode #background-container {
     -webkit-transition: opacity 0.5s ease;
     transition: opacity 0.5s ease;
     background: rgba(20, 20, 20, 0.4);
-    padding: 1.5vmin 2.5vmin;
+    padding: 1vmin 2vmin;
     border-radius: 2vmin;
     border: 1px solid rgba(255, 255, 255, 0.15);
     -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
     box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
     margin-top: 2vmin;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-flex: 1;
+    flex: 1;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 @supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
