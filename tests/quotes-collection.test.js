@@ -15,6 +15,11 @@ const utilsCode = readFileSync(
   'utf-8'
 );
 
+const quotesDataCode = readFileSync(
+  resolve(__dirname, '../public/js/quotes-data.js'),
+  'utf-8'
+);
+
 const quotesCode = readFileSync(
   resolve(__dirname, '../public/js/quotes.js'),
   'utf-8'
@@ -24,12 +29,12 @@ const quotesCode = readFileSync(
  * Load utils.js and quotes.js into the global scope.
  */
 function loadModulesGlobal() {
-  const wrappedCode = utilsCode + '\n' + quotesCode + '\n; globalThis.LF = LF;';
+  const wrappedCode = utilsCode + '\n' + quotesDataCode + '\n' + quotesCode + '\n; globalThis.LF = LF;';
   const fn = new Function(wrappedCode);
   fn();
 }
 
-const VALID_CATEGORIES = ['gia-dinh', 'hoc-tap', 'dao-duc', 'mua-vu', 'cuoc-song', 'tinh-yeu', 'truyen-cam-hung', 'lich-su'];
+const VALID_CATEGORIES = ['gia-dinh', 'hoc-tap', 'dao-duc', 'mua-vu', 'cuoc-song', 'tinh-yeu', 'truyen-cam-hung', 'lich-su', 'thanh-ngu', 'lao-dong', 'thien-nhien'];
 
 describe('Feature: legacy-frame-upgrade, Property 8: Bộ sưu tập ca dao đầy đủ và có cấu trúc', () => {
   beforeEach(() => {
