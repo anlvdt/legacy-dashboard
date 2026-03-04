@@ -1337,7 +1337,7 @@ body.power-save-mode .today .solar-day {
 }
 
 .settings-header-title {
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: #F5F5F5;
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
@@ -1416,7 +1416,7 @@ body.power-save-mode .today .solar-day {
 
 .settings-label {
     display: block;
-    font-size: 0.82rem;
+    font-size: 0.8125rem;
     color: rgba(255, 255, 255, 0.45);
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -1544,7 +1544,7 @@ body.power-save-mode .today .solar-day {
     background: transparent;
     border: none;
     color: #F5F5F5;
-    font-size: 1.05rem;
+    font-size: 1.0625rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
     text-align: left;
     -webkit-transition: background 0.12s ease;
@@ -1671,7 +1671,7 @@ body.power-save-mode .today .solar-day {
 /* ---- Value display in row ---- */
 .ios-row-value {
     color: rgba(255, 255, 255, 0.45);
-    font-size: 0.88rem;
+    font-size: 0.9375rem;
     -webkit-flex-shrink: 0;
     flex-shrink: 0;
 }
