@@ -2,21 +2,35 @@ const https = require('https');
 
 /**
  * Fetch HTML via CORS proxy (giacaphe.com blocks direct requests)
+ * Tries multiple proxies with retry logic
  */
 const fetchViaProxy = (targetUrl, timeout) => new Promise((resolve) => {
-    const proxies = [
+    const proxyTemplates = [
         'https://api.allorigins.win/raw?url=' + encodeURIComponent(targetUrl),
-        'https://corsproxy.io/?' + encodeURIComponent(targetUrl)
+        'https://api.allorigins.win/get?url=' + encodeURIComponent(targetUrl),
+        'https://corsproxy.io/?' + encodeURIComponent(targetUrl),
+        'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(targetUrl)
     ];
 
+    // Build list: try each proxy twice for reliability
+    const proxies = [];
+    for (let i = 0; i < proxyTemplates.length; i++) {
+        proxies.push(proxyTemplates[i]);
+    }
+    for (let i = 0; i < 2; i++) {
+        proxies.push(proxyTemplates[0]); // extra retries for allorigins (most reliable)
+    }
+
     let idx = 0;
+    const MIN_HTML_LEN = 500; // valid page must be >500 chars
+
     function tryNext() {
         if (idx >= proxies.length) return resolve(null);
         const url = proxies[idx];
         const req = https.get(url, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html'
+                'Accept': 'text/html,application/json'
             },
             timeout: timeout || 10000
         }, (res) => {
@@ -27,7 +41,17 @@ const fetchViaProxy = (targetUrl, timeout) => new Promise((resolve) => {
             let data = '';
             res.on('data', (chunk) => data += chunk);
             res.on('end', () => {
-                if (data.length < 100) { idx++; return tryNext(); }
+                // For allorigins /get endpoint, extract contents from JSON
+                if (url.indexOf('/get?url=') > -1) {
+                    try {
+                        const json = JSON.parse(data);
+                        data = json.contents || '';
+                    } catch (e) {
+                        idx++;
+                        return tryNext();
+                    }
+                }
+                if (data.length < MIN_HTML_LEN) { idx++; return tryNext(); }
                 resolve(data);
             });
         });
