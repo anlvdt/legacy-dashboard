@@ -24,6 +24,72 @@ LF.finance.previousValues = { usd: null, goldWorld: null, goldSJC: null };
 LF.finance._failCount = 0;
 LF.finance._loadCount = 0;
 
+/** Key cho daily snapshot */
+LF.finance.DAILY_KEY = 'finance_daily_snapshot';
+
+/**
+ * Lưu giá trị hôm nay vào daily snapshot
+ * Mỗi ngày chỉ lưu 1 lần (giá trị đầu tiên nhận được)
+ */
+LF.finance._saveDailySnapshot = function (key, value) {
+    try {
+        var today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+        var raw = localStorage.getItem('lf_' + LF.finance.DAILY_KEY);
+        var snapshot = raw ? JSON.parse(raw) : {};
+        // Nếu ngày mới → lưu snapshot hôm qua, bắt đầu ngày mới
+        if (snapshot.date && snapshot.date !== today) {
+            snapshot.prev = snapshot.current || {};
+            snapshot.current = {};
+            snapshot.date = today;
+        }
+        if (!snapshot.date) {
+            snapshot.date = today;
+            snapshot.current = {};
+            snapshot.prev = {};
+        }
+        // Lưu giá trị đầu tiên trong ngày
+        if (!snapshot.current[key]) {
+            snapshot.current[key] = value;
+        }
+        localStorage.setItem('lf_' + LF.finance.DAILY_KEY, JSON.stringify(snapshot));
+    } catch (e) { }
+};
+
+/**
+ * Lấy giá trị hôm qua để so sánh
+ * @param {string} key
+ * @returns {number|null}
+ */
+LF.finance._getPrevDayValue = function (key) {
+    try {
+        var raw = localStorage.getItem('lf_' + LF.finance.DAILY_KEY);
+        if (!raw) return null;
+        var snapshot = JSON.parse(raw);
+        if (snapshot.prev && typeof snapshot.prev[key] === 'number') {
+            return snapshot.prev[key];
+        }
+    } catch (e) { }
+    return null;
+};
+
+/**
+ * Format thay đổi so với hôm qua
+ * @param {number} current
+ * @param {number} previous
+ * @param {number} decimals - số chữ thập phân
+ * @returns {string} e.g. " +2.50" or " -100"
+ */
+LF.finance._formatChange = function (current, previous, decimals) {
+    if (previous === null || previous === undefined) return '';
+    var diff = current - previous;
+    if (Math.abs(diff) < 0.001) return '';
+    var sign = diff > 0 ? '+' : '';
+    if (decimals) {
+        return ' ' + sign + diff.toFixed(decimals);
+    }
+    return ' ' + sign + LF.finance._formatNumber(Math.round(diff));
+};
+
 /**
  * Tính xu hướng tăng/giảm so với lần trước
  * @param {number} current - giá trị hiện tại
@@ -179,11 +245,16 @@ LF.finance.loadUSD = function () {
 LF.finance._applyUSD = function (rate) {
     var el = document.getElementById('finance-usd-value');
 
+    LF.finance._saveDailySnapshot('usd', rate);
     LF.finance.previousValues.usd = rate;
 
     if (el) {
         el.className = 'finance-value';
-        el.textContent = LF.finance._formatNumber(Math.round(rate)) + ' VND';
+        var text = LF.finance._formatNumber(Math.round(rate)) + ' VND';
+        var prev = LF.finance._getPrevDayValue('usd');
+        var change = LF.finance._formatChange(rate, prev, 0);
+        if (change) { text += change; }
+        el.textContent = text;
     }
 };
 
@@ -241,11 +312,16 @@ LF.finance.loadGoldWorld = function () {
 LF.finance._applyGoldWorld = function (priceMillionVND) {
     var el = document.getElementById('finance-gold-world-value');
 
+    LF.finance._saveDailySnapshot('goldWorld', priceMillionVND);
     LF.finance.previousValues.goldWorld = priceMillionVND;
 
     if (el) {
         el.className = 'finance-value';
-        el.textContent = priceMillionVND.toFixed(2) + ' tr';
+        var text = priceMillionVND.toFixed(2) + ' tr';
+        var prev = LF.finance._getPrevDayValue('goldWorld');
+        var change = LF.finance._formatChange(priceMillionVND, prev, 2);
+        if (change) { text += change; }
+        el.textContent = text;
     }
 };
 
@@ -351,11 +427,16 @@ LF.finance.loadGoldSJC = function () {
 LF.finance._applyGoldSJC = function (priceMillionVND) {
     var el = document.getElementById('finance-gold-sjc-value');
 
+    LF.finance._saveDailySnapshot('goldSJC', priceMillionVND);
     LF.finance.previousValues.goldSJC = priceMillionVND;
 
     if (el) {
         el.className = 'finance-value';
-        el.textContent = priceMillionVND.toFixed(2) + ' tr';
+        var text = priceMillionVND.toFixed(2) + ' tr';
+        var prev = LF.finance._getPrevDayValue('goldSJC');
+        var change = LF.finance._formatChange(priceMillionVND, prev, 2);
+        if (change) { text += change; }
+        el.textContent = text;
     }
 };
 
