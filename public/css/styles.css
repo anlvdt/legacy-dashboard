@@ -677,26 +677,24 @@ body.power-save-mode #background-container {
 
 .calendar-nav,
 #calendar-title {
-    display: table-cell;
-    vertical-align: middle;
+    display: block;
 }
 
 #calendar-title {
-    width: 70%;
+    -webkit-flex: 1;
+    flex: 1;
     font-size: 1.5vmin;
     font-weight: 700;
+    text-align: center;
 }
 
 .calendar-nav {
-    width: 15%;
     cursor: pointer;
     font-size: 2.5vmin;
     -webkit-user-select: none;
     user-select: none;
-    min-width: 32px;
-    min-height: 32px;
+    padding: 0 1.5vmin;
     text-align: center;
-    line-height: 32px;
 }
 
 #calendar-grid {
@@ -862,7 +860,7 @@ body.power-save-mode #background-container {
     border: 1px solid rgba(255, 255, 255, 0.15);
     -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
     box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
-    margin-top: 2vmin;
+    margin-top: 0;
     display: -webkit-flex;
     display: -webkit-box;
     display: flex;
@@ -1694,7 +1692,7 @@ body.power-save-mode .today .solar-day {
 
 /* ---- Action row (non-toggle) ---- */
 .ios-row.ios-action {
-    color: #007AFF;
+    color: #4DA3FF;
 }
 
 .ios-row.ios-action:active {
@@ -1717,7 +1715,7 @@ body.power-save-mode .today .solar-day {
 }
 
 .ios-row.ios-action .ios-chevron::after {
-    border-color: rgba(0, 122, 255, 0.5);
+    border-color: rgba(77, 163, 255, 0.6);
 }
 
 /* ---- Value display in row ---- */
