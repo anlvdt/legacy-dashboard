@@ -1265,10 +1265,10 @@ body.power-save-mode .today .solar-day {
     top: 3.5rem;
     right: 0;
     background: rgba(20, 20, 20, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 0.5rem;
-    padding: 0.7rem;
-    width: 18rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 0.5rem 0.8rem 0.8rem;
+    width: 19rem;
     max-width: 92vw;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -1319,10 +1319,15 @@ body.power-save-mode .today .solar-day {
 .settings-label {
     display: block;
     font-size: 0.72rem;
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(255, 255, 255, 0.45);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0.5rem 0.3rem 0.2rem;
+    letter-spacing: 0.08em;
+    padding: 0.8rem 0.5rem 0.35rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
+}
+
+.settings-label:first-child {
+    padding-top: 0.3rem;
 }
 
 .settings-btn {
@@ -1391,12 +1396,12 @@ body.power-save-mode .today .solar-day {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* Settings divider — đường kẻ phân cách giữa các section */
+/* Settings divider — hidden in iOS style (groups handle separation) */
 .settings-divider {
     border: none;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 0.5rem 0 0.3rem;
+    height: 0;
+    margin: 0;
+    display: none;
 }
 
 .settings-input:focus {
@@ -1406,6 +1411,225 @@ body.power-save-mode .today .solar-day {
 
 #reset-settings-btn {
     background-color: rgba(192, 57, 43, 0.85);
+}
+
+/* ================================================================
+ * iOS-STYLE COMPONENTS — Groups, Rows, Toggles, Chevrons
+ * ================================================================ */
+
+/* ---- iOS Grouped Inset List ---- */
+.ios-group {
+    background: rgba(44, 44, 46, 0.85);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+/* ---- iOS Row ---- */
+.ios-row {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 44px;
+    padding: 0 1rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: #F5F5F5;
+    font-size: 0.92rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
+    text-align: left;
+    -webkit-transition: background 0.12s ease;
+    transition: background 0.12s ease;
+}
+
+.ios-row:active {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Separator line between rows (indented left like iOS) */
+.ios-row+.ios-row::before,
+.ios-row+.settings-input-group::before,
+.settings-input-group+.ios-row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    right: 0;
+    height: 0.5px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Sub-option rows */
+.ios-row.sub-option {
+    padding-left: 2.2rem;
+}
+
+.ios-row.sub-option::before {
+    left: 2.2rem !important;
+}
+
+/* Row label text */
+.ios-row-label {
+    -webkit-flex: 1;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 0.5rem;
+}
+
+/* ---- iOS Toggle Switch ---- */
+.ios-toggle {
+    position: relative;
+    width: 51px;
+    height: 31px;
+    min-width: 51px;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.ios-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.ios-toggle-track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(120, 120, 128, 0.36);
+    border-radius: 15.5px;
+    -webkit-transition: background 0.25s ease;
+    transition: background 0.25s ease;
+}
+
+.ios-toggle input:checked+.ios-toggle-track {
+    background: #34C759;
+}
+
+.ios-toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 27px;
+    height: 27px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    -webkit-transition: -webkit-transform 0.25s ease;
+    transition: transform 0.25s ease;
+}
+
+.ios-toggle input:checked~.ios-toggle-knob {
+    -webkit-transform: translateX(20px);
+    transform: translateX(20px);
+}
+
+/* ---- Action row (non-toggle) ---- */
+.ios-row.ios-action {
+    color: #007AFF;
+}
+
+.ios-row.ios-action:active {
+    background: rgba(0, 122, 255, 0.1);
+}
+
+/* Chevron for action/disclosure rows */
+.ios-chevron::after {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    margin-left: 0.5rem;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.ios-row.ios-action .ios-chevron::after {
+    border-color: rgba(0, 122, 255, 0.5);
+}
+
+/* ---- Value display in row ---- */
+.ios-row-value {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.88rem;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+/* ---- Danger/Reset row ---- */
+.ios-row.ios-danger {
+    color: #FF453A;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.ios-row.ios-danger:active {
+    background: rgba(255, 69, 58, 0.1);
+}
+
+/* ---- Input group within iOS group ---- */
+.ios-group .settings-input-group {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: 44px;
+    padding: 0 1rem;
+    position: relative;
+    margin-bottom: 0;
+}
+
+.ios-group .settings-input-group.sub-option {
+    padding-left: 2.2rem;
+}
+
+.ios-group .settings-input-label {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.7);
+    -webkit-flex: 1;
+    flex: 1;
+    margin-bottom: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
+}
+
+.ios-group .settings-input {
+    width: auto;
+    max-width: 110px;
+    background: rgba(60, 60, 67, 0.8);
+    color: #F5F5F5;
+    border: none;
+    border-radius: 8px;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.88rem;
+    text-align: center;
 }
 
 /* ================================================================

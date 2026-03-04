@@ -347,21 +347,49 @@ LF.settings.getButtonText = function (settingKey, currentValue) {
 };
 
 /**
- * Cập nhật text tất cả nút trong panel cài đặt
+ * Cập nhật trạng thái tất cả iOS toggle trong panel cài đặt
+ * Sync checkbox checked state với settings values
  */
 LF.settings._updateButtonTexts = function () {
     var key;
-    var btn;
+    var row;
+    var checkbox;
     var current = LF.settings.current;
+    var isHiddenKey;
 
     for (key in LF.settings.defaults) {
         if (!LF.settings.defaults.hasOwnProperty(key)) { continue; }
         if (typeof current[key] !== 'boolean') { continue; }
 
-        btn = document.getElementById('btn-' + key);
-        if (btn) {
-            btn.textContent = LF.settings.getButtonText(key, current[key]);
+        row = document.getElementById('btn-' + key);
+        if (!row) { continue; }
+
+        checkbox = row.querySelector('input[type="checkbox"]');
+        if (!checkbox) {
+            // Fallback: old-style button — update text
+            row.textContent = LF.settings.getButtonText(key, current[key]);
+            continue;
         }
+
+        // "Hidden" keys are inverted: hidden=true means toggle OFF
+        isHiddenKey = (key.indexOf('Hidden') !== -1);
+        if (isHiddenKey) {
+            checkbox.checked = !current[key];
+        } else {
+            checkbox.checked = current[key];
+        }
+    }
+
+    // Update slideshow interval value display
+    var intervalValue = document.querySelector('#btn-slideshowInterval .ios-row-value');
+    if (intervalValue) {
+        intervalValue.textContent = ((current.slideshowInterval || 12000) / 1000) + 's';
+    }
+
+    // Update TTS voice value display
+    var voiceValue = document.getElementById('tts-voice-value');
+    if (voiceValue) {
+        voiceValue.textContent = (current.ttsVoiceGender === 'male') ? 'Nam (NamMinh)' : 'Nữ (HoaiMy)';
     }
 };
 
@@ -521,16 +549,24 @@ LF.settings.bindEvents = function () {
         });
     }
 
-    // Bind toggle buttons cho boolean settings
+    // Bind toggle/checkbox cho boolean settings
     var key;
     for (key in LF.settings.defaults) {
         if (!LF.settings.defaults.hasOwnProperty(key)) { continue; }
         if (typeof LF.settings.defaults[key] === 'boolean') {
             (function (k) {
-                var btn = document.getElementById('btn-' + k);
-                if (btn) {
-                    btn.addEventListener('click', function () {
-                        LF.settings.toggle(k);
+                var row = document.getElementById('btn-' + k);
+                if (!row) { return; }
+                var checkbox = row.querySelector('input[type="checkbox"]');
+                var isHiddenKey = (k.indexOf('Hidden') !== -1);
+
+                if (checkbox) {
+                    // iOS-style toggle: listen for change on checkbox
+                    checkbox.addEventListener('change', function () {
+                        var newValue = isHiddenKey ? !checkbox.checked : checkbox.checked;
+                        LF.settings.set(k, newValue);
+                        LF.settings.apply();
+
                         // Áp dụng chế độ đặc biệt nếu cần
                         if (k === 'clockOnlyMode' && LF.app && LF.app.applyClockOnlyMode) {
                             LF.app.applyClockOnlyMode();
@@ -558,6 +594,20 @@ LF.settings.bindEvents = function () {
                             }
                         }
                     });
+                } else {
+                    // Fallback: old-style button click
+                    row.addEventListener('click', function () {
+                        LF.settings.toggle(k);
+                        if (k === 'clockOnlyMode' && LF.app && LF.app.applyClockOnlyMode) {
+                            LF.app.applyClockOnlyMode();
+                        }
+                        if (k === 'liteMode' && LF.app && LF.app.applyLiteMode) {
+                            LF.app.applyLiteMode();
+                        }
+                        if (k === 'powerSaveMode' && LF.app && LF.app.applyPowerSaveMode) {
+                            LF.app.applyPowerSaveMode();
+                        }
+                    });
                 }
             })(key);
         }
@@ -575,7 +625,10 @@ LF.settings.bindEvents = function () {
             }
             var next = intervals[(idx + 1) % intervals.length];
             LF.settings.set('slideshowInterval', next);
-            intervalBtn.textContent = 'Thời gian chuyển ảnh: ' + (next / 1000) + 's';
+            var valEl = intervalBtn.querySelector('.ios-row-value');
+            if (valEl) {
+                valEl.textContent = (next / 1000) + 's';
+            }
         });
     }
 
@@ -587,7 +640,10 @@ LF.settings.bindEvents = function () {
             var next = (cur === 'female') ? 'male' : 'female';
             LF.settings.current.ttsVoiceGender = next;
             LF.settings.save();
-            ttsGenderBtn.textContent = (next === 'female') ? 'Giọng: Nữ (HoaiMy)' : 'Giọng: Nam (NamMinh)';
+            var voiceValue = document.getElementById('tts-voice-value');
+            if (voiceValue) {
+                voiceValue.textContent = (next === 'female') ? 'Nữ (HoaiMy)' : 'Nam (NamMinh)';
+            }
         });
     }
 

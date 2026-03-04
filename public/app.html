@@ -263,65 +263,189 @@
 
                 <!-- Section: Hiển thị -->
                 <span class="settings-label">Hiển thị</span>
-                <button class="settings-btn" id="btn-liteMode">Bật chế độ nhẹ (thiết bị cũ)</button>
-                <button class="settings-btn" id="btn-powerSaveMode">Bật tiết kiệm điện</button>
-                <button class="settings-btn" id="btn-clockOnlyMode">Bật chế độ nhìn xa</button>
-                <button class="settings-btn sub-option" id="btn-clockOnlyShowGregorian">Bật ngày dương lịch (nhìn
-                    xa)</button>
-                <button class="settings-btn sub-option" id="btn-clockOnlyShowLunar">Bật ngày âm lịch (nhìn
-                    xa)</button>
-                <button class="settings-btn sub-option" id="btn-clockOnlyShowWeather">Bật thời tiết (nhìn
-                    xa)</button>
-                <button class="settings-btn" id="btn-secondsVisible">Bật đồng hồ giây</button>
-                <hr class="settings-divider">
+                <div class="ios-group">
+                    <label class="ios-row" id="btn-liteMode">
+                        <span class="ios-row-label">Chế độ nhẹ (thiết bị cũ)</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-powerSaveMode">
+                        <span class="ios-row-label">Tiết kiệm điện</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-clockOnlyMode">
+                        <span class="ios-row-label">Chế độ nhìn xa</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row sub-option" id="btn-clockOnlyShowGregorian">
+                        <span class="ios-row-label">Ngày dương lịch (nhìn xa)</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row sub-option" id="btn-clockOnlyShowLunar">
+                        <span class="ios-row-label">Ngày âm lịch (nhìn xa)</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row sub-option" id="btn-clockOnlyShowWeather">
+                        <span class="ios-row-label">Thời tiết (nhìn xa)</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-secondsVisible">
+                        <span class="ios-row-label">Đồng hồ giây</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                </div>
 
                 <!-- Section: Thành phần -->
                 <span class="settings-label">Thành phần</span>
-                <button class="settings-btn" id="btn-slideshowHidden">Ẩn ảnh nền</button>
-                <button class="settings-btn" id="btn-dateHidden">Ẩn ngày tháng</button>
-                <button class="settings-btn" id="btn-calendarHidden">Ẩn lịch</button>
-                <button class="settings-btn" id="btn-weatherHidden">Ẩn thời tiết</button>
-                <button class="settings-btn" id="btn-quoteHidden">Ẩn ca dao</button>
-                <button class="settings-btn" id="btn-aqiHidden">Hiện chất lượng không khí</button>
-                <button class="settings-btn" id="btn-showFinanceWidget">Tắt tài chính</button>
-                <button class="settings-btn" id="btn-showDisasterAlerts">Bật cảnh báo thiên tai</button>
-                <button class="settings-btn" id="btn-showNewsTicker">Tắt tin tức</button>
-                <button class="settings-btn" id="btn-showAgriWidget">Tắt nông sản</button>
-                <button class="settings-btn" id="btn-showRadio">Bật radio cải lương</button>
-                <hr class="settings-divider">
+                <div class="ios-group">
+                    <label class="ios-row" id="btn-slideshowHidden">
+                        <span class="ios-row-label">Ảnh nền</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-dateHidden">
+                        <span class="ios-row-label">Ngày tháng</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-calendarHidden">
+                        <span class="ios-row-label">Lịch</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-weatherHidden">
+                        <span class="ios-row-label">Thời tiết</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-quoteHidden">
+                        <span class="ios-row-label">Ca dao</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-aqiHidden">
+                        <span class="ios-row-label">Chất lượng không khí</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-showFinanceWidget">
+                        <span class="ios-row-label">Tài chính</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-showDisasterAlerts">
+                        <span class="ios-row-label">Cảnh báo thiên tai</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-showNewsTicker">
+                        <span class="ios-row-label">Tin tức</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-showAgriWidget">
+                        <span class="ios-row-label">Nông sản</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <label class="ios-row" id="btn-showRadio">
+                        <span class="ios-row-label">Radio cải lương</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                </div>
 
                 <!-- Section: Nguồn ảnh -->
                 <span class="settings-label">Nguồn ảnh</span>
-                <button class="settings-btn" id="btn-useOnlinePhotos">Bật ảnh trực tuyến</button>
-                <button class="settings-btn" id="btn-slideshowInterval">Thời gian chuyển ảnh: 12s</button>
-                <button class="settings-btn" id="refresh-photos-btn">Tải ảnh mới</button>
-                <hr class="settings-divider">
+                <div class="ios-group">
+                    <label class="ios-row" id="btn-useOnlinePhotos">
+                        <span class="ios-row-label">Ảnh trực tuyến</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <button class="ios-row" id="btn-slideshowInterval">
+                        <span class="ios-row-label">Thời gian chuyển ảnh</span>
+                        <span class="ios-row-value">12s</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                    <button class="ios-row ios-action" id="refresh-photos-btn">
+                        <span class="ios-row-label">Tải ảnh mới</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                </div>
 
                 <!-- Section: Tin tức & Cảnh báo -->
                 <span class="settings-label">Tin tức &amp; Cảnh báo</span>
-                <button class="settings-btn" id="btn-newsMultiSource">Tắt đa nguồn tin</button>
-                <button class="settings-btn" id="news-source-btn">Đổi nguồn tin</button>
-                <button class="settings-btn" id="btn-enableTTS">Bật đọc tin giọng nói</button>
-                <button class="settings-btn sub-option" id="btn-ttsVoiceGender">Giọng: Nữ (HoaiMy)</button>
-                <button class="settings-btn sub-option" id="btn-ttsScheduleEnabled">Bật hẹn giờ đọc sáng</button>
-                <div class="settings-input-group sub-option" id="tts-schedule-group">
-                    <label class="settings-input-label" for="tts-schedule-time">Giờ đọc sáng</label>
-                    <input class="settings-input" id="tts-schedule-time" type="time" value="07:00">
+                <div class="ios-group">
+                    <label class="ios-row" id="btn-newsMultiSource">
+                        <span class="ios-row-label">Đa nguồn tin</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <button class="ios-row" id="news-source-btn">
+                        <span class="ios-row-label">Nguồn tin</span>
+                        <span class="ios-row-value" id="news-source-value"></span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                    <label class="ios-row" id="btn-enableTTS">
+                        <span class="ios-row-label">Đọc tin giọng nói</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <button class="ios-row sub-option" id="btn-ttsVoiceGender">
+                        <span class="ios-row-label">Giọng đọc</span>
+                        <span class="ios-row-value" id="tts-voice-value">Nữ (HoaiMy)</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                    <label class="ios-row sub-option" id="btn-ttsScheduleEnabled">
+                        <span class="ios-row-label">Hẹn giờ đọc sáng</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <div class="settings-input-group sub-option" id="tts-schedule-group">
+                        <label class="settings-input-label" for="tts-schedule-time">Giờ đọc sáng</label>
+                        <input class="settings-input" id="tts-schedule-time" type="time" value="07:00">
+                    </div>
                 </div>
-                <hr class="settings-divider">
 
                 <!-- Section: Hướng dẫn -->
                 <span class="settings-label">Hướng dẫn</span>
-                <button class="settings-btn" id="photo-guide-btn">HD: Cập nhật ảnh</button>
-                <button class="settings-btn" id="always-on-guide-btn">HD: Giữ màn hình bật</button>
-                <hr class="settings-divider">
+                <div class="ios-group">
+                    <button class="ios-row ios-action" id="photo-guide-btn">
+                        <span class="ios-row-label">Cập nhật ảnh</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                    <button class="ios-row ios-action" id="always-on-guide-btn">
+                        <span class="ios-row-label">Giữ màn hình bật</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                </div>
 
-                <!-- Xuất/Nhập & Reset -->
-                <span class="settings-label">Xuất/Nhập &amp; Reset</span>
-                <button class="settings-btn settings-action" id="export-settings-btn">Xuất cài đặt</button>
-                <button class="settings-btn settings-action" id="import-settings-btn">Nhập cài đặt</button>
-                <button class="settings-btn settings-action" id="fullscreen-toggle">Toàn màn hình</button>
-                <button class="settings-btn" id="reset-settings-btn">Đặt lại cài đặt</button>
+                <!-- Section: Hệ thống -->
+                <span class="settings-label">Hệ thống</span>
+                <div class="ios-group">
+                    <button class="ios-row ios-action" id="export-settings-btn">
+                        <span class="ios-row-label">Xuất cài đặt</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                    <button class="ios-row ios-action" id="import-settings-btn">
+                        <span class="ios-row-label">Nhập cài đặt</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                    <button class="ios-row ios-action" id="fullscreen-toggle">
+                        <span class="ios-row-label">Toàn màn hình</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                    <button class="ios-row ios-danger" id="reset-settings-btn">
+                        <span class="ios-row-label">Đặt lại cài đặt</span>
+                    </button>
+                </div>
             </div>
         </div>
 
