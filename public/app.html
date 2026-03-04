@@ -259,7 +259,20 @@
                     <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
                 </svg>
             </button>
-            <div id="settings-panel">
+<div class="settings-overlay" id="settings-overlay"></div>
+<div id="settings-panel">
+    <!-- Header -->
+    <div class="settings-header">
+        <span class="settings-header-title">Cài đặt</span>
+        <button class="settings-close-btn" id="settings-close-btn" aria-label="Đóng">&times;</button>
+    </div>
+
+    <!-- Scrollable body -->
+    <div class="settings-body">
+        <div class="settings-grid">
+
+            <!-- LEFT COLUMN -->
+            <div class="settings-grid-col">
 
                 <!-- Section: Hiển thị -->
                 <span class="settings-label">Hiển thị</span>
@@ -300,6 +313,43 @@
                                 class="ios-toggle-knob"></span></span>
                     </label>
                 </div>
+
+                <!-- Section: Nguồn ảnh -->
+                <span class="settings-label">Nguồn ảnh</span>
+                <div class="ios-group">
+                    <label class="ios-row" id="btn-useOnlinePhotos">
+                        <span class="ios-row-label">Ảnh trực tuyến</span>
+                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
+                                class="ios-toggle-knob"></span></span>
+                    </label>
+                    <button class="ios-row" id="btn-slideshowInterval">
+                        <span class="ios-row-label">Thời gian chuyển ảnh</span>
+                        <span class="ios-row-value">12s</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                    <button class="ios-row ios-action" id="refresh-photos-btn">
+                        <span class="ios-row-label">Tải ảnh mới</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                </div>
+
+                <!-- Section: Hướng dẫn -->
+                <span class="settings-label">Hướng dẫn</span>
+                <div class="ios-group">
+                    <button class="ios-row ios-action" id="photo-guide-btn">
+                        <span class="ios-row-label">Cập nhật ảnh</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                    <button class="ios-row ios-action" id="always-on-guide-btn">
+                        <span class="ios-row-label">Giữ màn hình bật</span>
+                        <span class="ios-chevron"></span>
+                    </button>
+                </div>
+
+            </div><!-- /LEFT COLUMN -->
+
+            <!-- RIGHT COLUMN -->
+            <div class="settings-grid-col">
 
                 <!-- Section: Thành phần -->
                 <span class="settings-label">Thành phần</span>
@@ -361,27 +411,8 @@
                     </label>
                 </div>
 
-                <!-- Section: Nguồn ảnh -->
-                <span class="settings-label">Nguồn ảnh</span>
-                <div class="ios-group">
-                    <label class="ios-row" id="btn-useOnlinePhotos">
-                        <span class="ios-row-label">Ảnh trực tuyến</span>
-                        <span class="ios-toggle"><input type="checkbox"><span class="ios-toggle-track"></span><span
-                                class="ios-toggle-knob"></span></span>
-                    </label>
-                    <button class="ios-row" id="btn-slideshowInterval">
-                        <span class="ios-row-label">Thời gian chuyển ảnh</span>
-                        <span class="ios-row-value">12s</span>
-                        <span class="ios-chevron"></span>
-                    </button>
-                    <button class="ios-row ios-action" id="refresh-photos-btn">
-                        <span class="ios-row-label">Tải ảnh mới</span>
-                        <span class="ios-chevron"></span>
-                    </button>
-                </div>
-
-                <!-- Section: Tin tức & Cảnh báo -->
-                <span class="settings-label">Tin tức &amp; Cảnh báo</span>
+                <!-- Section: Tin tức & Giọng nói -->
+                <span class="settings-label">Tin tức &amp; Giọng nói</span>
                 <div class="ios-group">
                     <label class="ios-row" id="btn-newsMultiSource">
                         <span class="ios-row-label">Đa nguồn tin</span>
@@ -414,19 +445,6 @@
                     </div>
                 </div>
 
-                <!-- Section: Hướng dẫn -->
-                <span class="settings-label">Hướng dẫn</span>
-                <div class="ios-group">
-                    <button class="ios-row ios-action" id="photo-guide-btn">
-                        <span class="ios-row-label">Cập nhật ảnh</span>
-                        <span class="ios-chevron"></span>
-                    </button>
-                    <button class="ios-row ios-action" id="always-on-guide-btn">
-                        <span class="ios-row-label">Giữ màn hình bật</span>
-                        <span class="ios-chevron"></span>
-                    </button>
-                </div>
-
                 <!-- Section: Hệ thống -->
                 <span class="settings-label">Hệ thống</span>
                 <div class="ios-group">
@@ -446,8 +464,13 @@
                         <span class="ios-row-label">Đặt lại cài đặt</span>
                     </button>
                 </div>
-            </div>
-        </div>
+
+            </div><!-- /RIGHT COLUMN -->
+
+        </div><!-- /settings-grid -->
+    </div><!-- /settings-body -->
+</div><!-- /settings-panel -->
+</div>        </div>
 
         <!-- ============================================================
          IMAGE LOADING INDICATOR

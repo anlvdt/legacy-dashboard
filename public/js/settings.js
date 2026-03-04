@@ -501,14 +501,18 @@ LF.settings.toggle = function (key) {
 };
 
 /**
- * Mở panel cài đặt với animation opacity + translateY trong 250ms
+ * Mở panel cài đặt với animation opacity + scale trong 250ms
  */
 LF.settings.openPanel = function () {
     var panel = document.getElementById('settings-panel');
+    var overlay = document.getElementById('settings-overlay');
     if (!panel) { return; }
 
     if (panel.className.indexOf('show') === -1) {
         panel.className = panel.className + ' show';
+    }
+    if (overlay && overlay.className.indexOf('show') === -1) {
+        overlay.className = overlay.className + ' show';
     }
 };
 
@@ -517,9 +521,13 @@ LF.settings.openPanel = function () {
  */
 LF.settings.closePanel = function () {
     var panel = document.getElementById('settings-panel');
+    var overlay = document.getElementById('settings-overlay');
     if (!panel) { return; }
 
     panel.className = panel.className.replace(/\s*show/g, '');
+    if (overlay) {
+        overlay.className = overlay.className.replace(/\s*show/g, '');
+    }
 };
 
 /**
@@ -546,6 +554,22 @@ LF.settings.bindEvents = function () {
         toggleBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             LF.settings.togglePanel();
+        });
+    }
+
+    // Close button in header
+    var closeBtn = document.getElementById('settings-close-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+            LF.settings.closePanel();
+        });
+    }
+
+    // Overlay click to close
+    var overlay = document.getElementById('settings-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', function () {
+            LF.settings.closePanel();
         });
     }
 
