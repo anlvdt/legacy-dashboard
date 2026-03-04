@@ -3801,6 +3801,12 @@ body.power-save-mode #news-tts-btn {
     color: #d1d5db;
 }
 
+.agri-region-change {
+    font-size: 1.0vmin;
+    font-weight: 500;
+    margin-left: 0.4vmin;
+}
+
 /* ================================================================
  * RADIO CẢI LƯƠNG — Thanh điều khiển radio
  * ================================================================ */

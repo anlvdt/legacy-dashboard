@@ -82,6 +82,22 @@ LF.agriculture.render = function (data) {
         if (worldRow) { worldRow.style.display = ''; }
     }
 
+    // Giá Arabica New York
+    var arabicaEl = document.getElementById('agri-arabica-value');
+    var arabicaRow = document.getElementById('agri-arabica-row');
+    if (arabicaEl && data.arabica) {
+        arabicaEl.textContent = data.arabica + ' \u00A2/lb';
+        if (arabicaRow) { arabicaRow.style.display = ''; }
+    }
+
+    // Giá Hồ tiêu
+    var pepperEl = document.getElementById('agri-pepper-value');
+    var pepperRow = document.getElementById('agri-pepper-row');
+    if (pepperEl && data.pepper) {
+        pepperEl.textContent = LF.agriculture._formatNumber(data.pepper) + ' \u0111/kg';
+        if (pepperRow) { pepperRow.style.display = ''; }
+    }
+
     // Xu hướng tăng/giảm
     var changeEl = document.getElementById('agri-coffee-change');
     if (changeEl && data.coffeeChange !== null && data.coffeeChange !== undefined) {
@@ -99,7 +115,7 @@ LF.agriculture.render = function (data) {
         changeEl.style.display = '';
     }
 
-    // Giá theo vùng
+    // Giá theo vùng (with per-region change)
     var regionsEl = document.getElementById('agri-coffee-regions');
     if (regionsEl && data.coffeeRegions && data.coffeeRegions.length > 0) {
         var html = '';
@@ -109,6 +125,11 @@ LF.agriculture.render = function (data) {
             html += '<div class="agri-region-item">';
             html += '<span class="agri-region-name">' + region.name + '</span>';
             html += '<span class="agri-region-price">' + LF.agriculture._formatNumber(region.price) + '</span>';
+            if (region.change !== undefined && region.change !== null) {
+                var cls = region.change < 0 ? 'agri-change-down' : (region.change > 0 ? 'agri-change-up' : 'agri-change-flat');
+                var prefix = region.change > 0 ? '+' : '';
+                html += '<span class="agri-region-change ' + cls + '">' + prefix + LF.agriculture._formatNumber(region.change) + '</span>';
+            }
             html += '</div>';
         }
         regionsEl.innerHTML = html;

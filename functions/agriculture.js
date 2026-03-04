@@ -93,13 +93,18 @@ const parseCoffeeRegions = (html) => {
         var r = regionNames[i];
         for (var j = 0; j < r.aliases.length; j++) {
             try {
-                var regex = new RegExp(r.aliases[j] + '[^0-9]{0,30}?([0-9]+[.,][0-9]{3})', 'i');
+                // Match: region name ... price ... change (optional negative)
+                var regex = new RegExp(r.aliases[j] + '[^0-9]{0,30}?([0-9]+[.,][0-9]{3})[^0-9]{0,20}?(-?[0-9]+[.,]?[0-9]*)', 'i');
                 var m = html.match(regex);
                 if (m && m[1]) {
-                    regions.push({
+                    var entry = {
                         name: r.name,
                         price: parseInt(m[1].replace(/[.,]/g, ''), 10)
-                    });
+                    };
+                    if (m[2]) {
+                        entry.change = parseInt(m[2].replace(/[.,]/g, ''), 10);
+                    }
+                    regions.push(entry);
                     break;
                 }
             } catch (e) {
@@ -129,6 +134,39 @@ const parseCoffeeChange = (html) => {
     return 0;
 };
 
+/**
+ * Parse giá Arabica New York (USD cent/lb)
+ * Tìm pattern "Arabica" ... giá hoặc data-price trong bảng Arabica
+ */
+const parseArabicaPrice = (html) => {
+    if (!html) return null;
+    // Pattern 1: data-price attribute in Arabica table
+    var match = html.match(/Arabica[\s\S]{0,500}?data-price="([\d.]+)"/i);
+    if (match && match[1]) {
+        return parseFloat(match[1]);
+    }
+    // Pattern 2: "Arabica" ... "XXX.XX" cent/lb
+    var match2 = html.match(/[Aa]rabica[^0-9]{0,60}?(\d{2,3}\.\d{1,2})/);
+    if (match2 && match2[1]) {
+        return parseFloat(match2[1]);
+    }
+    return null;
+};
+
+/**
+ * Parse giá Hồ tiêu (VND/kg)
+ * Tìm pattern "Hồ tiêu" hoặc "H. tiêu" + giá
+ */
+const parsePepperPrice = (html) => {
+    if (!html) return null;
+    // Pattern: "Hồ tiêu" ... "XXX,XXX" or "XXX.XXX"
+    var match = html.match(/[Hh][ồô]\s*ti[eê]u[^0-9]{0,30}?([0-9]+[.,][0-9]{3})/i);
+    if (match && match[1]) {
+        return parseInt(match[1].replace(/[.,]/g, ''), 10);
+    }
+    return null;
+};
+
 exports.handler = async function (event, context) {
     try {
         const html = await fetchViaProxy('https://giacaphe.com/gia-ca-phe-noi-dia/', 12000);
@@ -146,6 +184,8 @@ exports.handler = async function (event, context) {
         const coffeeWorld = parseCoffeeWorld(html);
         const coffeeRegions = parseCoffeeRegions(html);
         const coffeeChange = parseCoffeeChange(html);
+        const arabica = parseArabicaPrice(html);
+        const pepper = parsePepperPrice(html);
 
         return {
             statusCode: 200,
@@ -159,6 +199,8 @@ exports.handler = async function (event, context) {
                     coffeeWorld: coffeeWorld,
                     coffeeRegions: coffeeRegions,
                     coffeeChange: coffeeChange,
+                    arabica: arabica,
+                    pepper: pepper,
                     timestamp: new Date().toISOString()
                 }
             })
