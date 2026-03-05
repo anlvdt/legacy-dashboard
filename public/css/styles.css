@@ -2421,8 +2421,7 @@ body.lite-mode .source-credit {
 }
 
 /* === COMPACT: Ẩn phần ít quan trọng trên màn hình nhỏ === */
-body.lite-mode .agri-regions,
-body.lite-mode .agri-row-world {
+body.lite-mode .agri-regions {
     display: none !important;
 }
 
@@ -3826,17 +3825,21 @@ body.power-save-mode #news-tts-btn {
     border-radius: 0.4vmin;
     white-space: nowrap;
 }
+
 .price-change:empty {
     display: none;
 }
+
 .price-change-up {
     color: #22c55e;
     background: rgba(34, 197, 94, 0.12);
 }
+
 .price-change-down {
     color: #ef4444;
     background: rgba(239, 68, 68, 0.12);
 }
+
 .price-change-flat {
     color: rgba(255, 255, 255, 0.5);
     background: rgba(255, 255, 255, 0.06);
