@@ -10,7 +10,7 @@ import { resolve } from 'path';
 
 // Load the ES5 module sources
 const amlicCode = readFileSync(
-  resolve(__dirname, '../public/amlich.js'),
+  resolve(__dirname, '../public/amlich-es5.js'),
   'utf-8'
 );
 const calendarCode = readFileSync(
@@ -19,7 +19,7 @@ const calendarCode = readFileSync(
 );
 
 /**
- * Load amlich.js and calendar.js into the global scope.
+ * Load amlich-es5.js and calendar.js into the global scope.
  */
 function loadModules() {
   const amlicFn = new Function('exports', 'module', amlicCode);

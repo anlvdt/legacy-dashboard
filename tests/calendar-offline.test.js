@@ -11,7 +11,7 @@ import { resolve } from 'path';
 
 // Load the ES5 module sources
 const amlicCode = readFileSync(
-  resolve(__dirname, '../public/amlich.js'),
+  resolve(__dirname, '../public/amlich-es5.js'),
   'utf-8'
 );
 const utilsCode = readFileSync(
@@ -34,7 +34,7 @@ const calendarCode = readFileSync(
  * and copying it back after.
  */
 function loadModules() {
-  // amlich.js — UMD, exports _calendar
+  // amlich-es5.js — UMD, exports _calendar
   const amlicFn = new Function('exports', 'module', amlicCode);
   const amlicExports = {};
   amlicFn(amlicExports, { exports: amlicExports });

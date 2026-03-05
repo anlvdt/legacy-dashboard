@@ -11,7 +11,7 @@ import { resolve } from 'path';
 
 // Load the ES5 module sources
 const amlicCode = readFileSync(
-  resolve(__dirname, '../public/amlich.js'),
+  resolve(__dirname, '../public/amlich-es5.js'),
   'utf-8'
 );
 const calendarCode = readFileSync(
@@ -20,10 +20,10 @@ const calendarCode = readFileSync(
 );
 
 /**
- * Load amlich.js and calendar.js into the global scope.
+ * Load amlich-es5.js and calendar.js into the global scope.
  */
 function loadModules() {
-  // amlich.js uses UMD — in Node/test env it writes to exports,
+  // amlich-es5.js uses UMD — in Node/test env it writes to exports,
   // but calendar.js expects global _calendar. We set up both.
   const amlicFn = new Function('exports', 'module', amlicCode);
   const amlicExports = {};

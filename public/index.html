@@ -29,7 +29,56 @@
 </head>
 
 <body>
-    <iframe id="kiosk-frame" src="app.html"></iframe>
+    <iframe id="kiosk-frame"></iframe>
+    <script>
+        /**
+         * Device Detection — ES5 only, inline, no dependencies
+         * Detects legacy devices BEFORE loading any heavy resources.
+         * Legacy: iOS < 10, Android < 5, Chrome < 40
+         * Supports ?force=lite or ?force=full query param override.
+         */
+        (function () {
+            var ua = (navigator && navigator.userAgent) ? navigator.userAgent : '';
+            var isLegacy = false;
+            var m;
+
+            // iOS < 10: "CPU iPhone OS 9_3_5" or "CPU OS 8_4"
+            m = ua.match(/CPU (?:iPhone )?OS (\d+)[_\.]/);
+            if (m && parseInt(m[1], 10) < 10) {
+                isLegacy = true;
+            }
+
+            // Android < 5: "Android 4.4.2"
+            if (!isLegacy) {
+                m = ua.match(/Android (\d+)[\.\s]/);
+                if (m && parseInt(m[1], 10) < 5) {
+                    isLegacy = true;
+                }
+            }
+
+            // Chrome < 40 (excluding Edge/OPR to avoid false positives)
+            if (!isLegacy && ua.indexOf('Chrome') !== -1 && ua.indexOf('Edge') === -1 && ua.indexOf('OPR') === -1) {
+                m = ua.match(/Chrome\/(\d+)/);
+                if (m && parseInt(m[1], 10) < 40) {
+                    isLegacy = true;
+                }
+            }
+
+            // Query param override: ?force=lite or ?force=full
+            var search = window.location.search || '';
+            if (search.indexOf('force=lite') !== -1) {
+                isLegacy = true;
+            } else if (search.indexOf('force=full') !== -1) {
+                isLegacy = false;
+            }
+
+            // Route to appropriate version
+            var frame = document.getElementById('kiosk-frame');
+            if (frame) {
+                frame.src = isLegacy ? 'app-lite.html' : 'app.html';
+            }
+        })();
+    </script>
 </body>
 
 </html>

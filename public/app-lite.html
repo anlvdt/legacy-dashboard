@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Legacy Frame Lite</title>
+    <style>
+        /* ================================================================
+         * Legacy Frame Lite — CSS tối giản cho thiết bị cũ
+         * Không dùng: CSS Grid, CSS Variables, clamp(), backdrop-filter, @supports
+         * Bắt buộc: -webkit- prefix cho flexbox, transition, transform, animation
+         * ================================================================ */
+        html {
+            font-size: 1.5vmin;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background: #0a0a12;
+            background: -webkit-linear-gradient(315deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+            background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+            color: #F5F5F5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Layout */
+        .container {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            padding: 2vmin 3vmin 0 3vmin;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .content-wrapper {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            overflow: hidden;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            padding-bottom: 2vmin;
+        }
+
+        /* Top Row: Clock + Date/Weather */
+        #top-row {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-flex-direction: row;
+            flex-direction: row;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-flex-shrink: 0;
+            flex-shrink: 0;
+            margin-bottom: 1vmin;
+        }
+
+        /* Clock */
+        .clock-wrapper {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: column;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1 1 auto;
+            flex: 1 1 auto;
+            margin: 0.75vmin;
+        }
+
+        #digital-clock {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .clock-seg {
+            background: rgba(20, 20, 20, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 2.5vmin;
+            padding: 0.5vmin 2vmin;
+            -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+            box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+        }
+
+        .clock-seg span {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 800;
+            font-size: 11vmin;
+            color: #fff;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.8), 0 0 1vmin rgba(255, 255, 255, 0.2);
+        }
+
+        .clock-sep {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 800;
+            font-size: 8vmin;
+            color: #fff;
+            margin: 0 1.5vmin;
+            text-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.8);
+        }
+
+        @-webkit-keyframes blink {
+            50% {
+                opacity: 0.15;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.15;
+            }
+        }
+
+        .colon-blink {
+            -webkit-animation: blink 1s infinite;
+            animation: blink 1s infinite;
+        }
+
+        /* Date + Weather group */
+        .info-group {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: column;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1 1 auto;
+            flex: 1 1 auto;
+            margin: 0.75vmin;
+        }
+
+        .date-box,
+        .weather-box {
+            font-weight: 700;
+            padding: 1vmin 2vmin;
+            background: rgba(15, 15, 20, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 2vmin;
+            -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .date-box {
+            font-size: 3.2vmin;
+        }
+
+        .date-box p {
+            margin: 0.3vmin 0;
+        }
+
+        #greg-date {
+            opacity: 0.95;
+            font-weight: 700;
+        }
+
+        #lunar-date {
+            color: #f39c12;
+        }
+
+        .weather-box {
+            font-size: 2.5vmin;
+            margin-top: 0.5vmin;
+        }
+
+        #weather-loc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5vmin;
+            margin-bottom: 0.3vmin;
+        }
+
+        .weather-line {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .weather-line>span {
+            margin: 0 0.5rem;
+        }
+
+        #weather-desc {
+            font-size: 1.4vmin;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        /* Mid Row: Quote */
+        #mid-row {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-flex: 0;
+            -webkit-flex: 0 1 auto;
+            flex: 0 1 auto;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
+
+        .quote-wrap {
+            padding: 0.5vmin 2vmin;
+            text-align: center;
+        }
+
+        .quote-text {
+            font-size: 2.2vmin;
+            font-style: italic;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .quote-author {
+            font-size: 1.5vmin;
+            color: #f39c12;
+            margin-top: 0.5vmin;
+            font-weight: 400;
+        }
+
+        /* Bottom Row: Calendar + Simplified Widgets */
+        #bottom-row {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-flex-direction: row;
+            flex-direction: row;
+            -webkit-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+            -webkit-box-align: start;
+            -webkit-align-items: flex-start;
+            align-items: flex-start;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-flex-shrink: 1;
+            flex-shrink: 1;
+            overflow: hidden;
+        }
+
+        .widget {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: column;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1 1 0;
+            flex: 1 1 0;
+            margin: 0.5vmin;
+            max-height: 40vh;
+            overflow: hidden;
+        }
+
+        /* Calendar */
+        #cal-container {
+            background: rgba(20, 20, 20, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 1vmin;
+            border-radius: 2vmin;
+            width: 100%;
+            max-width: 48vmin;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0 auto;
+            -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+            box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+        }
+
+        #cal-header {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        #cal-title {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            font-size: 1.5vmin;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .cal-nav {
+            cursor: pointer;
+            font-size: 2.5vmin;
+            -webkit-user-select: none;
+            user-select: none;
+            padding: 0 1.5vmin;
+            text-align: center;
+        }
+
+        #cal-grid {
+            margin-top: 0.3vmin;
+        }
+
+        #cal-grid::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .cal-cell {
+            float: left;
+            width: 14.28%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .cal-cell::before {
+            content: '';
+            display: block;
+            padding-top: 100%;
+        }
+
+        .cal-inner {
+            position: absolute;
+            top: 0.2rem;
+            right: 0.2rem;
+            bottom: 0.2rem;
+            left: 0.2rem;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .day-hdr .cal-inner {
+            font-weight: 700;
+            color: #f39c12;
+            font-size: 1.3vmin;
+        }
+
+        .solar-d {
+            font-size: 1.4vmin;
+            font-weight: 700;
+            display: block;
+        }
+
+        .lunar-d {
+            font-size: 1.1vmin;
+            display: block;
+            color: #f39c12;
+            opacity: 0.8;
+        }
+
+        .other-m {
+            opacity: 0.3;
+        }
+
+        .today-cell .cal-inner {
+            background-color: rgba(243, 156, 18, 0.85);
+            color: #000;
+            border-radius: 0.8vmin;
+            font-weight: 800;
+            -webkit-box-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.5);
+        }
+
+        .today-cell .lunar-d {
+            color: #000;
+        }
+
+        /* Lite badge */
+        .lite-badge {
+            position: fixed;
+            bottom: 0.5vmin;
+            right: 1vmin;
+            font-size: 1vmin;
+            color: rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+
+            <!-- TOP ROW -->
+            <div id="top-row">
+                <div class="clock-wrapper">
+                    <div id="digital-clock">
+                        <div class="clock-seg"><span id="c-hours">00</span></div>
+                        <div class="clock-sep colon-blink">:</div>
+                        <div class="clock-seg"><span id="c-minutes">00</span></div>
+                    </div>
+                </div>
+                <div class="info-group">
+                    <div class="date-box">
+                        <p id="greg-date"></p>
+                        <p id="lunar-date"></p>
+                    </div>
+                    <div class="weather-box">
+                        <div id="weather-loc">Đang tải...</div>
+                        <div class="weather-line">
+                            <span id="weather-icon"></span>
+                            <span id="weather-temp"></span>
+                            <span id="weather-desc">Đang tải thời tiết...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MID ROW: Quote -->
+            <div id="mid-row">
+                <div class="quote-wrap">
+                    <div class="quote-text" id="quote-text">...</div>
+                    <div class="quote-author" id="quote-author">Việt Nam</div>
+                </div>
+            </div>
+
+            <!-- BOTTOM ROW -->
+            <div id="bottom-row">
+                <div class="widget">
+                    <div id="cal-container">
+                        <div id="cal-header">
+                            <div class="cal-nav" id="cal-prev">&lt;</div>
+                            <div id="cal-title"></div>
+                            <div class="cal-nav" id="cal-next">&gt;</div>
+                        </div>
+                        <div id="cal-grid"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="lite-badge">Legacy Frame Lite</div>
+
+    <script>
+        /**
+         * Legacy Frame Lite — ES5 only, single file, no external dependencies
+         * Designed for: iOS < 10, Android < 5, Chrome < 40
+         */
+        (function () {
+            if (typeof document === 'undefined') { return; }
+
+            /* ============================================================
+             * POLYFILL: requestAnimationFrame
+             * ============================================================ */
+            if (typeof window !== 'undefined' && !window.requestAnimationFrame) {
+                window.requestAnimationFrame = function (fn) { return setTimeout(fn, 16); };
+            }
+
+            /* ============================================================
+             * CLOCK
+             * ============================================================ */
+            var hoursEl = document.getElementById('c-hours');
+            var minsEl = document.getElementById('c-minutes');
+
+            function updateClock() {
+                var now = new Date();
+                var h = now.getHours();
+                var m = now.getMinutes();
+                if (hoursEl) { hoursEl.textContent = (h < 10 ? '0' : '') + h; }
+                if (minsEl) { minsEl.textContent = (m < 10 ? '0' : '') + m; }
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            /* ============================================================
+             * SIMPLE LUNAR DATE (ES5 — Zeller-based approximation)
+             * Uses a simplified table-based approach for 2020-2030
+             * For dates outside range, shows only Gregorian
+             * ============================================================ */
+            var THANG = ['Giêng', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy', 'Tám', 'Chín', 'Mười', 'Mười Một', 'Chạp'];
+            var THU = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'];
+            var CAN = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+            var CHI = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+
+            /**
+             * Julian Day Number from Gregorian date
+             */
+            function jdn(d, m, y) {
+                var a = Math.floor((14 - m) / 12);
+                var yy = y + 4800 - a;
+                var mm = m + 12 * a - 3;
+                var j = d + Math.floor((153 * mm + 2) / 5) + 365 * yy + Math.floor(yy / 4) - Math.floor(yy / 100) + Math.floor(yy / 400) - 32045;
+                return j;
+            }
+
+            /**
+             * Sun longitude at julian day (simplified)
+             */
+            function sunLongitude(jd) {
+                var T = (jd - 2451545.0) / 36525.0;
+                var dr = Math.PI / 180;
+                var M = 357.5291 + 35999.0503 * T;
+                var L0 = 280.46645 + 36000.76983 * T;
+                var DL = (1.9146 - 0.004817 * T) * Math.sin(dr * M) + 0.019993 * Math.sin(dr * 2 * M);
+                var L = L0 + DL;
+                L = L - 360 * Math.floor(L / 360);
+                return L;
+            }
+
+            /**
+             * New moon calculation (simplified Meeus)
+             */
+            function newMoon(k) {
+                var T = k / 1236.85;
+                var T2 = T * T;
+                var T3 = T2 * T;
+                var dr = Math.PI / 180;
+                var Jd1 = 2415020.75933 + 29.53058868 * k + 0.0001178 * T2 - 0.000000155 * T3;
+                Jd1 = Jd1 + 0.00033 * Math.sin((166.56 + 132.87 * T - 0.009173 * T2) * dr);
+                var M = 359.2242 + 29.10535608 * k - 0.0000333 * T2;
+                var Mpr = 306.0253 + 385.81691806 * k + 0.0107306 * T2;
+                var F = 21.2964 + 390.67050646 * k - 0.0016528 * T2;
+                var C1 = (0.1734 - 0.000393 * T) * Math.sin(M * dr) + 0.0021 * Math.sin(2 * dr * M);
+                C1 = C1 - 0.4068 * Math.sin(Mpr * dr) + 0.0161 * Math.sin(dr * 2 * Mpr);
+                C1 = C1 - 0.0004 * Math.sin(dr * 3 * Mpr);
+                C1 = C1 + 0.0104 * Math.sin(dr * 2 * F) - 0.0051 * Math.sin(dr * (M + Mpr));
+                C1 = C1 - 0.0074 * Math.sin(dr * (M - Mpr)) + 0.0004 * Math.sin(dr * (2 * F + M));
+                C1 = C1 - 0.0004 * Math.sin(dr * (2 * F - M)) - 0.0006 * Math.sin(dr * (2 * F + Mpr));
+                C1 = C1 + 0.001 * Math.sin(dr * (2 * F - Mpr)) + 0.0005 * Math.sin(dr * (2 * Mpr + M));
+                return Math.floor(Jd1 + C1 + 0.5);
+            }
+
+            function getNewMoonDay(k, timeZone) {
+                return newMoon(k) - Math.floor(timeZone / 24.0 - 0.5);
+            }
+
+            function getSunLon(jd, timeZone) {
+                return sunLongitude(jd - 0.5 - timeZone / 24.0);
+            }
+
+            function getLunarMonth11(yy, timeZone) {
+                var off = jdn(31, 12, yy) - 2415021;
+                var k = Math.floor(off / 29.530588853);
+                var nm = getNewMoonDay(k, timeZone);
+                var sl = Math.floor(getSunLon(nm, timeZone) / 30);
+                if (sl >= 9) {
+                    nm = getNewMoonDay(k - 1, timeZone);
+                }
+                return nm;
+            }
+
+            function getLeapMonthOffset(a11, timeZone) {
+                var k = Math.floor((a11 - 2415021.076998695) / 29.530588853 + 0.5);
+                var last = 0;
+                var i = 1;
+                var arc = Math.floor(getSunLon(getNewMoonDay(k + i, timeZone), timeZone) / 30);
+                do {
+                    last = arc;
+                    i++;
+                    arc = Math.floor(getSunLon(getNewMoonDay(k + i, timeZone), timeZone) / 30);
+                } while (arc !== last && i < 14);
+                return i - 1;
+            }
+
+            /**
+             * Convert solar date to lunar date
+             * Returns {day, month, year, leap, yearName}
+             */
+            function solarToLunar(dd, mm, yy) {
+                var timeZone = 7; // Vietnam
+                var dayNumber = jdn(dd, mm, yy);
+                var k = Math.floor((dayNumber - 2415021.076998695) / 29.530588853);
+                var monthStart = getNewMoonDay(k + 1, timeZone);
+                if (monthStart > dayNumber) {
+                    monthStart = getNewMoonDay(k, timeZone);
+                }
+                var a11 = getLunarMonth11(yy, timeZone);
+                var b11 = a11;
+                var lunarYear;
+                if (a11 >= monthStart) {
+                    lunarYear = yy;
+                    a11 = getLunarMonth11(yy - 1, timeZone);
+                } else {
+                    lunarYear = yy + 1;
+                    b11 = getLunarMonth11(yy + 1, timeZone);
+                }
+                var lunarDay = dayNumber - monthStart + 1;
+                var diff = Math.floor((monthStart - a11) / 29);
+                var lunarLeap = 0;
+                var lunarMonth = diff + 11;
+                if (b11 - a11 > 365) {
+                    var leapOff = getLeapMonthOffset(a11, timeZone);
+                    if (diff >= leapOff) {
+                        lunarMonth = diff + 10;
+                        if (diff === leapOff) {
+                            lunarLeap = 1;
+                        }
+                    }
+                }
+                if (lunarMonth > 12) { lunarMonth = lunarMonth - 12; }
+                if (lunarMonth >= 11 && diff < 4) { lunarYear -= 1; }
+
+                var canYear = CAN[(lunarYear + 6) % 10];
+                var chiYear = CHI[(lunarYear + 8) % 12];
+
+                return {
+                    day: lunarDay,
+                    month: lunarMonth,
+                    year: lunarYear,
+                    leap: lunarLeap,
+                    yearName: canYear + ' ' + chiYear
+                };
+            }
+
+            /* ============================================================
+             * DATE DISPLAY
+             * ============================================================ */
+            var gregEl = document.getElementById('greg-date');
+            var lunarEl = document.getElementById('lunar-date');
+
+            function updateDate() {
+                var now = new Date();
+                var d = now.getDate();
+                var m = now.getMonth() + 1;
+                var y = now.getFullYear();
+                var dow = now.getDay();
+
+                if (gregEl) {
+                    gregEl.textContent = THU[dow] + ', ' + d + '/' + m + '/' + y;
+                }
+
+                try {
+                    var lunar = solarToLunar(d, m, y);
+                    if (lunarEl) {
+                        var monthName = THANG[lunar.month - 1] || lunar.month;
+                        lunarEl.textContent = lunar.day + ' tháng ' + monthName + ', ' + lunar.yearName;
+                    }
+                } catch (e) {
+                    if (lunarEl) { lunarEl.textContent = ''; }
+                }
+            }
+            updateDate();
+            // Update date every minute
+            setInterval(updateDate, 60000);
+
+            /* ============================================================
+             * WEATHER (XHR — ES5)
+             * ============================================================ */
+            function xhrGet(url, callback, timeout) {
+                var to = timeout || 12000;
+                var xhr = new XMLHttpRequest();
+                var done = false;
+                xhr.open('GET', url, true);
+                xhr.timeout = to;
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState !== 4 || done) { return; }
+                    done = true;
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        try { callback(null, JSON.parse(xhr.responseText)); }
+                        catch (e) { callback(e, null); }
+                    } else { callback(new Error('HTTP ' + xhr.status), null); }
+                };
+                xhr.ontimeout = function () { if (!done) { done = true; callback(new Error('timeout'), null); } };
+                xhr.onerror = function () { if (!done) { done = true; callback(new Error('network'), null); } };
+                xhr.send(null);
+            }
+
+            var WMO_DESC = {
+                0: 'Trời quang', 1: 'Gần quang', 2: 'Mây rải rác', 3: 'Nhiều mây',
+                45: 'Sương mù', 48: 'Sương mù',
+                51: 'Mưa phùn nhẹ', 53: 'Mưa phùn', 55: 'Mưa phùn dày',
+                56: 'Mưa phùn lạnh', 57: 'Mưa phùn lạnh',
+                61: 'Mưa nhẹ', 63: 'Mưa vừa', 65: 'Mưa lớn',
+                66: 'Mưa lạnh', 67: 'Mưa lạnh',
+                71: 'Tuyết nhẹ', 73: 'Tuyết vừa', 75: 'Tuyết dày', 77: 'Mưa đá nhỏ',
+                80: 'Mưa rào nhẹ', 81: 'Mưa rào vừa', 82: 'Mưa rào lớn',
+                85: 'Mưa tuyết nhẹ', 86: 'Mưa tuyết dày',
+                95: 'Dông', 96: 'Dông mưa đá', 99: 'Dông mưa đá lớn'
+            };
+            var WMO_EMOJI = {
+                0: '☀️', 1: '🌤', 2: '⛅', 3: '☁️',
+                45: '🌫', 48: '🌫',
+                51: '🌧', 53: '🌧', 55: '🌧', 56: '🌧', 57: '🌧',
+                61: '🌧', 63: '🌧', 65: '🌧', 66: '🌧', 67: '🌧',
+                71: '❄️', 73: '❄️', 75: '❄️', 77: '❄️',
+                80: '🌧', 81: '🌧', 82: '🌧', 85: '🌨', 86: '🌨',
+                95: '⛈', 96: '⛈', 99: '⛈'
+            };
+
+            var wLocEl = document.getElementById('weather-loc');
+            var wIconEl = document.getElementById('weather-icon');
+            var wTempEl = document.getElementById('weather-temp');
+            var wDescEl = document.getElementById('weather-desc');
+
+            function loadWeather() {
+                // Detect location via IP
+                xhrGet('https://ipinfo.io/json', function (err, locData) {
+                    if (err || !locData || !locData.loc || !locData.city) {
+                        if (wDescEl) { wDescEl.textContent = 'Không thể xác định vị trí'; }
+                        return;
+                    }
+                    var parts = locData.loc.split(',');
+                    var lat = parts[0];
+                    var lon = parts[1];
+                    var city = locData.city;
+
+                    if (wLocEl) { wLocEl.textContent = city; }
+
+                    // Fetch weather from Open-Meteo (no proxy needed, direct HTTPS)
+                    var weatherUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current=temperature_2m,weather_code';
+                    xhrGet(weatherUrl, function (err2, wData) {
+                        if (err2 || !wData || !wData.current) {
+                            if (wDescEl) { wDescEl.textContent = 'Không thể tải thời tiết'; }
+                            return;
+                        }
+                        var code = wData.current.weather_code;
+                        var temp = Math.round(wData.current.temperature_2m);
+                        var emoji = WMO_EMOJI[code] || '❓';
+                        var desc = WMO_DESC[code] || 'Không xác định';
+
+                        if (wIconEl) { wIconEl.textContent = emoji; wIconEl.style.fontSize = '4vmin'; }
+                        if (wTempEl) { wTempEl.textContent = temp + '°C'; }
+                        if (wDescEl) { wDescEl.textContent = desc; }
+                    }, 10000);
+                }, 10000);
+            }
+            loadWeather();
+            // Refresh weather every 30 minutes
+            setInterval(loadWeather, 1800000);
+
+            /* ============================================================
+             * QUOTES (curated subset — offline, ES5)
+             * ============================================================ */
+            var QUOTES = [
+                { t: 'Thương người như thể thương thân.', a: 'Tục ngữ' },
+                { t: 'Một điều nhịn chín điều lành.', a: 'Tục ngữ' },
+                { t: 'Đi một ngày đàng, học một sàng khôn.', a: 'Tục ngữ' },
+                { t: 'Có công mài sắt có ngày nên kim.', a: 'Tục ngữ' },
+                { t: 'Lá lành đùm lá rách.', a: 'Tục ngữ' },
+                { t: 'Ăn quả nhớ kẻ trồng cây.', a: 'Tục ngữ' },
+                { t: 'Nhân nào, quả nấy.', a: 'Tục ngữ' },
+                { t: 'Có làm thì mới có ăn, không dưng ai dễ đem phần đến cho.', a: 'Ca dao' },
+                { t: 'Mẹ già như chuối ba hương, như xôi nếp một như đường mía lau.', a: 'Ca dao' },
+                { t: 'Đói cho sạch, rách cho thơm.', a: 'Tục ngữ' },
+                { t: 'Giấy rách giữ lấy lề.', a: 'Tục ngữ' },
+                { t: 'Nhất nghệ tinh nhất thân vinh.', a: 'Tục ngữ' },
+                { t: 'Kiến đen tha trứng lên cao, thế nào cũng có mưa rào rất to.', a: 'Ca dao' },
+                { t: 'Chuồn chuồn bay thấp thì mưa, bay cao thì nắng, bay vừa thì râm.', a: 'Ca dao' },
+                { t: 'Dẻo thơm một hạt, đắng cay muôn phần.', a: 'Ca dao' },
+                { t: 'Trăm năm đành lỗi hẹn hò, Cây đa bến cũ, con đò khác đưa.', a: 'Ca dao' },
+                { t: 'Tốt gỗ hơn tốt nước sơn, xấu người đẹp nết con hơn đẹp người.', a: 'Ca dao' },
+                { t: 'Không có gì quý hơn độc lập, tự do.', a: 'Hồ Chí Minh' },
+                { t: 'Vì lợi ích mười năm trồng cây, vì lợi ích trăm năm trồng người.', a: 'Hồ Chí Minh' },
+                { t: 'Đoàn kết, đoàn kết, đại đoàn kết. Thành công, thành công, đại thành công.', a: 'Hồ Chí Minh' },
+                { t: 'Con không chê cha mẹ khó, chó không chê chủ nhà nghèo.', a: 'Tục ngữ' },
+                { t: 'Người không học như ngọc không mài.', a: 'Tục ngữ' },
+                { t: 'Học, học nữa, học mãi.', a: 'Tục ngữ' },
+                { t: 'Ta về ta tắm ao ta, Dù trong dù đục, ao nhà vẫn hơn.', a: 'Ca dao' },
+                { t: 'Đem đại nghĩa để thắng hung tàn, lấy chí nhân để thay cường bạo.', a: 'Nguyễn Trãi' },
+                { t: 'Sống trong đời sống cần có một tấm lòng.', a: 'Trịnh Công Sơn' },
+                { t: 'Tay làm hàm nhai, tay quai miệng trễ.', a: 'Ca dao' },
+                { t: 'Đoàn kết thì sống, chia rẽ thì chết.', a: 'Tục ngữ' },
+                { t: 'Trời sinh ra ta hẳn phải có chỗ dùng.', a: 'Lý Bạch' },
+                { t: 'Lên non mới biết non cao, lội sông mới biết sông sâu cạn nào.', a: 'Ca dao' }
+            ];
+            var quoteIdx = Math.floor(Math.random() * QUOTES.length);
+            var quoteTextEl = document.getElementById('quote-text');
+            var quoteAuthorEl = document.getElementById('quote-author');
+
+            function showQuote() {
+                var q = QUOTES[quoteIdx];
+                if (quoteTextEl) { quoteTextEl.textContent = q.t; }
+                if (quoteAuthorEl) { quoteAuthorEl.textContent = '— ' + q.a; }
+                quoteIdx = (quoteIdx + 1) % QUOTES.length;
+            }
+            showQuote();
+            setInterval(showQuote, 60000);
+
+            /* ============================================================
+             * CALENDAR — Monthly, ES5, standalone (no external dependency)
+             * ============================================================ */
+            var calTitleEl = document.getElementById('cal-title');
+            var calGridEl = document.getElementById('cal-grid');
+            var calPrevEl = document.getElementById('cal-prev');
+            var calNextEl = document.getElementById('cal-next');
+            var calBase = new Date();
+
+            var MONTH_NAMES = [
+                'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+                'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+            ];
+            var DAY_NAMES = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+
+            function renderCalendar(baseDate) {
+                if (!calTitleEl || !calGridEl) { return; }
+
+                var year = baseDate.getFullYear();
+                var month = baseDate.getMonth();
+                calTitleEl.textContent = MONTH_NAMES[month] + ' ' + year;
+
+                // Clear grid
+                calGridEl.innerHTML = '';
+
+                // Day headers
+                var i, cell, inner;
+                for (i = 0; i < 7; i++) {
+                    cell = document.createElement('div');
+                    cell.className = 'cal-cell day-hdr';
+                    inner = document.createElement('div');
+                    inner.className = 'cal-inner';
+                    inner.textContent = DAY_NAMES[i];
+                    cell.appendChild(inner);
+                    calGridEl.appendChild(cell);
+                }
+
+                // First day of month (shift to Monday start)
+                var firstDay = new Date(year, month, 1).getDay();
+                var offset = (firstDay + 6) % 7; // Monday = 0
+
+                // Days in month
+                var daysInMonth = new Date(year, month + 1, 0).getDate();
+                var prevMonthDays = new Date(year, month, 0).getDate();
+
+                var today = new Date();
+                var todayD = today.getDate();
+                var todayM = today.getMonth();
+                var todayY = today.getFullYear();
+
+                // Previous month days
+                for (i = offset - 1; i >= 0; i--) {
+                    var pDay = prevMonthDays - i;
+                    var pM = month === 0 ? 12 : month;
+                    var pY = month === 0 ? year - 1 : year;
+                    cell = document.createElement('div');
+                    cell.className = 'cal-cell other-m';
+                    inner = document.createElement('div');
+                    inner.className = 'cal-inner';
+                    var solarSpan = document.createElement('span');
+                    solarSpan.className = 'solar-d';
+                    solarSpan.textContent = pDay;
+                    inner.appendChild(solarSpan);
+                    try {
+                        var pLunar = solarToLunar(pDay, pM, pY);
+                        var lunarSpan = document.createElement('span');
+                        lunarSpan.className = 'lunar-d';
+                        lunarSpan.textContent = pLunar.day;
+                        if (pLunar.day === 1) { lunarSpan.textContent = pLunar.day + '/' + pLunar.month; }
+                        inner.appendChild(lunarSpan);
+                    } catch (e) { /* skip lunar */ }
+                    cell.appendChild(inner);
+                    calGridEl.appendChild(cell);
+                }
+
+                // Current month days
+                for (i = 1; i <= daysInMonth; i++) {
+                    cell = document.createElement('div');
+                    var isToday = (i === todayD && month === todayM && year === todayY);
+                    cell.className = 'cal-cell' + (isToday ? ' today-cell' : '');
+                    inner = document.createElement('div');
+                    inner.className = 'cal-inner';
+                    var sd = document.createElement('span');
+                    sd.className = 'solar-d';
+                    sd.textContent = i;
+                    inner.appendChild(sd);
+                    try {
+                        var lun = solarToLunar(i, month + 1, year);
+                        var ld = document.createElement('span');
+                        ld.className = 'lunar-d';
+                        ld.textContent = lun.day;
+                        if (lun.day === 1) { ld.textContent = lun.day + '/' + lun.month; }
+                        inner.appendChild(ld);
+                    } catch (e) { /* skip lunar */ }
+                    cell.appendChild(inner);
+                    calGridEl.appendChild(cell);
+                }
+
+                // Next month days (fill remaining cells)
+                var totalCells = offset + daysInMonth;
+                var remaining = (7 - (totalCells % 7)) % 7;
+                for (i = 1; i <= remaining; i++) {
+                    var nM = month + 2 > 12 ? 1 : month + 2;
+                    var nY = month + 2 > 12 ? year + 1 : year;
+                    cell = document.createElement('div');
+                    cell.className = 'cal-cell other-m';
+                    inner = document.createElement('div');
+                    inner.className = 'cal-inner';
+                    var ns = document.createElement('span');
+                    ns.className = 'solar-d';
+                    ns.textContent = i;
+                    inner.appendChild(ns);
+                    try {
+                        var nLun = solarToLunar(i, nM, nY);
+                        var nl = document.createElement('span');
+                        nl.className = 'lunar-d';
+                        nl.textContent = nLun.day;
+                        if (nLun.day === 1) { nl.textContent = nLun.day + '/' + nLun.month; }
+                        inner.appendChild(nl);
+                    } catch (e) { /* skip lunar */ }
+                    cell.appendChild(inner);
+                    calGridEl.appendChild(cell);
+                }
+            }
+
+            renderCalendar(calBase);
+
+            if (calPrevEl) {
+                calPrevEl.onclick = function () {
+                    calBase.setMonth(calBase.getMonth() - 1);
+                    renderCalendar(calBase);
+                };
+            }
+            if (calNextEl) {
+                calNextEl.onclick = function () {
+                    calBase.setMonth(calBase.getMonth() + 1);
+                    renderCalendar(calBase);
+                };
+            }
+
+        })();
+    </script>
+</body>
+
+</html>

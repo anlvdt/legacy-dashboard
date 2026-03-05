@@ -2,7 +2,7 @@
  * calendar.js — Module lịch âm dương và vạn niên cho Legacy Frame
  * Tất cả cú pháp ES5 (var, function) — không dùng let/const/arrow/template literals
  *
- * Tích hợp với amlich.js (global _calendar: SolarDate, LunarDate)
+ * Tích hợp với amlich-es5.js (global _calendar: SolarDate, LunarDate)
  *
  * Requirements: 1.2, 2.6, 5.1, 5.2, 5.3, 5.8
  */
@@ -83,7 +83,7 @@ LF.calendar._extractChi = function (canChiStr) {
 
 /**
  * 1. solarToLunar(dd, mm, yy) — Chuyển đổi dương lịch sang âm lịch
- * Sử dụng amlich.js (_calendar.SolarDate, _calendar.LunarDate)
+ * Sử dụng amlich-es5.js (_calendar.SolarDate, _calendar.LunarDate)
  *
  * @param {number} dd - ngày dương lịch
  * @param {number} mm - tháng dương lịch
