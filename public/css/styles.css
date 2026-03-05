@@ -3816,6 +3816,32 @@ body.power-save-mode #news-tts-btn {
     background: rgba(255, 255, 255, 0.08);
 }
 
+/* --- Shared price-change indicator (finance, fuel) --- */
+.price-change {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.1vmin;
+    font-weight: 700;
+    margin-left: 0.6vmin;
+    padding: 0.15vmin 0.5vmin;
+    border-radius: 0.4vmin;
+    white-space: nowrap;
+}
+.price-change:empty {
+    display: none;
+}
+.price-change-up {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.12);
+}
+.price-change-down {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.12);
+}
+.price-change-flat {
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+}
+
 /* --- Mở rộng: Giá thế giới (dòng nhỏ hơn) --- */
 .agri-row-world {
     margin-top: 0.3vmin;

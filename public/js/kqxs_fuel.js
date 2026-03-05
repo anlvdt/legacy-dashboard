@@ -78,6 +78,7 @@ LF.kqxs.renderError = function () {
 LF.fuel = {};
 LF.fuel.CACHE_KEY = 'fuel';
 LF.fuel.CACHE_TTL = 900000; // 15 mins
+LF.fuel.DAILY_KEY = 'fuel_daily_snapshot';
 
 LF.fuel.init = function () {
     var cached = LF.utils.cacheGet(LF.fuel.CACHE_KEY, LF.fuel.CACHE_TTL);
@@ -86,6 +87,88 @@ LF.fuel.init = function () {
     } else {
         LF.fuel.fetchData();
     }
+};
+
+/**
+ * Lưu giá trị hôm nay vào daily snapshot
+ */
+LF.fuel._saveDailySnapshot = function (key, value) {
+    try {
+        var today = new Date().toISOString().split('T')[0];
+        var raw = localStorage.getItem('lf_' + LF.fuel.DAILY_KEY);
+        var snapshot = raw ? JSON.parse(raw) : {};
+        if (snapshot.date && snapshot.date !== today) {
+            snapshot.prev = snapshot.current || {};
+            snapshot.current = {};
+            snapshot.date = today;
+        }
+        if (!snapshot.date) {
+            snapshot.date = today;
+            snapshot.current = {};
+            snapshot.prev = {};
+        }
+        if (!snapshot.current[key]) {
+            snapshot.current[key] = value;
+        }
+        localStorage.setItem('lf_' + LF.fuel.DAILY_KEY, JSON.stringify(snapshot));
+    } catch (e) { }
+};
+
+/**
+ * Lấy giá trị hôm qua
+ */
+LF.fuel._getPrevDayValue = function (key) {
+    try {
+        var raw = localStorage.getItem('lf_' + LF.fuel.DAILY_KEY);
+        if (!raw) return null;
+        var snapshot = JSON.parse(raw);
+        if (snapshot.prev && typeof snapshot.prev[key] === 'number') {
+            return snapshot.prev[key];
+        }
+    } catch (e) { }
+    return null;
+};
+
+/**
+ * Render thay đổi giá vào DOM element (colored badge ▲▼)
+ */
+LF.fuel._renderChange = function (changeElId, current, previous) {
+    var changeEl = document.getElementById(changeElId);
+    if (!changeEl) return;
+    if (previous === null || previous === undefined) {
+        changeEl.textContent = '';
+        changeEl.className = 'price-change';
+        return;
+    }
+    var diff = current - previous;
+    if (Math.abs(diff) < 1) {
+        changeEl.textContent = '\u25AC 0';
+        changeEl.className = 'price-change price-change-flat';
+        return;
+    }
+    var sign = diff > 0 ? '+' : '';
+    var arrow = diff > 0 ? '\u25B2 ' : '\u25BC ';
+    var cls = diff > 0 ? 'price-change-up' : 'price-change-down';
+    changeEl.textContent = arrow + sign + LF.fuel._formatNumber(Math.round(diff));
+    changeEl.className = 'price-change ' + cls;
+};
+
+/**
+ * Format số có dấu chấm phân cách hàng nghìn
+ */
+LF.fuel._formatNumber = function (n) {
+    var s = '' + Math.abs(n);
+    var r = '';
+    var c = 0;
+    var i;
+    for (i = s.length - 1; i >= 0; i--) {
+        r = s[i] + r;
+        c++;
+        if (c % 3 === 0 && i > 0) {
+            r = '.' + r;
+        }
+    }
+    return (n < 0 ? '-' : '') + r;
 };
 
 LF.fuel.fetchData = function () {
@@ -128,13 +211,27 @@ LF.fuel.render = function (data) {
         return r + ' \u0111';
     };
 
-    var e95 = document.getElementById('fuel-ron95-value');
-    var e5 = document.getElementById('fuel-e5-value');
-    var edo = document.getElementById('fuel-do-value');
+    var items = [
+        { key: 'ron95', valueId: 'fuel-ron95-value', changeId: 'fuel-ron95-change' },
+        { key: 'e5', valueId: 'fuel-e5-value', changeId: 'fuel-e5-change' },
+        { key: 'do', valueId: 'fuel-do-value', changeId: 'fuel-do-change' }
+    ];
 
-    if (e95) { e95.className = 'fuel-value'; e95.textContent = format(data['ron95']); }
-    if (e5) { e5.className = 'fuel-value'; e5.textContent = format(data['e5']); }
-    if (edo) { edo.className = 'fuel-value'; edo.textContent = format(data['do']); }
+    var i, item, el, val;
+    for (i = 0; i < items.length; i++) {
+        item = items[i];
+        val = data[item.key] ? parseInt(data[item.key], 10) : 0;
+        el = document.getElementById(item.valueId);
+        if (el) {
+            el.className = 'fuel-value';
+            el.textContent = format(data[item.key]);
+        }
+        if (val) {
+            LF.fuel._saveDailySnapshot(item.key, val);
+            var prev = LF.fuel._getPrevDayValue(item.key);
+            LF.fuel._renderChange(item.changeId, val, prev);
+        }
+    }
 };
 
 LF.fuel.renderError = function () {

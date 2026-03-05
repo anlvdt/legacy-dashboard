@@ -86,17 +86,15 @@ const parseCoffeePrice = (html) => {
  */
 const parseCoffeeWorld = (html) => {
     if (!html) return null;
-    var sectionMatch = html.match(/id=["']robusta-london["'][\s\S]{0,2000}?data-price=["'](\d+(?:\.\d+)?)["']/i);
+    // Table #robusta has data-price attributes: first one is the price
+    var sectionMatch = html.match(/id=["']robusta["'][\s\S]{0,3000}?data-price=["'](\d+(?:\.\d+)?)["']/i);
     if (sectionMatch && sectionMatch[1]) {
         return parseInt(sectionMatch[1], 10);
     }
-    var fallback = html.match(/Robusta\s*London[\s\S]{0,1000}?data-price=["'](\d+(?:\.\d+)?)["']/i);
+    // Fallback: id="robusta-london"
+    var fallback = html.match(/id=["']robusta-london["'][\s\S]{0,2000}?data-price=["'](\d+(?:\.\d+)?)["']/i);
     if (fallback && fallback[1]) {
         return parseInt(fallback[1], 10);
-    }
-    var match2 = html.match(/London[^0-9]{0,40}?(\d{1,2}[.,]\d{3})/);
-    if (match2 && match2[1]) {
-        return parseInt(match2[1].replace(/[.,]/g, ''), 10);
     }
     return null;
 };
@@ -107,15 +105,17 @@ const parseCoffeeWorld = (html) => {
  */
 const parseRobustaChange = (html) => {
     if (!html) return null;
-    // Find robusta-london section, then first row: data-price TD, next TD has change
-    var section = html.match(/id=["']robusta-london["'][\s\S]{0,3000}?<\/table>/i);
+    // Table #robusta: data-price values alternate price/change per row
+    // 1st data-price = giá khớp, 2nd data-price = thay đổi
+    var section = html.match(/id=["']robusta["'][\s\S]{0,15000}?<\/table>/i);
+    if (!section) {
+        section = html.match(/id=["']robusta-london["'][\s\S]{0,5000}?<\/table>/i);
+    }
     if (!section) return null;
-    var tableHtml = section[0];
-    // Find first data-price td, then the next td with change value
-    var changeMatch = tableHtml.match(/data-price=["']\d+(?:\.\d+)?["'][^<]*<\/td>\s*<td[^>]*>([^<]*)<\/td>/i);
-    if (changeMatch && changeMatch[1]) {
-        var val = changeMatch[1].replace(/[^\d.+-]/g, '');
-        if (val) return parseInt(val, 10);
+    var prices = section[0].match(/data-price=["']([\d.+-]+)["']/gi);
+    if (prices && prices.length >= 2) {
+        var m = prices[1].match(/["']([\d.+-]+)["']/);
+        if (m) return parseFloat(m[1]);
     }
     return null;
 };
@@ -125,14 +125,18 @@ const parseRobustaChange = (html) => {
  */
 const parseArabicaChange = (html) => {
     if (!html) return null;
-    // Find second livequote table (Arabica), then first data-price + next td
-    var tables = html.match(/class=["'][^"']*livequote[^"']*["'][\s\S]*?<\/table>/gi);
-    if (!tables || tables.length < 2) return null;
-    var arabicaTable = tables[1];
-    var changeMatch = arabicaTable.match(/data-price=["'][\d.]+["'][^<]*<\/td>\s*<td[^>]*>([^<]*)<\/td>/i);
-    if (changeMatch && changeMatch[1]) {
-        var val = changeMatch[1].replace(/[^\d.+-]/g, '');
-        if (val) return parseFloat(val);
+    // Table #coffee_ice: Arabica ICE futures
+    var section = html.match(/id=["']coffee_ice["'][\s\S]{0,15000}?<\/table>/i);
+    if (!section) {
+        // Fallback to 2nd livequote table
+        var tables = html.match(/class=["'][^"']*livequote[^"']*["'][\s\S]*?<\/table>/gi);
+        if (tables && tables.length >= 2) section = [tables[1]];
+    }
+    if (!section) return null;
+    var prices = section[0].match(/data-price=["']([\d.+-]+)["']/gi);
+    if (prices && prices.length >= 2) {
+        var m = prices[1].match(/["']([\d.+-]+)["']/);
+        if (m) return parseFloat(m[1]);
     }
     return null;
 };
@@ -209,24 +213,20 @@ const parseCoffeeChange = (html) => {
  */
 const parseArabicaPrice = (html) => {
     if (!html) return null;
-    // Find arabica-newyork section and get first data-price
-    var sectionMatch = html.match(/id=["']arabica-(?:newyork|new-york|ny)["'][\s\S]{0,2000}?data-price=["']([\d.]+)["']/i);
-    if (sectionMatch && sectionMatch[1]) {
-        return parseFloat(sectionMatch[1]);
-    }
-    // Fallback: "Arabica New York" heading then data-price  
-    var fallback = html.match(/Arabica\s*(?:New\s*York|NY)[\s\S]{0,1000}?data-price=["']([\d.]+)["']/i);
-    if (fallback && fallback[1]) {
-        return parseFloat(fallback[1]);
-    }
-    // Fallback 2: Find second table with data-price (first is Robusta)
-    // Find all data-price values in livequote tables
-    var tables = html.match(/class=["'][^"']*livequote[^"']*["'][\s\S]*?<\/table>/gi);
-    if (tables && tables.length >= 2) {
-        var arabicaTable = tables[1]; // second livequote table
-        var priceMatch = arabicaTable.match(/data-price=["']([\d.]+)["']/i);
+    // Table #coffee_ice: Arabica ICE futures
+    var section = html.match(/id=["']coffee_ice["'][\s\S]{0,15000}?<\/table>/i);
+    if (section) {
+        var priceMatch = section[0].match(/data-price=["']([\d.]+)["']/i);
         if (priceMatch && priceMatch[1]) {
             return parseFloat(priceMatch[1]);
+        }
+    }
+    // Fallback: 2nd livequote table
+    var tables = html.match(/class=["'][^"']*livequote[^"']*["'][\s\S]*?<\/table>/gi);
+    if (tables && tables.length >= 2) {
+        var priceM = tables[1].match(/data-price=["']([\d.]+)["']/i);
+        if (priceM && priceM[1]) {
+            return parseFloat(priceM[1]);
         }
     }
     return null;
@@ -274,35 +274,90 @@ const parsePepperChange = (html) => {
     return 0;
 };
 
+/**
+ * Parse giá gạo từ chogaomientay.com
+ * Returns object { name, price } for the most common variety (IR 504)
+ */
+const parseRicePrice = (html) => {
+    if (!html || html.length < 500) return null;
+    // Try to find IR 504 price (most traded)
+    var varieties = [
+        { name: 'IR 504', pattern: /IR\s*504[^0-9]{0,50}?([0-9]{1,2}[.,][0-9]{3})/i },
+        { name: 'Jasmine', pattern: /Jasmine[^0-9]{0,50}?([0-9]{1,2}[.,][0-9]{3})/i },
+        { name: 'ST25', pattern: /ST\s*25[^0-9]{0,50}?([0-9]{1,2}[.,][0-9]{3})/i },
+        { name: 'Đài Thơm 8', pattern: /Đài\s*Thơm[^0-9]{0,50}?([0-9]{1,2}[.,][0-9]{3})/i }
+    ];
+    for (var i = 0; i < varieties.length; i++) {
+        var m = html.match(varieties[i].pattern);
+        if (m && m[1]) {
+            var price = parseInt(m[1].replace(/[.,]/g, ''), 10);
+            if (price > 3000 && price < 30000) { // valid rice price range đ/kg
+                return { name: varieties[i].name, price: price };
+            }
+        }
+    }
+    return null;
+};
+
 exports.handler = async function (event, context) {
     try {
-        // Fetch coffee data from giacaphe.com and pepper from giatieu.com in parallel
-        const [html, pepperHtml] = await Promise.all([
+        // Fetch multiple pages in parallel:
+        // - noi-dia: domestic coffee price ("trung bình XX,XXX")
+        // - truc-tuyen: live world prices (data-price attributes in livequote tables)
+        // - pepper: giatieu.com
+        // - rice: chogaomientay.com
+        const results = await Promise.all([
             fetchViaProxy('https://giacaphe.com/gia-ca-phe-noi-dia/', 12000),
-            fetchViaProxy('https://giatieu.com/gia-tieu-hom-nay/', 10000)
+            fetchViaProxy('https://giacaphe.com/gia-ca-phe-truc-tuyen/', 12000),
+            fetchViaProxy('https://giatieu.com/gia-tieu-hom-nay/', 10000),
+            fetchViaProxy('https://chogaomientay.com/bang-gia-gao-hom-nay/', 8000)
         ]);
 
-        const coffee = parseCoffeePrice(html);
+        const noiDiaHtml = results[0];
+        const trucTuyenHtml = results[1];
+        const pepperHtml = results[2];
+        const riceHtml = results[3];
 
-        if (!coffee) {
+        // Parse from each source — gracefully handle null HTML
+        var coffee = null, coffeeChange = null, coffeeRegions = [];
+        var coffeeWorld = null, arabica = null, robustaChange = null, arabicaChange = null;
+        var pepper = null, pepperChange = null;
+        var rice = null;
+
+        // Domestic coffee from noi-dia page
+        if (noiDiaHtml) {
+            coffee = parseCoffeePrice(noiDiaHtml);
+            coffeeRegions = parseCoffeeRegions(noiDiaHtml);
+            coffeeChange = parseCoffeeChange(noiDiaHtml);
+        }
+
+        // World prices from truc-tuyen page
+        if (trucTuyenHtml) {
+            coffeeWorld = parseCoffeeWorld(trucTuyenHtml);
+            arabica = parseArabicaPrice(trucTuyenHtml);
+            robustaChange = parseRobustaChange(trucTuyenHtml);
+            arabicaChange = parseArabicaChange(trucTuyenHtml);
+        }
+
+        // Pepper from giatieu.com
+        if (pepperHtml) {
+            pepper = parsePepperPrice(pepperHtml);
+            pepperChange = parsePepperChange(pepperHtml);
+        }
+
+        // Rice from chogaomientay.com
+        if (riceHtml) {
+            rice = parseRicePrice(riceHtml);
+        }
+
+        // Return whatever data we managed to get (at least one field should have data)
+        if (!coffee && !coffeeWorld && !pepper && !rice) {
             return {
                 statusCode: 500,
                 headers: { 'Access-Control-Allow-Origin': '*' },
-                body: JSON.stringify({ error: 'Không thể tải giá cà phê' })
+                body: JSON.stringify({ error: 'Không thể tải dữ liệu nông sản' })
             };
         }
-
-        // Parse cà phê từ giacaphe.com
-        const coffeeWorld = parseCoffeeWorld(html);
-        const coffeeRegions = parseCoffeeRegions(html);
-        const coffeeChange = parseCoffeeChange(html);
-        const arabica = parseArabicaPrice(html);
-        const robustaChange = parseRobustaChange(html);
-        const arabicaChange = parseArabicaChange(html);
-
-        // Parse hồ tiêu từ giatieu.com
-        const pepper = parsePepperPrice(pepperHtml);
-        const pepperChange = parsePepperChange(pepperHtml);
 
         return {
             statusCode: 200,
@@ -321,6 +376,7 @@ exports.handler = async function (event, context) {
                     arabicaChange: arabicaChange,
                     pepper: pepper,
                     pepperChange: pepperChange,
+                    rice: rice,
                     timestamp: new Date().toISOString()
                 }
             })

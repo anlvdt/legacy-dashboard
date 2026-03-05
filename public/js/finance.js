@@ -91,6 +91,40 @@ LF.finance._formatChange = function (current, previous, decimals) {
 };
 
 /**
+ * Render thay đổi giá vào DOM element riêng biệt (colored badge ▲▼)
+ * @param {string} changeElId - ID của element .price-change
+ * @param {number} current
+ * @param {number} previous
+ * @param {number} decimals
+ */
+LF.finance._renderChange = function (changeElId, current, previous, decimals) {
+    var changeEl = document.getElementById(changeElId);
+    if (!changeEl) return;
+    if (previous === null || previous === undefined) {
+        changeEl.textContent = '';
+        changeEl.className = 'price-change';
+        return;
+    }
+    var diff = current - previous;
+    if (Math.abs(diff) < 0.001) {
+        changeEl.textContent = '\u25AC 0';
+        changeEl.className = 'price-change price-change-flat';
+        return;
+    }
+    var sign = diff > 0 ? '+' : '';
+    var arrow = diff > 0 ? '\u25B2 ' : '\u25BC ';
+    var cls = diff > 0 ? 'price-change-up' : 'price-change-down';
+    var formatted;
+    if (decimals) {
+        formatted = sign + diff.toFixed(decimals);
+    } else {
+        formatted = sign + LF.finance._formatNumber(Math.round(diff));
+    }
+    changeEl.textContent = arrow + formatted;
+    changeEl.className = 'price-change ' + cls;
+};
+
+/**
  * Tính xu hướng tăng/giảm so với lần trước
  * @param {number} current - giá trị hiện tại
  * @param {number} previous - giá trị lần trước
@@ -250,12 +284,10 @@ LF.finance._applyUSD = function (rate) {
 
     if (el) {
         el.className = 'finance-value';
-        var text = LF.finance._formatNumber(Math.round(rate)) + ' VND';
-        var prev = LF.finance._getPrevDayValue('usd');
-        var change = LF.finance._formatChange(rate, prev, 0);
-        if (change) { text += change; }
-        el.textContent = text;
+        el.textContent = LF.finance._formatNumber(Math.round(rate)) + ' VND';
     }
+    var prev = LF.finance._getPrevDayValue('usd');
+    LF.finance._renderChange('finance-usd-change', rate, prev, 0);
 };
 
 /**
@@ -317,12 +349,10 @@ LF.finance._applyGoldWorld = function (priceMillionVND) {
 
     if (el) {
         el.className = 'finance-value';
-        var text = priceMillionVND.toFixed(2) + ' tr';
-        var prev = LF.finance._getPrevDayValue('goldWorld');
-        var change = LF.finance._formatChange(priceMillionVND, prev, 2);
-        if (change) { text += change; }
-        el.textContent = text;
+        el.textContent = priceMillionVND.toFixed(2) + ' tr';
     }
+    var prev = LF.finance._getPrevDayValue('goldWorld');
+    LF.finance._renderChange('finance-gold-world-change', priceMillionVND, prev, 2);
 };
 
 /**
@@ -432,12 +462,10 @@ LF.finance._applyGoldSJC = function (priceMillionVND) {
 
     if (el) {
         el.className = 'finance-value';
-        var text = priceMillionVND.toFixed(2) + ' tr';
-        var prev = LF.finance._getPrevDayValue('goldSJC');
-        var change = LF.finance._formatChange(priceMillionVND, prev, 2);
-        if (change) { text += change; }
-        el.textContent = text;
+        el.textContent = priceMillionVND.toFixed(2) + ' tr';
     }
+    var prev = LF.finance._getPrevDayValue('goldSJC');
+    LF.finance._renderChange('finance-gold-sjc-change', priceMillionVND, prev, 2);
 };
 
 /**

@@ -71,7 +71,7 @@ LF.agriculture._formatChange = function (val) {
 };
 
 LF.agriculture.render = function (data) {
-    if (!data || !data.coffee) {
+    if (!data) {
         LF.agriculture.renderError();
         return;
     }
@@ -155,6 +155,18 @@ LF.agriculture.render = function (data) {
         }
         regionsEl.innerHTML = html;
         regionsEl.style.display = '';
+    }
+
+    // Giá gạo
+    var riceEl = document.getElementById('agri-rice-value');
+    var riceRow = document.getElementById('agri-rice-row');
+    var riceLabelEl = document.getElementById('agri-rice-label');
+    if (riceEl && data.rice && data.rice.price) {
+        riceEl.textContent = LF.agriculture._formatNumber(data.rice.price) + ' \u0111/kg';
+        if (riceLabelEl && data.rice.name) {
+            riceLabelEl.textContent = 'Gạo ' + data.rice.name;
+        }
+        if (riceRow) { riceRow.style.display = ''; }
     }
 };
 
