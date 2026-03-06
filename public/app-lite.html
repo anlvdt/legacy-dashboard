@@ -1475,32 +1475,57 @@
                 newsContentEl.className = 'top-news-content marquee-animated';
             }
 
+            // Multi-source news — same sources as full version
+            var newsSources = [
+                { name: 'VnExpress', url: 'https://vnexpress.net/rss/tin-moi-nhat.rss' },
+                { name: 'Thanh Niên', url: 'https://thanhnien.vn/rss/home.rss' },
+                { name: 'Dân Trí', url: 'https://dantri.com.vn/rss/home.rss' },
+                { name: 'Tuổi Trẻ', url: 'https://tuoitre.vn/rss/tin-moi-nhat.rss' }
+            ];
+
             function loadNews() {
-                var rssUrl = 'https://vnexpress.net/rss/tin-moi-nhat.rss';
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', '/api/proxy?url=' + encodeURIComponent(rssUrl), true);
-                xhr.timeout = 15000;
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState !== 4) { return; }
-                    if (xhr.status >= 200 && xhr.status < 300 && xhr.responseText) {
-                        var items = parseRSS(xhr.responseText);
-                        if (items.length > 0) {
-                            renderNews(items);
-                            return;
-                        }
-                    }
-                    // Fallback: show placeholder
-                    if (newsContentEl) {
-                        newsContentEl.innerHTML = '<span class="news-item">📰 Không thể tải tin tức</span>';
-                    }
-                };
-                xhr.ontimeout = function () {
-                    if (newsContentEl) {
+                var allItems = [];
+                var completed = 0;
+                var total = newsSources.length;
+
+                function onAllDone() {
+                    if (allItems.length > 0) {
+                        renderNews(allItems);
+                    } else if (newsContentEl) {
                         newsContentEl.innerHTML = '<span class="news-item">Không thể tải tin tức</span>';
                     }
-                };
-                xhr.onerror = xhr.ontimeout;
-                xhr.send(null);
+                }
+
+                for (var s = 0; s < newsSources.length; s++) {
+                    (function (source) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', '/api/proxy?url=' + encodeURIComponent(source.url), true);
+                        xhr.timeout = 15000;
+                        var done = false;
+
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState !== 4 || done) { return; }
+                            done = true;
+                            if (xhr.status >= 200 && xhr.status < 300 && xhr.responseText) {
+                                var items = parseRSS(xhr.responseText);
+                                for (var j = 0; j < items.length; j++) {
+                                    items[j].source = source.name;
+                                    allItems.push(items[j]);
+                                }
+                            }
+                            completed++;
+                            if (completed >= total) { onAllDone(); }
+                        };
+                        xhr.ontimeout = function () {
+                            if (done) { return; }
+                            done = true;
+                            completed++;
+                            if (completed >= total) { onAllDone(); }
+                        };
+                        xhr.onerror = xhr.ontimeout;
+                        xhr.send(null);
+                    })(newsSources[s]);
+                }
             }
             loadNews();
             setInterval(loadNews, 900000); // Refresh every 15 min
