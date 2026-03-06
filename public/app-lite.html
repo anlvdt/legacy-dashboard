@@ -22,7 +22,7 @@
 
         body {
             background: #0a0a12;
-            background: -webkit-linear-gradient(bottom right, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #0a0a12), color-stop(40%, #1a1a2e), color-stop(70%, #16213e), color-stop(100%, #0f3460));
             background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
             color: #F5F5F5;
             font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
@@ -740,7 +740,7 @@
             } else if (window.attachEvent) {
                 window.attachEvent('onresize', fitPage);
             }
-            setInterval(fitPage, 2000);
+            // No setInterval — resize and orientationchange are sufficient
 
             /* ============================================================
              * CLOCK
@@ -1382,7 +1382,7 @@
             function startNewsScroll() {
                 if (!newsContentEl) { return; }
                 newsPos = 0;
-                var speed = 2;
+                var speed = 3;
                 var halfWidth = 0;
 
                 function step() {
@@ -1390,11 +1390,10 @@
                     newsPos -= speed;
                     if (Math.abs(newsPos) >= halfWidth) { newsPos = 0; }
                     newsContentEl.style.webkitTransform = 'translateX(' + newsPos + 'px)';
-                    newsContentEl.style.transform = 'translateX(' + newsPos + 'px)';
-                    newsAnimId = requestAnimationFrame(step);
+                    setTimeout(step, 50);
                 }
-                if (newsAnimId) { cancelAnimationFrame(newsAnimId); }
-                newsAnimId = requestAnimationFrame(step);
+                if (newsAnimId) { clearTimeout(newsAnimId); }
+                newsAnimId = setTimeout(step, 50);
             }
 
             function loadNews() {
@@ -1467,7 +1466,7 @@
             function startFxScroll() {
                 if (!fxContentEl) { return; }
                 fxPos = 0;
-                var speed = 1.2;
+                var speed = 2;
                 var halfWidth = 0;
 
                 function step() {
@@ -1475,11 +1474,10 @@
                     fxPos -= speed;
                     if (Math.abs(fxPos) >= halfWidth) { fxPos = 0; }
                     fxContentEl.style.webkitTransform = 'translateX(' + fxPos + 'px)';
-                    fxContentEl.style.transform = 'translateX(' + fxPos + 'px)';
-                    fxAnimId = requestAnimationFrame(step);
+                    setTimeout(step, 50);
                 }
-                if (fxAnimId) { cancelAnimationFrame(fxAnimId); }
-                fxAnimId = requestAnimationFrame(step);
+                if (fxAnimId) { clearTimeout(fxAnimId); }
+                fxAnimId = setTimeout(step, 50);
             }
 
             function loadFxData() {
