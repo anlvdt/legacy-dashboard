@@ -22,6 +22,8 @@
 
         body {
             background: #0a0a12;
+            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #0a0a12), color-stop(40%, #1a1a2e), color-stop(70%, #16213e), color-stop(100%, #0f3460));
+            background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
             color: #F5F5F5;
             font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -60,13 +62,10 @@
          * content fills remaining space automatically. */
         .page-wrapper {
             position: relative;
-            z-index: 2;
-            background: #0a0a12;
-            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #0a0a12), color-stop(40%, #1a1a2e), color-stop(70%, #16213e), color-stop(100%, #0f3460));
-            background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
             display: table;
             table-layout: fixed;
             width: 100%;
+            background: none;
             /* height set by JS: window.innerHeight */
         }
 
@@ -79,8 +78,6 @@
         .top-bar-cell {
             display: table-cell;
             vertical-align: middle;
-            position: relative;
-            z-index: 3;
             height: 44px;
             padding-top: 8px;
             background: rgba(0, 0, 0, 0.7);
@@ -117,15 +114,13 @@
         /* ── CONTENT ROW ── */
         .content-row {
             display: table-row;
-            background: transparent;
+            background: none;
         }
 
         .content-cell {
             display: table-cell;
             vertical-align: top;
-            position: relative;
-            z-index: 3;
-            background: transparent;
+            background: none;
         }
 
         .content-wrapper {
@@ -158,8 +153,6 @@
         .bottom-bar-cell {
             display: table-cell;
             vertical-align: middle;
-            position: relative;
-            z-index: 3;
             height: 48px;
             background: rgba(0, 0, 0, 0.7);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -625,12 +618,12 @@
 
 <body>
 
+    <!-- Background slideshow + overlay -->
+    <div id="bg-slideshow"></div>
+    <div id="bg-overlay"></div>
+
     <!-- page-wrapper: display:table with 3 rows -->
     <div class="page-wrapper">
-
-        <!-- Background layers (inside page-wrapper for same stacking context) -->
-        <div id="bg-slideshow"></div>
-        <div id="bg-overlay"></div>
 
         <!-- ROW 1: Top bar (44px) -->
         <div class="top-bar">
