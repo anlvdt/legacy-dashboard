@@ -31,3 +31,8 @@
   from = "/api/youtube-search"
   to = "/.netlify/functions/youtube-search"
   status = 200
+
+[[redirects]]
+  from = "/api/image-proxy"
+  to = "/.netlify/functions/image-proxy"
+  status = 200
