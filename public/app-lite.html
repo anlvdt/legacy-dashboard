@@ -1247,20 +1247,25 @@
             }
 
             /* ============================================================
-             * BACKGROUND SLIDESHOW — Local fallback + dynamic Unsplash
-             * Local images load instantly. Then tries Unsplash via proxy
-             * for unlimited variety of real nature photos.
+             * BACKGROUND SLIDESHOW — Local fallback + dynamic Picsum
+             * Local images load instantly. Then loads random photos from
+             * picsum.photos via server proxy (1000+ curated photos).
              * ============================================================ */
             var bgEl = document.querySelector('.page-wrapper');
+            var bgSourceEl = document.querySelector('.lite-badge');
             var localBgs = ['/bg/1.jpg', '/bg/2.jpg', '/bg/3.jpg', '/bg/4.jpg', '/bg/5.jpg'];
             var bgIndex = 0;
-            var remoteLoaded = false;
+
+            function setBgSource(src) {
+                if (bgSourceEl) { bgSourceEl.textContent = 'Lite · BG: ' + src; }
+            }
 
             function setLocalBg() {
                 if (!bgEl) { return; }
                 var img = new Image();
                 img.onload = function () {
                     bgEl.style.backgroundImage = 'url(' + img.src + ')';
+                    setBgSource('Local #' + bgIndex);
                 };
                 img.src = localBgs[bgIndex];
                 bgIndex = (bgIndex + 1) % localBgs.length;
@@ -1268,11 +1273,12 @@
 
             function loadRemoteBg() {
                 if (!bgEl) { return; }
-                // Random nature photo from Unsplash via server proxy
-                var categories = ['nature', 'landscape', 'mountain', 'ocean', 'forest', 'sky', 'sunset', 'river', 'lake', 'waterfall'];
-                var cat = categories[Math.floor(Math.random() * categories.length)];
-                var unsplashUrl = 'https://source.unsplash.com/640x480/?' + cat;
-                var proxyUrl = '/api/image-proxy?url=' + encodeURIComponent(unsplashUrl);
+                // Random photo from picsum.photos (1000+ curated photos)
+                var picsumId = Math.floor(Math.random() * 1000) + 1;
+                var picsumUrl = 'https://picsum.photos/id/' + picsumId + '/640/480';
+                var proxyUrl = '/api/image-proxy?url=' + encodeURIComponent(picsumUrl);
+
+                setBgSource('Loading...');
 
                 var img = new Image();
                 var done = false;
@@ -1285,7 +1291,7 @@
                     done = true;
                     clearTimeout(timer);
                     bgEl.style.backgroundImage = 'url(' + img.src + ')';
-                    remoteLoaded = true;
+                    setBgSource('Picsum #' + picsumId);
                 };
                 img.onerror = function () {
                     if (!done) { done = true; clearTimeout(timer); setLocalBg(); }
