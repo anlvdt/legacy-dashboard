@@ -21,7 +21,6 @@
         }
 
         body {
-            position: relative;
             background: #0a0a12;
             background: -webkit-linear-gradient(315deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
             background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
@@ -56,32 +55,40 @@
             z-index: 1;
         }
 
-        .container {
+        /* ── PAGE WRAPPER: display:table — gold standard for iOS 9 ──
+         * The ONLY reliable way to stack top-bar + content + bottom-bar
+         * on iOS 9 without height calculations or position:fixed.
+         * Table rows auto-distribute: bars get fixed height,
+         * content fills remaining space automatically. */
+        .page-wrapper {
             position: relative;
             z-index: 2;
+            display: table;
+            table-layout: fixed;
             width: 100%;
             height: 100%;
-            padding: 44px 0 48px 0;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            overflow: hidden;
         }
 
         /* ── TOP BAR: News ticker ── */
-        /* position:fixed top:0 works on iOS 9 */
-        /* overflow:hidden HERE clips the scrolling text */
         .top-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
+            display: table-row;
+            height: 44px;
+        }
+
+        .top-bar-cell {
+            display: table-cell;
+            vertical-align: middle;
+            height: 44px;
+            background: rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .news-scroller {
             width: 100%;
             height: 44px;
             line-height: 44px;
-            background: rgba(0, 0, 0, 0.7);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
             white-space: nowrap;
-            z-index: 100;
         }
 
         .top-news-content {
@@ -103,7 +110,16 @@
             font-size: 3vmin;
         }
 
-        /* ── CONTENT: flex-row 2-column (proven working) ── */
+        /* ── CONTENT ROW ── */
+        .content-row {
+            display: table-row;
+        }
+
+        .content-cell {
+            display: table-cell;
+            vertical-align: top;
+        }
+
         .content-wrapper {
             display: -webkit-box;
             display: -webkit-flex;
@@ -126,18 +142,17 @@
         }
 
         /* ── BOTTOM BAR: FX ticker ── */
-        /* position:absolute on body — avoids position:fixed bug on iOS 9 */
         .bottom-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            display: table-row;
             height: 48px;
-            line-height: 48px;
+        }
+
+        .bottom-bar-cell {
+            display: table-cell;
+            vertical-align: middle;
+            height: 48px;
             background: rgba(0, 0, 0, 0.7);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            white-space: nowrap;
-            z-index: 100;
         }
 
         .fx-label {
@@ -158,6 +173,7 @@
             overflow: hidden;
             height: 48px;
             line-height: 48px;
+            white-space: nowrap;
         }
 
         .fx-content {
@@ -601,71 +617,83 @@
     <div id="bg-slideshow"></div>
     <div id="bg-overlay"></div>
 
-    <!-- Top bar: news ticker (position:fixed, renders on top) -->
-    <div class="top-bar">
-        <span class="top-news-content" id="news-content">
-            <span class="news-item">📰 Đang tải tin tức...</span>
-        </span>
-    </div>
+    <!-- page-wrapper: display:table with 3 rows -->
+    <div class="page-wrapper">
 
-    <div class="container">
-
-        <div class="content-wrapper">
-
-            <!-- LEFT COLUMN: Clock + Date/Weather + Quote -->
-            <div class="col-left">
-                <div class="clock-wrapper">
-                    <div id="digital-clock">
-                        <div class="clock-seg"><span id="c-hours">00</span></div>
-                        <div class="clock-sep colon-blink">:</div>
-                        <div class="clock-seg"><span id="c-minutes">00</span></div>
-                    </div>
-                </div>
-                <div class="info-group">
-                    <div class="date-box">
-                        <p id="greg-date"></p>
-                        <p id="lunar-date"></p>
-                    </div>
-                    <div class="event-countdown" id="top-countdown"></div>
-                    <div class="weather-box">
-                        <div id="weather-loc">Đang tải...</div>
-                        <div class="weather-line">
-                            <span id="weather-icon"></span>
-                            <span id="weather-temp"></span>
-                            <span id="weather-desc">Đang tải thời tiết...</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="quote-wrap">
-                    <div class="quote-text" id="quote-text">...</div>
-                    <div class="quote-author" id="quote-author">Việt Nam</div>
+        <!-- ROW 1: Top bar (44px) -->
+        <div class="top-bar">
+            <div class="top-bar-cell">
+                <div class="news-scroller">
+                    <span class="top-news-content" id="news-content">
+                        <span class="news-item">📰 Đang tải tin tức...</span>
+                    </span>
                 </div>
             </div>
-
-            <!-- RIGHT COLUMN: Calendar -->
-            <div class="col-right">
-                <div id="cal-container">
-                    <div id="cal-header">
-                        <div class="cal-nav" id="cal-prev">&lt;</div>
-                        <div id="cal-title"></div>
-                        <div class="cal-nav" id="cal-next">&gt;</div>
-                    </div>
-                    <div id="cal-grid"></div>
-                </div>
-            </div>
-
         </div>
 
-    </div>
+        <!-- ROW 2: Content (auto-fill remaining height) -->
+        <div class="content-row">
+            <div class="content-cell">
+                <div class="content-wrapper">
 
-    <!-- Bottom bar: FX ticker (outside container, normal flow) -->
-    <div class="bottom-bar">
-        <span class="fx-label">💱 Tỷ giá</span>
-        <span class="fx-track">
-            <span class="fx-content" id="fx-content">
-                <span class="fx-item">Đang tải tỷ giá...</span>
-            </span>
-        </span>
+                    <!-- LEFT COLUMN: Clock + Date/Weather + Quote -->
+                    <div class="col-left">
+                        <div class="clock-wrapper">
+                            <div id="digital-clock">
+                                <div class="clock-seg"><span id="c-hours">00</span></div>
+                                <div class="clock-sep colon-blink">:</div>
+                                <div class="clock-seg"><span id="c-minutes">00</span></div>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <div class="date-box">
+                                <p id="greg-date"></p>
+                                <p id="lunar-date"></p>
+                            </div>
+                            <div class="event-countdown" id="top-countdown"></div>
+                            <div class="weather-box">
+                                <div id="weather-loc">Đang tải...</div>
+                                <div class="weather-line">
+                                    <span id="weather-icon"></span>
+                                    <span id="weather-temp"></span>
+                                    <span id="weather-desc">Đang tải thời tiết...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="quote-wrap">
+                            <div class="quote-text" id="quote-text">...</div>
+                            <div class="quote-author" id="quote-author">Việt Nam</div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: Calendar -->
+                    <div class="col-right">
+                        <div id="cal-container">
+                            <div id="cal-header">
+                                <div class="cal-nav" id="cal-prev">&lt;</div>
+                                <div id="cal-title"></div>
+                                <div class="cal-nav" id="cal-next">&gt;</div>
+                            </div>
+                            <div id="cal-grid"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 3: Bottom bar (48px) -->
+        <div class="bottom-bar">
+            <div class="bottom-bar-cell">
+                <span class="fx-label">💱 Tỷ giá</span>
+                <span class="fx-track">
+                    <span class="fx-content" id="fx-content">
+                        <span class="fx-item">Đang tải tỷ giá...</span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
     </div>
 
     <div class="lite-badge">Legacy Frame Lite</div>
