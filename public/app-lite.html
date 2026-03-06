@@ -29,13 +29,108 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Background slideshow */
+        #bg-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #0a0a12;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            -webkit-transition: opacity 1.5s ease;
+            transition: opacity 1.5s ease;
+            z-index: 0;
+        }
+
+        #bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 1;
+        }
+
         .container {
+            position: relative;
+            z-index: 2;
             width: 100%;
             height: 100%;
-            padding: 1vmin;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            flex-direction: column;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             overflow: hidden;
+        }
+
+        /* Top bar: countdown + news */
+        .top-bar {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            width: 100%;
+            height: 3.5vmin;
+            min-height: 3.5vmin;
+            background: rgba(0, 0, 0, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            -webkit-flex-shrink: 0;
+            flex-shrink: 0;
+        }
+
+        .top-countdown {
+            -webkit-flex-shrink: 0;
+            flex-shrink: 0;
+            white-space: nowrap;
+            padding: 0 1.5vmin;
+            font-size: 1.8vmin;
+            font-weight: 700;
+            color: #f39c12;
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .top-news {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+        }
+
+        .top-news-content {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            white-space: nowrap;
+            height: 100%;
+            will-change: transform;
+        }
+
+        .news-item {
+            display: inline-block;
+            font-size: 1.6vmin;
+            padding: 0 2vmin;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .news-sep {
+            color: #f39c12;
+            padding: 0 0.5vmin;
         }
 
         .content-wrapper {
@@ -45,9 +140,85 @@
             -webkit-box-orient: horizontal;
             -webkit-flex-direction: row;
             flex-direction: row;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1 1 auto;
+            flex: 1 1 auto;
             width: 100%;
-            height: 100%;
             overflow: hidden;
+            padding: 0.5vmin;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        /* Bottom bar: FX ticker */
+        .bottom-bar {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            width: 100%;
+            height: 3.5vmin;
+            min-height: 3.5vmin;
+            background: rgba(0, 0, 0, 0.6);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            -webkit-flex-shrink: 0;
+            flex-shrink: 0;
+        }
+
+        .fx-label {
+            -webkit-flex-shrink: 0;
+            flex-shrink: 0;
+            white-space: nowrap;
+            padding: 0 1.5vmin;
+            font-size: 1.4vmin;
+            font-weight: 700;
+            color: #f39c12;
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .fx-track {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+        }
+
+        .fx-content {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            white-space: nowrap;
+            height: 100%;
+            will-change: transform;
+        }
+
+        .fx-item {
+            display: inline-block;
+            font-size: 1.6vmin;
+            padding: 0 1.5vmin;
+        }
+
+        .fx-code {
+            color: #f39c12;
+            font-weight: 700;
+        }
+
+        .fx-val {
+            color: rgba(255, 255, 255, 0.9);
+            margin-left: 0.5vmin;
+        }
+
+        .fx-sep {
+            color: rgba(255, 255, 255, 0.3);
+            padding: 0 0.3vmin;
         }
 
         .col-left {
@@ -460,7 +631,22 @@
 </head>
 
 <body>
+    <!-- Background slideshow -->
+    <div id="bg-slideshow"></div>
+    <div id="bg-overlay"></div>
+
     <div class="container">
+
+        <!-- Top bar: countdown + news -->
+        <div class="top-bar">
+            <div class="top-countdown" id="top-countdown">🎆 Đang tính...</div>
+            <div class="top-news">
+                <div class="top-news-content" id="news-content">
+                    <span class="news-item">📰 Đang tải tin tức...</span>
+                </div>
+            </div>
+        </div>
+
         <div class="content-wrapper">
 
             <!-- LEFT COLUMN: Clock + Date/Weather + Quote -->
@@ -505,6 +691,17 @@
             </div>
 
         </div>
+
+        <!-- Bottom bar: FX ticker -->
+        <div class="bottom-bar">
+            <div class="fx-label">💱 Tỷ giá</div>
+            <div class="fx-track">
+                <div class="fx-content" id="fx-content">
+                    <span class="fx-item">Đang tải tỷ giá...</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="lite-badge">Legacy Frame Lite</div>
@@ -992,6 +1189,308 @@
                     renderCalendar(calBase);
                 };
             }
+
+            /* ============================================================
+             * PICSUM BACKGROUND SLIDESHOW
+             * ============================================================ */
+            var bgEl = document.getElementById('bg-slideshow');
+            var bgPreloaded = null;
+
+            function loadBgImage() {
+                var img = new Image();
+                var done = false;
+                var url = 'https://picsum.photos/640/480?random=' + Math.floor(Math.random() * 100000);
+                img.crossOrigin = 'anonymous';
+
+                var timer = setTimeout(function () {
+                    if (!done) { done = true; img.onload = null; img.onerror = null; }
+                }, 12000);
+
+                img.onload = function () {
+                    if (done) { return; }
+                    done = true;
+                    clearTimeout(timer);
+                    if (bgEl) {
+                        bgEl.style.opacity = '0';
+                        setTimeout(function () {
+                            bgEl.style.backgroundImage = 'url(' + img.src + ')';
+                            bgEl.style.opacity = '1';
+                            // Cache to localStorage
+                            try {
+                                var c = document.createElement('canvas');
+                                c.width = 640; c.height = 480;
+                                var ctx = c.getContext('2d');
+                                if (ctx) {
+                                    ctx.drawImage(img, 0, 0, 640, 480);
+                                    localStorage.setItem('lf_lite_bg', c.toDataURL('image/jpeg', 0.4));
+                                }
+                            } catch (e) { /* ignore */ }
+                        }, 1500);
+                    }
+                };
+                img.onerror = function () { if (!done) { done = true; clearTimeout(timer); } };
+                img.src = url;
+            }
+
+            // Restore cached bg immediately
+            if (bgEl) {
+                try {
+                    var cached = localStorage.getItem('lf_lite_bg');
+                    if (cached && cached.indexOf('data:image') === 0) {
+                        bgEl.style.backgroundImage = 'url(' + cached + ')';
+                        bgEl.style.opacity = '1';
+                    }
+                } catch (e) { /* ignore */ }
+            }
+            loadBgImage();
+            setInterval(loadBgImage, 30000);
+
+            /* ============================================================
+             * TOP BAR: SPECIAL DATES COUNTDOWN
+             * ============================================================ */
+            var countdownEl = document.getElementById('top-countdown');
+
+            function updateCountdown() {
+                if (!countdownEl) { return; }
+                var now = new Date();
+                var y = now.getFullYear();
+
+                // Vietnamese holidays/events (solar dates) + Tết approximations
+                var events = [
+                    { m: 1, d: 1, name: 'Tết Dương lịch', emoji: '🎉' },
+                    { m: 2, d: 14, name: 'Valentine', emoji: '❤️' },
+                    { m: 3, d: 8, name: 'Quốc tế Phụ nữ', emoji: '🌷' },
+                    { m: 4, d: 30, name: 'Giải phóng miền Nam', emoji: '🇻🇳' },
+                    { m: 5, d: 1, name: 'Quốc tế Lao động', emoji: '✊' },
+                    { m: 6, d: 1, name: 'Quốc tế Thiếu nhi', emoji: '👶' },
+                    { m: 9, d: 2, name: 'Quốc khánh', emoji: '🇻🇳' },
+                    { m: 10, d: 20, name: 'Ngày Phụ nữ VN', emoji: '💐' },
+                    { m: 11, d: 20, name: 'Ngày Nhà giáo', emoji: '📚' },
+                    { m: 12, d: 25, name: 'Giáng sinh', emoji: '🎄' }
+                ];
+
+                // Tết Nguyên Đán (approximate dates for upcoming years)
+                var tetDates = [
+                    { y: 2026, m: 2, d: 17, name: 'Tết Bính Ngọ' },
+                    { y: 2027, m: 2, d: 6, name: 'Tết Đinh Mùi' },
+                    { y: 2028, m: 1, d: 26, name: 'Tết Mậu Thân' },
+                    { y: 2029, m: 2, d: 13, name: 'Tết Kỷ Dậu' },
+                    { y: 2030, m: 2, d: 3, name: 'Tết Canh Tuất' }
+                ];
+
+                var nearest = null;
+                var minDays = 999;
+
+                // Check regular events
+                var i, evDate, diff;
+                for (i = 0; i < events.length; i++) {
+                    evDate = new Date(y, events[i].m - 1, events[i].d);
+                    if (evDate < now) { evDate = new Date(y + 1, events[i].m - 1, events[i].d); }
+                    diff = Math.ceil((evDate - now) / 86400000);
+                    if (diff >= 0 && diff < minDays) {
+                        minDays = diff;
+                        nearest = { name: events[i].name, days: diff, emoji: events[i].emoji };
+                    }
+                }
+
+                // Check Tết
+                for (i = 0; i < tetDates.length; i++) {
+                    evDate = new Date(tetDates[i].y, tetDates[i].m - 1, tetDates[i].d);
+                    diff = Math.ceil((evDate - now) / 86400000);
+                    if (diff >= 0 && diff < minDays) {
+                        minDays = diff;
+                        nearest = { name: tetDates[i].name, days: diff, emoji: '🎆' };
+                    }
+                }
+
+                if (nearest) {
+                    if (nearest.days === 0) {
+                        countdownEl.textContent = nearest.emoji + ' Hôm nay: ' + nearest.name + '!';
+                    } else {
+                        countdownEl.textContent = nearest.emoji + ' Còn ' + nearest.days + ' ngày → ' + nearest.name;
+                    }
+                }
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 3600000); // Update hourly
+
+            /* ============================================================
+             * TOP BAR: NEWS TICKER (VNExpress RSS via proxy)
+             * ============================================================ */
+            var newsContentEl = document.getElementById('news-content');
+            var newsAnimId = null;
+            var newsPos = 0;
+
+            function stripHtmlTags(html) {
+                var div = document.createElement('div');
+                div.innerHTML = html;
+                return div.textContent || div.innerText || '';
+            }
+
+            function parseRSS(xmlString) {
+                var items = [];
+                try {
+                    var parser = new DOMParser();
+                    var xml = parser.parseFromString(xmlString, 'text/xml');
+                    var xmlItems = xml.getElementsByTagName('item');
+                    var max = Math.min(xmlItems.length, 15);
+                    for (var i = 0; i < max; i++) {
+                        var titleEl = xmlItems[i].getElementsByTagName('title')[0];
+                        if (titleEl && titleEl.textContent) {
+                            items.push(stripHtmlTags(titleEl.textContent));
+                        }
+                    }
+                } catch (e) { /* parse error */ }
+                return items;
+            }
+
+            function renderNews(items) {
+                if (!newsContentEl || items.length === 0) { return; }
+                var html = '';
+                var i;
+                for (i = 0; i < items.length; i++) {
+                    html += '<span class="news-item">' + items[i] + '</span>';
+                    if (i < items.length - 1) {
+                        html += '<span class="news-sep">·</span>';
+                    }
+                }
+                // Duplicate for seamless loop
+                newsContentEl.innerHTML = html + '<span class="news-sep">·</span>' + html;
+                startNewsScroll();
+            }
+
+            function startNewsScroll() {
+                if (!newsContentEl) { return; }
+                newsPos = 0;
+                var speed = 0.4;
+
+                function step() {
+                    newsPos -= speed;
+                    var half = newsContentEl.scrollWidth / 2;
+                    if (Math.abs(newsPos) >= half) { newsPos = 0; }
+                    newsContentEl.style.webkitTransform = 'translateX(' + newsPos + 'px)';
+                    newsContentEl.style.transform = 'translateX(' + newsPos + 'px)';
+                    newsAnimId = requestAnimationFrame(step);
+                }
+                if (newsAnimId) { cancelAnimationFrame(newsAnimId); }
+                newsAnimId = requestAnimationFrame(step);
+            }
+
+            function loadNews() {
+                var rssUrl = 'https://vnexpress.net/rss/tin-moi-nhat.rss';
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/api/proxy?url=' + encodeURIComponent(rssUrl), true);
+                xhr.timeout = 15000;
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState !== 4) { return; }
+                    if (xhr.status >= 200 && xhr.status < 300 && xhr.responseText) {
+                        var items = parseRSS(xhr.responseText);
+                        if (items.length > 0) {
+                            renderNews(items);
+                            return;
+                        }
+                    }
+                    // Fallback: show placeholder
+                    if (newsContentEl) {
+                        newsContentEl.innerHTML = '<span class="news-item">📰 Không thể tải tin tức</span>';
+                    }
+                };
+                xhr.ontimeout = function () {
+                    if (newsContentEl) {
+                        newsContentEl.innerHTML = '<span class="news-item">📰 Không thể tải tin tức</span>';
+                    }
+                };
+                xhr.onerror = xhr.ontimeout;
+                xhr.send(null);
+            }
+            loadNews();
+            setInterval(loadNews, 900000); // Refresh every 15 min
+
+            /* ============================================================
+             * BOTTOM BAR: FX TICKER
+             * ============================================================ */
+            var fxContentEl = document.getElementById('fx-content');
+            var fxAnimId = null;
+            var fxPos = 0;
+            var FX_CURRENCIES = ['EUR', 'JPY', 'GBP', 'CNY', 'KRW', 'THB', 'AUD', 'SGD'];
+
+            function fxFmt(num) {
+                var str = num.toString();
+                var result = '';
+                var count = 0;
+                for (var i = str.length - 1; i >= 0; i--) {
+                    result = str[i] + result;
+                    count++;
+                    if (count % 3 === 0 && i > 0 && str[i - 1] !== '-') {
+                        result = '.' + result;
+                    }
+                }
+                return result;
+            }
+
+            function renderFxTicker(items) {
+                if (!fxContentEl || items.length === 0) { return; }
+                var html = '';
+                var i;
+                for (i = 0; i < items.length; i++) {
+                    html += '<span class="fx-item"><span class="fx-code">' + items[i].code + '</span> <span class="fx-val">' + items[i].value + items[i].unit + '</span></span>';
+                    if (i < items.length - 1) {
+                        html += '<span class="fx-sep">·</span>';
+                    }
+                }
+                // Duplicate for seamless loop
+                fxContentEl.innerHTML = html + '<span class="fx-sep">·</span>' + html;
+                startFxScroll();
+            }
+
+            function startFxScroll() {
+                if (!fxContentEl) { return; }
+                fxPos = 0;
+                var speed = 0.3;
+
+                function step() {
+                    fxPos -= speed;
+                    var half = fxContentEl.scrollWidth / 2;
+                    if (Math.abs(fxPos) >= half) { fxPos = 0; }
+                    fxContentEl.style.webkitTransform = 'translateX(' + fxPos + 'px)';
+                    fxContentEl.style.transform = 'translateX(' + fxPos + 'px)';
+                    fxAnimId = requestAnimationFrame(step);
+                }
+                if (fxAnimId) { cancelAnimationFrame(fxAnimId); }
+                fxAnimId = requestAnimationFrame(step);
+            }
+
+            function loadFxData() {
+                var proxyUrl = '/api/proxy?url=' + encodeURIComponent('https://open.er-api.com/v6/latest/USD');
+                xhrGet(proxyUrl, function (err, data) {
+                    if (err || !data || !data.rates || !data.rates.VND) {
+                        if (fxContentEl) {
+                            fxContentEl.innerHTML = '<span class="fx-item">Không thể tải tỷ giá</span>';
+                        }
+                        return;
+                    }
+                    var items = [];
+                    var usdVnd = data.rates.VND;
+                    items.push({ code: 'USD', value: fxFmt(Math.round(usdVnd)), unit: '' });
+
+                    var i, code, rate, vndRate;
+                    for (i = 0; i < FX_CURRENCIES.length; i++) {
+                        code = FX_CURRENCIES[i];
+                        rate = data.rates[code];
+                        if (rate && rate > 0) {
+                            vndRate = usdVnd / rate;
+                            if (code === 'JPY' || code === 'KRW') {
+                                items.push({ code: code, value: fxFmt(Math.round(vndRate * 100)), unit: '/100' });
+                            } else {
+                                items.push({ code: code, value: fxFmt(Math.round(vndRate)), unit: '' });
+                            }
+                        }
+                    }
+                    renderFxTicker(items);
+                }, 15000);
+            }
+            loadFxData();
+            setInterval(loadFxData, 1800000); // Refresh every 30 min
 
         })();
     </script>
