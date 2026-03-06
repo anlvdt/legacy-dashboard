@@ -8,14 +8,10 @@
     <title>Legacy Frame Lite</title>
     <style>
         /* ================================================================
-         * Legacy Frame Lite — CSS tối giản cho thiết bị cũ
-         * Không dùng: CSS Grid, CSS Variables, clamp(), backdrop-filter, @supports
-         * Bắt buộc: -webkit- prefix cho flexbox, transition, transform, animation
+         * Legacy Frame Lite — Tối ưu tối đa cho iPad Mini 1
+         * Hỗ trợ landscape (1024×681) + portrait (768×960)
+         * Không dùng: CSS Grid, CSS Variables, clamp(), backdrop-filter
          * ================================================================ */
-        html {
-            font-size: 1.5vmin;
-        }
-
         html,
         body {
             height: 100%;
@@ -33,15 +29,10 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Layout */
         .container {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
             width: 100%;
             height: 100%;
-            position: relative;
-            padding: 2vmin 3vmin 0 3vmin;
+            padding: 1vmin;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             overflow: hidden;
@@ -51,45 +42,19 @@
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-flex-direction: column;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            overflow: hidden;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            padding-bottom: 2vmin;
-        }
-
-        /* Top Row: Clock + Date/Weather */
-        #top-row {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
             -webkit-box-orient: horizontal;
             -webkit-flex-direction: row;
             flex-direction: row;
-            -webkit-flex-wrap: wrap;
-            flex-wrap: wrap;
-            -webkit-box-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-            -webkit-box-pack: justify;
-            -webkit-justify-content: space-between;
-            justify-content: space-between;
-            -webkit-flex-shrink: 0;
-            flex-shrink: 0;
-            margin-bottom: 1vmin;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
 
-        /* Clock */
-        .clock-wrapper {
+        .col-left {
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
-            -webkit-box-orient: column;
+            -webkit-box-orient: vertical;
             -webkit-flex-direction: column;
             flex-direction: column;
             -webkit-box-pack: center;
@@ -99,9 +64,43 @@
             -webkit-align-items: center;
             align-items: center;
             -webkit-box-flex: 1;
-            -webkit-flex: 1 1 auto;
-            flex: 1 1 auto;
-            margin: 0.75vmin;
+            -webkit-flex: 1 1 0;
+            flex: 1 1 0;
+            padding: 0.5vmin;
+            overflow: hidden;
+        }
+
+        .col-right {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1 1 0;
+            flex: 1 1 0;
+            padding: 0.5vmin;
+            overflow: hidden;
+        }
+
+        .clock-wrapper {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            margin-bottom: 0.5vmin;
         }
 
         #digital-clock {
@@ -120,27 +119,27 @@
         .clock-seg {
             background: rgba(20, 20, 20, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 2.5vmin;
-            padding: 0.5vmin 2vmin;
-            -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
-            box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+            border-radius: 2vmin;
+            padding: 0.3vmin 1.5vmin;
+            -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
         }
 
         .clock-seg span {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             font-weight: 800;
-            font-size: 11vmin;
+            font-size: 16vmin;
             color: #fff;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
             text-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.8), 0 0 1vmin rgba(255, 255, 255, 0.2);
         }
 
         .clock-sep {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             font-weight: 800;
-            font-size: 8vmin;
+            font-size: 12vmin;
             color: #fff;
-            margin: 0 1.5vmin;
+            margin: 0 1vmin;
             text-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.8);
         }
 
@@ -161,7 +160,6 @@
             animation: blink 1s infinite;
         }
 
-        /* Date + Weather group */
         .info-group {
             display: -webkit-box;
             display: -webkit-flex;
@@ -169,40 +167,34 @@
             -webkit-box-orient: column;
             -webkit-flex-direction: column;
             flex-direction: column;
-            -webkit-box-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
             -webkit-box-align: center;
             -webkit-align-items: center;
             align-items: center;
-            -webkit-box-flex: 1;
-            -webkit-flex: 1 1 auto;
-            flex: 1 1 auto;
-            margin: 0.75vmin;
+            margin-bottom: 0.5vmin;
         }
 
         .date-box,
         .weather-box {
             font-weight: 700;
-            padding: 1vmin 2vmin;
+            padding: 0.6vmin 2vmin;
             background: rgba(15, 15, 20, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 2vmin;
-            -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+            border-radius: 1.5vmin;
+            -webkit-box-shadow: 0 0.3vmin 1.5vmin rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0.3vmin 1.5vmin rgba(0, 0, 0, 0.5);
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+            text-align: center;
         }
 
         .date-box {
-            font-size: 3.2vmin;
+            font-size: 3.8vmin;
         }
 
         .date-box p {
-            margin: 0.3vmin 0;
+            margin: 0.15vmin 0;
         }
 
         #greg-date {
-            opacity: 0.95;
             font-weight: 700;
         }
 
@@ -211,14 +203,14 @@
         }
 
         .weather-box {
-            font-size: 2.5vmin;
-            margin-top: 0.5vmin;
+            font-size: 3vmin;
+            margin-top: 0.4vmin;
         }
 
         #weather-loc {
             color: rgba(255, 255, 255, 0.7);
-            font-size: 1.5vmin;
-            margin-bottom: 0.3vmin;
+            font-size: 1.8vmin;
+            margin-bottom: 0.2vmin;
         }
 
         .weather-line {
@@ -234,38 +226,22 @@
         }
 
         .weather-line>span {
-            margin: 0 0.5rem;
+            margin: 0 0.4rem;
         }
 
         #weather-desc {
-            font-size: 1.4vmin;
+            font-size: 1.8vmin;
             font-weight: 400;
             opacity: 0.8;
         }
 
-        /* Mid Row: Quote */
-        #mid-row {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 1 auto;
-            flex: 0 1 auto;
-            -webkit-box-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-        }
-
         .quote-wrap {
-            padding: 0.5vmin 2vmin;
+            padding: 0.5vmin 1vmin;
             text-align: center;
         }
 
         .quote-text {
-            font-size: 2.2vmin;
+            font-size: 2.8vmin;
             font-style: italic;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.9);
@@ -273,67 +249,21 @@
         }
 
         .quote-author {
-            font-size: 1.5vmin;
+            font-size: 1.8vmin;
             color: #f39c12;
-            margin-top: 0.5vmin;
-            font-weight: 400;
+            margin-top: 0.3vmin;
         }
 
-        /* Bottom Row: Calendar + Simplified Widgets */
-        #bottom-row {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-orient: horizontal;
-            -webkit-flex-direction: row;
-            flex-direction: row;
-            -webkit-flex-wrap: nowrap;
-            flex-wrap: nowrap;
-            -webkit-box-align: start;
-            -webkit-align-items: flex-start;
-            align-items: flex-start;
-            -webkit-box-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-flex-shrink: 1;
-            flex-shrink: 1;
-            overflow: hidden;
-        }
-
-        .widget {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-orient: column;
-            -webkit-flex-direction: column;
-            flex-direction: column;
-            -webkit-box-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-box-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-            -webkit-box-flex: 1;
-            -webkit-flex: 1 1 0;
-            flex: 1 1 0;
-            margin: 0.5vmin;
-            max-height: 40vh;
-            overflow: hidden;
-        }
-
-        /* Calendar */
         #cal-container {
             background: rgba(20, 20, 20, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 1vmin;
             border-radius: 2vmin;
             width: 100%;
-            max-width: 48vmin;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
-            margin: 0 auto;
-            -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
-            box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+            -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
         }
 
         #cal-header {
@@ -350,7 +280,7 @@
             -webkit-box-flex: 1;
             -webkit-flex: 1;
             flex: 1;
-            font-size: 1.5vmin;
+            font-size: 2.5vmin;
             font-weight: 700;
             text-align: center;
         }
@@ -360,12 +290,11 @@
             font-size: 2.5vmin;
             -webkit-user-select: none;
             user-select: none;
-            padding: 0 1.5vmin;
-            text-align: center;
+            padding: 0.3vmin 1vmin;
         }
 
         #cal-grid {
-            margin-top: 0.3vmin;
+            margin-top: 0.2vmin;
         }
 
         #cal-grid::after {
@@ -385,15 +314,15 @@
         .cal-cell::before {
             content: '';
             display: block;
-            padding-top: 100%;
+            padding-top: 78%;
         }
 
         .cal-inner {
             position: absolute;
-            top: 0.2rem;
-            right: 0.2rem;
-            bottom: 0.2rem;
-            left: 0.2rem;
+            top: 1px;
+            right: 1px;
+            bottom: 1px;
+            left: 1px;
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
@@ -409,17 +338,17 @@
         .day-hdr .cal-inner {
             font-weight: 700;
             color: #f39c12;
-            font-size: 1.3vmin;
+            font-size: 2.2vmin;
         }
 
         .solar-d {
-            font-size: 1.4vmin;
+            font-size: 2.8vmin;
             font-weight: 700;
             display: block;
         }
 
         .lunar-d {
-            font-size: 1.1vmin;
+            font-size: 1.6vmin;
             display: block;
             color: #f39c12;
             opacity: 0.8;
@@ -434,15 +363,94 @@
             color: #000;
             border-radius: 0.8vmin;
             font-weight: 800;
-            -webkit-box-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.5);
+            -webkit-box-shadow: 0 0.3vmin 0.8vmin rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0.3vmin 0.8vmin rgba(0, 0, 0, 0.5);
         }
 
         .today-cell .lunar-d {
             color: #000;
         }
 
-        /* Lite badge */
+        /* ===== PORTRAIT: stack dọc ===== */
+        @media screen and (orientation: portrait) {
+            .content-wrapper {
+                -webkit-box-orient: vertical;
+                -webkit-flex-direction: column;
+                flex-direction: column;
+            }
+
+            .col-right {
+                -webkit-box-ordinal-group: 0;
+                -webkit-order: -1;
+                order: -1;
+                -webkit-box-flex: 0;
+                -webkit-flex: 0 0 auto;
+                flex: 0 0 auto;
+            }
+
+            .col-left {
+                -webkit-box-flex: 1;
+                -webkit-flex: 1 1 auto;
+                flex: 1 1 auto;
+            }
+
+            .clock-seg span {
+                font-size: 10vmin;
+            }
+
+            .clock-sep {
+                font-size: 7vmin;
+            }
+
+            .clock-wrapper {
+                margin-bottom: 0.8vmin;
+            }
+
+            .info-group {
+                margin-bottom: 0.8vmin;
+            }
+
+            .date-box {
+                font-size: 2.5vmin;
+            }
+
+            .weather-box {
+                font-size: 2vmin;
+            }
+
+            .quote-text {
+                font-size: 1.8vmin;
+            }
+
+            .quote-author {
+                font-size: 1.2vmin;
+            }
+
+            #cal-container {
+                max-width: 80vmin;
+            }
+
+            .solar-d {
+                font-size: 1.8vmin;
+            }
+
+            .lunar-d {
+                font-size: 1.1vmin;
+            }
+
+            .day-hdr .cal-inner {
+                font-size: 1.4vmin;
+            }
+
+            #cal-title {
+                font-size: 1.8vmin;
+            }
+
+            .cal-cell::before {
+                padding-top: 85%;
+            }
+        }
+
         .lite-badge {
             position: fixed;
             bottom: 0.5vmin;
@@ -458,8 +466,20 @@
     <div class="container">
         <div class="content-wrapper">
 
-            <!-- TOP ROW -->
-            <div id="top-row">
+            <!-- LEFT COLUMN: Calendar -->
+            <div class="col-left">
+                <div id="cal-container">
+                    <div id="cal-header">
+                        <div class="cal-nav" id="cal-prev">&lt;</div>
+                        <div id="cal-title"></div>
+                        <div class="cal-nav" id="cal-next">&gt;</div>
+                    </div>
+                    <div id="cal-grid"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Clock + Date/Weather + Quote -->
+            <div class="col-right">
                 <div class="clock-wrapper">
                     <div id="digital-clock">
                         <div class="clock-seg"><span id="c-hours">00</span></div>
@@ -481,27 +501,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- MID ROW: Quote -->
-            <div id="mid-row">
                 <div class="quote-wrap">
                     <div class="quote-text" id="quote-text">...</div>
                     <div class="quote-author" id="quote-author">Việt Nam</div>
-                </div>
-            </div>
-
-            <!-- BOTTOM ROW -->
-            <div id="bottom-row">
-                <div class="widget">
-                    <div id="cal-container">
-                        <div id="cal-header">
-                            <div class="cal-nav" id="cal-prev">&lt;</div>
-                            <div id="cal-title"></div>
-                            <div class="cal-nav" id="cal-next">&gt;</div>
-                        </div>
-                        <div id="cal-grid"></div>
-                    </div>
                 </div>
             </div>
 
@@ -761,37 +763,60 @@
             var wTempEl = document.getElementById('weather-temp');
             var wDescEl = document.getElementById('weather-desc');
 
+            /**
+             * Detect location via backend proxy (iOS 9 can't reach ipinfo.io directly)
+             * Fallback chain: proxy ipinfo → proxy ipapi.co → hardcode HCM
+             */
+            function detectLocation(callback) {
+                // Primary: ipinfo.io via backend proxy
+                xhrGet('/api/proxy?url=' + encodeURIComponent('https://ipinfo.io/json'), function (err, locData) {
+                    if (!err && locData && locData.loc && locData.city) {
+                        var parts = locData.loc.split(',');
+                        callback(null, locData.city, parts[0], parts[1]);
+                        return;
+                    }
+                    // Fallback 1: ipapi.co via backend proxy
+                    xhrGet('/api/proxy?url=' + encodeURIComponent('https://ipapi.co/json/'), function (err2, data2) {
+                        if (!err2 && data2 && data2.city && data2.latitude && data2.longitude) {
+                            callback(null, data2.city, data2.latitude, data2.longitude);
+                            return;
+                        }
+                        // Fallback 2: hardcode Hồ Chí Minh
+                        callback(null, 'Hồ Chí Minh', 10.8231, 106.6297);
+                    }, 10000);
+                }, 10000);
+            }
+
+            function fetchWeather(city, lat, lon) {
+                if (wLocEl) { wLocEl.textContent = city; }
+
+                var weatherUrl = '/api/proxy?url=' + encodeURIComponent(
+                    'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current=temperature_2m,weather_code'
+                );
+                xhrGet(weatherUrl, function (err, wData) {
+                    if (err || !wData || !wData.current) {
+                        if (wDescEl) { wDescEl.textContent = 'Không thể tải thời tiết'; }
+                        return;
+                    }
+                    var code = wData.current.weather_code;
+                    var temp = Math.round(wData.current.temperature_2m);
+                    var emoji = WMO_EMOJI[code] || '❓';
+                    var desc = WMO_DESC[code] || 'Không xác định';
+
+                    if (wIconEl) { wIconEl.textContent = emoji; wIconEl.style.fontSize = '3.5vmin'; }
+                    if (wTempEl) { wTempEl.textContent = temp + '°C'; }
+                    if (wDescEl) { wDescEl.textContent = desc; }
+                }, 10000);
+            }
+
             function loadWeather() {
-                // Detect location via IP
-                xhrGet('https://ipinfo.io/json', function (err, locData) {
-                    if (err || !locData || !locData.loc || !locData.city) {
+                detectLocation(function (err, city, lat, lon) {
+                    if (err) {
                         if (wDescEl) { wDescEl.textContent = 'Không thể xác định vị trí'; }
                         return;
                     }
-                    var parts = locData.loc.split(',');
-                    var lat = parts[0];
-                    var lon = parts[1];
-                    var city = locData.city;
-
-                    if (wLocEl) { wLocEl.textContent = city; }
-
-                    // Fetch weather from Open-Meteo (no proxy needed, direct HTTPS)
-                    var weatherUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current=temperature_2m,weather_code';
-                    xhrGet(weatherUrl, function (err2, wData) {
-                        if (err2 || !wData || !wData.current) {
-                            if (wDescEl) { wDescEl.textContent = 'Không thể tải thời tiết'; }
-                            return;
-                        }
-                        var code = wData.current.weather_code;
-                        var temp = Math.round(wData.current.temperature_2m);
-                        var emoji = WMO_EMOJI[code] || '❓';
-                        var desc = WMO_DESC[code] || 'Không xác định';
-
-                        if (wIconEl) { wIconEl.textContent = emoji; wIconEl.style.fontSize = '4vmin'; }
-                        if (wTempEl) { wTempEl.textContent = temp + '°C'; }
-                        if (wDescEl) { wDescEl.textContent = desc; }
-                    }, 10000);
-                }, 10000);
+                    fetchWeather(city, lat, lon);
+                });
             }
             loadWeather();
             // Refresh weather every 30 minutes
