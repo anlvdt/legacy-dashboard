@@ -765,23 +765,9 @@
              * Fallback chain: proxy ipinfo → proxy ipapi.co → hardcode HCM
              */
             function detectLocation(callback) {
-                // Primary: ipinfo.io via backend proxy
-                xhrGet('/api/proxy?url=' + encodeURIComponent('https://ipinfo.io/json'), function (err, locData) {
-                    if (!err && locData && locData.loc && locData.city) {
-                        var parts = locData.loc.split(',');
-                        callback(null, locData.city, parts[0], parts[1]);
-                        return;
-                    }
-                    // Fallback 1: ipapi.co via backend proxy
-                    xhrGet('/api/proxy?url=' + encodeURIComponent('https://ipapi.co/json/'), function (err2, data2) {
-                        if (!err2 && data2 && data2.city && data2.latitude && data2.longitude) {
-                            callback(null, data2.city, data2.latitude, data2.longitude);
-                            return;
-                        }
-                        // Fallback 2: hardcode Hồ Chí Minh
-                        callback(null, 'Hồ Chí Minh', 10.8231, 106.6297);
-                    }, 10000);
-                }, 10000);
+                // Proxy-based IP detection returns Netlify server's location, not user's.
+                // Hardcode Hồ Chí Minh for wall-mounted dashboard.
+                callback(null, 'Hồ Chí Minh', 10.8231, 106.6297);
             }
 
             function fetchWeather(city, lat, lon) {
