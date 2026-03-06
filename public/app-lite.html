@@ -22,38 +22,12 @@
 
         body {
             background: #0a0a12;
-            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #0a0a12), color-stop(40%, #1a1a2e), color-stop(70%, #16213e), color-stop(100%, #0f3460));
-            background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
             color: #F5F5F5;
             font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Background slideshow */
-        #bg-slideshow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #0a0a12;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            -webkit-transition: opacity 1.5s ease;
-            transition: opacity 1.5s ease;
-            z-index: -1;
-        }
 
-        #bg-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.55);
-            z-index: -1;
-        }
 
         /* ── PAGE WRAPPER: display:table — gold standard for iOS 9 ──
          * The ONLY reliable way to stack top-bar + content + bottom-bar
@@ -65,7 +39,13 @@
             display: table;
             table-layout: fixed;
             width: 100%;
-            background: none;
+            background: #0a0a12;
+            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #0a0a12), color-stop(40%, #1a1a2e), color-stop(70%, #16213e), color-stop(100%, #0f3460));
+            background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             /* height set by JS: window.innerHeight */
         }
 
@@ -120,7 +100,7 @@
         .content-cell {
             display: table-cell;
             vertical-align: top;
-            background: none;
+            background: rgba(0, 0, 0, 0.45);
         }
 
         .content-wrapper {
@@ -617,10 +597,6 @@
 </head>
 
 <body>
-
-    <!-- Background slideshow + overlay -->
-    <div id="bg-slideshow"></div>
-    <div id="bg-overlay"></div>
 
     <!-- page-wrapper: display:table with 3 rows -->
     <div class="page-wrapper">
@@ -1214,7 +1190,7 @@
             /* ============================================================
              * PICSUM BACKGROUND SLIDESHOW
              * ============================================================ */
-            var bgEl = document.getElementById('bg-slideshow');
+            var bgEl = document.querySelector('.page-wrapper');
             var bgPreloaded = null;
 
             function loadBgImage() {
@@ -1231,21 +1207,17 @@
                     done = true;
                     clearTimeout(timer);
                     if (bgEl) {
-                        bgEl.style.opacity = '0';
-                        setTimeout(function () {
-                            bgEl.style.backgroundImage = 'url(' + img.src + ')';
-                            bgEl.style.opacity = '1';
-                            // Cache to localStorage
-                            try {
-                                var c = document.createElement('canvas');
-                                c.width = 640; c.height = 480;
-                                var ctx = c.getContext('2d');
-                                if (ctx) {
-                                    ctx.drawImage(img, 0, 0, 640, 480);
-                                    localStorage.setItem('lf_lite_bg', c.toDataURL('image/jpeg', 0.4));
-                                }
-                            } catch (e) { /* ignore */ }
-                        }, 1500);
+                        bgEl.style.backgroundImage = 'url(' + img.src + ')';
+                        // Cache to localStorage
+                        try {
+                            var c = document.createElement('canvas');
+                            c.width = 640; c.height = 480;
+                            var ctx = c.getContext('2d');
+                            if (ctx) {
+                                ctx.drawImage(img, 0, 0, 640, 480);
+                                localStorage.setItem('lf_lite_bg', c.toDataURL('image/jpeg', 0.4));
+                            }
+                        } catch (e) { /* ignore */ }
                     }
                 };
                 img.onerror = function () { if (!done) { done = true; clearTimeout(timer); } };
