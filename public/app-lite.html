@@ -1523,33 +1523,54 @@
                 playNext();
             }
 
+            var currentAudio = null;
+            var ttsTimeout = null;
+
+            function ttsReset() {
+                ttsPlaying = false;
+                ttsQueue = [];
+                if (currentAudio) {
+                    try { currentAudio.pause(); } catch (e) { }
+                    currentAudio = null;
+                }
+                clearTimeout(ttsTimeout);
+                if (ttsBtn) { ttsBtn.innerHTML = '&#128266;'; } // 🔊
+            }
+
             function playNext() {
-                if (ttsPlaying || ttsQueue.length === 0) { return; }
+                if (ttsPlaying || ttsQueue.length === 0) {
+                    if (ttsQueue.length === 0) { ttsReset(); }
+                    return;
+                }
                 ttsPlaying = true;
                 if (ttsBtn) { ttsBtn.innerHTML = '&#128263;'; } // 🔇
                 var text = ttsQueue.shift();
                 var url = '/.netlify/functions/tts-proxy?q=' + encodeURIComponent(text) + '&voice=vi-VN-HoaiMyNeural';
 
-                try {
-                    var audio = document.createElement('audio');
-                    audio.setAttribute('src', url);
-                    audio.setAttribute('preload', 'auto');
+                // Safety timeout: reset after 30s if audio hangs
+                clearTimeout(ttsTimeout);
+                ttsTimeout = setTimeout(ttsReset, 30000);
 
-                    audio.onended = function () {
+                try {
+                    currentAudio = document.createElement('audio');
+                    currentAudio.setAttribute('src', url);
+                    currentAudio.setAttribute('preload', 'auto');
+
+                    currentAudio.onended = function () {
                         ttsPlaying = false;
+                        clearTimeout(ttsTimeout);
                         if (ttsBtn) { ttsBtn.innerHTML = '&#128266;'; } // 🔊
                         playNext();
                     };
-                    audio.onerror = function () {
+                    currentAudio.onerror = function () {
                         ttsPlaying = false;
+                        clearTimeout(ttsTimeout);
                         if (ttsBtn) { ttsBtn.innerHTML = '&#128266;'; } // 🔊
                         playNext();
                     };
-                    audio.play();
+                    currentAudio.play();
                 } catch (e) {
-                    ttsPlaying = false;
-                    if (ttsBtn) { ttsBtn.innerHTML = '&#128266;'; } // 🔊
-                    playNext();
+                    ttsReset();
                 }
             }
 
@@ -1600,7 +1621,7 @@
                     clearTimeout(pressTimer);
                     if (!longPressed) {
                         ttsUnlocked = true;
-                        readNewsNow();
+                        if (ttsPlaying) { ttsReset(); } else { readNewsNow(); }
                     }
                 };
                 // Fallback for non-touch (desktop testing)
@@ -1620,7 +1641,7 @@
                     clearTimeout(pressTimer);
                     if (!longPressed) {
                         ttsUnlocked = true;
-                        readNewsNow();
+                        if (ttsPlaying) { ttsReset(); } else { readNewsNow(); }
                     }
                 };
             }
