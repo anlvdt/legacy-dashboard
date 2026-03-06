@@ -115,11 +115,13 @@
         /* ── CONTENT ROW ── */
         .content-row {
             display: table-row;
+            background: transparent;
         }
 
         .content-cell {
             display: table-cell;
             vertical-align: top;
+            background: transparent;
         }
 
         .content-wrapper {
@@ -1380,12 +1382,13 @@
             function startNewsScroll() {
                 if (!newsContentEl) { return; }
                 newsPos = 0;
-                var speed = 3;
+                var speed = 2;
+                var halfWidth = 0;
 
                 function step() {
+                    if (!halfWidth) { halfWidth = newsContentEl.scrollWidth / 2; }
                     newsPos -= speed;
-                    var half = newsContentEl.scrollWidth / 2;
-                    if (Math.abs(newsPos) >= half) { newsPos = 0; }
+                    if (Math.abs(newsPos) >= halfWidth) { newsPos = 0; }
                     newsContentEl.style.webkitTransform = 'translateX(' + newsPos + 'px)';
                     newsContentEl.style.transform = 'translateX(' + newsPos + 'px)';
                     newsAnimId = requestAnimationFrame(step);
@@ -1465,11 +1468,12 @@
                 if (!fxContentEl) { return; }
                 fxPos = 0;
                 var speed = 1.2;
+                var halfWidth = 0;
 
                 function step() {
+                    if (!halfWidth) { halfWidth = fxContentEl.scrollWidth / 2; }
                     fxPos -= speed;
-                    var half = fxContentEl.scrollWidth / 2;
-                    if (Math.abs(fxPos) >= half) { fxPos = 0; }
+                    if (Math.abs(fxPos) >= halfWidth) { fxPos = 0; }
                     fxContentEl.style.webkitTransform = 'translateX(' + fxPos + 'px)';
                     fxContentEl.style.transform = 'translateX(' + fxPos + 'px)';
                     fxAnimId = requestAnimationFrame(step);
