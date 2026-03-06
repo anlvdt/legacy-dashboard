@@ -1571,35 +1571,93 @@
                 }
             }
 
-            // Button click: read news now + start auto-read timer
+            // ── SCHEDULED AUTO-READ ──
+            // Default schedule: 06:30. Long-press 🔊 to change.
+            var ttsSchedule = '06:30';
+            try {
+                var saved = localStorage.getItem('lf_tts_schedule');
+                if (saved) { ttsSchedule = saved; }
+            } catch (e) { }
+
+            // Tap = read now, Long-press = set schedule
+            var pressTimer = null;
+            var longPressed = false;
+
             if (ttsBtn) {
-                ttsBtn.onclick = function () {
-                    ttsUnlocked = true;
-                    readNewsNow();
-                    // Start auto-read every 15 minutes after first tap
-                    if (!window._ttsAutoInterval) {
-                        window._ttsAutoInterval = setInterval(function () {
-                            if (ttsUnlocked) { readNewsNow(); }
-                        }, 900000); // 15 minutes
+                ttsBtn.ontouchstart = function () {
+                    longPressed = false;
+                    pressTimer = setTimeout(function () {
+                        longPressed = true;
+                        var input = prompt('Hẹn giờ đọc tin tự động (VD: 06:30):', ttsSchedule);
+                        if (input && input.indexOf(':') > 0) {
+                            ttsSchedule = input;
+                            try { localStorage.setItem('lf_tts_schedule', ttsSchedule); } catch (e) { }
+                            alert('Đã hẹn đọc tin lúc ' + ttsSchedule + ' mỗi ngày');
+                        }
+                    }, 1000);
+                };
+                ttsBtn.ontouchend = function () {
+                    clearTimeout(pressTimer);
+                    if (!longPressed) {
+                        ttsUnlocked = true;
+                        readNewsNow();
+                    }
+                };
+                // Fallback for non-touch (desktop testing)
+                ttsBtn.onmousedown = function () {
+                    longPressed = false;
+                    pressTimer = setTimeout(function () {
+                        longPressed = true;
+                        var input = prompt('Hẹn giờ đọc tin tự động (VD: 06:30):', ttsSchedule);
+                        if (input && input.indexOf(':') > 0) {
+                            ttsSchedule = input;
+                            try { localStorage.setItem('lf_tts_schedule', ttsSchedule); } catch (e) { }
+                            alert('Đã hẹn đọc tin lúc ' + ttsSchedule + ' mỗi ngày');
+                        }
+                    }, 1000);
+                };
+                ttsBtn.onmouseup = function () {
+                    clearTimeout(pressTimer);
+                    if (!longPressed) {
+                        ttsUnlocked = true;
+                        readNewsNow();
                     }
                 };
             }
 
-            // Hourly time announcement (only after user has tapped button)
+            // Check scheduled time + hourly announce every minute
+            var lastScheduleDate = '';
             var lastAnnouncedHour = -1;
-            function checkHourlyAnnounce() {
-                if (!ttsUnlocked) { return; }
+
+            function checkScheduleAndHourly() {
                 var now = new Date();
                 var h = now.getHours();
                 var m = now.getMinutes();
-                if (m === 0 && h !== lastAnnouncedHour) {
+                var hh = (h < 10 ? '0' : '') + h;
+                var mm = (m < 10 ? '0' : '') + m;
+                var currentTime = hh + ':' + mm;
+                var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+
+                // Scheduled auto-read
+                if (currentTime === ttsSchedule && lastScheduleDate !== today) {
+                    lastScheduleDate = today;
+                    ttsUnlocked = true;
+                    // Refresh news first, then read after 10s
+                    loadNews();
+                    setTimeout(function () {
+                        readNewsNow();
+                    }, 10000);
+                }
+
+                // Hourly time announcement
+                if (ttsUnlocked && m === 0 && h !== lastAnnouncedHour) {
                     lastAnnouncedHour = h;
                     var period = h < 12 ? 'sáng' : (h < 18 ? 'chiều' : 'tối');
                     var displayH = h > 12 ? (h - 12) : (h === 0 ? 12 : h);
                     speakText('Bây giờ là ' + displayH + ' giờ ' + period);
                 }
             }
-            setInterval(checkHourlyAnnounce, 60000); // Check every minute
+            setInterval(checkScheduleAndHourly, 60000);
 
         })();
     </script>
