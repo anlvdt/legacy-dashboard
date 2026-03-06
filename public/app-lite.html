@@ -58,8 +58,8 @@
         .top-bar-cell {
             display: table-cell;
             vertical-align: middle;
-            height: 44px;
-            padding-top: 8px;
+            padding: 0 2vmin;
+            white-space: nowrap;
             background: rgba(0, 0, 0, 0.7);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -622,30 +622,28 @@
             pointer-events: none;
         }
 
-        /* TTS Speaker Button */
+        /* TTS Speaker Button — inline with news bar */
         #tts-btn {
-            position: fixed;
-            bottom: 60px;
-            right: 10px;
-            width: 48px;
-            height: 48px;
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
             border-radius: 50%;
             border: 2px solid rgba(255, 255, 255, 0.3);
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.4);
             color: #f39c12;
-            font-size: 24px;
-            line-height: 48px;
             text-align: center;
             cursor: pointer;
-            z-index: 999;
             -webkit-tap-highlight-color: transparent;
             -ms-touch-action: manipulation;
             touch-action: manipulation;
+            margin-right: 6px;
+            vertical-align: middle;
         }
 
         #tts-btn svg {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             fill: #f39c12;
             vertical-align: middle;
         }
@@ -660,7 +658,11 @@
         <!-- ROW 1: Top bar (44px) -->
         <div class="top-bar">
             <div class="top-bar-cell">
-                <div class="news-scroller">
+                <div id="tts-btn"><svg viewBox="0 0 24 24">
+                        <path
+                            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                    </svg></div>
+                <div class="news-scroller" style="display:inline-block;vertical-align:middle;width:calc(100% - 50px)">
                     <span class="top-news-content" id="news-content">
                         <span class="news-item">Đang tải tin tức...</span>
                     </span>
@@ -733,10 +735,7 @@
 
     </div>
 
-    <div id="tts-btn"><svg viewBox="0 0 24 24">
-            <path
-                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-        </svg></div>
+
     <div class="lite-badge">Legacy Frame Lite</div>
 
     <script>
@@ -1390,20 +1389,27 @@
                     var max = Math.min(xmlItems.length, 15);
                     for (var i = 0; i < max; i++) {
                         var titleEl = xmlItems[i].getElementsByTagName('title')[0];
-                        if (titleEl && titleEl.textContent) {
-                            items.push(stripHtmlTags(titleEl.textContent));
+                        var descEl = xmlItems[i].getElementsByTagName('description')[0];
+                        var title = titleEl ? stripHtmlTags(titleEl.textContent) : '';
+                        var desc = descEl ? stripHtmlTags(descEl.textContent) : '';
+                        if (title) {
+                            items.push({ title: title, desc: desc || title });
                         }
                     }
                 } catch (e) { /* parse error */ }
                 return items;
             }
 
+            // Store parsed news for TTS
+            var parsedNewsItems = [];
+
             function renderNews(items) {
                 if (!newsContentEl || items.length === 0) { return; }
+                parsedNewsItems = items;
                 var html = '';
                 var i;
                 for (i = 0; i < items.length; i++) {
-                    html += '<span class="news-item">' + items[i] + '</span>';
+                    html += '<span class="news-item">' + items[i].title + '</span>';
                     if (i < items.length - 1) {
                         html += '<span class="news-sep">·</span>';
                     }
@@ -1421,7 +1427,7 @@
                 newsContentEl.style.transform = '';
                 // Calculate duration based on content width (30px/s)
                 var w = newsContentEl.scrollWidth;
-                var duration = Math.max(w / 30, 20); // min 20s
+                var duration = Math.max(w / 60, 15); // 60px/s, min 15s
                 newsContentEl.style.webkitAnimationDuration = duration + 's';
                 newsContentEl.style.animationDuration = duration + 's';
                 // Add CSS animation class
@@ -1606,20 +1612,15 @@
             }
 
             function readNewsNow() {
-                var items = document.querySelectorAll('.news-item');
-                if (!items || items.length === 0) { return; }
-                var headlines = [];
-                var count = 0;
-                for (var i = 0; i < items.length && count < 3; i++) {
-                    var txt = items[i].textContent || items[i].innerText || '';
-                    txt = txt.replace(/^\s+|\s+$/g, '');
-                    if (txt && txt.indexOf('Đang tải') === -1) {
-                        headlines.push(txt);
-                        count++;
-                    }
+                if (!parsedNewsItems || parsedNewsItems.length === 0) { return; }
+                var texts = [];
+                var count = Math.min(parsedNewsItems.length, 3);
+                for (var i = 0; i < count; i++) {
+                    var item = parsedNewsItems[i];
+                    texts.push(item.desc || item.title);
                 }
-                if (headlines.length > 0) {
-                    speakText('Tin tức mới nhất. ' + headlines.join('. '));
+                if (texts.length > 0) {
+                    speakText('Tin tức mới nhất. ' + texts.join('. Tin tiếp theo. '));
                 }
             }
 
