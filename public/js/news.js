@@ -27,7 +27,15 @@ LF.news.BLOCKED_KEYWORDS = [
     'chuyen ay', 'chuyện ấy',
     'phong the', 'phòng the',
     'suc khoe gioi tinh', 'sức khỏe giới tính',
-    'tinh duc', 'tình dục'
+    'tinh duc', 'tình dục',
+    'ngoại tình', 'đánh ghen', 'giường chiếu',
+    'gợi cảm', 'gợi dục', 'ái ân',
+    'khỏa thân', 'khiêu dâm', 'mại dâm', 'sex', 'người lớn',
+    'cưỡng hiếp', 'cưỡng bức', 'hiếp dâm', 'xâm hại tình dục',
+    'tử thi', 'phân xác', 'giết người', 'chặt xác',
+    'đâm chết', 'chém chết', 'thiêu sống',
+    'clip nóng', 'ảnh nóng', 'lộ hàng', 'nhạy cảm',
+    'sugar baby', 'sugar daddy', 'bán dâm'
 ];
 
 /**
