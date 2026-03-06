@@ -58,7 +58,11 @@ const runNetlifyFunction = async (req, res, handlerName) => {
                 res.set(key, value);
             }
         }
-        res.status(result.statusCode).send(result.body);
+        if (result.isBase64Encoded) {
+            res.status(result.statusCode).send(Buffer.from(result.body, 'base64'));
+        } else {
+            res.status(result.statusCode).send(result.body);
+        }
     } catch (e) {
         console.error(`Lỗi API ${handlerName}:`, e);
         res.status(500).send(e.toString());

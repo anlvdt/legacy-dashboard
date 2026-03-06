@@ -1571,11 +1571,17 @@
                 }
             }
 
-            // Button click: read news now
+            // Button click: read news now + start auto-read timer
             if (ttsBtn) {
                 ttsBtn.onclick = function () {
                     ttsUnlocked = true;
                     readNewsNow();
+                    // Start auto-read every 15 minutes after first tap
+                    if (!window._ttsAutoInterval) {
+                        window._ttsAutoInterval = setInterval(function () {
+                            if (ttsUnlocked) { readNewsNow(); }
+                        }, 900000); // 15 minutes
+                    }
                 };
             }
 
