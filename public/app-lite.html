@@ -91,6 +91,34 @@
             font-size: 6vmin;
         }
 
+        /* CSS marquee animation — GPU-accelerated, zero JS per frame */
+        .marquee-animated {
+            display: inline-block;
+            -webkit-animation: marquee-scroll 60s linear infinite;
+            animation: marquee-scroll 60s linear infinite;
+            will-change: -webkit-transform;
+        }
+
+        @-webkit-keyframes marquee-scroll {
+            0% {
+                -webkit-transform: translateX(0);
+            }
+
+            100% {
+                -webkit-transform: translateX(-50%);
+            }
+        }
+
+        @keyframes marquee-scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
         /* ── CONTENT ROW ── */
         .content-row {
             display: table-row;
@@ -606,11 +634,18 @@
             background: rgba(0, 0, 0, 0.6);
             color: #f39c12;
             font-size: 24px;
-            line-height: 44px;
+            line-height: 48px;
             text-align: center;
             cursor: pointer;
             z-index: 999;
             -webkit-tap-highlight-color: transparent;
+        }
+
+        #tts-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: #f39c12;
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -625,7 +660,7 @@
             <div class="top-bar-cell">
                 <div class="news-scroller">
                     <span class="top-news-content" id="news-content">
-                        <span class="news-item">📰 Đang tải tin tức...</span>
+                        <span class="news-item">Đang tải tin tức...</span>
                     </span>
                 </div>
             </div>
@@ -696,7 +731,10 @@
 
     </div>
 
-    <div id="tts-btn">🔊</div>
+    <div id="tts-btn"><svg viewBox="0 0 24 24">
+            <path
+                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+        </svg></div>
     <div class="lite-badge">Legacy Frame Lite</div>
 
     <script>
@@ -1377,19 +1415,17 @@
 
             function startNewsScroll() {
                 if (!newsContentEl) { return; }
-                newsPos = 0;
-                var speed = 1.5;
-                var halfWidth = 0;
-
-                function step() {
-                    if (!halfWidth) { halfWidth = newsContentEl.scrollWidth / 2; }
-                    newsPos -= speed;
-                    if (Math.abs(newsPos) >= halfWidth) { newsPos = 0; }
-                    newsContentEl.style.webkitTransform = 'translateX(' + newsPos + 'px)';
-                    setTimeout(step, 80);
-                }
+                // Reset any JS animation
                 if (newsAnimId) { clearTimeout(newsAnimId); }
-                newsAnimId = setTimeout(step, 50);
+                newsContentEl.style.webkitTransform = '';
+                newsContentEl.style.transform = '';
+                // Calculate duration based on content width (30px/s)
+                var w = newsContentEl.scrollWidth;
+                var duration = Math.max(w / 30, 20); // min 20s
+                newsContentEl.style.webkitAnimationDuration = duration + 's';
+                newsContentEl.style.animationDuration = duration + 's';
+                // Add CSS animation class
+                newsContentEl.className = 'top-news-content marquee-animated';
             }
 
             function loadNews() {
@@ -1413,7 +1449,7 @@
                 };
                 xhr.ontimeout = function () {
                     if (newsContentEl) {
-                        newsContentEl.innerHTML = '<span class="news-item">📰 Không thể tải tin tức</span>';
+                        newsContentEl.innerHTML = '<span class="news-item">Không thể tải tin tức</span>';
                     }
                 };
                 xhr.onerror = xhr.ontimeout;
@@ -1461,19 +1497,14 @@
 
             function startFxScroll() {
                 if (!fxContentEl) { return; }
-                fxPos = 0;
-                var speed = 2;
-                var halfWidth = 0;
-
-                function step() {
-                    if (!halfWidth) { halfWidth = fxContentEl.scrollWidth / 2; }
-                    fxPos -= speed;
-                    if (Math.abs(fxPos) >= halfWidth) { fxPos = 0; }
-                    fxContentEl.style.webkitTransform = 'translateX(' + fxPos + 'px)';
-                    setTimeout(step, 50);
-                }
                 if (fxAnimId) { clearTimeout(fxAnimId); }
-                fxAnimId = setTimeout(step, 50);
+                fxContentEl.style.webkitTransform = '';
+                fxContentEl.style.transform = '';
+                var w = fxContentEl.scrollWidth;
+                var duration = Math.max(w / 30, 20);
+                fxContentEl.style.webkitAnimationDuration = duration + 's';
+                fxContentEl.style.animationDuration = duration + 's';
+                fxContentEl.className = 'fx-content marquee-animated';
             }
 
             function loadFxData() {
@@ -1534,7 +1565,7 @@
                     currentAudio = null;
                 }
                 clearTimeout(ttsTimeout);
-                if (ttsBtn) { ttsBtn.innerHTML = '&#128266;'; } // 🔊
+                if (ttsBtn) { ttsBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>'; }
             }
 
             function playNext() {
@@ -1543,7 +1574,7 @@
                     return;
                 }
                 ttsPlaying = true;
-                if (ttsBtn) { ttsBtn.innerHTML = '&#128263;'; } // 🔇
+                if (ttsBtn) { ttsBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.94-.5 2.64l1.56 1.56c.65-1.22 1.02-2.53 1.02-4.2 0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>'; }
                 var text = ttsQueue.shift();
                 var url = '/.netlify/functions/tts-proxy?q=' + encodeURIComponent(text) + '&voice=vi-VN-HoaiMyNeural';
 
@@ -1559,13 +1590,13 @@
                     currentAudio.onended = function () {
                         ttsPlaying = false;
                         clearTimeout(ttsTimeout);
-                        if (ttsBtn) { ttsBtn.innerHTML = '&#128266;'; } // 🔊
+                        if (ttsBtn) { ttsBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>'; }
                         playNext();
                     };
                     currentAudio.onerror = function () {
                         ttsPlaying = false;
                         clearTimeout(ttsTimeout);
-                        if (ttsBtn) { ttsBtn.innerHTML = '&#128266;'; } // 🔊
+                        if (ttsBtn) { ttsBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>'; }
                         playNext();
                     };
                     currentAudio.play();
@@ -1581,7 +1612,7 @@
                 var count = 0;
                 for (var i = 0; i < items.length && count < 3; i++) {
                     var txt = items[i].textContent || items[i].innerText || '';
-                    txt = txt.replace(/^📰\s*/, '').replace(/^\s+|\s+$/g, '');
+                    txt = txt.replace(/^\s+|\s+$/g, '');
                     if (txt && txt.indexOf('Đang tải') === -1) {
                         headlines.push(txt);
                         count++;
