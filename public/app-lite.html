@@ -1194,13 +1194,16 @@
             var bgPreloaded = null;
 
             function loadBgImage() {
+                // Use proxy to bypass TLS issues on iOS 9
+                var picsumUrl = 'https://picsum.photos/640/480?random=' + Math.floor(Math.random() * 100000);
+                var proxyUrl = '/api/proxy?url=' + encodeURIComponent(picsumUrl);
+
                 var img = new Image();
                 var done = false;
-                var url = 'https://picsum.photos/640/480?random=' + Math.floor(Math.random() * 100000);
 
                 var timer = setTimeout(function () {
                     if (!done) { done = true; img.onload = null; img.onerror = null; }
-                }, 12000);
+                }, 15000);
 
                 img.onload = function () {
                     if (done) { return; }
@@ -1220,8 +1223,18 @@
                         } catch (e) { /* ignore */ }
                     }
                 };
-                img.onerror = function () { if (!done) { done = true; clearTimeout(timer); } };
-                img.src = url;
+                img.onerror = function () {
+                    if (!done) { done = true; clearTimeout(timer); }
+                    // Fallback: try direct URL (in case proxy doesn't support images)
+                    var img2 = new Image();
+                    img2.onload = function () {
+                        if (bgEl) {
+                            bgEl.style.backgroundImage = 'url(' + img2.src + ')';
+                        }
+                    };
+                    img2.src = picsumUrl;
+                };
+                img.src = proxyUrl;
             }
 
             // Restore cached bg immediately
@@ -1230,7 +1243,6 @@
                     var cached = localStorage.getItem('lf_lite_bg');
                     if (cached && cached.indexOf('data:image') === 0) {
                         bgEl.style.backgroundImage = 'url(' + cached + ')';
-                        bgEl.style.opacity = '1';
                     }
                 } catch (e) { /* ignore */ }
             }
