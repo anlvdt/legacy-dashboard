@@ -1404,6 +1404,25 @@
 
             function parseRSS(xmlString) {
                 var items = [];
+                // Sensitive content filter — skip inappropriate news
+                var blockedWords = [
+                    'tâm sự', 'thầm kín', 'phòng the', 'chuyện ấy', 'ái ân',
+                    'ngoại tình', 'đánh ghen', 'giường chiếu', 'gợi cảm', 'gợi dục',
+                    'khỏa thân', 'khiêu dâm', 'mại dâm', 'sex', 'người lớn',
+                    'cưỡng hiếp', 'cưỡng bức', 'hiếp dâm', 'xâm hại tình dục',
+                    'tử thi', 'phân xác', 'giết người', 'chặt xác',
+                    'đâm chết', 'chém chết', 'thiêu sống',
+                    'clip nóng', 'ảnh nóng', 'lộ hàng', 'nhạy cảm',
+                    'sugar baby', 'sugar daddy', 'bán dâm'
+                ];
+                function isSensitive(text) {
+                    if (!text) { return false; }
+                    var lower = text.toLowerCase();
+                    for (var i = 0; i < blockedWords.length; i++) {
+                        if (lower.indexOf(blockedWords[i]) !== -1) { return true; }
+                    }
+                    return false;
+                }
                 try {
                     var parser = new DOMParser();
                     var xml = parser.parseFromString(xmlString, 'text/xml');
@@ -1414,7 +1433,7 @@
                         var descEl = xmlItems[i].getElementsByTagName('description')[0];
                         var title = titleEl ? stripHtmlTags(titleEl.textContent) : '';
                         var desc = descEl ? stripHtmlTags(descEl.textContent) : '';
-                        if (title) {
+                        if (title && !isSensitive(title) && !isSensitive(desc)) {
                             items.push({ title: title, desc: desc || title });
                         }
                     }
