@@ -1378,7 +1378,7 @@
             function startNewsScroll() {
                 if (!newsContentEl) { return; }
                 newsPos = 0;
-                var speed = 3;
+                var speed = 1.5;
                 var halfWidth = 0;
 
                 function step() {
@@ -1386,7 +1386,7 @@
                     newsPos -= speed;
                     if (Math.abs(newsPos) >= halfWidth) { newsPos = 0; }
                     newsContentEl.style.webkitTransform = 'translateX(' + newsPos + 'px)';
-                    setTimeout(step, 50);
+                    setTimeout(step, 80);
                 }
                 if (newsAnimId) { clearTimeout(newsAnimId); }
                 newsAnimId = setTimeout(step, 50);
