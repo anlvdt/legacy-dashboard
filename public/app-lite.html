@@ -380,18 +380,15 @@
             }
 
             .col-right {
-                -webkit-box-ordinal-group: 0;
-                -webkit-order: -1;
-                order: -1;
-                -webkit-box-flex: 0;
-                -webkit-flex: 0 0 auto;
-                flex: 0 0 auto;
-            }
-
-            .col-left {
                 -webkit-box-flex: 1;
                 -webkit-flex: 1 1 auto;
                 flex: 1 1 auto;
+            }
+
+            .col-left {
+                -webkit-box-flex: 0;
+                -webkit-flex: 0 0 auto;
+                flex: 0 0 auto;
             }
 
             .clock-seg span {
@@ -466,20 +463,8 @@
     <div class="container">
         <div class="content-wrapper">
 
-            <!-- LEFT COLUMN: Calendar -->
+            <!-- LEFT COLUMN: Clock + Date/Weather + Quote -->
             <div class="col-left">
-                <div id="cal-container">
-                    <div id="cal-header">
-                        <div class="cal-nav" id="cal-prev">&lt;</div>
-                        <div id="cal-title"></div>
-                        <div class="cal-nav" id="cal-next">&gt;</div>
-                    </div>
-                    <div id="cal-grid"></div>
-                </div>
-            </div>
-
-            <!-- RIGHT COLUMN: Clock + Date/Weather + Quote -->
-            <div class="col-right">
                 <div class="clock-wrapper">
                     <div id="digital-clock">
                         <div class="clock-seg"><span id="c-hours">00</span></div>
@@ -504,6 +489,18 @@
                 <div class="quote-wrap">
                     <div class="quote-text" id="quote-text">...</div>
                     <div class="quote-author" id="quote-author">Việt Nam</div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Calendar -->
+            <div class="col-right">
+                <div id="cal-container">
+                    <div id="cal-header">
+                        <div class="cal-nav" id="cal-prev">&lt;</div>
+                        <div id="cal-title"></div>
+                        <div class="cal-nav" id="cal-next">&gt;</div>
+                    </div>
+                    <div id="cal-grid"></div>
                 </div>
             </div>
 
@@ -790,23 +787,23 @@
             function fetchWeather(city, lat, lon) {
                 if (wLocEl) { wLocEl.textContent = city; }
 
-                var weatherUrl = '/api/proxy?url=' + encodeURIComponent(
-                    'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current=temperature_2m,weather_code'
-                );
+                var weatherUrl = '/api/weather?lat=' + lat + '&lon=' + lon;
+                if (city) { weatherUrl += '&city=' + encodeURIComponent(city); }
                 xhrGet(weatherUrl, function (err, wData) {
-                    if (err || !wData || !wData.current) {
+                    if (err || !wData || !wData.weather) {
                         if (wDescEl) { wDescEl.textContent = 'Không thể tải thời tiết'; }
                         return;
                     }
-                    var code = wData.current.weather_code;
-                    var temp = Math.round(wData.current.temperature_2m);
+                    if (wData.location && wLocEl) { wLocEl.textContent = wData.location; }
+                    var code = wData.weather.weather_code;
+                    var temp = Math.round(wData.weather.temperature_2m);
                     var emoji = WMO_EMOJI[code] || '❓';
                     var desc = WMO_DESC[code] || 'Không xác định';
 
                     if (wIconEl) { wIconEl.textContent = emoji; wIconEl.style.fontSize = '3.5vmin'; }
                     if (wTempEl) { wTempEl.textContent = temp + '°C'; }
                     if (wDescEl) { wDescEl.textContent = desc; }
-                }, 10000);
+                }, 15000);
             }
 
             function loadWeather() {
