@@ -1677,16 +1677,39 @@
                     audio.setAttribute('preload', 'auto');
                 }
                 ttsAudio = audio;
+                var ended = false;
+                function finish() {
+                    if (ended) { return; }
+                    ended = true;
+                    clearTimeout(ttsSafetyTimer);
+                    ttsAudio = null;
+                    if (onEnd) { onEnd(); }
+                }
+                // Safety timeout per item (60s)
                 clearTimeout(ttsSafetyTimer);
-                ttsSafetyTimer = setTimeout(function () { ttsAudio = null; if (onEnd) { onEnd(); } }, 60000);
-                audio.onended = function () { clearTimeout(ttsSafetyTimer); ttsAudio = null; if (onEnd) { onEnd(); } };
-                audio.onerror = function () { clearTimeout(ttsSafetyTimer); ttsAudio = null; if (onEnd) { onEnd(); } };
-                try { audio.play(); } catch (e) { if (onEnd) { onEnd(); } }
+                ttsSafetyTimer = setTimeout(finish, 60000);
+                audio.onended = finish;
+                audio.onerror = finish;
+                // iOS 9: play() may return undefined (not a Promise)
+                try {
+                    var playResult = audio.play();
+                    if (playResult && typeof playResult.then === 'function') {
+                        playResult.then(function () { }).catch(function () { finish(); });
+                    }
+                } catch (e) { finish(); }
+                // Watchdog: if no event fires in 5s and audio not playing, skip
+                setTimeout(function () {
+                    if (!ended && audio.paused && audio.currentTime === 0) { finish(); }
+                }, 5000);
             }
+
+            // Loop control
+            var ttsLoopUntil = 0; // timestamp until which to keep looping
 
             function ttsStop() {
                 ttsIsReading = false;
                 ttsCurrentIndex = 0;
+                ttsLoopUntil = 0;
                 clearTimeout(ttsSafetyTimer);
                 if (ttsAudio) { try { ttsAudio.pause(); ttsAudio.src = ''; } catch (e) { } ttsAudio = null; }
                 ttsPrefetchAudio = null;
@@ -1697,19 +1720,33 @@
             function ttsReadNext() {
                 if (!ttsIsReading) { return; }
                 var idx = ttsCurrentIndex;
-                if (idx >= ttsItems.length) { ttsStop(); return; }
+
+                // If finished all items, check if we should loop
+                if (idx >= ttsItems.length) {
+                    var now = new Date().getTime();
+                    if (ttsLoopUntil > 0 && now < ttsLoopUntil) {
+                        // Loop back to start
+                        ttsCurrentIndex = 0;
+                        idx = 0;
+                    } else {
+                        ttsStop();
+                        return;
+                    }
+                }
+
                 var item = ttsItems[idx];
                 var parts = [];
                 if (item.title) { parts.push(item.title + '.'); }
                 if (item.desc && item.desc !== item.title) { parts.push(item.desc); }
                 var fullText = ttsNormalize(parts.join(' '));
                 // Prefetch next item
-                if (idx + 1 < ttsItems.length) {
-                    var next = ttsItems[idx + 1];
+                var nextIdx = idx + 1;
+                if (nextIdx < ttsItems.length) {
+                    var next = ttsItems[nextIdx];
                     var np = [];
                     if (next.title) { np.push(next.title + '.'); }
                     if (next.desc && next.desc !== next.title) { np.push(next.desc); }
-                    ttsPrefetch(ttsNormalize(np.join(' ')), idx + 1);
+                    ttsPrefetch(ttsNormalize(np.join(' ')), nextIdx);
                 }
                 ttsPlayOne(fullText, idx, function () {
                     if (!ttsIsReading) { return; }
@@ -1718,11 +1755,15 @@
                 });
             }
 
-            function readNewsNow() {
+            // loopMinutes: 0 = read once, N = keep looping for N minutes
+            function readNewsNow(loopMinutes) {
                 if (!parsedNewsItems || parsedNewsItems.length === 0) { return; }
                 ttsItems = parsedNewsItems;
                 ttsCurrentIndex = 0;
                 ttsIsReading = true;
+                ttsLoopUntil = (loopMinutes && loopMinutes > 0)
+                    ? new Date().getTime() + (loopMinutes * 60000)
+                    : 0;
                 ttsUpdateBtn(true);
                 ttsReadNext();
             }
@@ -1783,10 +1824,10 @@
                 if (currentTime === ttsSchedule && lastScheduleDate !== today) {
                     lastScheduleDate = today;
                     ttsUnlocked = true;
-                    // Refresh news first, then read after 10s
+                    // Refresh news first, then read in 30-min loop
                     loadNews();
                     setTimeout(function () {
-                        readNewsNow();
+                        readNewsNow(30);
                     }, 10000);
                 }
 
