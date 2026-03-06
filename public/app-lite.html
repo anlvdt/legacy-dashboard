@@ -624,15 +624,21 @@
 
         /* TTS Speaker Button — inline with news bar */
         #tts-btn {
-            display: inline-block;
+            display: -webkit-inline-box;
+            display: -webkit-inline-flex;
+            display: inline-flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
             width: 36px;
             height: 36px;
             min-width: 36px;
             border-radius: 50%;
             border: 2px solid rgba(255, 255, 255, 0.3);
             background: rgba(0, 0, 0, 0.4);
-            color: #f39c12;
-            text-align: center;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
             -ms-touch-action: manipulation;
