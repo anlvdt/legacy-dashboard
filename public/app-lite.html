@@ -1513,6 +1513,91 @@
             loadFxData();
             setInterval(loadFxData, 1800000); // Refresh every 30 min
 
+            /* ============================================================
+             * EDGE TTS: Auto-read news + hourly time announcement
+             * Uses backend proxy: /.netlify/functions/tts-proxy?q=TEXT
+             * ============================================================ */
+            var ttsQueue = [];
+            var ttsPlaying = false;
+            var ttsAudio = null;
+
+            function getApiBase() {
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    return '/.netlify/functions/tts-proxy';
+                }
+                return '/.netlify/functions/tts-proxy';
+            }
+
+            function speakText(text) {
+                if (!text) { return; }
+                ttsQueue.push(text);
+                playNext();
+            }
+
+            function playNext() {
+                if (ttsPlaying || ttsQueue.length === 0) { return; }
+                ttsPlaying = true;
+                var text = ttsQueue.shift();
+                var url = getApiBase() + '?q=' + encodeURIComponent(text) + '&voice=vi-VN-HoaiMyNeural';
+
+                try {
+                    ttsAudio = new Audio(url);
+                    ttsAudio.onended = function () {
+                        ttsPlaying = false;
+                        playNext();
+                    };
+                    ttsAudio.onerror = function () {
+                        ttsPlaying = false;
+                        playNext();
+                    };
+                    ttsAudio.play();
+                } catch (e) {
+                    ttsPlaying = false;
+                    playNext();
+                }
+            }
+
+            // Auto-read news headlines after load
+            var newsReadTimer = null;
+            var originalLoadNews = loadNews;
+            loadNews = function () {
+                originalLoadNews();
+                // Wait for news to load then read first 3 headlines
+                clearTimeout(newsReadTimer);
+                newsReadTimer = setTimeout(function () {
+                    var items = document.querySelectorAll('.news-item');
+                    if (!items || items.length === 0) { return; }
+                    var headlines = [];
+                    var count = 0;
+                    for (var i = 0; i < items.length && count < 3; i++) {
+                        var txt = items[i].textContent || items[i].innerText || '';
+                        txt = txt.replace(/^📰\s*/, '').replace(/^\s+|\s+$/g, '');
+                        if (txt && txt.indexOf('Đang tải') === -1) {
+                            headlines.push(txt);
+                            count++;
+                        }
+                    }
+                    if (headlines.length > 0) {
+                        speakText('Tin tức mới nhất. ' + headlines.join('. '));
+                    }
+                }, 30000); // Wait 30s after page load
+            };
+
+            // Hourly time announcement
+            var lastAnnouncedHour = -1;
+            function checkHourlyAnnounce() {
+                var now = new Date();
+                var h = now.getHours();
+                var m = now.getMinutes();
+                if (m === 0 && h !== lastAnnouncedHour) {
+                    lastAnnouncedHour = h;
+                    var period = h < 12 ? 'sáng' : (h < 18 ? 'chiều' : 'tối');
+                    var displayH = h > 12 ? (h - 12) : (h === 0 ? 12 : h);
+                    speakText('Bây giờ là ' + displayH + ' giờ ' + period);
+                }
+            }
+            setInterval(checkHourlyAnnounce, 60000); // Check every minute
+
         })();
     </script>
 </body>
