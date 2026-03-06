@@ -70,50 +70,42 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
+            width: 100%;
             height: 5vmin;
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-align: center;
-            -webkit-align-items: center;
-            align-items: center;
+            line-height: 5vmin;
             background: rgba(0, 0, 0, 0.6);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
             z-index: 10;
+            white-space: nowrap;
         }
 
         .top-countdown {
-            -webkit-flex-shrink: 0;
-            flex-shrink: 0;
+            display: inline-block;
+            vertical-align: top;
             white-space: nowrap;
             padding: 0 1.5vmin;
             font-size: 2.5vmin;
             font-weight: 700;
             color: #f39c12;
             border-right: 1px solid rgba(255, 255, 255, 0.15);
+            height: 5vmin;
+            line-height: 5vmin;
         }
 
         .top-news {
-            -webkit-box-flex: 1;
-            -webkit-flex: 1;
-            flex: 1;
+            display: inline-block;
+            vertical-align: top;
             overflow: hidden;
-            position: relative;
-            height: 100%;
+            height: 5vmin;
+            line-height: 5vmin;
         }
 
         .top-news-content {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-align: center;
-            -webkit-align-items: center;
-            align-items: center;
+            display: inline-block;
             white-space: nowrap;
-            height: 100%;
-            will-change: transform;
+            height: 5vmin;
+            line-height: 5vmin;
         }
 
         .news-item {
@@ -151,50 +143,42 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            right: 0;
+            width: 100%;
             height: 5vmin;
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-align: center;
-            -webkit-align-items: center;
-            align-items: center;
+            line-height: 5vmin;
             background: rgba(0, 0, 0, 0.6);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
             z-index: 10;
+            white-space: nowrap;
         }
 
         .fx-label {
-            -webkit-flex-shrink: 0;
-            flex-shrink: 0;
+            display: inline-block;
+            vertical-align: top;
             white-space: nowrap;
             padding: 0 1.5vmin;
             font-size: 2.2vmin;
             font-weight: 700;
             color: #f39c12;
             border-right: 1px solid rgba(255, 255, 255, 0.15);
+            height: 5vmin;
+            line-height: 5vmin;
         }
 
         .fx-track {
-            -webkit-box-flex: 1;
-            -webkit-flex: 1;
-            flex: 1;
+            display: inline-block;
+            vertical-align: top;
             overflow: hidden;
-            position: relative;
-            height: 100%;
+            height: 5vmin;
+            line-height: 5vmin;
         }
 
         .fx-content {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-align: center;
-            -webkit-align-items: center;
-            align-items: center;
+            display: inline-block;
             white-space: nowrap;
-            height: 100%;
-            will-change: transform;
+            height: 5vmin;
+            line-height: 5vmin;
         }
 
         .fx-item {
@@ -1197,7 +1181,6 @@
                 var img = new Image();
                 var done = false;
                 var url = 'https://picsum.photos/640/480?random=' + Math.floor(Math.random() * 100000);
-                img.crossOrigin = 'anonymous';
 
                 var timer = setTimeout(function () {
                     if (!done) { done = true; img.onload = null; img.onerror = null; }
