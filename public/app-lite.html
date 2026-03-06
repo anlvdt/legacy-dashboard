@@ -66,7 +66,9 @@
             overflow: hidden;
         }
 
-        /* Top bar: news only */
+        /* ── TOP BAR: News ticker ── */
+        /* position:fixed top:0 works on iOS 9 */
+        /* overflow:hidden HERE clips the scrolling text */
         .top-bar {
             position: fixed;
             top: 0;
@@ -74,15 +76,14 @@
             width: 100%;
             height: 44px;
             line-height: 44px;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
             white-space: nowrap;
-            z-index: 5;
+            z-index: 100;
         }
 
         .top-news-content {
-            position: relative;
-            left: 0;
             display: inline-block;
             white-space: nowrap;
             line-height: 44px;
@@ -90,17 +91,18 @@
 
         .news-item {
             display: inline;
-            font-size: 40px;
-            padding: 0 16px;
+            font-size: 3vmin;
+            padding: 0 2vmin;
             color: rgba(255, 255, 255, 0.9);
         }
 
         .news-sep {
             color: #f39c12;
-            padding: 0 6px;
-            font-size: 40px;
+            padding: 0 1vmin;
+            font-size: 3vmin;
         }
 
+        /* ── CONTENT: flex-row 2-column (proven working) ── */
         .content-wrapper {
             display: -webkit-box;
             display: -webkit-flex;
@@ -122,24 +124,27 @@
             padding: 0.3vmin 0;
         }
 
-        /* Bottom bar: FX ticker */
+        /* ── BOTTOM BAR: FX ticker ── */
+        /* position:fixed bottom:0 — outside container so not clipped */
         .bottom-bar {
-            position: absolute;
+            position: fixed;
+            bottom: 0;
             left: 0;
             width: 100%;
             height: 48px;
             line-height: 48px;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             white-space: nowrap;
-            z-index: 5;
+            z-index: 100;
         }
 
         .fx-label {
             display: inline-block;
+            vertical-align: top;
             white-space: nowrap;
-            padding: 0 10px;
-            font-size: 24px;
+            padding: 0 1.5vmin;
+            font-size: 3.5vmin;
             font-weight: 700;
             color: #f39c12;
             line-height: 48px;
@@ -148,14 +153,13 @@
 
         .fx-track {
             display: inline-block;
+            vertical-align: top;
             overflow: hidden;
             height: 48px;
             line-height: 48px;
         }
 
         .fx-content {
-            position: relative;
-            left: 0;
             display: inline-block;
             white-space: nowrap;
             line-height: 48px;
@@ -163,8 +167,8 @@
 
         .fx-item {
             display: inline;
-            font-size: 24px;
-            padding: 0 12px;
+            font-size: 3vmin;
+            padding: 0 1.5vmin;
         }
 
         .fx-code {
@@ -174,12 +178,12 @@
 
         .fx-val {
             color: rgba(255, 255, 255, 0.9);
-            margin-left: 4px;
+            margin-left: 0.5vmin;
         }
 
         .fx-sep {
             color: rgba(255, 255, 255, 0.3);
-            padding: 0 3px;
+            padding: 0 0.5vmin;
         }
 
         .col-left {
@@ -596,14 +600,14 @@
     <div id="bg-slideshow"></div>
     <div id="bg-overlay"></div>
 
-    <div class="container">
+    <!-- Top bar: news ticker (position:fixed, renders on top) -->
+    <div class="top-bar">
+        <span class="top-news-content" id="news-content">
+            <span class="news-item">📰 Đang tải tin tức...</span>
+        </span>
+    </div>
 
-        <!-- Top bar: countdown + news -->
-        <div class="top-bar">
-            <span class="top-news-content" id="news-content">
-                <span class="news-item">📰 Đang tải tin tức...</span>
-            </span>
-        </div>
+    <div class="container">
 
         <div class="content-wrapper">
 
@@ -651,16 +655,16 @@
 
         </div>
 
-        <!-- Bottom bar: FX ticker -->
-        <div class="bottom-bar">
-            <span class="fx-label">💱 Tỷ giá</span>
-            <span class="fx-track">
-                <span class="fx-content" id="fx-content">
-                    <span class="fx-item">Đang tải tỷ giá...</span>
-                </span>
-            </span>
-        </div>
+    </div>
 
+    <!-- Bottom bar: FX ticker (outside container, normal flow) -->
+    <div class="bottom-bar">
+        <span class="fx-label">💱 Tỷ giá</span>
+        <span class="fx-track">
+            <span class="fx-content" id="fx-content">
+                <span class="fx-item">Đang tải tỷ giá...</span>
+            </span>
+        </span>
     </div>
 
     <div class="lite-badge">Legacy Frame Lite</div>
@@ -1326,7 +1330,8 @@
                     newsPos -= speed;
                     var half = newsContentEl.scrollWidth / 2;
                     if (Math.abs(newsPos) >= half) { newsPos = 0; }
-                    newsContentEl.style.left = newsPos + 'px';
+                    newsContentEl.style.webkitTransform = 'translateX(' + newsPos + 'px)';
+                    newsContentEl.style.transform = 'translateX(' + newsPos + 'px)';
                     newsAnimId = requestAnimationFrame(step);
                 }
                 if (newsAnimId) { cancelAnimationFrame(newsAnimId); }
@@ -1409,7 +1414,8 @@
                     fxPos -= speed;
                     var half = fxContentEl.scrollWidth / 2;
                     if (Math.abs(fxPos) >= half) { fxPos = 0; }
-                    fxContentEl.style.left = fxPos + 'px';
+                    fxContentEl.style.webkitTransform = 'translateX(' + fxPos + 'px)';
+                    fxContentEl.style.transform = 'translateX(' + fxPos + 'px)';
                     fxAnimId = requestAnimationFrame(step);
                 }
                 if (fxAnimId) { cancelAnimationFrame(fxAnimId); }
@@ -1447,21 +1453,6 @@
             }
             loadFxData();
             setInterval(loadFxData, 1800000); // Refresh every 30 min
-
-            /* ============================================================
-             * POSITION BOTTOM BAR BELOW CONTENT
-             * ============================================================ */
-            var bottomBarEl = document.querySelector('.bottom-bar');
-            var contentWrapperEl = document.querySelector('.content-wrapper');
-
-            function positionBottomBar() {
-                if (!bottomBarEl || !contentWrapperEl) { return; }
-                var rect = contentWrapperEl.getBoundingClientRect();
-                bottomBarEl.style.top = Math.floor(rect.bottom) + 'px';
-            }
-            positionBottomBar();
-            setInterval(positionBottomBar, 2000);
-            window.onresize = positionBottomBar;
 
         })();
     </script>
