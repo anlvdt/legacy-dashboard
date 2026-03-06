@@ -1248,15 +1248,17 @@
             }
 
             /* ============================================================
-             * BACKGROUND SLIDESHOW — Local images first, proxy fallback
+             * BACKGROUND SLIDESHOW — Local fallback + dynamic Unsplash
+             * Local images load instantly. Then tries Unsplash via proxy
+             * for unlimited variety of real nature photos.
              * ============================================================ */
             var bgEl = document.querySelector('.page-wrapper');
             var localBgs = ['/bg/1.jpg', '/bg/2.jpg', '/bg/3.jpg', '/bg/4.jpg', '/bg/5.jpg'];
             var bgIndex = 0;
+            var remoteLoaded = false;
 
-            function loadBgImage() {
+            function setLocalBg() {
                 if (!bgEl) { return; }
-                // Load local image
                 var img = new Image();
                 img.onload = function () {
                     bgEl.style.backgroundImage = 'url(' + img.src + ')';
@@ -1265,10 +1267,37 @@
                 bgIndex = (bgIndex + 1) % localBgs.length;
             }
 
-            // Load first image immediately
-            loadBgImage();
-            // Rotate every 30 seconds
-            setInterval(loadBgImage, 30000);
+            function loadRemoteBg() {
+                if (!bgEl) { return; }
+                // Random nature photo from Unsplash via server proxy
+                var categories = ['nature', 'landscape', 'mountain', 'ocean', 'forest', 'sky', 'sunset', 'river', 'lake', 'waterfall'];
+                var cat = categories[Math.floor(Math.random() * categories.length)];
+                var unsplashUrl = 'https://source.unsplash.com/640x480/?' + cat;
+                var proxyUrl = '/api/image-proxy?url=' + encodeURIComponent(unsplashUrl);
+
+                var img = new Image();
+                var done = false;
+                var timer = setTimeout(function () {
+                    if (!done) { done = true; img.onload = null; img.onerror = null; setLocalBg(); }
+                }, 12000);
+
+                img.onload = function () {
+                    if (done) { return; }
+                    done = true;
+                    clearTimeout(timer);
+                    bgEl.style.backgroundImage = 'url(' + img.src + ')';
+                    remoteLoaded = true;
+                };
+                img.onerror = function () {
+                    if (!done) { done = true; clearTimeout(timer); setLocalBg(); }
+                };
+                img.src = proxyUrl;
+            }
+
+            // Start with local image immediately
+            setLocalBg();
+            // Then try remote every 30s (falls back to local if fails)
+            setInterval(loadRemoteBg, 30000);
 
             /* ============================================================
              * TOP BAR: SPECIAL DATES COUNTDOWN
