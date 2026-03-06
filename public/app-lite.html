@@ -723,6 +723,8 @@
             function fitPage() {
                 if (!pageWrapper) { return; }
                 var h = window.innerHeight || document.documentElement.clientHeight || 768;
+                // Subtract Safari address bar + toolbar (~64px on iPad Mini 1)
+                h = h - 64;
                 pageWrapper.style.height = h + 'px';
             }
             fitPage();
