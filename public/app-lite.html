@@ -60,7 +60,7 @@
             z-index: 2;
             width: 100%;
             height: 100%;
-            padding: 44px 0 64px 0;
+            padding: 44px 0 48px 0;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             overflow: hidden;
@@ -90,7 +90,7 @@
 
         .news-item {
             display: inline;
-            font-size: 28px;
+            font-size: 40px;
             padding: 0 16px;
             color: rgba(255, 255, 255, 0.9);
         }
@@ -98,7 +98,7 @@
         .news-sep {
             color: #f39c12;
             padding: 0 6px;
-            font-size: 28px;
+            font-size: 40px;
         }
 
         .content-wrapper {
@@ -124,12 +124,11 @@
 
         /* Bottom bar: FX ticker */
         .bottom-bar {
-            position: fixed;
-            bottom: 0;
+            position: absolute;
             left: 0;
             width: 100%;
-            height: 44px;
-            line-height: 44px;
+            height: 48px;
+            line-height: 48px;
             background: rgba(0, 0, 0, 0.6);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             white-space: nowrap;
@@ -140,18 +139,18 @@
             display: inline-block;
             white-space: nowrap;
             padding: 0 10px;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 700;
             color: #f39c12;
-            line-height: 44px;
+            line-height: 48px;
             border-right: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .fx-track {
             display: inline-block;
             overflow: hidden;
-            height: 44px;
-            line-height: 44px;
+            height: 48px;
+            line-height: 48px;
         }
 
         .fx-content {
@@ -159,12 +158,12 @@
             left: 0;
             display: inline-block;
             white-space: nowrap;
-            line-height: 44px;
+            line-height: 48px;
         }
 
         .fx-item {
             display: inline;
-            font-size: 20px;
+            font-size: 24px;
             padding: 0 12px;
         }
 
@@ -1448,6 +1447,21 @@
             }
             loadFxData();
             setInterval(loadFxData, 1800000); // Refresh every 30 min
+
+            /* ============================================================
+             * POSITION BOTTOM BAR BELOW CONTENT
+             * ============================================================ */
+            var bottomBarEl = document.querySelector('.bottom-bar');
+            var contentWrapperEl = document.querySelector('.content-wrapper');
+
+            function positionBottomBar() {
+                if (!bottomBarEl || !contentWrapperEl) { return; }
+                var rect = contentWrapperEl.getBoundingClientRect();
+                bottomBarEl.style.top = Math.floor(rect.bottom) + 'px';
+            }
+            positionBottomBar();
+            setInterval(positionBottomBar, 2000);
+            window.onresize = positionBottomBar;
 
         })();
     </script>
