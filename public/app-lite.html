@@ -22,8 +22,6 @@
 
         body {
             background: #0a0a12;
-            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #0a0a12), color-stop(40%, #1a1a2e), color-stop(70%, #16213e), color-stop(100%, #0f3460));
-            background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
             color: #F5F5F5;
             font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -63,7 +61,9 @@
         .page-wrapper {
             position: relative;
             z-index: 2;
-            background: transparent;
+            background: #0a0a12;
+            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #0a0a12), color-stop(40%, #1a1a2e), color-stop(70%, #16213e), color-stop(100%, #0f3460));
+            background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
             display: table;
             table-layout: fixed;
             width: 100%;
@@ -618,12 +618,13 @@
 </head>
 
 <body>
-    <!-- Background slideshow -->
-    <div id="bg-slideshow"></div>
-    <div id="bg-overlay"></div>
 
     <!-- page-wrapper: display:table with 3 rows -->
     <div class="page-wrapper">
+
+        <!-- Background layers (inside page-wrapper for same stacking context) -->
+        <div id="bg-slideshow"></div>
+        <div id="bg-overlay"></div>
 
         <!-- ROW 1: Top bar (44px) -->
         <div class="top-bar">
