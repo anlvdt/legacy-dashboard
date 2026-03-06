@@ -60,57 +60,57 @@
             z-index: 2;
             width: 100%;
             height: 100%;
+            display: table;
+            table-layout: fixed;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
-            overflow: hidden;
         }
 
         /* Top bar: countdown + news */
         .top-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5vmin;
-            line-height: 5vmin;
+            display: table-row;
+            height: 6vmin;
             background: rgba(0, 0, 0, 0.6);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            z-index: 10;
+        }
+
+        .top-bar-inner {
+            display: table-cell;
+            vertical-align: middle;
+            height: 6vmin;
             white-space: nowrap;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .top-countdown {
             display: inline-block;
-            vertical-align: top;
+            vertical-align: middle;
             white-space: nowrap;
             padding: 0 1.5vmin;
-            font-size: 2.5vmin;
+            font-size: 3vmin;
             font-weight: 700;
             color: #f39c12;
             border-right: 1px solid rgba(255, 255, 255, 0.15);
-            height: 5vmin;
-            line-height: 5vmin;
         }
 
         .top-news {
             display: inline-block;
-            vertical-align: top;
+            vertical-align: middle;
             overflow: hidden;
-            height: 5vmin;
-            line-height: 5vmin;
+            max-width: 75%;
+            height: 6vmin;
+            line-height: 6vmin;
         }
 
         .top-news-content {
             display: inline-block;
             white-space: nowrap;
-            height: 5vmin;
-            line-height: 5vmin;
+            line-height: 6vmin;
         }
 
         .news-item {
-            display: inline-block;
-            font-size: 2.2vmin;
+            display: inline;
+            font-size: 3vmin;
             padding: 0 2vmin;
             color: rgba(255, 255, 255, 0.9);
         }
@@ -121,69 +121,74 @@
         }
 
         .content-wrapper {
-            position: absolute;
-            top: 5vmin;
-            bottom: 5vmin;
-            left: 0;
-            right: 0;
+            display: table-row;
+            height: auto;
+        }
+
+        .content-inner {
+            display: table-cell;
+            vertical-align: top;
+            height: 100%;
+            padding: 0.5vmin;
+        }
+
+        .content-flex {
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
             -webkit-box-orient: horizontal;
             -webkit-flex-direction: row;
             flex-direction: row;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
-            padding: 0.5vmin;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
         }
 
         /* Bottom bar: FX ticker */
         .bottom-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 5vmin;
-            line-height: 5vmin;
+            display: table-row;
+            height: 6vmin;
             background: rgba(0, 0, 0, 0.6);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            z-index: 10;
+        }
+
+        .bottom-bar-inner {
+            display: table-cell;
+            vertical-align: middle;
+            height: 6vmin;
             white-space: nowrap;
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .fx-label {
             display: inline-block;
-            vertical-align: top;
+            vertical-align: middle;
             white-space: nowrap;
             padding: 0 1.5vmin;
-            font-size: 2.2vmin;
+            font-size: 3vmin;
             font-weight: 700;
             color: #f39c12;
             border-right: 1px solid rgba(255, 255, 255, 0.15);
-            height: 5vmin;
-            line-height: 5vmin;
         }
 
         .fx-track {
             display: inline-block;
-            vertical-align: top;
+            vertical-align: middle;
             overflow: hidden;
-            height: 5vmin;
-            line-height: 5vmin;
+            max-width: 80%;
+            height: 6vmin;
+            line-height: 6vmin;
         }
 
         .fx-content {
             display: inline-block;
             white-space: nowrap;
-            height: 5vmin;
-            line-height: 5vmin;
+            line-height: 6vmin;
         }
 
         .fx-item {
-            display: inline-block;
-            font-size: 2.2vmin;
+            display: inline;
+            font-size: 3vmin;
             padding: 0 1.5vmin;
         }
 
@@ -620,66 +625,74 @@
 
         <!-- Top bar: countdown + news -->
         <div class="top-bar">
-            <div class="top-countdown" id="top-countdown">🎆 Đang tính...</div>
-            <div class="top-news">
-                <div class="top-news-content" id="news-content">
-                    <span class="news-item">📰 Đang tải tin tức...</span>
-                </div>
+            <div class="top-bar-inner">
+                <span class="top-countdown" id="top-countdown">🎆 Đang tính...</span>
+                <span class="top-news">
+                    <span class="top-news-content" id="news-content">
+                        <span class="news-item">📰 Đang tải tin tức...</span>
+                    </span>
+                </span>
             </div>
         </div>
 
         <div class="content-wrapper">
+            <div class="content-inner">
+                <div class="content-flex">
 
-            <!-- LEFT COLUMN: Clock + Date/Weather + Quote -->
-            <div class="col-left">
-                <div class="clock-wrapper">
-                    <div id="digital-clock">
-                        <div class="clock-seg"><span id="c-hours">00</span></div>
-                        <div class="clock-sep colon-blink">:</div>
-                        <div class="clock-seg"><span id="c-minutes">00</span></div>
-                    </div>
-                </div>
-                <div class="info-group">
-                    <div class="date-box">
-                        <p id="greg-date"></p>
-                        <p id="lunar-date"></p>
-                    </div>
-                    <div class="weather-box">
-                        <div id="weather-loc">Đang tải...</div>
-                        <div class="weather-line">
-                            <span id="weather-icon"></span>
-                            <span id="weather-temp"></span>
-                            <span id="weather-desc">Đang tải thời tiết...</span>
+                    <!-- LEFT COLUMN: Clock + Date/Weather + Quote -->
+                    <div class="col-left">
+                        <div class="clock-wrapper">
+                            <div id="digital-clock">
+                                <div class="clock-seg"><span id="c-hours">00</span></div>
+                                <div class="clock-sep colon-blink">:</div>
+                                <div class="clock-seg"><span id="c-minutes">00</span></div>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <div class="date-box">
+                                <p id="greg-date"></p>
+                                <p id="lunar-date"></p>
+                            </div>
+                            <div class="weather-box">
+                                <div id="weather-loc">Đang tải...</div>
+                                <div class="weather-line">
+                                    <span id="weather-icon"></span>
+                                    <span id="weather-temp"></span>
+                                    <span id="weather-desc">Đang tải thời tiết...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="quote-wrap">
+                            <div class="quote-text" id="quote-text">...</div>
+                            <div class="quote-author" id="quote-author">Việt Nam</div>
                         </div>
                     </div>
-                </div>
-                <div class="quote-wrap">
-                    <div class="quote-text" id="quote-text">...</div>
-                    <div class="quote-author" id="quote-author">Việt Nam</div>
-                </div>
-            </div>
 
-            <!-- RIGHT COLUMN: Calendar -->
-            <div class="col-right">
-                <div id="cal-container">
-                    <div id="cal-header">
-                        <div class="cal-nav" id="cal-prev">&lt;</div>
-                        <div id="cal-title"></div>
-                        <div class="cal-nav" id="cal-next">&gt;</div>
+                    <!-- RIGHT COLUMN: Calendar -->
+                    <div class="col-right">
+                        <div id="cal-container">
+                            <div id="cal-header">
+                                <div class="cal-nav" id="cal-prev">&lt;</div>
+                                <div id="cal-title"></div>
+                                <div class="cal-nav" id="cal-next">&gt;</div>
+                            </div>
+                            <div id="cal-grid"></div>
+                        </div>
                     </div>
-                    <div id="cal-grid"></div>
+
                 </div>
             </div>
-
         </div>
 
         <!-- Bottom bar: FX ticker -->
         <div class="bottom-bar">
-            <div class="fx-label">💱 Tỷ giá</div>
-            <div class="fx-track">
-                <div class="fx-content" id="fx-content">
-                    <span class="fx-item">Đang tải tỷ giá...</span>
-                </div>
+            <div class="bottom-bar-inner">
+                <span class="fx-label">💱 Tỷ giá</span>
+                <span class="fx-track">
+                    <span class="fx-content" id="fx-content">
+                        <span class="fx-item">Đang tải tỷ giá...</span>
+                    </span>
+                </span>
             </div>
         </div>
 
