@@ -248,9 +248,9 @@
             -webkit-box-align: center;
             -webkit-align-items: center;
             align-items: center;
-            -webkit-box-flex: 1.2;
-            -webkit-flex: 1.2 1 0;
-            flex: 1.2 1 0;
+            -webkit-box-flex: 1.5;
+            -webkit-flex: 1.5 1 0;
+            flex: 1.5 1 0;
             padding: 2vmin;
             overflow: hidden;
         }
@@ -1280,8 +1280,17 @@
 
             function loadRemoteBg() {
                 if (!bgEl) { return; }
-                // Random photo from picsum.photos (1000+ curated photos)
-                var picsumId = Math.floor(Math.random() * 1000) + 1;
+                // Curated nature/landscape/animal photo IDs from Picsum
+                var natureIds = [
+                    10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 22, 24, 27, 28, 29,
+                    37, 39, 41, 43, 47, 49, 50, 53, 54, 55, 56, 57, 58, 59,
+                    65, 66, 68, 69, 73, 74, 76, 82, 83, 84, 85, 89, 91, 93, 94,
+                    100, 101, 104, 106, 110, 111, 119, 120, 122, 129, 131, 133, 134, 135, 136, 137,
+                    139, 141, 142, 143, 146, 147, 152, 153, 155, 158, 164, 165, 167, 169, 170,
+                    173, 175, 176, 177, 178, 180, 181, 182, 183, 184, 185, 186, 188, 190, 191,
+                    193, 195, 196, 197, 200, 201, 206, 209, 210, 211, 213, 214, 215, 217, 219
+                ];
+                var picsumId = natureIds[Math.floor(Math.random() * natureIds.length)];
                 var picsumUrl = 'https://picsum.photos/id/' + picsumId + '/640/480';
                 var proxyUrl = '/api/image-proxy?url=' + encodeURIComponent(picsumUrl);
 
@@ -1306,9 +1315,9 @@
                 img.src = proxyUrl;
             }
 
-            // Start with local image immediately
-            setLocalBg();
-            // Then try remote every 30s (falls back to local if fails)
+            // Start with Picsum immediately (local only as fallback)
+            loadRemoteBg();
+            // Continue trying remote every 30s
             setInterval(loadRemoteBg, 30000);
 
             /* ============================================================
