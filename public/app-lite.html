@@ -99,7 +99,7 @@
 
         .news-item {
             display: inline;
-            font-size: 3vmin;
+            font-size: 6vmin;
             padding: 0 2vmin;
             color: rgba(255, 255, 255, 0.9);
         }
@@ -107,7 +107,7 @@
         .news-sep {
             color: #f39c12;
             padding: 0 1vmin;
-            font-size: 3vmin;
+            font-size: 6vmin;
         }
 
         /* ── CONTENT ROW ── */
@@ -220,7 +220,7 @@
             -webkit-box-flex: 1;
             -webkit-flex: 1 1 0;
             flex: 1 1 0;
-            padding: 0.5vmin;
+            padding: 2vmin;
             overflow: hidden;
         }
 
@@ -724,7 +724,7 @@
                 if (!pageWrapper) { return; }
                 var h = window.innerHeight || document.documentElement.clientHeight || 768;
                 // Subtract Safari address bar + toolbar (~64px on iPad Mini 1)
-                h = h - 64;
+                h = h - 40;
                 pageWrapper.style.height = h + 'px';
             }
             fitPage();
