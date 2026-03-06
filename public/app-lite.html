@@ -39,9 +39,9 @@
             display: table;
             table-layout: fixed;
             width: 100%;
-            background: #0a0a12;
-            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #0a0a12), color-stop(40%, #1a1a2e), color-stop(70%, #16213e), color-stop(100%, #0f3460));
-            background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+            background: #1a1a2e;
+            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #0f0c29), color-stop(50%, #302b63), color-stop(100%, #24243e));
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             -webkit-background-size: cover;
             background-size: cover;
             background-position: center;
@@ -593,6 +593,25 @@
             color: rgba(255, 255, 255, 0.2);
             pointer-events: none;
         }
+
+        /* TTS Speaker Button */
+        #tts-btn {
+            position: fixed;
+            bottom: 60px;
+            right: 10px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.6);
+            color: #f39c12;
+            font-size: 24px;
+            line-height: 44px;
+            text-align: center;
+            cursor: pointer;
+            z-index: 999;
+            -webkit-tap-highlight-color: transparent;
+        }
     </style>
 </head>
 
@@ -677,6 +696,7 @@
 
     </div>
 
+    <div id="tts-btn">🔊</div>
     <div class="lite-badge">Legacy Frame Lite</div>
 
     <script>
@@ -1196,7 +1216,7 @@
             function loadBgImage() {
                 // Use proxy to bypass TLS issues on iOS 9
                 var picsumUrl = 'https://picsum.photos/640/480?random=' + Math.floor(Math.random() * 100000);
-                var proxyUrl = '/api/proxy?url=' + encodeURIComponent(picsumUrl);
+                var proxyUrl = '/api/image-proxy?url=' + encodeURIComponent(picsumUrl);
 
                 var img = new Image();
                 var done = false;
@@ -1225,14 +1245,6 @@
                 };
                 img.onerror = function () {
                     if (!done) { done = true; clearTimeout(timer); }
-                    // Fallback: try direct URL (in case proxy doesn't support images)
-                    var img2 = new Image();
-                    img2.onload = function () {
-                        if (bgEl) {
-                            bgEl.style.backgroundImage = 'url(' + img2.src + ')';
-                        }
-                    };
-                    img2.src = picsumUrl;
                 };
                 img.src = proxyUrl;
             }
@@ -1497,19 +1509,13 @@
             setInterval(loadFxData, 1800000); // Refresh every 30 min
 
             /* ============================================================
-             * EDGE TTS: Auto-read news + hourly time announcement
+             * EDGE TTS: Button-triggered news reading + hourly announce
              * Uses backend proxy: /.netlify/functions/tts-proxy?q=TEXT
              * ============================================================ */
+            var ttsBtn = document.getElementById('tts-btn');
             var ttsQueue = [];
             var ttsPlaying = false;
-            var ttsAudio = null;
-
-            function getApiBase() {
-                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                    return '/.netlify/functions/tts-proxy';
-                }
-                return '/.netlify/functions/tts-proxy';
-            }
+            var ttsUnlocked = false; // iOS requires user tap to unlock audio
 
             function speakText(text) {
                 if (!text) { return; }
@@ -1520,55 +1526,63 @@
             function playNext() {
                 if (ttsPlaying || ttsQueue.length === 0) { return; }
                 ttsPlaying = true;
+                if (ttsBtn) { ttsBtn.innerHTML = '&#128263;'; } // 🔇
                 var text = ttsQueue.shift();
-                var url = getApiBase() + '?q=' + encodeURIComponent(text) + '&voice=vi-VN-HoaiMyNeural';
+                var url = '/.netlify/functions/tts-proxy?q=' + encodeURIComponent(text) + '&voice=vi-VN-HoaiMyNeural';
 
                 try {
-                    ttsAudio = new Audio(url);
-                    ttsAudio.onended = function () {
+                    var audio = document.createElement('audio');
+                    audio.setAttribute('src', url);
+                    audio.setAttribute('preload', 'auto');
+
+                    audio.onended = function () {
                         ttsPlaying = false;
+                        if (ttsBtn) { ttsBtn.innerHTML = '&#128266;'; } // 🔊
                         playNext();
                     };
-                    ttsAudio.onerror = function () {
+                    audio.onerror = function () {
                         ttsPlaying = false;
+                        if (ttsBtn) { ttsBtn.innerHTML = '&#128266;'; } // 🔊
                         playNext();
                     };
-                    ttsAudio.play();
+                    audio.play();
                 } catch (e) {
                     ttsPlaying = false;
+                    if (ttsBtn) { ttsBtn.innerHTML = '&#128266;'; } // 🔊
                     playNext();
                 }
             }
 
-            // Auto-read news headlines after load
-            var newsReadTimer = null;
-            var originalLoadNews = loadNews;
-            loadNews = function () {
-                originalLoadNews();
-                // Wait for news to load then read first 3 headlines
-                clearTimeout(newsReadTimer);
-                newsReadTimer = setTimeout(function () {
-                    var items = document.querySelectorAll('.news-item');
-                    if (!items || items.length === 0) { return; }
-                    var headlines = [];
-                    var count = 0;
-                    for (var i = 0; i < items.length && count < 3; i++) {
-                        var txt = items[i].textContent || items[i].innerText || '';
-                        txt = txt.replace(/^📰\s*/, '').replace(/^\s+|\s+$/g, '');
-                        if (txt && txt.indexOf('Đang tải') === -1) {
-                            headlines.push(txt);
-                            count++;
-                        }
+            function readNewsNow() {
+                var items = document.querySelectorAll('.news-item');
+                if (!items || items.length === 0) { return; }
+                var headlines = [];
+                var count = 0;
+                for (var i = 0; i < items.length && count < 3; i++) {
+                    var txt = items[i].textContent || items[i].innerText || '';
+                    txt = txt.replace(/^📰\s*/, '').replace(/^\s+|\s+$/g, '');
+                    if (txt && txt.indexOf('Đang tải') === -1) {
+                        headlines.push(txt);
+                        count++;
                     }
-                    if (headlines.length > 0) {
-                        speakText('Tin tức mới nhất. ' + headlines.join('. '));
-                    }
-                }, 30000); // Wait 30s after page load
-            };
+                }
+                if (headlines.length > 0) {
+                    speakText('Tin tức mới nhất. ' + headlines.join('. '));
+                }
+            }
 
-            // Hourly time announcement
+            // Button click: read news now
+            if (ttsBtn) {
+                ttsBtn.onclick = function () {
+                    ttsUnlocked = true;
+                    readNewsNow();
+                };
+            }
+
+            // Hourly time announcement (only after user has tapped button)
             var lastAnnouncedHour = -1;
             function checkHourlyAnnounce() {
+                if (!ttsUnlocked) { return; }
                 var now = new Date();
                 var h = now.getHours();
                 var m = now.getMinutes();
