@@ -22,7 +22,7 @@
 
         body {
             background: #0a0a12;
-            background: -webkit-linear-gradient(315deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+            background: -webkit-linear-gradient(bottom right, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
             background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
             color: #F5F5F5;
             font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
@@ -63,6 +63,7 @@
         .page-wrapper {
             position: relative;
             z-index: 2;
+            background: transparent;
             display: table;
             table-layout: fixed;
             width: 100%;
@@ -1379,7 +1380,7 @@
             function startNewsScroll() {
                 if (!newsContentEl) { return; }
                 newsPos = 0;
-                var speed = 0.8;
+                var speed = 1.5;
 
                 function step() {
                     newsPos -= speed;
@@ -1463,7 +1464,7 @@
             function startFxScroll() {
                 if (!fxContentEl) { return; }
                 fxPos = 0;
-                var speed = 0.6;
+                var speed = 1.2;
 
                 function step() {
                     fxPos -= speed;
