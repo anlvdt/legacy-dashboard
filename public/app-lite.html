@@ -639,6 +639,8 @@
             cursor: pointer;
             z-index: 999;
             -webkit-tap-highlight-color: transparent;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
         }
 
         #tts-btn svg {
@@ -1246,57 +1248,26 @@
             }
 
             /* ============================================================
-             * PICSUM BACKGROUND SLIDESHOW
+             * BACKGROUND SLIDESHOW — Local images first, proxy fallback
              * ============================================================ */
             var bgEl = document.querySelector('.page-wrapper');
-            var bgPreloaded = null;
+            var localBgs = ['/bg/1.jpg', '/bg/2.jpg', '/bg/3.jpg'];
+            var bgIndex = 0;
 
             function loadBgImage() {
-                // Use proxy to bypass TLS issues on iOS 9
-                var picsumUrl = 'https://picsum.photos/640/480?random=' + Math.floor(Math.random() * 100000);
-                var proxyUrl = '/api/image-proxy?url=' + encodeURIComponent(picsumUrl);
-
+                if (!bgEl) { return; }
+                // Load local image
                 var img = new Image();
-                var done = false;
-
-                var timer = setTimeout(function () {
-                    if (!done) { done = true; img.onload = null; img.onerror = null; }
-                }, 15000);
-
                 img.onload = function () {
-                    if (done) { return; }
-                    done = true;
-                    clearTimeout(timer);
-                    if (bgEl) {
-                        bgEl.style.backgroundImage = 'url(' + img.src + ')';
-                        // Cache to localStorage
-                        try {
-                            var c = document.createElement('canvas');
-                            c.width = 640; c.height = 480;
-                            var ctx = c.getContext('2d');
-                            if (ctx) {
-                                ctx.drawImage(img, 0, 0, 640, 480);
-                                localStorage.setItem('lf_lite_bg', c.toDataURL('image/jpeg', 0.4));
-                            }
-                        } catch (e) { /* ignore */ }
-                    }
+                    bgEl.style.backgroundImage = 'url(' + img.src + ')';
                 };
-                img.onerror = function () {
-                    if (!done) { done = true; clearTimeout(timer); }
-                };
-                img.src = proxyUrl;
+                img.src = localBgs[bgIndex];
+                bgIndex = (bgIndex + 1) % localBgs.length;
             }
 
-            // Restore cached bg immediately
-            if (bgEl) {
-                try {
-                    var cached = localStorage.getItem('lf_lite_bg');
-                    if (cached && cached.indexOf('data:image') === 0) {
-                        bgEl.style.backgroundImage = 'url(' + cached + ')';
-                    }
-                } catch (e) { /* ignore */ }
-            }
+            // Load first image immediately
             loadBgImage();
+            // Rotate every 30 seconds
             setInterval(loadBgImage, 30000);
 
             /* ============================================================
@@ -1631,49 +1602,29 @@
                 if (saved) { ttsSchedule = saved; }
             } catch (e) { }
 
-            // Tap = read now, Long-press = set schedule
-            var pressTimer = null;
-            var longPressed = false;
+            // Tap = read/stop, Double-tap = set schedule
+            var lastTapTime = 0;
 
             if (ttsBtn) {
-                ttsBtn.ontouchstart = function () {
-                    longPressed = false;
-                    pressTimer = setTimeout(function () {
-                        longPressed = true;
+                ttsBtn.onclick = function () {
+                    var now = new Date().getTime();
+                    var timeSinceLastTap = now - lastTapTime;
+                    lastTapTime = now;
+
+                    // Double-tap (within 400ms) = settings
+                    if (timeSinceLastTap < 400) {
                         var input = prompt('Hẹn giờ đọc tin tự động (VD: 06:30):', ttsSchedule);
                         if (input && input.indexOf(':') > 0) {
                             ttsSchedule = input;
                             try { localStorage.setItem('lf_tts_schedule', ttsSchedule); } catch (e) { }
                             alert('Đã hẹn đọc tin lúc ' + ttsSchedule + ' mỗi ngày');
                         }
-                    }, 1000);
-                };
-                ttsBtn.ontouchend = function () {
-                    clearTimeout(pressTimer);
-                    if (!longPressed) {
-                        ttsUnlocked = true;
-                        if (ttsPlaying) { ttsReset(); } else { readNewsNow(); }
+                        return;
                     }
-                };
-                // Fallback for non-touch (desktop testing)
-                ttsBtn.onmousedown = function () {
-                    longPressed = false;
-                    pressTimer = setTimeout(function () {
-                        longPressed = true;
-                        var input = prompt('Hẹn giờ đọc tin tự động (VD: 06:30):', ttsSchedule);
-                        if (input && input.indexOf(':') > 0) {
-                            ttsSchedule = input;
-                            try { localStorage.setItem('lf_tts_schedule', ttsSchedule); } catch (e) { }
-                            alert('Đã hẹn đọc tin lúc ' + ttsSchedule + ' mỗi ngày');
-                        }
-                    }, 1000);
-                };
-                ttsBtn.onmouseup = function () {
-                    clearTimeout(pressTimer);
-                    if (!longPressed) {
-                        ttsUnlocked = true;
-                        if (ttsPlaying) { ttsReset(); } else { readNewsNow(); }
-                    }
+
+                    // Single tap = read or stop
+                    ttsUnlocked = true;
+                    if (ttsPlaying) { ttsReset(); } else { readNewsNow(); }
                 };
             }
 
