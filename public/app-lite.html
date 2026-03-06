@@ -60,6 +60,7 @@
             z-index: 2;
             width: 100%;
             height: 100%;
+            padding: 30px 0;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             overflow: hidden;
@@ -67,6 +68,9 @@
 
         /* Top bar: countdown + news */
         .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 30px;
             line-height: 30px;
@@ -74,6 +78,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
             white-space: nowrap;
+            z-index: 5;
         }
 
         .top-countdown {
@@ -117,17 +122,6 @@
         }
 
         .content-wrapper {
-            width: 100%;
-            height: -webkit-calc(100% - 60px);
-            height: calc(100% - 60px);
-        }
-
-        .content-inner {
-            width: 100%;
-            height: 100%;
-        }
-
-        .content-flex {
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
@@ -141,6 +135,9 @@
 
         /* Bottom bar: FX ticker */
         .bottom-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
             width: 100%;
             height: 30px;
             line-height: 30px;
@@ -148,6 +145,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
             white-space: nowrap;
+            z-index: 5;
         }
 
         .fx-label {
@@ -624,52 +622,48 @@
         </div>
 
         <div class="content-wrapper">
-            <div class="content-inner">
-                <div class="content-flex">
 
-                    <!-- LEFT COLUMN: Clock + Date/Weather + Quote -->
-                    <div class="col-left">
-                        <div class="clock-wrapper">
-                            <div id="digital-clock">
-                                <div class="clock-seg"><span id="c-hours">00</span></div>
-                                <div class="clock-sep colon-blink">:</div>
-                                <div class="clock-seg"><span id="c-minutes">00</span></div>
-                            </div>
-                        </div>
-                        <div class="info-group">
-                            <div class="date-box">
-                                <p id="greg-date"></p>
-                                <p id="lunar-date"></p>
-                            </div>
-                            <div class="weather-box">
-                                <div id="weather-loc">Đang tải...</div>
-                                <div class="weather-line">
-                                    <span id="weather-icon"></span>
-                                    <span id="weather-temp"></span>
-                                    <span id="weather-desc">Đang tải thời tiết...</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="quote-wrap">
-                            <div class="quote-text" id="quote-text">...</div>
-                            <div class="quote-author" id="quote-author">Việt Nam</div>
+            <!-- LEFT COLUMN: Clock + Date/Weather + Quote -->
+            <div class="col-left">
+                <div class="clock-wrapper">
+                    <div id="digital-clock">
+                        <div class="clock-seg"><span id="c-hours">00</span></div>
+                        <div class="clock-sep colon-blink">:</div>
+                        <div class="clock-seg"><span id="c-minutes">00</span></div>
+                    </div>
+                </div>
+                <div class="info-group">
+                    <div class="date-box">
+                        <p id="greg-date"></p>
+                        <p id="lunar-date"></p>
+                    </div>
+                    <div class="weather-box">
+                        <div id="weather-loc">Đang tải...</div>
+                        <div class="weather-line">
+                            <span id="weather-icon"></span>
+                            <span id="weather-temp"></span>
+                            <span id="weather-desc">Đang tải thời tiết...</span>
                         </div>
                     </div>
-
-                    <!-- RIGHT COLUMN: Calendar -->
-                    <div class="col-right">
-                        <div id="cal-container">
-                            <div id="cal-header">
-                                <div class="cal-nav" id="cal-prev">&lt;</div>
-                                <div id="cal-title"></div>
-                                <div class="cal-nav" id="cal-next">&gt;</div>
-                            </div>
-                            <div id="cal-grid"></div>
-                        </div>
-                    </div>
-
+                </div>
+                <div class="quote-wrap">
+                    <div class="quote-text" id="quote-text">...</div>
+                    <div class="quote-author" id="quote-author">Việt Nam</div>
                 </div>
             </div>
+
+            <!-- RIGHT COLUMN: Calendar -->
+            <div class="col-right">
+                <div id="cal-container">
+                    <div id="cal-header">
+                        <div class="cal-nav" id="cal-prev">&lt;</div>
+                        <div id="cal-title"></div>
+                        <div class="cal-nav" id="cal-next">&gt;</div>
+                    </div>
+                    <div id="cal-grid"></div>
+                </div>
+            </div>
+
         </div>
 
         <!-- Bottom bar: FX ticker -->
