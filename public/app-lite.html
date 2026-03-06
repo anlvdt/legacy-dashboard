@@ -60,75 +60,71 @@
             z-index: 2;
             width: 100%;
             height: 100%;
-            display: table;
-            table-layout: fixed;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
+            overflow: hidden;
         }
 
         /* Top bar: countdown + news */
         .top-bar {
-            display: table-row;
-            height: 8vmin;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
             background: rgba(0, 0, 0, 0.6);
-        }
-
-        .top-bar-inner {
-            display: table-cell;
-            vertical-align: middle;
-            height: 8vmin;
-            white-space: nowrap;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            white-space: nowrap;
         }
 
         .top-countdown {
             display: inline-block;
-            vertical-align: middle;
+            vertical-align: top;
+            max-width: 40%;
+            overflow: hidden;
             white-space: nowrap;
-            padding: 0 1.5vmin;
-            font-size: 4.5vmin;
+            padding: 0 8px;
+            font-size: 18px;
             font-weight: 700;
             color: #f39c12;
+            line-height: 30px;
             border-right: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .top-news {
             display: inline-block;
-            vertical-align: middle;
+            vertical-align: top;
             overflow: hidden;
-            max-width: 70%;
-            height: 8vmin;
-            line-height: 8vmin;
+            height: 30px;
+            line-height: 30px;
         }
 
         .top-news-content {
             display: inline-block;
             white-space: nowrap;
-            line-height: 8vmin;
+            line-height: 30px;
         }
 
         .news-item {
             display: inline;
-            font-size: 4vmin;
-            padding: 0 2vmin;
+            font-size: 18px;
+            padding: 0 12px;
             color: rgba(255, 255, 255, 0.9);
         }
 
         .news-sep {
             color: #f39c12;
-            padding: 0 0.5vmin;
+            padding: 0 4px;
         }
 
         .content-wrapper {
-            display: table-row;
-            height: auto;
+            width: 100%;
+            height: -webkit-calc(100% - 60px);
+            height: calc(100% - 60px);
         }
 
         .content-inner {
-            display: table-cell;
-            vertical-align: top;
+            width: 100%;
             height: 100%;
-            padding: 0.5vmin;
         }
 
         .content-flex {
@@ -145,49 +141,45 @@
 
         /* Bottom bar: FX ticker */
         .bottom-bar {
-            display: table-row;
-            height: 8vmin;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
             background: rgba(0, 0, 0, 0.6);
-        }
-
-        .bottom-bar-inner {
-            display: table-cell;
-            vertical-align: middle;
-            height: 8vmin;
-            white-space: nowrap;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            white-space: nowrap;
         }
 
         .fx-label {
             display: inline-block;
-            vertical-align: middle;
+            vertical-align: top;
             white-space: nowrap;
-            padding: 0 1.5vmin;
-            font-size: 4.5vmin;
+            padding: 0 8px;
+            font-size: 18px;
             font-weight: 700;
             color: #f39c12;
+            line-height: 30px;
             border-right: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .fx-track {
             display: inline-block;
-            vertical-align: middle;
+            vertical-align: top;
             overflow: hidden;
-            max-width: 80%;
-            height: 8vmin;
-            line-height: 8vmin;
+            height: 30px;
+            line-height: 30px;
         }
 
         .fx-content {
             display: inline-block;
             white-space: nowrap;
-            line-height: 8vmin;
+            line-height: 30px;
         }
 
         .fx-item {
             display: inline;
-            font-size: 4vmin;
-            padding: 0 1.5vmin;
+            font-size: 18px;
+            padding: 0 10px;
         }
 
         .fx-code {
@@ -623,14 +615,12 @@
 
         <!-- Top bar: countdown + news -->
         <div class="top-bar">
-            <div class="top-bar-inner">
-                <span class="top-countdown" id="top-countdown">🎆 Đang tính...</span>
-                <span class="top-news">
-                    <span class="top-news-content" id="news-content">
-                        <span class="news-item">📰 Đang tải tin tức...</span>
-                    </span>
+            <span class="top-countdown" id="top-countdown">🎆 Đang tính...</span>
+            <span class="top-news">
+                <span class="top-news-content" id="news-content">
+                    <span class="news-item">📰 Đang tải tin tức...</span>
                 </span>
-            </div>
+            </span>
         </div>
 
         <div class="content-wrapper">
@@ -684,14 +674,12 @@
 
         <!-- Bottom bar: FX ticker -->
         <div class="bottom-bar">
-            <div class="bottom-bar-inner">
-                <span class="fx-label">💱 Tỷ giá</span>
-                <span class="fx-track">
-                    <span class="fx-content" id="fx-content">
-                        <span class="fx-item">Đang tải tỷ giá...</span>
-                    </span>
+            <span class="fx-label">💱 Tỷ giá</span>
+            <span class="fx-track">
+                <span class="fx-content" id="fx-content">
+                    <span class="fx-item">Đang tải tỷ giá...</span>
                 </span>
-            </div>
+            </span>
         </div>
 
     </div>
