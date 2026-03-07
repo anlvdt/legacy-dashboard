@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Legacy Frame Lite</title>
+    <style>
+        /* ================================================================
+         * Legacy Frame Lite — Tối ưu tối đa cho iPad Mini 1
+         * Hỗ trợ landscape (1024×681) + portrait (768×960)
+         * Không dùng: CSS Grid, CSS Variables, clamp(), backdrop-filter
+         * ================================================================ */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background: #0a0a12;
+            color: #F5F5F5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+
+
+        /* ── PAGE WRAPPER: display:table — gold standard for iOS 9 ──
+         * The ONLY reliable way to stack top-bar + content + bottom-bar
+         * on iOS 9 without height calculations or position:fixed.
+         * Table rows auto-distribute: bars get fixed height,
+         * content fills remaining space automatically. */
+        .page-wrapper {
+            position: relative;
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+            background: #1a1a2e;
+            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #0f0c29), color-stop(50%, #302b63), color-stop(100%, #24243e));
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* height set by JS: window.innerHeight */
+        }
+
+        /* ── TOP BAR: News ticker ── */
+        .top-bar {
+            display: table-row;
+            height: 52px;
+        }
+
+        .top-bar-cell {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 8px 2vmin 4px;
+            white-space: nowrap;
+            background: rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .news-scroller {
+            width: 100%;
+            height: 44px;
+            line-height: 44px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .top-news-content {
+            display: inline-block;
+            white-space: nowrap;
+            line-height: 44px;
+        }
+
+        .news-item {
+            display: inline;
+            font-size: 6vmin;
+            padding: 0 2vmin;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .news-sep {
+            color: #f39c12;
+            padding: 0 1vmin;
+            font-size: 6vmin;
+        }
+
+        /* CSS marquee animation — GPU-accelerated, zero JS per frame */
+        .marquee-animated {
+            display: inline-block;
+            -webkit-animation: marquee-scroll 60s linear infinite;
+            animation: marquee-scroll 60s linear infinite;
+            will-change: -webkit-transform;
+        }
+
+        @-webkit-keyframes marquee-scroll {
+            0% {
+                -webkit-transform: translateX(0);
+            }
+
+            100% {
+                -webkit-transform: translateX(-50%);
+            }
+        }
+
+        @keyframes marquee-scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ── CONTENT ROW ── */
+        .content-row {
+            display: table-row;
+            background: none;
+        }
+
+        .content-cell {
+            display: table-cell;
+            vertical-align: top;
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        .content-wrapper {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-flex-direction: row;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Event countdown in info area */
+        .event-countdown {
+            text-align: center;
+            font-size: 2.5vmin;
+            font-weight: 700;
+            color: #f39c12;
+            padding: 0.3vmin 0;
+        }
+
+        /* ── BOTTOM BAR: FX ticker ── */
+        .bottom-bar {
+            display: table-row;
+            height: 48px;
+        }
+
+        .bottom-bar-cell {
+            display: table-cell;
+            vertical-align: middle;
+            height: 48px;
+            background: rgba(0, 0, 0, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
+        }
+
+        .fx-label {
+            display: inline-block;
+            vertical-align: top;
+            white-space: nowrap;
+            padding: 0 1.5vmin;
+            font-size: 3.5vmin;
+            font-weight: 700;
+            color: #f39c12;
+            line-height: 48px;
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .fx-track {
+            display: inline-block;
+            vertical-align: top;
+            overflow: hidden;
+            height: 48px;
+            line-height: 48px;
+            white-space: nowrap;
+        }
+
+        .fx-content {
+            display: inline-block;
+            white-space: nowrap;
+            line-height: 48px;
+        }
+
+        .fx-item {
+            display: inline;
+            font-size: 3vmin;
+            padding: 0 1.5vmin;
+        }
+
+        .fx-code {
+            color: #f39c12;
+            font-weight: 700;
+        }
+
+        .fx-val {
+            color: rgba(255, 255, 255, 0.9);
+            margin-left: 0.5vmin;
+        }
+
+        .fx-sep {
+            color: rgba(255, 255, 255, 0.3);
+            padding: 0 0.5vmin;
+        }
+
+        .col-left {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1 1 0;
+            flex: 1 1 0;
+            padding: 2vmin;
+            overflow: hidden;
+        }
+
+        .col-right {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-flex: 1.3;
+            -webkit-flex: 1.3 1 0;
+            flex: 1.3 1 0;
+            padding: 2vmin;
+            overflow: hidden;
+        }
+
+        .clock-wrapper {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            margin-bottom: 2vmin;
+        }
+
+        #digital-clock {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .clock-seg {
+            background: rgba(20, 20, 20, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 2vmin;
+            padding: 0.3vmin 1.5vmin;
+            -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
+        }
+
+        .clock-seg span {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 800;
+            font-size: 20vmin;
+            color: #fff;
+            letter-spacing: 0.03em;
+            text-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.8), 0 0 1vmin rgba(255, 255, 255, 0.2);
+        }
+
+        .clock-sep {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 800;
+            font-size: 12vmin;
+            color: #fff;
+            margin: 0 1vmin;
+            text-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.8);
+        }
+
+        @-webkit-keyframes blink {
+            50% {
+                opacity: 0.15;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.15;
+            }
+        }
+
+        .colon-blink {
+            -webkit-animation: blink 1s infinite;
+            animation: blink 1s infinite;
+        }
+
+        .info-group {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: column;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            margin-bottom: 2vmin;
+        }
+
+        .date-box,
+        .weather-box {
+            font-weight: 700;
+            padding: 0.6vmin 2vmin;
+            background: rgba(15, 15, 20, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.5vmin;
+            -webkit-box-shadow: 0 0.3vmin 1.5vmin rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0.3vmin 1.5vmin rgba(0, 0, 0, 0.5);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+            text-align: center;
+        }
+
+        .date-box {
+            font-size: 3.8vmin;
+        }
+
+        .date-box p {
+            margin: 0.15vmin 0;
+        }
+
+        #greg-date {
+            font-weight: 700;
+        }
+
+        #lunar-date {
+            color: #f39c12;
+        }
+
+        .weather-box {
+            font-size: 3vmin;
+            margin-top: 0.4vmin;
+        }
+
+        #weather-loc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.8vmin;
+            margin-bottom: 0.2vmin;
+        }
+
+        .weather-line {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .weather-line>span {
+            margin: 0 0.4rem;
+        }
+
+        #weather-desc {
+            font-size: 1.8vmin;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .quote-wrap {
+            padding: 0.5vmin 1vmin;
+            text-align: center;
+        }
+
+        .quote-text {
+            font-size: 2.8vmin;
+            font-style: italic;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .quote-author {
+            font-size: 1.8vmin;
+            color: #f39c12;
+            margin-top: 0.3vmin;
+        }
+
+        #cal-container {
+            background: rgba(20, 20, 20, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 1.5vmin;
+            border-radius: 2vmin;
+            width: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
+        }
+
+        #cal-header {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        #cal-title {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            font-size: 2.5vmin;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .cal-nav {
+            cursor: pointer;
+            font-size: 2.5vmin;
+            -webkit-user-select: none;
+            user-select: none;
+            padding: 0.3vmin 1vmin;
+        }
+
+        #cal-grid {
+            margin-top: 0.2vmin;
+        }
+
+        #cal-grid::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .cal-cell {
+            float: left;
+            width: 14.28%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .cal-cell::before {
+            content: '';
+            display: block;
+            padding-top: 78%;
+        }
+
+        .cal-inner {
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            bottom: 1px;
+            left: 1px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .day-hdr .cal-inner {
+            font-weight: 700;
+            color: #f39c12;
+            font-size: 2.8vmin;
+        }
+
+        .solar-d {
+            font-size: 3.5vmin;
+            font-weight: 700;
+            display: block;
+        }
+
+        .lunar-d {
+            font-size: 2vmin;
+            display: block;
+            color: #f39c12;
+            opacity: 0.8;
+        }
+
+        .other-m {
+            opacity: 0.3;
+        }
+
+        .today-cell .cal-inner {
+            background-color: rgba(243, 156, 18, 0.85);
+            color: #000;
+            border-radius: 0.8vmin;
+            font-weight: 800;
+            -webkit-box-shadow: 0 0.3vmin 0.8vmin rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0.3vmin 0.8vmin rgba(0, 0, 0, 0.5);
+        }
+
+        .today-cell .lunar-d {
+            color: #000;
+        }
+
+        /* ===== PORTRAIT: stack dọc ===== */
+        @media screen and (orientation: portrait) {
+            .content-wrapper {
+                -webkit-box-orient: vertical;
+                -webkit-flex-direction: column;
+                flex-direction: column;
+            }
+
+            .col-right {
+                -webkit-box-flex: 1;
+                -webkit-flex: 1 1 auto;
+                flex: 1 1 auto;
+            }
+
+            .col-left {
+                -webkit-box-flex: 0;
+                -webkit-flex: 0 0 auto;
+                flex: 0 0 auto;
+            }
+
+            .clock-seg span {
+                font-size: 10vmin;
+            }
+
+            .clock-sep {
+                font-size: 7vmin;
+            }
+
+            .clock-wrapper {
+                margin-bottom: 0.8vmin;
+            }
+
+            .info-group {
+                margin-bottom: 0.8vmin;
+            }
+
+            .date-box {
+                font-size: 2.5vmin;
+            }
+
+            .weather-box {
+                font-size: 2vmin;
+            }
+
+            .quote-text {
+                font-size: 1.8vmin;
+            }
+
+            .quote-author {
+                font-size: 1.2vmin;
+            }
+
+            #cal-container {
+                max-width: 80vmin;
+            }
+
+            .solar-d {
+                font-size: 1.8vmin;
+            }
+
+            .lunar-d {
+                font-size: 1.1vmin;
+            }
+
+            .day-hdr .cal-inner {
+                font-size: 1.4vmin;
+            }
+
+            #cal-title {
+                font-size: 1.8vmin;
+            }
+
+            .cal-cell::before {
+                padding-top: 85%;
+            }
+        }
+
+        .lite-badge {
+            position: fixed;
+            bottom: 90px;
+            right: 1vmin;
+            font-size: 1.5vmin;
+            color: rgba(255, 255, 255, 0.35);
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* TTS Speaker Button — inline with news bar */
+        #tts-btn {
+            display: -webkit-inline-box;
+            display: -webkit-inline-flex;
+            display: inline-flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        #tts-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #f39c12;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- page-wrapper: display:table with 3 rows -->
+    <div class="page-wrapper">
+
+        <!-- ROW 1: Top bar (44px) -->
+        <div class="top-bar">
+            <div class="top-bar-cell">
+                <div id="tts-btn"><svg viewBox="0 0 24 24">
+                        <path
+                            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                    </svg></div>
+                <div class="news-scroller" style="display:inline-block;vertical-align:middle;width:calc(100% - 50px)">
+                    <span class="top-news-content" id="news-content">
+                        <span class="news-item">Đang tải tin tức...</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 2: Content (auto-fill remaining height) -->
+        <div class="content-row">
+            <div class="content-cell">
+                <div class="content-wrapper">
+
+                    <!-- LEFT COLUMN: Clock + Date/Weather + Quote -->
+                    <div class="col-left">
+                        <div class="clock-wrapper">
+                            <div id="digital-clock">
+                                <div class="clock-seg"><span id="c-hours">00</span></div>
+                                <div class="clock-sep colon-blink">:</div>
+                                <div class="clock-seg"><span id="c-minutes">00</span></div>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <div class="date-box">
+                                <p id="greg-date"></p>
+                                <p id="lunar-date"></p>
+                            </div>
+                            <div class="event-countdown" id="top-countdown"></div>
+                            <div class="weather-box">
+                                <div id="weather-loc">Đang tải...</div>
+                                <div class="weather-line">
+                                    <span id="weather-icon"></span>
+                                    <span id="weather-temp"></span>
+                                    <span id="weather-desc">Đang tải thời tiết...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="quote-wrap">
+                            <div class="quote-text" id="quote-text">...</div>
+                            <div class="quote-author" id="quote-author">Việt Nam</div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: Calendar -->
+                    <div class="col-right">
+                        <div id="cal-container">
+                            <div id="cal-header">
+                                <div class="cal-nav" id="cal-prev">&lt;</div>
+                                <div id="cal-title"></div>
+                                <div class="cal-nav" id="cal-next">&gt;</div>
+                            </div>
+                            <div id="cal-grid"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 3: Bottom bar (48px) -->
+        <div class="bottom-bar">
+            <div class="bottom-bar-cell">
+                <span class="fx-label">💱 Tỷ giá</span>
+                <span class="fx-track">
+                    <span class="fx-content" id="fx-content">
+                        <span class="fx-item">Đang tải tỷ giá...</span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="lite-badge">Legacy Frame Lite</div>
+
+    <script>
+        /**
+         * Legacy Frame Lite — ES5 only, single file, no external dependencies
+         * Designed for: iOS < 10, Android < 5, Chrome < 40
+         */
+        (function () {
+            if (typeof document === 'undefined') { return; }
+
+            /* ============================================================
+             * POLYFILL: requestAnimationFrame
+             * ============================================================ */
+            if (typeof window !== 'undefined' && !window.requestAnimationFrame) {
+                window.requestAnimationFrame = function (fn) { return setTimeout(fn, 16); };
+            }
+
+            /* ============================================================
+             * FIT PAGE TO VISIBLE VIEWPORT
+             * On iOS 9: height:100% = layout viewport (includes toolbar)
+             *           window.innerHeight = visible viewport (excludes toolbar)
+             * ============================================================ */
+            var pageWrapper = document.querySelector('.page-wrapper');
+            function fitPage() {
+                if (!pageWrapper) { return; }
+                var h = window.innerHeight || document.documentElement.clientHeight || 768;
+                // Subtract Safari address bar + toolbar (~64px on iPad Mini 1)
+                h = h - 40;
+                pageWrapper.style.height = h + 'px';
+            }
+            fitPage();
+            if (window.addEventListener) {
+                window.addEventListener('resize', fitPage, false);
+                window.addEventListener('orientationchange', function () {
+                    setTimeout(fitPage, 300);
+                }, false);
+            } else if (window.attachEvent) {
+                window.attachEvent('onresize', fitPage);
+            }
+            // No setInterval — resize and orientationchange are sufficient
+
+            /* ============================================================
+             * CLOCK
+             * ============================================================ */
+            var hoursEl = document.getElementById('c-hours');
+            var minsEl = document.getElementById('c-minutes');
+
+            function updateClock() {
+                var now = new Date();
+                var h = now.getHours();
+                var m = now.getMinutes();
+                if (hoursEl) { hoursEl.textContent = (h < 10 ? '0' : '') + h; }
+                if (minsEl) { minsEl.textContent = (m < 10 ? '0' : '') + m; }
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            /* ============================================================
+             * SIMPLE LUNAR DATE (ES5 — Zeller-based approximation)
+             * Uses a simplified table-based approach for 2020-2030
+             * For dates outside range, shows only Gregorian
+             * ============================================================ */
+            var THANG = ['Giêng', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy', 'Tám', 'Chín', 'Mười', 'Mười Một', 'Chạp'];
+            var THU = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'];
+            var CAN = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+            var CHI = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+
+            /**
+             * Julian Day Number from Gregorian date
+             */
+            function jdn(d, m, y) {
+                var a = Math.floor((14 - m) / 12);
+                var yy = y + 4800 - a;
+                var mm = m + 12 * a - 3;
+                var j = d + Math.floor((153 * mm + 2) / 5) + 365 * yy + Math.floor(yy / 4) - Math.floor(yy / 100) + Math.floor(yy / 400) - 32045;
+                return j;
+            }
+
+            /**
+             * Sun longitude at julian day (simplified)
+             */
+            function sunLongitude(jd) {
+                var T = (jd - 2451545.0) / 36525.0;
+                var dr = Math.PI / 180;
+                var M = 357.5291 + 35999.0503 * T;
+                var L0 = 280.46645 + 36000.76983 * T;
+                var DL = (1.9146 - 0.004817 * T) * Math.sin(dr * M) + 0.019993 * Math.sin(dr * 2 * M);
+                var L = L0 + DL;
+                L = L - 360 * Math.floor(L / 360);
+                return L;
+            }
+
+            /**
+             * New moon calculation (simplified Meeus)
+             */
+            function newMoon(k) {
+                var T = k / 1236.85;
+                var T2 = T * T;
+                var T3 = T2 * T;
+                var dr = Math.PI / 180;
+                var Jd1 = 2415020.75933 + 29.53058868 * k + 0.0001178 * T2 - 0.000000155 * T3;
+                Jd1 = Jd1 + 0.00033 * Math.sin((166.56 + 132.87 * T - 0.009173 * T2) * dr);
+                var M = 359.2242 + 29.10535608 * k - 0.0000333 * T2;
+                var Mpr = 306.0253 + 385.81691806 * k + 0.0107306 * T2;
+                var F = 21.2964 + 390.67050646 * k - 0.0016528 * T2;
+                var C1 = (0.1734 - 0.000393 * T) * Math.sin(M * dr) + 0.0021 * Math.sin(2 * dr * M);
+                C1 = C1 - 0.4068 * Math.sin(Mpr * dr) + 0.0161 * Math.sin(dr * 2 * Mpr);
+                C1 = C1 - 0.0004 * Math.sin(dr * 3 * Mpr);
+                C1 = C1 + 0.0104 * Math.sin(dr * 2 * F) - 0.0051 * Math.sin(dr * (M + Mpr));
+                C1 = C1 - 0.0074 * Math.sin(dr * (M - Mpr)) + 0.0004 * Math.sin(dr * (2 * F + M));
+                C1 = C1 - 0.0004 * Math.sin(dr * (2 * F - M)) - 0.0006 * Math.sin(dr * (2 * F + Mpr));
+                C1 = C1 + 0.001 * Math.sin(dr * (2 * F - Mpr)) + 0.0005 * Math.sin(dr * (2 * Mpr + M));
+                return Math.floor(Jd1 + C1 + 0.5);
+            }
+
+            function getNewMoonDay(k, timeZone) {
+                return newMoon(k) - Math.floor(timeZone / 24.0 - 0.5);
+            }
+
+            function getSunLon(jd, timeZone) {
+                return sunLongitude(jd - 0.5 - timeZone / 24.0);
+            }
+
+            function getLunarMonth11(yy, timeZone) {
+                var off = jdn(31, 12, yy) - 2415021;
+                var k = Math.floor(off / 29.530588853);
+                var nm = getNewMoonDay(k, timeZone);
+                var sl = Math.floor(getSunLon(nm, timeZone) / 30);
+                if (sl >= 9) {
+                    nm = getNewMoonDay(k - 1, timeZone);
+                }
+                return nm;
+            }
+
+            function getLeapMonthOffset(a11, timeZone) {
+                var k = Math.floor((a11 - 2415021.076998695) / 29.530588853 + 0.5);
+                var last = 0;
+                var i = 1;
+                var arc = Math.floor(getSunLon(getNewMoonDay(k + i, timeZone), timeZone) / 30);
+                do {
+                    last = arc;
+                    i++;
+                    arc = Math.floor(getSunLon(getNewMoonDay(k + i, timeZone), timeZone) / 30);
+                } while (arc !== last && i < 14);
+                return i - 1;
+            }
+
+            /**
+             * Convert solar date to lunar date
+             * Returns {day, month, year, leap, yearName}
+             */
+            function solarToLunar(dd, mm, yy) {
+                var timeZone = 7; // Vietnam
+                var dayNumber = jdn(dd, mm, yy);
+                var k = Math.floor((dayNumber - 2415021.076998695) / 29.530588853);
+                var monthStart = getNewMoonDay(k + 1, timeZone);
+                if (monthStart > dayNumber) {
+                    monthStart = getNewMoonDay(k, timeZone);
+                }
+                var a11 = getLunarMonth11(yy, timeZone);
+                var b11 = a11;
+                var lunarYear;
+                if (a11 >= monthStart) {
+                    lunarYear = yy;
+                    a11 = getLunarMonth11(yy - 1, timeZone);
+                } else {
+                    lunarYear = yy + 1;
+                    b11 = getLunarMonth11(yy + 1, timeZone);
+                }
+                var lunarDay = dayNumber - monthStart + 1;
+                var diff = Math.floor((monthStart - a11) / 29);
+                var lunarLeap = 0;
+                var lunarMonth = diff + 11;
+                if (b11 - a11 > 365) {
+                    var leapOff = getLeapMonthOffset(a11, timeZone);
+                    if (diff >= leapOff) {
+                        lunarMonth = diff + 10;
+                        if (diff === leapOff) {
+                            lunarLeap = 1;
+                        }
+                    }
+                }
+                if (lunarMonth > 12) { lunarMonth = lunarMonth - 12; }
+                if (lunarMonth >= 11 && diff < 4) { lunarYear -= 1; }
+
+                var canYear = CAN[(lunarYear + 6) % 10];
+                var chiYear = CHI[(lunarYear + 8) % 12];
+
+                return {
+                    day: lunarDay,
+                    month: lunarMonth,
+                    year: lunarYear,
+                    leap: lunarLeap,
+                    yearName: canYear + ' ' + chiYear
+                };
+            }
+
+            /* ============================================================
+             * DATE DISPLAY
+             * ============================================================ */
+            var gregEl = document.getElementById('greg-date');
+            var lunarEl = document.getElementById('lunar-date');
+
+            function updateDate() {
+                var now = new Date();
+                var d = now.getDate();
+                var m = now.getMonth() + 1;
+                var y = now.getFullYear();
+                var dow = now.getDay();
+
+                if (gregEl) {
+                    gregEl.textContent = THU[dow] + ', ' + d + '/' + m + '/' + y;
+                }
+
+                try {
+                    var lunar = solarToLunar(d, m, y);
+                    if (lunarEl) {
+                        var monthName = THANG[lunar.month - 1] || lunar.month;
+                        lunarEl.textContent = lunar.day + ' tháng ' + monthName + ', ' + lunar.yearName;
+                    }
+                } catch (e) {
+                    if (lunarEl) { lunarEl.textContent = ''; }
+                }
+            }
+            updateDate();
+            // Update date every minute
+            setInterval(updateDate, 60000);
+
+            /* ============================================================
+             * WEATHER (XHR — ES5)
+             * ============================================================ */
+            function xhrGet(url, callback, timeout) {
+                var to = timeout || 12000;
+                var xhr = new XMLHttpRequest();
+                var done = false;
+                xhr.open('GET', url, true);
+                xhr.timeout = to;
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState !== 4 || done) { return; }
+                    done = true;
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        try { callback(null, JSON.parse(xhr.responseText)); }
+                        catch (e) { callback(e, null); }
+                    } else { callback(new Error('HTTP ' + xhr.status), null); }
+                };
+                xhr.ontimeout = function () { if (!done) { done = true; callback(new Error('timeout'), null); } };
+                xhr.onerror = function () { if (!done) { done = true; callback(new Error('network'), null); } };
+                xhr.send(null);
+            }
+
+            var WMO_DESC = {
+                0: 'Trời quang', 1: 'Gần quang', 2: 'Mây rải rác', 3: 'Nhiều mây',
+                45: 'Sương mù', 48: 'Sương mù',
+                51: 'Mưa phùn nhẹ', 53: 'Mưa phùn', 55: 'Mưa phùn dày',
+                56: 'Mưa phùn lạnh', 57: 'Mưa phùn lạnh',
+                61: 'Mưa nhẹ', 63: 'Mưa vừa', 65: 'Mưa lớn',
+                66: 'Mưa lạnh', 67: 'Mưa lạnh',
+                71: 'Tuyết nhẹ', 73: 'Tuyết vừa', 75: 'Tuyết dày', 77: 'Mưa đá nhỏ',
+                80: 'Mưa rào nhẹ', 81: 'Mưa rào vừa', 82: 'Mưa rào lớn',
+                85: 'Mưa tuyết nhẹ', 86: 'Mưa tuyết dày',
+                95: 'Dông', 96: 'Dông mưa đá', 99: 'Dông mưa đá lớn'
+            };
+            var WMO_EMOJI = {
+                0: '☀️', 1: '🌤', 2: '⛅', 3: '☁️',
+                45: '🌫', 48: '🌫',
+                51: '🌧', 53: '🌧', 55: '🌧', 56: '🌧', 57: '🌧',
+                61: '🌧', 63: '🌧', 65: '🌧', 66: '🌧', 67: '🌧',
+                71: '❄️', 73: '❄️', 75: '❄️', 77: '❄️',
+                80: '🌧', 81: '🌧', 82: '🌧', 85: '🌨', 86: '🌨',
+                95: '⛈', 96: '⛈', 99: '⛈'
+            };
+
+            var wLocEl = document.getElementById('weather-loc');
+            var wIconEl = document.getElementById('weather-icon');
+            var wTempEl = document.getElementById('weather-temp');
+            var wDescEl = document.getElementById('weather-desc');
+
+            /**
+             * Detect location via backend proxy (iOS 9 can't reach ipinfo.io directly)
+             * Fallback chain: proxy ipinfo → proxy ipapi.co → hardcode HCM
+             */
+            function detectLocation(callback) {
+                // Proxy-based IP detection returns Netlify server's location, not user's.
+                // Hardcode Hồ Chí Minh for wall-mounted dashboard.
+                callback(null, 'Hồ Chí Minh', 10.8231, 106.6297);
+            }
+
+            function fetchWeather(city, lat, lon) {
+                if (wLocEl) { wLocEl.textContent = city; }
+
+                var weatherUrl = '/api/weather?lat=' + lat + '&lon=' + lon;
+                if (city) { weatherUrl += '&city=' + encodeURIComponent(city); }
+                xhrGet(weatherUrl, function (err, wData) {
+                    if (err || !wData || !wData.weather) {
+                        if (wDescEl) { wDescEl.textContent = 'Không thể tải thời tiết'; }
+                        return;
+                    }
+                    if (wData.location && wLocEl) { wLocEl.textContent = wData.location; }
+                    var code = wData.weather.weather_code;
+                    var temp = Math.round(wData.weather.temperature_2m);
+                    var emoji = WMO_EMOJI[code] || '❓';
+                    var desc = WMO_DESC[code] || 'Không xác định';
+
+                    if (wIconEl) { wIconEl.textContent = emoji; wIconEl.style.fontSize = '3.5vmin'; }
+                    if (wTempEl) { wTempEl.textContent = temp + '°C'; }
+                    if (wDescEl) { wDescEl.textContent = desc; }
+                }, 15000);
+            }
+
+            function loadWeather() {
+                detectLocation(function (err, city, lat, lon) {
+                    if (err) {
+                        if (wDescEl) { wDescEl.textContent = 'Không thể xác định vị trí'; }
+                        return;
+                    }
+                    fetchWeather(city, lat, lon);
+                });
+            }
+            loadWeather();
+            // Refresh weather every 30 minutes
+            setInterval(loadWeather, 1800000);
+
+            /* ============================================================
+             * QUOTES (curated subset — offline, ES5)
+             * ============================================================ */
+            var QUOTES = [
+                { t: 'Thương người như thể thương thân.', a: 'Tục ngữ' },
+                { t: 'Một điều nhịn chín điều lành.', a: 'Tục ngữ' },
+                { t: 'Đi một ngày đàng, học một sàng khôn.', a: 'Tục ngữ' },
+                { t: 'Có công mài sắt có ngày nên kim.', a: 'Tục ngữ' },
+                { t: 'Lá lành đùm lá rách.', a: 'Tục ngữ' },
+                { t: 'Ăn quả nhớ kẻ trồng cây.', a: 'Tục ngữ' },
+                { t: 'Nhân nào, quả nấy.', a: 'Tục ngữ' },
+                { t: 'Có làm thì mới có ăn, không dưng ai dễ đem phần đến cho.', a: 'Ca dao' },
+                { t: 'Mẹ già như chuối ba hương, như xôi nếp một như đường mía lau.', a: 'Ca dao' },
+                { t: 'Đói cho sạch, rách cho thơm.', a: 'Tục ngữ' },
+                { t: 'Giấy rách giữ lấy lề.', a: 'Tục ngữ' },
+                { t: 'Nhất nghệ tinh nhất thân vinh.', a: 'Tục ngữ' },
+                { t: 'Kiến đen tha trứng lên cao, thế nào cũng có mưa rào rất to.', a: 'Ca dao' },
+                { t: 'Chuồn chuồn bay thấp thì mưa, bay cao thì nắng, bay vừa thì râm.', a: 'Ca dao' },
+                { t: 'Dẻo thơm một hạt, đắng cay muôn phần.', a: 'Ca dao' },
+                { t: 'Trăm năm đành lỗi hẹn hò, Cây đa bến cũ, con đò khác đưa.', a: 'Ca dao' },
+                { t: 'Tốt gỗ hơn tốt nước sơn, xấu người đẹp nết con hơn đẹp người.', a: 'Ca dao' },
+                { t: 'Không có gì quý hơn độc lập, tự do.', a: 'Hồ Chí Minh' },
+                { t: 'Vì lợi ích mười năm trồng cây, vì lợi ích trăm năm trồng người.', a: 'Hồ Chí Minh' },
+                { t: 'Đoàn kết, đoàn kết, đại đoàn kết. Thành công, thành công, đại thành công.', a: 'Hồ Chí Minh' },
+                { t: 'Con không chê cha mẹ khó, chó không chê chủ nhà nghèo.', a: 'Tục ngữ' },
+                { t: 'Người không học như ngọc không mài.', a: 'Tục ngữ' },
+                { t: 'Học, học nữa, học mãi.', a: 'Tục ngữ' },
+                { t: 'Ta về ta tắm ao ta, Dù trong dù đục, ao nhà vẫn hơn.', a: 'Ca dao' },
+                { t: 'Đem đại nghĩa để thắng hung tàn, lấy chí nhân để thay cường bạo.', a: 'Nguyễn Trãi' },
+                { t: 'Sống trong đời sống cần có một tấm lòng.', a: 'Trịnh Công Sơn' },
+                { t: 'Tay làm hàm nhai, tay quai miệng trễ.', a: 'Ca dao' },
+                { t: 'Đoàn kết thì sống, chia rẽ thì chết.', a: 'Tục ngữ' },
+                { t: 'Trời sinh ra ta hẳn phải có chỗ dùng.', a: 'Lý Bạch' },
+                { t: 'Lên non mới biết non cao, lội sông mới biết sông sâu cạn nào.', a: 'Ca dao' }
+            ];
+            var quoteIdx = Math.floor(Math.random() * QUOTES.length);
+            var quoteTextEl = document.getElementById('quote-text');
+            var quoteAuthorEl = document.getElementById('quote-author');
+
+            function showQuote() {
+                var q = QUOTES[quoteIdx];
+                if (quoteTextEl) { quoteTextEl.textContent = q.t; }
+                if (quoteAuthorEl) { quoteAuthorEl.textContent = '— ' + q.a; }
+                quoteIdx = (quoteIdx + 1) % QUOTES.length;
+            }
+            showQuote();
+            setInterval(showQuote, 60000);
+
+            /* ============================================================
+             * CALENDAR — Monthly, ES5, standalone (no external dependency)
+             * ============================================================ */
+            var calTitleEl = document.getElementById('cal-title');
+            var calGridEl = document.getElementById('cal-grid');
+            var calPrevEl = document.getElementById('cal-prev');
+            var calNextEl = document.getElementById('cal-next');
+            var calBase = new Date();
+
+            var MONTH_NAMES = [
+                'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+                'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+            ];
+            var DAY_NAMES = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+
+            function renderCalendar(baseDate) {
+                if (!calTitleEl || !calGridEl) { return; }
+
+                var year = baseDate.getFullYear();
+                var month = baseDate.getMonth();
+                calTitleEl.textContent = MONTH_NAMES[month] + ' ' + year;
+
+                // Clear grid
+                calGridEl.innerHTML = '';
+
+                // Day headers
+                var i, cell, inner;
+                for (i = 0; i < 7; i++) {
+                    cell = document.createElement('div');
+                    cell.className = 'cal-cell day-hdr';
+                    inner = document.createElement('div');
+                    inner.className = 'cal-inner';
+                    inner.textContent = DAY_NAMES[i];
+                    cell.appendChild(inner);
+                    calGridEl.appendChild(cell);
+                }
+
+                // First day of month (shift to Monday start)
+                var firstDay = new Date(year, month, 1).getDay();
+                var offset = (firstDay + 6) % 7; // Monday = 0
+
+                // Days in month
+                var daysInMonth = new Date(year, month + 1, 0).getDate();
+                var prevMonthDays = new Date(year, month, 0).getDate();
+
+                var today = new Date();
+                var todayD = today.getDate();
+                var todayM = today.getMonth();
+                var todayY = today.getFullYear();
+
+                // Previous month days
+                for (i = offset - 1; i >= 0; i--) {
+                    var pDay = prevMonthDays - i;
+                    var pM = month === 0 ? 12 : month;
+                    var pY = month === 0 ? year - 1 : year;
+                    cell = document.createElement('div');
+                    cell.className = 'cal-cell other-m';
+                    inner = document.createElement('div');
+                    inner.className = 'cal-inner';
+                    var solarSpan = document.createElement('span');
+                    solarSpan.className = 'solar-d';
+                    solarSpan.textContent = pDay;
+                    inner.appendChild(solarSpan);
+                    try {
+                        var pLunar = solarToLunar(pDay, pM, pY);
+                        var lunarSpan = document.createElement('span');
+                        lunarSpan.className = 'lunar-d';
+                        lunarSpan.textContent = pLunar.day;
+                        if (pLunar.day === 1) { lunarSpan.textContent = pLunar.day + '/' + pLunar.month; }
+                        inner.appendChild(lunarSpan);
+                    } catch (e) { /* skip lunar */ }
+                    cell.appendChild(inner);
+                    calGridEl.appendChild(cell);
+                }
+
+                // Current month days
+                for (i = 1; i <= daysInMonth; i++) {
+                    cell = document.createElement('div');
+                    var isToday = (i === todayD && month === todayM && year === todayY);
+                    cell.className = 'cal-cell' + (isToday ? ' today-cell' : '');
+                    inner = document.createElement('div');
+                    inner.className = 'cal-inner';
+                    var sd = document.createElement('span');
+                    sd.className = 'solar-d';
+                    sd.textContent = i;
+                    inner.appendChild(sd);
+                    try {
+                        var lun = solarToLunar(i, month + 1, year);
+                        var ld = document.createElement('span');
+                        ld.className = 'lunar-d';
+                        ld.textContent = lun.day;
+                        if (lun.day === 1) { ld.textContent = lun.day + '/' + lun.month; }
+                        inner.appendChild(ld);
+                    } catch (e) { /* skip lunar */ }
+                    cell.appendChild(inner);
+                    calGridEl.appendChild(cell);
+                }
+
+                // Next month days (fill remaining cells)
+                var totalCells = offset + daysInMonth;
+                var remaining = (7 - (totalCells % 7)) % 7;
+                for (i = 1; i <= remaining; i++) {
+                    var nM = month + 2 > 12 ? 1 : month + 2;
+                    var nY = month + 2 > 12 ? year + 1 : year;
+                    cell = document.createElement('div');
+                    cell.className = 'cal-cell other-m';
+                    inner = document.createElement('div');
+                    inner.className = 'cal-inner';
+                    var ns = document.createElement('span');
+                    ns.className = 'solar-d';
+                    ns.textContent = i;
+                    inner.appendChild(ns);
+                    try {
+                        var nLun = solarToLunar(i, nM, nY);
+                        var nl = document.createElement('span');
+                        nl.className = 'lunar-d';
+                        nl.textContent = nLun.day;
+                        if (nLun.day === 1) { nl.textContent = nLun.day + '/' + nLun.month; }
+                        inner.appendChild(nl);
+                    } catch (e) { /* skip lunar */ }
+                    cell.appendChild(inner);
+                    calGridEl.appendChild(cell);
+                }
+            }
+
+            renderCalendar(calBase);
+
+            if (calPrevEl) {
+                calPrevEl.onclick = function () {
+                    calBase.setMonth(calBase.getMonth() - 1);
+                    renderCalendar(calBase);
+                };
+            }
+            if (calNextEl) {
+                calNextEl.onclick = function () {
+                    calBase.setMonth(calBase.getMonth() + 1);
+                    renderCalendar(calBase);
+                };
+            }
+
+            /* ============================================================
+             * BACKGROUND SLIDESHOW — Local fallback + dynamic Picsum
+             * Local images load instantly. Then loads random photos from
+             * picsum.photos via server proxy (1000+ curated photos).
+             * ============================================================ */
+            var bgEl = document.querySelector('.page-wrapper');
+            var bgSourceEl = document.querySelector('.lite-badge');
+            var localBgs = ['/bg/1.jpg', '/bg/2.jpg', '/bg/3.jpg', '/bg/4.jpg', '/bg/5.jpg'];
+            var bgIndex = 0;
+
+            function setBgSource(src) {
+                if (bgSourceEl) { bgSourceEl.textContent = 'Lite · BG: ' + src; }
+            }
+
+            function setLocalBg() {
+                if (!bgEl) { return; }
+                var img = new Image();
+                img.onload = function () {
+                    bgEl.style.backgroundImage = 'url(' + img.src + ')';
+                    setBgSource('Local #' + bgIndex);
+                };
+                img.src = localBgs[bgIndex];
+                bgIndex = (bgIndex + 1) % localBgs.length;
+            }
+
+            function loadRemoteBg() {
+                if (!bgEl) { return; }
+                // Curated nature/landscape/animal photo IDs from Picsum
+                var natureIds = [
+                    10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 22, 24, 27, 28, 29,
+                    37, 39, 41, 43, 47, 49, 50, 53, 54, 55, 56, 57, 58, 59,
+                    65, 66, 68, 69, 73, 74, 76, 82, 83, 84, 85, 89, 91, 93, 94,
+                    100, 101, 104, 106, 110, 111, 119, 120, 122, 129, 131, 133, 134, 135, 136, 137,
+                    139, 141, 142, 143, 146, 147, 152, 153, 155, 158, 164, 165, 167, 169, 170,
+                    173, 175, 176, 177, 178, 180, 181, 182, 183, 184, 185, 186, 188, 190, 191,
+                    193, 195, 196, 197, 200, 201, 206, 209, 210, 211, 213, 214, 215, 217, 219
+                ];
+                var picsumId = natureIds[Math.floor(Math.random() * natureIds.length)];
+                var picsumUrl = 'https://picsum.photos/id/' + picsumId + '/640/480';
+                var proxyUrl = '/api/image-proxy?url=' + encodeURIComponent(picsumUrl);
+
+                setBgSource('Loading...');
+
+                var img = new Image();
+                var done = false;
+                var timer = setTimeout(function () {
+                    if (!done) { done = true; img.onload = null; img.onerror = null; setLocalBg(); }
+                }, 12000);
+
+                img.onload = function () {
+                    if (done) { return; }
+                    done = true;
+                    clearTimeout(timer);
+                    bgEl.style.backgroundImage = 'url(' + img.src + ')';
+                    setBgSource('Picsum #' + picsumId);
+                };
+                img.onerror = function () {
+                    if (!done) { done = true; clearTimeout(timer); setLocalBg(); }
+                };
+                img.src = proxyUrl;
+            }
+
+            // Start with Picsum immediately (local only as fallback)
+            loadRemoteBg();
+            // Continue trying remote every 30s
+            setInterval(loadRemoteBg, 30000);
+
+            /* ============================================================
+             * TOP BAR: SPECIAL DATES COUNTDOWN
+             * ============================================================ */
+            var countdownEl = document.getElementById('top-countdown');
+
+            function updateCountdown() {
+                if (!countdownEl) { return; }
+                var now = new Date();
+                var y = now.getFullYear();
+
+                // Vietnamese holidays/events (solar dates) + Tết approximations
+                var events = [
+                    { m: 1, d: 1, name: 'Tết Dương lịch', emoji: '🎉' },
+                    { m: 2, d: 14, name: 'Valentine', emoji: '❤️' },
+                    { m: 3, d: 8, name: 'Quốc tế Phụ nữ', emoji: '🌷' },
+                    { m: 4, d: 30, name: 'Giải phóng miền Nam', emoji: '🇻🇳' },
+                    { m: 5, d: 1, name: 'Quốc tế Lao động', emoji: '✊' },
+                    { m: 6, d: 1, name: 'Quốc tế Thiếu nhi', emoji: '👶' },
+                    { m: 9, d: 2, name: 'Quốc khánh', emoji: '🇻🇳' },
+                    { m: 10, d: 20, name: 'Ngày Phụ nữ VN', emoji: '💐' },
+                    { m: 11, d: 20, name: 'Ngày Nhà giáo', emoji: '📚' },
+                    { m: 12, d: 25, name: 'Giáng sinh', emoji: '🎄' }
+                ];
+
+                // Tết Nguyên Đán (approximate dates for upcoming years)
+                var tetDates = [
+                    { y: 2026, m: 2, d: 17, name: 'Tết Bính Ngọ' },
+                    { y: 2027, m: 2, d: 6, name: 'Tết Đinh Mùi' },
+                    { y: 2028, m: 1, d: 26, name: 'Tết Mậu Thân' },
+                    { y: 2029, m: 2, d: 13, name: 'Tết Kỷ Dậu' },
+                    { y: 2030, m: 2, d: 3, name: 'Tết Canh Tuất' }
+                ];
+
+                var nearest = null;
+                var minDays = 999;
+
+                // Check regular events
+                var i, evDate, diff;
+                for (i = 0; i < events.length; i++) {
+                    evDate = new Date(y, events[i].m - 1, events[i].d);
+                    if (evDate < now) { evDate = new Date(y + 1, events[i].m - 1, events[i].d); }
+                    diff = Math.ceil((evDate - now) / 86400000);
+                    if (diff >= 0 && diff < minDays) {
+                        minDays = diff;
+                        nearest = { name: events[i].name, days: diff, emoji: events[i].emoji };
+                    }
+                }
+
+                // Check Tết
+                for (i = 0; i < tetDates.length; i++) {
+                    evDate = new Date(tetDates[i].y, tetDates[i].m - 1, tetDates[i].d);
+                    diff = Math.ceil((evDate - now) / 86400000);
+                    if (diff >= 0 && diff < minDays) {
+                        minDays = diff;
+                        nearest = { name: tetDates[i].name, days: diff, emoji: '🎆' };
+                    }
+                }
+
+                if (nearest) {
+                    if (nearest.days === 0) {
+                        countdownEl.textContent = nearest.emoji + ' Hôm nay: ' + nearest.name + '!';
+                    } else {
+                        countdownEl.textContent = nearest.emoji + ' Còn ' + nearest.days + ' ngày → ' + nearest.name;
+                    }
+                }
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 3600000); // Update hourly
+
+            /* ============================================================
+             * TOP BAR: NEWS TICKER (VNExpress RSS via proxy)
+             * ============================================================ */
+            var newsContentEl = document.getElementById('news-content');
+            var newsAnimId = null;
+            var newsPos = 0;
+
+            function stripHtmlTags(html) {
+                var div = document.createElement('div');
+                div.innerHTML = html;
+                return div.textContent || div.innerText || '';
+            }
+
+            function parseRSS(xmlString) {
+                var items = [];
+                // Sensitive content filter — skip inappropriate news
+                var blockedWords = [
+                    'tâm sự', 'thầm kín', 'phòng the', 'chuyện ấy', 'ái ân',
+                    'ngoại tình', 'đánh ghen', 'giường chiếu', 'gợi cảm', 'gợi dục',
+                    'khỏa thân', 'khiêu dâm', 'mại dâm', 'sex', 'người lớn',
+                    'cưỡng hiếp', 'cưỡng bức', 'hiếp dâm', 'xâm hại tình dục',
+                    'tử thi', 'phân xác', 'giết người', 'chặt xác',
+                    'đâm chết', 'chém chết', 'thiêu sống',
+                    'clip nóng', 'ảnh nóng', 'lộ hàng', 'nhạy cảm',
+                    'sugar baby', 'sugar daddy', 'bán dâm'
+                ];
+                function isSensitive(text) {
+                    if (!text) { return false; }
+                    var lower = text.toLowerCase();
+                    for (var i = 0; i < blockedWords.length; i++) {
+                        if (lower.indexOf(blockedWords[i]) !== -1) { return true; }
+                    }
+                    return false;
+                }
+                try {
+                    var parser = new DOMParser();
+                    var xml = parser.parseFromString(xmlString, 'text/xml');
+                    var xmlItems = xml.getElementsByTagName('item');
+                    var max = Math.min(xmlItems.length, 15);
+                    for (var i = 0; i < max; i++) {
+                        var titleEl = xmlItems[i].getElementsByTagName('title')[0];
+                        var descEl = xmlItems[i].getElementsByTagName('description')[0];
+                        var title = titleEl ? stripHtmlTags(titleEl.textContent) : '';
+                        var desc = descEl ? stripHtmlTags(descEl.textContent) : '';
+                        if (title && !isSensitive(title) && !isSensitive(desc)) {
+                            items.push({ title: title, desc: desc || title });
+                        }
+                    }
+                } catch (e) { /* parse error */ }
+                return items;
+            }
+
+            // Store parsed news for TTS
+            var parsedNewsItems = [];
+
+            function renderNews(items) {
+                if (!newsContentEl || items.length === 0) { return; }
+                parsedNewsItems = items;
+                var html = '';
+                var i;
+                for (i = 0; i < items.length; i++) {
+                    html += '<span class="news-item">' + items[i].title + '</span>';
+                    if (i < items.length - 1) {
+                        html += '<span class="news-sep">·</span>';
+                    }
+                }
+                // Duplicate for seamless loop
+                newsContentEl.innerHTML = html + '<span class="news-sep">·</span>' + html;
+                startNewsScroll();
+            }
+
+            function startNewsScroll() {
+                if (!newsContentEl) { return; }
+                // Reset any JS animation
+                if (newsAnimId) { clearTimeout(newsAnimId); }
+                newsContentEl.style.webkitTransform = '';
+                newsContentEl.style.transform = '';
+                // Calculate duration based on content width (30px/s)
+                var w = newsContentEl.scrollWidth;
+                var duration = Math.max(w / 60, 15); // 60px/s, min 15s
+                newsContentEl.style.webkitAnimationDuration = duration + 's';
+                newsContentEl.style.animationDuration = duration + 's';
+                // Add CSS animation class
+                newsContentEl.className = 'top-news-content marquee-animated';
+            }
+
+            // Multi-source news — same sources as full version
+            var newsSources = [
+                { name: 'VnExpress', url: 'https://vnexpress.net/rss/tin-moi-nhat.rss' },
+                { name: 'Thanh Niên', url: 'https://thanhnien.vn/rss/home.rss' },
+                { name: 'Dân Trí', url: 'https://dantri.com.vn/rss/home.rss' },
+                { name: 'Tuổi Trẻ', url: 'https://tuoitre.vn/rss/tin-moi-nhat.rss' }
+            ];
+
+            function loadNews() {
+                var allItems = [];
+                var completed = 0;
+                var total = newsSources.length;
+
+                function onAllDone() {
+                    if (allItems.length > 0) {
+                        renderNews(allItems);
+                    } else if (newsContentEl) {
+                        newsContentEl.innerHTML = '<span class="news-item">Không thể tải tin tức</span>';
+                    }
+                }
+
+                for (var s = 0; s < newsSources.length; s++) {
+                    (function (source) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', '/api/proxy?url=' + encodeURIComponent(source.url), true);
+                        xhr.timeout = 15000;
+                        var done = false;
+
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState !== 4 || done) { return; }
+                            done = true;
+                            if (xhr.status >= 200 && xhr.status < 300 && xhr.responseText) {
+                                var items = parseRSS(xhr.responseText);
+                                for (var j = 0; j < items.length; j++) {
+                                    items[j].source = source.name;
+                                    allItems.push(items[j]);
+                                }
+                            }
+                            completed++;
+                            if (completed >= total) { onAllDone(); }
+                        };
+                        xhr.ontimeout = function () {
+                            if (done) { return; }
+                            done = true;
+                            completed++;
+                            if (completed >= total) { onAllDone(); }
+                        };
+                        xhr.onerror = xhr.ontimeout;
+                        xhr.send(null);
+                    })(newsSources[s]);
+                }
+            }
+            loadNews();
+            setInterval(loadNews, 900000); // Refresh every 15 min
+
+            /* ============================================================
+             * BOTTOM BAR: FX TICKER
+             * ============================================================ */
+            var fxContentEl = document.getElementById('fx-content');
+            var fxAnimId = null;
+            var fxPos = 0;
+            var FX_CURRENCIES = ['EUR', 'JPY', 'GBP', 'CNY', 'KRW', 'THB', 'AUD', 'SGD'];
+
+            function fxFmt(num) {
+                var str = num.toString();
+                var result = '';
+                var count = 0;
+                for (var i = str.length - 1; i >= 0; i--) {
+                    result = str[i] + result;
+                    count++;
+                    if (count % 3 === 0 && i > 0 && str[i - 1] !== '-') {
+                        result = '.' + result;
+                    }
+                }
+                return result;
+            }
+
+            function renderFxTicker(items) {
+                if (!fxContentEl || items.length === 0) { return; }
+                var html = '';
+                var i;
+                for (i = 0; i < items.length; i++) {
+                    html += '<span class="fx-item"><span class="fx-code">' + items[i].code + '</span> <span class="fx-val">' + items[i].value + items[i].unit + '</span></span>';
+                    if (i < items.length - 1) {
+                        html += '<span class="fx-sep">·</span>';
+                    }
+                }
+                // Duplicate for seamless loop
+                fxContentEl.innerHTML = html + '<span class="fx-sep">·</span>' + html;
+                startFxScroll();
+            }
+
+            function startFxScroll() {
+                if (!fxContentEl) { return; }
+                if (fxAnimId) { clearTimeout(fxAnimId); }
+                fxContentEl.style.webkitTransform = '';
+                fxContentEl.style.transform = '';
+                var w = fxContentEl.scrollWidth;
+                var duration = Math.max(w / 30, 20);
+                fxContentEl.style.webkitAnimationDuration = duration + 's';
+                fxContentEl.style.animationDuration = duration + 's';
+                fxContentEl.className = 'fx-content marquee-animated';
+            }
+
+            function loadFxData() {
+                var proxyUrl = '/api/proxy?url=' + encodeURIComponent('https://open.er-api.com/v6/latest/USD');
+                xhrGet(proxyUrl, function (err, data) {
+                    if (err || !data || !data.rates || !data.rates.VND) {
+                        if (fxContentEl) {
+                            fxContentEl.innerHTML = '<span class="fx-item">Không thể tải tỷ giá</span>';
+                        }
+                        return;
+                    }
+                    var items = [];
+                    var usdVnd = data.rates.VND;
+                    items.push({ code: 'USD', value: fxFmt(Math.round(usdVnd)), unit: '' });
+
+                    var i, code, rate, vndRate;
+                    for (i = 0; i < FX_CURRENCIES.length; i++) {
+                        code = FX_CURRENCIES[i];
+                        rate = data.rates[code];
+                        if (rate && rate > 0) {
+                            vndRate = usdVnd / rate;
+                            if (code === 'JPY' || code === 'KRW') {
+                                items.push({ code: code, value: fxFmt(Math.round(vndRate * 100)), unit: '/100' });
+                            } else {
+                                items.push({ code: code, value: fxFmt(Math.round(vndRate)), unit: '' });
+                            }
+                        }
+                    }
+                    renderFxTicker(items);
+                }, 15000);
+            }
+            loadFxData();
+            setInterval(loadFxData, 1800000); // Refresh every 30 min
+
+            /* ============================================================
+             * EDGE TTS — Ported from tts.js (full version)
+             * Features: abbreviation dict, prefetch, per-item reading,
+             * rate control, voice gender, proper stop/cleanup
+             * ============================================================ */
+            var ttsBtn = document.getElementById('tts-btn');
+            var ttsIsReading = false;
+            var ttsCurrentIndex = 0;
+            var ttsItems = [];
+            var ttsUnlocked = false;
+            var ttsSafetyTimer = null;
+            var TTS_PROXY = '/.netlify/functions/tts-proxy';
+            var SVG_SPEAKER = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
+            var SVG_STOP = '<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>';
+
+            // Voice gender (saved in localStorage)
+            var ttsVoice = 'vi-VN-HoaiMyNeural';
+            try {
+                var savedVoice = localStorage.getItem('lf_tts_voice');
+                if (savedVoice) { ttsVoice = savedVoice; }
+            } catch (e) { }
+
+            // Vietnamese abbreviation dictionary
+            var ttsAbbrevDict = {
+                'UBND': 'Ủy ban nhân dân', 'HĐND': 'Hội đồng nhân dân',
+                'TP.HCM': 'Thành phố Hồ Chí Minh', 'TPHCM': 'Thành phố Hồ Chí Minh',
+                'TP HCM': 'Thành phố Hồ Chí Minh', 'HN': 'Hà Nội',
+                'CSGT': 'Cảnh sát giao thông', 'BĐS': 'Bất động sản',
+                'TTXVN': 'Thông tấn xã Việt Nam', 'BHXH': 'Bảo hiểm xã hội',
+                'BHYT': 'Bảo hiểm y tế', 'NXB': 'Nhà xuất bản',
+                'TW': 'Trung ương', 'BQP': 'Bộ quốc phòng',
+                'BCA': 'Bộ công an', 'BTC': 'Bộ tài chính',
+                'BCT': 'Bộ công thương', 'TAND': 'Tòa án nhân dân',
+                'VKSND': 'Viện kiểm sát nhân dân',
+                'TANDTC': 'Tòa án nhân dân tối cao',
+                'CSĐT': 'Cảnh sát điều tra', 'GTVT': 'Giao thông vận tải',
+                'GD-ĐT': 'Giáo dục và Đào tạo', 'BCH': 'Ban chấp hành'
+            };
+
+            function ttsNormalize(text) {
+                if (!text) { return ''; }
+                var str = text;
+                for (var key in ttsAbbrevDict) {
+                    if (ttsAbbrevDict.hasOwnProperty(key)) {
+                        var idx = str.indexOf(key);
+                        while (idx !== -1) {
+                            var before = idx > 0 ? str.charAt(idx - 1) : ' ';
+                            var after = (idx + key.length < str.length) ? str.charAt(idx + key.length) : ' ';
+                            if (/[\s.,;:?!()"]/.test(before) && /[\s.,;:?!()"]/.test(after) || idx === 0) {
+                                str = str.substring(0, idx) + ttsAbbrevDict[key] + str.substring(idx + key.length);
+                                idx = str.indexOf(key, idx + ttsAbbrevDict[key].length);
+                            } else {
+                                idx = str.indexOf(key, idx + 1);
+                            }
+                        }
+                    }
+                }
+                return str;
+            }
+
+            function ttsUpdateBtn(reading) {
+                if (ttsBtn) { ttsBtn.innerHTML = reading ? SVG_STOP : SVG_SPEAKER; }
+            }
+
+            // SINGLE reusable audio element — iOS 9 requires same element to stay "unlocked"
+            var ttsAudioEl = document.createElement('audio');
+            ttsAudioEl.setAttribute('preload', 'auto');
+
+            function ttsPlayOne(text, idx, onEnd) {
+                if (!ttsIsReading && idx !== -1) { if (onEnd) { onEnd(); } return; }
+                var url = TTS_PROXY + '?q=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(ttsVoice) + '&rate=-15%';
+                var ended = false;
+                function finish() {
+                    if (ended) { return; }
+                    ended = true;
+                    clearTimeout(ttsSafetyTimer);
+                    if (onEnd) { onEnd(); }
+                }
+                // Safety timeout per item (60s)
+                clearTimeout(ttsSafetyTimer);
+                ttsSafetyTimer = setTimeout(finish, 60000);
+                ttsAudioEl.onended = finish;
+                ttsAudioEl.onerror = finish;
+                // Change src on SAME element (keeps iOS unlock)
+                ttsAudioEl.src = url;
+                ttsAudioEl.load();
+                try {
+                    var playResult = ttsAudioEl.play();
+                    if (playResult && typeof playResult.then === 'function') {
+                        playResult.then(function () { }).catch(function () { finish(); });
+                    }
+                } catch (e) { finish(); }
+                // Watchdog: if no event fires in 8s and audio not playing, skip
+                setTimeout(function () {
+                    if (!ended && ttsAudioEl.paused && ttsAudioEl.currentTime === 0) { finish(); }
+                }, 8000);
+            }
+
+            // Loop control
+            var ttsLoopUntil = 0; // timestamp until which to keep looping
+
+            function ttsStop() {
+                ttsIsReading = false;
+                ttsCurrentIndex = 0;
+                ttsLoopUntil = 0;
+                clearTimeout(ttsSafetyTimer);
+                try { ttsAudioEl.pause(); ttsAudioEl.src = ''; } catch (e) { }
+                ttsUpdateBtn(false);
+            }
+
+            function ttsReadNext() {
+                if (!ttsIsReading) { return; }
+                var idx = ttsCurrentIndex;
+
+                // If finished all items, check if we should loop
+                if (idx >= ttsItems.length) {
+                    var now = new Date().getTime();
+                    if (ttsLoopUntil > 0 && now < ttsLoopUntil) {
+                        // Loop back to start
+                        ttsCurrentIndex = 0;
+                        idx = 0;
+                    } else {
+                        ttsStop();
+                        return;
+                    }
+                }
+
+                var item = ttsItems[idx];
+                var parts = [];
+                if (item.title) { parts.push(item.title + '.'); }
+                if (item.desc && item.desc !== item.title) { parts.push(item.desc); }
+                var fullText = ttsNormalize(parts.join(' '));
+                ttsPlayOne(fullText, idx, function () {
+                    if (!ttsIsReading) { return; }
+                    ttsCurrentIndex++;
+                    ttsReadNext();
+                });
+            }
+
+            // loopMinutes: 0 = read once, N = keep looping for N minutes
+            function readNewsNow(loopMinutes) {
+                if (!parsedNewsItems || parsedNewsItems.length === 0) { return; }
+                ttsItems = parsedNewsItems;
+                ttsCurrentIndex = 0;
+                ttsIsReading = true;
+                ttsLoopUntil = (loopMinutes && loopMinutes > 0)
+                    ? new Date().getTime() + (loopMinutes * 60000)
+                    : 0;
+                ttsUpdateBtn(true);
+                ttsReadNext();
+            }
+
+            function speakText(text) {
+                if (!text) { return; }
+                ttsPlayOne(ttsNormalize(text), -1, function () { });
+            }
+
+            // ── SCHEDULED AUTO-READ ──
+            // Default schedule: 06:30. Long-press 🔊 to change.
+            var ttsSchedule = '06:30';
+            try {
+                var saved = localStorage.getItem('lf_tts_schedule');
+                if (saved) { ttsSchedule = saved; }
+            } catch (e) { }
+
+            // Tap = read/stop, Double-tap = set schedule
+            var lastTapTime = 0;
+
+            if (ttsBtn) {
+                ttsBtn.onclick = function () {
+                    var now = new Date().getTime();
+                    var timeSinceLastTap = now - lastTapTime;
+                    lastTapTime = now;
+
+                    // Double-tap (within 400ms) = settings
+                    if (timeSinceLastTap < 400) {
+                        var input = prompt('Hẹn giờ đọc tin tự động (VD: 06:30):', ttsSchedule);
+                        if (input && input.indexOf(':') > 0) {
+                            ttsSchedule = input;
+                            try { localStorage.setItem('lf_tts_schedule', ttsSchedule); } catch (e) { }
+                            alert('Đã hẹn đọc tin lúc ' + ttsSchedule + ' mỗi ngày');
+                        }
+                        return;
+                    }
+
+                    // Single tap = read or stop
+                    ttsUnlocked = true;
+                    if (ttsIsReading) { ttsStop(); } else { readNewsNow(); }
+                };
+            }
+
+            // Check scheduled time + hourly announce every minute
+            var lastScheduleDate = '';
+            var lastAnnouncedHour = -1;
+
+            function checkScheduleAndHourly() {
+                var now = new Date();
+                var h = now.getHours();
+                var m = now.getMinutes();
+                var hh = (h < 10 ? '0' : '') + h;
+                var mm = (m < 10 ? '0' : '') + m;
+                var currentTime = hh + ':' + mm;
+                var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+
+                // Scheduled auto-read
+                if (currentTime === ttsSchedule && lastScheduleDate !== today) {
+                    lastScheduleDate = today;
+                    ttsUnlocked = true;
+                    // Refresh news first, then read in 30-min loop
+                    loadNews();
+                    setTimeout(function () {
+                        readNewsNow(30);
+                    }, 10000);
+                }
+
+                // Hourly time announcement
+                if (ttsUnlocked && m === 0 && h !== lastAnnouncedHour) {
+                    lastAnnouncedHour = h;
+                    var period = h < 12 ? 'sáng' : (h < 18 ? 'chiều' : 'tối');
+                    var displayH = h > 12 ? (h - 12) : (h === 0 ? 12 : h);
+                    speakText('Bây giờ là ' + displayH + ' giờ ' + period);
+                }
+            }
+            setInterval(checkScheduleAndHourly, 60000);
+
+        })();
+    </script>
+</body>
+
+</html>

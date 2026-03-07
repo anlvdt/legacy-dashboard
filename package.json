@@ -1,0 +1,17 @@
+{
+  "name": "legacy-frame",
+  "private": true,
+  "scripts": {
+    "test": "vitest --run"
+  },
+  "devDependencies": {
+    "fast-check": "^4.1.1",
+    "jsdom": "^26.1.0",
+    "vitest": "^3.2.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "msedge-tts": "^2.0.4"
+  }
+}

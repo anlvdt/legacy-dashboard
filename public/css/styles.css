@@ -1,0 +1,4140 @@
+/* ================================================================
+ * Legacy Frame — styles.css
+ * Tách từ inline CSS trong index.html
+ * Tương thích: iOS < 10, Android < 5, Chrome < 40
+ * Không dùng: CSS Grid, CSS Variables, clamp()
+ * Bắt buộc: -webkit- prefix cho flexbox, transition, transform,
+ *           animation, filter
+ * Spacing: bội số 0.5vmin (0.5, 1, 1.5, 2, 2.5, 3 vmin)
+ * Contrast: tối thiểu 4.5:1 (WCAG AA)
+ * ================================================================ */
+
+/* ================================================================
+ * BASE — Reset & Typography
+ * ================================================================ */
+html {
+    font-size: 1.5vmin;
+}
+
+@media (max-width: 480px) {
+    html {
+        /* Dashboard scaling: use vmin instead of fixed px to strictly prevent scroll */
+        font-size: 2vmin;
+    }
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    background-color: #000;
+    color: #F5F5F5;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+/* ================================================================
+ * BACKGROUND — Slideshow container & image
+ * ================================================================ */
+#background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    -webkit-transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
+}
+
+body.power-save-mode #background-container {
+    opacity: 0;
+}
+
+#background-slideshow {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Fallback gradient cho offline — hiển thị khi chưa có ảnh */
+    background-color: #0a0a12;
+    background-image: -webkit-linear-gradient(315deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+    background-image: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+    -webkit-transition: opacity 1.5s ease-in-out;
+    transition: opacity 1.5s ease-in-out;
+    opacity: 0;
+}
+
+#background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    pointer-events: none;
+    -webkit-transition: background 0.5s ease;
+    transition: background 0.5s ease;
+}
+
+#background-slideshow.loaded {
+    opacity: 1;
+}
+
+/* ================================================================
+ * LAYOUT — Main container & columns
+ * Spacing: 2.5vmin padding (bội số 0.5vmin)
+ * ================================================================ */
+.container {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    /* Apple HIG: Tôn trọng Safe Area Inset để tránh viền tai thỏ (Notch/Dynamic Island) */
+    /* Fallback cho thiết bị cũ không hỗ trợ env() */
+    padding: 2vmin 3vmin 0 3vmin;
+    padding: calc(2vmin + env(safe-area-inset-top)) calc(3vmin + env(safe-area-inset-right)) 0 calc(3vmin + env(safe-area-inset-left));
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* 3-row layout:
+   Row 1: Clock (center) | Date+Weather (left)
+   Row 2: Quote — full width, centered
+   Row 3: Finance | Fuel | Calendar | KQXS | AQI
+*/
+.content-wrapper {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    /* gap fallback: dùng margin trên children thay vì gap */
+    padding-bottom: 1.5vmin;
+}
+
+/* Ẩn scrollbar để giao diện tinh vi hơn */
+.content-wrapper::-webkit-scrollbar {
+    width: 0;
+    display: none;
+}
+
+/* Row 1: top bar — đồng hồ + date/weather nằm ngang */
+#dashboard-top-row {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-flex-shrink: 1;
+    flex-shrink: 1;
+    min-height: 0;
+    margin-bottom: 1vmin;
+}
+
+/* Row 2: quote — căng giữa */
+#dashboard-mid-row {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex: 0 1 auto;
+    -webkit-box-flex: 0;
+    flex: 0 1 auto;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    min-height: 0;
+}
+
+/* Row 3: bottom bar — widgets hàng ngang */
+#dashboard-bottom-row {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-items: stretch;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-flex-shrink: 1;
+    flex-shrink: 1;
+    min-height: 0;
+    padding-bottom: 1vmin;
+}
+
+.info-block {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 0;
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    margin: 0.75vmin;
+}
+
+
+/* ================================================================
+ * CLOCK — Digital clock display
+ * Spacing: 0.5vmin padding, 1.5vmin separator margin
+ * ================================================================ */
+.clock-segment {
+    background: rgba(20, 20, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2.5vmin;
+    padding: 0.5vmin 2vmin;
+    position: relative;
+    -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+}
+
+@supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
+    .clock-segment {
+        background: rgba(20, 20, 20, 0.25);
+        -webkit-backdrop-filter: blur(25px);
+        backdrop-filter: blur(25px);
+    }
+}
+
+#digital-clock {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.clock-separator {
+    background: none;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    padding: 0;
+    margin: 0 1.5vmin;
+}
+
+.clock-segment span,
+.clock-separator {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 800;
+    color: #FFFFFF;
+    text-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.8), 0 0 1vmin rgba(255, 255, 255, 0.2);
+    -webkit-transition: font-size 0.3s ease;
+    transition: font-size 0.3s ease;
+}
+
+.clock-segment span {
+    font-size: 11vmin;
+    letter-spacing: 0.05em;
+    -webkit-filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.12));
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.12));
+}
+
+.clock-separator {
+    font-size: 8vmin;
+}
+
+/* Seconds display — hidden by default */
+.clock-seconds {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    -webkit-transition: max-width 0.5s ease, opacity 0.5s ease;
+    transition: max-width 0.5s ease, opacity 0.5s ease;
+}
+
+#digital-clock.seconds-visible .clock-segment span {
+    font-size: 8vmin;
+}
+
+#digital-clock.seconds-visible .clock-separator {
+    font-size: 7vmin;
+}
+
+#digital-clock.seconds-visible .clock-seconds {
+    max-width: 100%;
+    opacity: 1;
+}
+
+/* ================================================================
+ * ANIMATIONS — Blink, pulse, keyframes
+ * ================================================================ */
+@-webkit-keyframes blink {
+    50% {
+        opacity: 0.3;
+    }
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.colon-blinking {
+    -webkit-animation: blink 1s step-end infinite;
+    animation: blink 1s step-end infinite;
+}
+
+@-webkit-keyframes colonBlink {
+
+    0%,
+    49% {
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 0.15;
+    }
+}
+
+@keyframes colonBlink {
+
+    0%,
+    49% {
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 0.15;
+    }
+}
+
+#main-colon.colon-blinking {
+    -webkit-animation: colonBlink 1s infinite;
+    animation: colonBlink 1s infinite;
+}
+
+@-webkit-keyframes weatherPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes weatherPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+#weather-desc:empty+*,
+#weather-desc[data-loading="true"] {
+    -webkit-animation: weatherPulse 1.5s infinite;
+    animation: weatherPulse 1.5s infinite;
+}
+
+.qr-wrapper.loaded {
+    -webkit-animation: none;
+    animation: none;
+}
+
+/* ================================================================
+ * DATE — Gregorian & Lunar date display
+ * Spacing: 1.2vmin padding, 0.5vmin margin-bottom, 1vmin p margin
+ * ================================================================ */
+.date-container {
+    font-size: 3.2vmin;
+    margin-bottom: 0;
+    font-weight: 700;
+    padding: 1vmin 2vmin;
+    background: rgba(15, 15, 20, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2vmin;
+    -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: 2;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.date-container p {
+    margin: 0.3vmin 0;
+}
+
+#gregorian-date-p {
+    opacity: 0.95;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+#lunar-date-p {
+    color: #f39c12;
+}
+
+#lunar-event {
+    color: #e67e22;
+    min-height: 0;
+}
+
+/* ================================================================
+ * WEATHER — Current weather display
+ * Spacing: 1.5vmin padding
+ * Dùng nền đục (không backdrop-filter) để tránh bị mờ
+ * ================================================================ */
+#weather-widget {
+    display: block;
+    font-weight: 700;
+    padding: 1.5vmin 2vmin;
+    background: rgba(15, 15, 20, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2vmin;
+    -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    font-size: 2.5vmin;
+    position: relative;
+    z-index: 2;
+}
+
+#weather-container-line2 {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+#weather-container-line2>span {
+    margin: 0 0.8rem;
+}
+
+#weather-icon {
+    font-size: 4vmin;
+}
+
+#weather-location {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5vmin;
+    font-size: 1.6vmin;
+}
+
+#weather-desc {
+    font-size: 1.4vmin;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+#weather-icon svg {
+    -webkit-filter: drop-shadow(0 0.5vmin 1vmin rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0 0.5vmin 1vmin rgba(0, 0, 0, 0.6));
+}
+
+#weather-desc[data-error="true"] {
+    font-size: 1.3vmin;
+    color: rgba(243, 156, 18, 0.75);
+    font-weight: 400;
+}
+
+.weather-uv {
+    font-size: 1.2vmin;
+    font-weight: 700;
+    margin-left: 0.8vmin;
+    white-space: nowrap;
+}
+
+.weather-sun {
+    font-size: 1.2vmin;
+    font-weight: 600;
+    margin-left: 0.8vmin;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+}
+
+/* ================================================================
+ * FORECAST — 24h hourly weather forecast
+ * Requirements: 5.6
+ * ================================================================ */
+#forecast-container {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.5vmin;
+    padding: 0.8vmin 0.5vmin;
+    margin-top: 1vmin;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    font-size: 1.2vmin;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#forecast-container::-webkit-scrollbar {
+    display: none;
+}
+
+.forecast-hour {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-flex: 1 1 0;
+    flex: 1 1 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    padding: 0.3vmin 0.3vmin;
+    min-width: 0;
+}
+
+.forecast-time {
+    font-size: 1vmin;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.2vmin;
+    font-weight: 700;
+}
+
+.forecast-icon {
+    font-size: 2.2vmin;
+    margin-bottom: 0.3vmin;
+    line-height: 1;
+}
+
+.forecast-temp,
+.forecast-temps {
+    font-size: 1.2vmin;
+    font-weight: 700;
+    color: #F5F5F5;
+}
+
+.forecast-icon svg {
+    -webkit-filter: drop-shadow(0 0.5vmin 0.5vmin rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0 0.5vmin 0.5vmin rgba(0, 0, 0, 0.6));
+}
+
+.forecast-high {
+    color: #e74c3c;
+}
+
+.forecast-low {
+    color: #3498db;
+}
+
+.forecast-desc {
+    font-size: 1vmin;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.5vmin;
+}
+
+.forecast-divider {
+    width: 1px;
+    height: 3rem;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+/* ================================================================
+ * CALENDAR — Monthly/weekly calendar grid
+ * Spacing: 1.5vmin padding, 1vmin margin-top
+ * ================================================================ */
+#calendar-container {
+    background: rgba(20, 20, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 1vmin;
+    border-radius: 2vmin;
+    width: 100%;
+    max-width: 48vmin;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0 auto;
+    -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+}
+
+@supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
+    #calendar-container {
+        background: rgba(20, 20, 20, 0.25);
+        -webkit-backdrop-filter: blur(25px);
+        backdrop-filter: blur(25px);
+    }
+}
+
+#calendar-header {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.calendar-nav,
+#calendar-title {
+    display: block;
+}
+
+#calendar-title {
+    -webkit-flex: 1;
+    flex: 1;
+    font-size: 1.5vmin;
+    font-weight: 700;
+    text-align: center;
+}
+
+.calendar-nav {
+    cursor: pointer;
+    font-size: 2.5vmin;
+    -webkit-user-select: none;
+    user-select: none;
+    padding: 0 1.5vmin;
+    text-align: center;
+}
+
+#calendar-grid {
+    margin-top: 0.3vmin;
+}
+
+#calendar-grid::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.calendar-cell {
+    float: left;
+    width: 14.28%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.calendar-cell::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+}
+
+.calendar-cell-inner {
+    position: absolute;
+    top: 0.2rem;
+    right: 0.2rem;
+    bottom: 0.2rem;
+    left: 0.2rem;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.cell-content {
+    text-align: center;
+    padding: 0.2rem 0;
+}
+
+.day-name .cell-content {
+    font-weight: 700;
+    color: #f39c12;
+    font-size: 1.3vmin;
+}
+
+.solar-day {
+    font-size: 1.4vmin;
+    font-weight: 700;
+    display: block;
+}
+
+.lunar-day {
+    font-size: 1.1vmin;
+    display: block;
+    color: #f39c12;
+    opacity: 0.8;
+}
+
+.other-month {
+    opacity: 0.3;
+}
+
+.today .calendar-cell-inner {
+    background-color: rgba(243, 156, 18, 0.85);
+    /* Slightly transparent premium orange */
+    color: #000;
+    border-radius: 0.8vmin;
+    font-weight: 800;
+    -webkit-box-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.5);
+}
+
+.today .lunar-day {
+    color: #000;
+}
+
+.today .solar-day {
+    -webkit-filter: drop-shadow(0 0 4px rgba(255, 165, 0, 0.6));
+    filter: drop-shadow(0 0 4px rgba(255, 165, 0, 0.6));
+}
+
+/* ================================================================
+ * RIGHT COLUMN — Quotes & AQI
+ * Spacing: 2.5vmin padding, 3vmin margin-bottom, 1.5vmin inner
+ * ================================================================ */
+.right-widget-column {
+    background: transparent;
+    border: none;
+    border-radius: 2vmin;
+    padding: 2.5vmin;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    text-align: center;
+}
+
+.quote-wrapper {
+    opacity: 0;
+    -webkit-transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
+    width: 100%;
+    max-width: 90vw;
+    margin: 4vmin auto;
+    text-align: center;
+}
+
+.quote-wrapper.loaded {
+    opacity: 1;
+}
+
+.quote-text {
+    font-size: 3.5vmin;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #F5F5F5;
+    text-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.9);
+    font-style: italic;
+    margin-bottom: 1.5vmin;
+}
+
+.quote-author {
+    font-size: 2.2vmin;
+    color: #f39c12;
+    font-weight: 800;
+    text-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* ================================================================
+ * AQI — Air Quality Index widget
+ * Spacing: 1.5vmin padding, 2vmin margin-top, 0.8vmin label margin
+ * ================================================================ */
+.aqi-wrapper {
+    opacity: 0;
+    -webkit-transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
+    background: rgba(20, 20, 20, 0.4);
+    padding: 1vmin 2vmin;
+    border-radius: 2vmin;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    margin-top: 0;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-flex: 1;
+    flex: 1;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
+    .aqi-wrapper {
+        background: rgba(20, 20, 20, 0.25);
+        -webkit-backdrop-filter: blur(25px);
+        backdrop-filter: blur(25px);
+    }
+}
+
+.aqi-wrapper.loaded {
+    opacity: 1;
+}
+
+.aqi-label {
+    font-size: 1.6vmin;
+    color: rgba(255, 255, 255, 0.65);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5vmin;
+}
+
+.aqi-value-box {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.aqi-value {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 4vmin;
+    font-weight: 800;
+    margin-right: 1vmin;
+    text-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.6);
+}
+
+.aqi-desc {
+    font-size: 2.2vmin;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* AQI color levels — contrast >= 4.5:1 on dark bg */
+.aqi-good {
+    color: #2ecc71;
+}
+
+.aqi-moderate {
+    color: #f1c40f;
+}
+
+.aqi-unhealthy {
+    color: #e67e22;
+}
+
+.aqi-hazardous {
+    color: #e74c3c;
+}
+
+/* ================================================================
+ * VISIBILITY — Hidden/shown states for widgets
+ * ================================================================ */
+.hidden-force {
+    -webkit-transition: opacity 0.4s ease, max-height 0.4s ease, margin 0.4s ease, padding 0.4s ease, -webkit-flex-basis 0.4s ease;
+    transition: opacity 0.4s ease, max-height 0.4s ease, margin 0.4s ease, padding 0.4s ease, flex-basis 0.4s ease;
+    opacity: 0 !important;
+    max-height: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: none !important;
+    -webkit-flex-grow: 0 !important;
+    -webkit-box-flex: 0 !important;
+    flex-grow: 0 !important;
+    -webkit-flex-basis: 0 !important;
+    flex-basis: 0 !important;
+}
+
+.container.quote-hidden .quote-wrapper {
+    display: none;
+}
+
+.container.aqi-hidden .aqi-wrapper {
+    display: none;
+}
+
+.container.shop-hidden .qr-column,
+.container.slideshow-hidden .info-column,
+.container.slideshow-hidden .qr-column {
+    -webkit-flex-grow: 0;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    -webkit-flex-basis: 0;
+    flex-basis: 0;
+    margin: 0 !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+.container.slideshow-hidden .info-column {
+    margin-right: 0;
+}
+
+.container.qr-hidden .qr-code-image {
+    display: none;
+}
+
+.container.finance-hidden #finance-widget {
+    display: none;
+}
+
+/* ================================================================
+ * CLOCK-ONLY MODE — Chế độ nhìn xa
+ * Requirements: 9.1, 9.2, 9.3
+ * Font-size: 25vmin landscape, 30vw portrait
+ * ================================================================ */
+#clock-only-date-container,
+#clock-only-weather-container {
+    position: relative;
+    bottom: auto;
+    top: auto;
+    left: auto;
+    -webkit-transform: none;
+    transform: none;
+    display: none;
+    width: auto;
+    padding: 1vmin 3vmin;
+    text-align: center;
+    font-weight: 700;
+    background: rgba(28, 28, 28, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2vmin;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    z-index: 10;
+}
+
+#clock-only-date-container {
+    font-size: 7vmin;
+}
+
+#clock-only-weather-container {
+    font-size: 7.5vmin;
+    margin-bottom: 1.5vmin;
+}
+
+#clock-only-weather-container-line2 {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+#weather-location-overlay {
+    margin-bottom: 1vmin;
+}
+
+#clock-only-date-container p {
+    margin: 0.5vmin 0;
+    line-height: 1.3;
+}
+
+.container.clock-only-mode {
+    padding: 0;
+}
+
+.container.clock-only-mode .info-column {
+    margin-right: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container.clock-only-mode .content-wrapper {
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-justify-content: flex-start;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    height: 100%;
+    padding: 2vh 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#clock-only-header {
+    width: 100%;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding-bottom: 2vmin;
+}
+
+.container.clock-only-mode #digital-clock-wrapper {
+    -webkit-flex-grow: 1;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    width: auto;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    min-height: 0;
+}
+
+.container.clock-only-mode .qr-column,
+.container.clock-only-mode #date-weather-group,
+.container.clock-only-mode #calendar-wrapper,
+.container.clock-only-mode #finance-widget,
+.container.clock-only-mode #forecast-container {
+    display: none;
+}
+
+/* Clock-only: ẩn nút hamburger nhưng giữ panel hoạt động (mở bằng tap) */
+.container.clock-only-mode~#settings-container #settings-toggle,
+.container.clock-only-mode #settings-toggle {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.container.clock-only-mode.show-dates #clock-only-date-container {
+    display: block;
+}
+
+.container.clock-only-mode.show-weather #clock-only-weather-container {
+    display: block;
+    text-align: center;
+}
+
+/* Clock-only font sizes — default (portrait) uses 30vw */
+.container.clock-only-mode .clock-segment span {
+    font-size: 30vw;
+}
+
+.container.clock-only-mode .clock-separator {
+    font-size: 24vw;
+}
+
+.container.clock-only-mode #digital-clock.seconds-visible .clock-segment span {
+    font-size: 20vw;
+}
+
+.container.clock-only-mode #digital-clock.seconds-visible .clock-separator {
+    font-size: 16vw;
+}
+
+/* Clock-only landscape — font-size 25vmin */
+@media (orientation: landscape) {
+    .container.clock-only-mode .clock-segment span {
+        font-size: 25vmin;
+    }
+
+    .container.clock-only-mode .clock-separator {
+        font-size: 20vmin;
+    }
+
+    .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span {
+        font-size: 18vmin;
+    }
+
+    .container.clock-only-mode #digital-clock.seconds-visible .clock-separator {
+        font-size: 14vmin;
+    }
+
+    #clock-only-date-container {
+        font-size: 6vh;
+    }
+
+    #clock-only-weather-container {
+        font-size: 6.5vh;
+    }
+}
+
+/* ================================================================
+ * POWER-SAVE MODE — Tiết kiệm điện
+ * Requirements: 9.4
+ * Nền đen thuần, không glow/shadow
+ * ================================================================ */
+body.power-save-mode {
+    background-color: #000;
+}
+
+body.power-save-mode .clock-segment {
+    background: transparent;
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+body.power-save-mode .clock-segment span {
+    text-shadow: none;
+    -webkit-filter: none;
+    filter: none;
+}
+
+body.power-save-mode .clock-separator {
+    text-shadow: none;
+}
+
+body.power-save-mode .date-container,
+body.power-save-mode #weather-widget,
+body.power-save-mode #forecast-container,
+body.power-save-mode #calendar-container,
+body.power-save-mode .aqi-wrapper,
+body.power-save-mode #dashboard-bottom-row .info-block {
+    background: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+body.power-save-mode #clock-only-date-container,
+body.power-save-mode #clock-only-weather-container {
+    background: transparent;
+    border-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+body.power-save-mode .quote-text,
+body.power-save-mode .quote-author {
+    text-shadow: none;
+}
+
+body.power-save-mode .today .calendar-cell-inner {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+body.power-save-mode .today .solar-day {
+    -webkit-filter: none;
+    filter: none;
+}
+
+/* ================================================================
+ * SETTINGS — Panel, buttons, inputs
+ * Requirements: 4.2 (min 44x44px), 4.4 (animation 250ms)
+ * ================================================================ */
+#settings-container {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+#fullscreen-btn {
+    cursor: pointer;
+    width: 3rem;
+    height: 3rem;
+    min-width: 44px;
+    min-height: 44px;
+    background: rgba(20, 20, 20, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.4rem;
+    padding: 0;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #F5F5F5;
+    -webkit-transition: -webkit-transform 0.2s ease;
+    transition: transform 0.2s ease;
+}
+
+#fullscreen-btn:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+#settings-toggle {
+    cursor: pointer;
+    width: 3rem;
+    height: 3rem;
+    min-width: 44px;
+    min-height: 44px;
+    background: rgba(20, 20, 20, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.4rem;
+    padding: 0;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #F5F5F5;
+    -webkit-transition: -webkit-transform 0.2s ease;
+    transition: transform 0.2s ease;
+}
+
+#settings-toggle:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+#settings-toggle:focus {
+    outline: 2px solid rgba(243, 156, 18, 0.5);
+    outline-offset: 2px;
+}
+
+/* ---- Dark backdrop overlay ---- */
+.settings-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 150;
+}
+
+.settings-overlay.show {
+    display: block;
+}
+
+/* ---- Centered modal panel ---- */
+#settings-panel {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%) scale(0.95);
+    transform: translate(-50%, -50%) scale(0.95);
+    background: rgba(20, 20, 20, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    width: 600px;
+    max-width: 92vw;
+    max-height: 85vh;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 160;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transition: opacity 0.25s ease, -webkit-transform 0.25s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    overflow: hidden;
+}
+
+#settings-panel.show {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    opacity: 1;
+    -webkit-transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+}
+
+@supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
+    #settings-panel {
+        background: rgba(28, 28, 30, 0.92);
+        -webkit-backdrop-filter: blur(30px) saturate(1.5);
+        backdrop-filter: blur(30px) saturate(1.5);
+    }
+}
+
+/* ---- Settings header bar ---- */
+.settings-header {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.settings-header-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #F5F5F5;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
+}
+
+.settings-close-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 0;
+    -webkit-transition: background 0.15s ease;
+    transition: background 0.15s ease;
+}
+
+.settings-close-btn:active {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ---- Scrollable content area ---- */
+.settings-body {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.3rem 0.8rem 0.8rem;
+}
+
+.settings-body::-webkit-scrollbar {
+    width: 4px;
+}
+
+.settings-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.settings-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+.settings-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+/* ---- 2-column grid for groups ---- */
+.settings-grid {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    gap: 0 0.8rem;
+}
+
+.settings-grid-col {
+    -webkit-flex: 1 1 46%;
+    flex: 1 1 46%;
+    min-width: 220px;
+    padding: 0 0.2rem;
+}
+
+.settings-label {
+    display: block;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.8rem 0.5rem 0.35rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
+}
+
+.settings-label:first-child {
+    padding-top: 0.3rem;
+}
+
+.settings-btn {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    background: rgba(51, 51, 51, 0.8);
+    color: #F5F5F5;
+    border: none;
+    padding: 0.75rem 0.7rem;
+    margin-bottom: 0.4rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    text-align: left;
+    -webkit-transition: background 0.15s ease;
+    transition: background 0.15s ease;
+    min-height: 44px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.settings-btn:active {
+    background: rgba(80, 80, 80, 0.9);
+}
+
+.settings-btn.sub-option {
+    background-color: rgba(55, 55, 55, 0.6);
+    padding-left: 1.5rem;
+    font-size: 0.88rem;
+    border-left: 2px solid rgba(243, 156, 18, 0.35);
+}
+
+/* Action buttons (export/import/fullscreen) — viền nhẹ để phân biệt với toggle */
+.settings-btn.settings-action {
+    background: rgba(60, 60, 65, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.settings-input-group {
+    margin-bottom: 0.5rem;
+}
+
+.settings-input-label {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.3rem;
+}
+
+.settings-input {
+    width: 100%;
+    background: rgba(50, 50, 50, 0.9);
+    color: #F5F5F5;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Settings divider — hidden in iOS style (groups handle separation) */
+.settings-divider {
+    border: none;
+    height: 0;
+    margin: 0;
+    display: none;
+}
+
+.settings-input:focus {
+    outline: none;
+    border-color: #f39c12;
+}
+
+#reset-settings-btn {
+    background-color: rgba(192, 57, 43, 0.85);
+}
+
+/* ================================================================
+ * iOS-STYLE COMPONENTS — Groups, Rows, Toggles, Chevrons
+ * ================================================================ */
+
+/* ---- iOS Grouped Inset List ---- */
+.ios-group {
+    background: rgba(44, 44, 46, 0.85);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+/* ---- iOS Row ---- */
+.ios-row {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 44px;
+    padding: 0 1rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: #F5F5F5;
+    font-size: 1.0625rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
+    text-align: left;
+    -webkit-transition: background 0.12s ease;
+    transition: background 0.12s ease;
+}
+
+.ios-row:active {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Separator line between rows (indented left like iOS) */
+.ios-row+.ios-row::before,
+.ios-row+.settings-input-group::before,
+.settings-input-group+.ios-row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    right: 0;
+    height: 0.5px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Sub-option rows */
+.ios-row.sub-option {
+    padding-left: 2.2rem;
+}
+
+.ios-row.sub-option::before {
+    left: 2.2rem !important;
+}
+
+/* Row label text */
+.ios-row-label {
+    -webkit-flex: 1;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 0.5rem;
+}
+
+/* ---- iOS Toggle Switch ---- */
+.ios-toggle {
+    position: relative;
+    width: 42px;
+    height: 26px;
+    min-width: 42px;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.ios-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.ios-toggle-track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(120, 120, 128, 0.36);
+    border-radius: 13px;
+    -webkit-transition: background 0.25s ease;
+    transition: background 0.25s ease;
+}
+
+.ios-toggle input:checked+.ios-toggle-track {
+    background: #34C759;
+}
+
+.ios-toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    -webkit-transition: -webkit-transform 0.25s ease;
+    transition: transform 0.25s ease;
+}
+
+.ios-toggle input:checked~.ios-toggle-knob {
+    -webkit-transform: translateX(16px);
+    transform: translateX(16px);
+}
+
+/* ---- Action row (non-toggle) ---- */
+.ios-row.ios-action {
+    color: #4DA3FF;
+}
+
+.ios-row.ios-action:active {
+    background: rgba(0, 122, 255, 0.1);
+}
+
+/* Chevron for action/disclosure rows */
+.ios-chevron::after {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    margin-left: 0.5rem;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.ios-row.ios-action .ios-chevron::after {
+    border-color: rgba(77, 163, 255, 0.6);
+}
+
+/* ---- Value display in row ---- */
+.ios-row-value {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.9375rem;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+/* ---- Danger/Reset row ---- */
+.ios-row.ios-danger {
+    color: #fff;
+    background: #FF453A;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.ios-row.ios-danger:active {
+    background: rgba(255, 69, 58, 0.1);
+}
+
+/* ---- Input group within iOS group ---- */
+.ios-group .settings-input-group {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: 44px;
+    padding: 0 1rem;
+    position: relative;
+    margin-bottom: 0;
+}
+
+.ios-group .settings-input-group.sub-option {
+    padding-left: 2.2rem;
+}
+
+.ios-group .settings-input-label {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.7);
+    -webkit-flex: 1;
+    flex: 1;
+    margin-bottom: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
+}
+
+.ios-group .settings-input {
+    width: auto;
+    max-width: 110px;
+    background: rgba(60, 60, 67, 0.8);
+    color: #F5F5F5;
+    border: none;
+    border-radius: 8px;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.88rem;
+    text-align: center;
+}
+
+/* ================================================================
+ * DIALOG — Confirmation & info dialogs
+ * ================================================================ */
+.dialog-overlay {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    z-index: 200;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    pointer-events: none;
+    -webkit-transition: background 0.25s ease;
+    transition: background 0.25s ease;
+}
+
+.dialog-overlay.show {
+    background: rgba(0, 0, 0, 0.8);
+    pointer-events: auto;
+}
+
+.dialog-box {
+    background: rgba(25, 25, 25, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1.5rem;
+    border-radius: 1.5vmin;
+    text-align: left;
+    max-width: 520px;
+    width: 92%;
+    max-height: 85vh;
+    overflow-y: auto;
+    -webkit-transform: scale(0.92);
+    transform: scale(0.92);
+    opacity: 0;
+    -webkit-transition: opacity 0.25s ease, -webkit-transform 0.25s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+@supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
+    .dialog-box {
+        background: rgba(30, 30, 30, 0.85);
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+    }
+}
+
+.dialog-overlay.show .dialog-box {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.dialog-box h3 {
+    margin-top: 0;
+    color: #f39c12;
+}
+
+.dialog-box ul {
+    padding-left: 20px;
+}
+
+.dialog-box li {
+    margin-bottom: 10px;
+}
+
+.dialog-close-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.7rem;
+    background: rgba(60, 60, 60, 0.9);
+    color: #F5F5F5;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    min-height: 44px;
+}
+
+/* ================================================================
+ * LOADING INDICATOR — Image loading
+ * ================================================================ */
+#img-loading {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: #f39c12;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 1rem;
+    z-index: 50;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+#img-loading.show {
+    opacity: 1;
+}
+
+/* ================================================================
+ * LOADING & ERROR STATES — Widget loading/error display
+ * Requirements: 4.6, 4.7
+ * ================================================================ */
+@-webkit-keyframes loadingPulse {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes loadingPulse {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.widget-loading {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 1vmin;
+    -webkit-animation: loadingPulse 1.5s ease-in-out infinite;
+    animation: loadingPulse 1.5s ease-in-out infinite;
+}
+
+.widget-error {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 1vmin;
+    background: rgba(231, 76, 60, 0.1);
+    border-radius: 1vmin;
+    border: 1px solid rgba(231, 76, 60, 0.2);
+}
+
+.widget-error-icon {
+    margin-right: 0.5vmin;
+}
+
+.widget-cached {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+    margin-top: 0.5vmin;
+}
+
+/* ================================================================
+ * OFFLINE INDICATOR
+ * Requirements: 10.2
+ * ================================================================ */
+#offline-indicator {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 150;
+    background: rgba(231, 76, 60, 0.9);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.5vmin 1.5vmin;
+    border-radius: 1vmin;
+    display: none;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+#offline-indicator.show {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+}
+
+.offline-icon {
+    margin-right: 0.5vmin;
+    font-size: 1rem;
+}
+
+/* ================================================================
+ * DISASTER ALERT BANNER
+ * Requirements: 6.4 — Red level color #ff4444
+ * ================================================================ */
+#disaster-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 120;
+    display: none;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 1vmin 2vmin;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: center;
+    -webkit-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+}
+
+#disaster-banner.show {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+}
+
+#disaster-banner.alert-red {
+    background: #ff4444;
+    color: #fff;
+    -webkit-box-shadow: 0 2px 10px rgba(255, 68, 68, 0.5);
+    box-shadow: 0 2px 10px rgba(255, 68, 68, 0.5);
+}
+
+#disaster-banner.alert-orange {
+    background: #e67e22;
+    color: #fff;
+}
+
+#disaster-banner.alert-green {
+    background: #27ae60;
+    color: #fff;
+}
+
+.disaster-icon {
+    margin-right: 1vmin;
+    font-size: 1.2rem;
+}
+
+.disaster-text {
+    max-width: 80%;
+}
+
+.disaster-close {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+/* ================================================================
+ * NEWS TICKER — Đã thay thế bằng inline widget, ẩn hoàn toàn
+ * ================================================================ */
+#news-ticker {
+    display: none !important;
+}
+
+/* ================================================================
+ * FINANCE WIDGET — Giá vàng & Tỷ giá
+ * Requirements: 3.8 (column on portrait mobile), 5.4, 5.5
+ * Không dùng CSS variables
+ * ================================================================ */
+
+/* #finance-widget — không cần style riêng, kế thừa từ .info-block */
+
+/* ================================================================
+ * KQXS, FUEL & FINANCE WIDGETS
+ * ================================================================ */
+.kqxs-wrapper,
+.fuel-wrapper,
+.finance-wrapper {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    background: rgba(20, 20, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
+    border-radius: 2vmin;
+    padding: 1.5vmin 2.5vmin;
+    -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 48vmin;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.kqxs-header,
+.fuel-header,
+.finance-header {
+    font-size: 1.6vmin;
+    color: #f39c12;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 800;
+    margin-bottom: 1vmin;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5vmin;
+}
+
+.kqxs-row,
+.fuel-row,
+.finance-row {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0.8vmin 0;
+}
+
+.kqxs-region,
+.fuel-type,
+.finance-type {
+    font-size: 1.4vmin;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    margin-right: 1vmin;
+}
+
+.kqxs-value,
+.fuel-value,
+.finance-value {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 2.2vmin;
+    color: #F5F5F5;
+    text-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.6);
+}
+
+.kqxs-value.loading,
+.fuel-value.loading,
+.finance-value.loading {
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 600;
+    font-size: 1.2vmin;
+}
+
+.kqxs-divider,
+.fuel-divider,
+.finance-divider {
+    height: 1px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 0.2vmin 0;
+}
+
+.source-credit {
+    font-size: 0.9vmin;
+    color: rgba(255, 255, 255, 0.45);
+    text-align: right;
+    margin-top: 1vmin;
+    font-style: italic;
+}
+
+/* ================================================================
+ * LEGACY DEVICE — Thiết bị cũ overrides (marker class only)
+ * Requirements: 11.5
+ * ================================================================ */
+
+/* Legacy marker — giữ tương thích, xử lý chính bởi lite-mode */
+body.legacy-device .clock-segment,
+body.legacy-device #calendar-container,
+body.legacy-device .qr-column,
+body.legacy-device #settings-panel {
+    background: rgba(15, 15, 15, 0.95) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+/* ================================================================
+ * LITE MODE — Chế độ nhẹ cho thiết bị cũ hoặc user chọn thủ công
+ * Tắt backdrop-filter, giảm animation, dùng nền đục
+ * Toggle bằng công tắc 1 chạm trong Settings
+ * ================================================================ */
+
+/* Toàn bộ: tắt backdrop-filter */
+body.lite-mode * {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+/* Tắt animation nặng (giữ lại blink nhẹ cho đồng hồ) */
+body.lite-mode *:not(.colon-blinking):not(#main-colon) {
+    -webkit-animation-duration: 0.01s !important;
+    animation-duration: 0.01s !important;
+}
+
+/* Clock segments */
+body.lite-mode .clock-segment {
+    background: rgba(15, 15, 15, 0.88) !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+body.lite-mode .clock-segment span {
+    -webkit-filter: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+}
+
+/* Date container */
+body.lite-mode .date-container {
+    background: rgba(15, 15, 15, 0.88) !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+/* Weather widget */
+body.lite-mode #weather-widget {
+    background: rgba(15, 15, 15, 0.88) !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+/* Calendar */
+body.lite-mode #calendar-container {
+    background: rgba(15, 15, 15, 0.88) !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+/* Today highlight — giữ nhưng bỏ shadow */
+body.lite-mode .today .calendar-cell-inner {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+body.lite-mode .today .solar-day {
+    -webkit-filter: none !important;
+    filter: none !important;
+}
+
+/* Bottom row widgets — Finance, Fuel, KQXS, Agriculture, AQI */
+body.lite-mode #dashboard-bottom-row .info-block {
+    background: rgba(15, 15, 15, 0.88) !important;
+}
+
+body.lite-mode .finance-wrapper,
+body.lite-mode .fuel-wrapper,
+body.lite-mode .kqxs-wrapper,
+body.lite-mode .agri-wrapper {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+body.lite-mode .aqi-wrapper {
+    background: rgba(15, 15, 15, 0.88) !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+/* Forecast container */
+body.lite-mode #forecast-container {
+    background: rgba(15, 15, 15, 0.75) !important;
+}
+
+/* Settings panel */
+body.lite-mode #settings-panel {
+    background: rgba(15, 15, 15, 0.97) !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+/* News ticker */
+body.lite-mode #news-ticker {
+    background: rgba(10, 10, 15, 0.92) !important;
+}
+
+/* News widget */
+body.lite-mode .news-inline-wrapper {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+/* Clock-only mode widgets */
+body.lite-mode #clock-only-date-container,
+body.lite-mode #clock-only-weather-container {
+    background: rgba(15, 15, 15, 0.88) !important;
+}
+
+/* Quote — bỏ text-shadow nặng */
+body.lite-mode .quote-text {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* FX Ticker */
+body.lite-mode .fx-ticker {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+/* Radio bar */
+body.lite-mode .radio-bar {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+/* SVG icons — bỏ drop-shadow filter */
+body.lite-mode #weather-icon svg,
+body.lite-mode .forecast-icon svg {
+    -webkit-filter: none !important;
+    filter: none !important;
+}
+
+/* Transition — giảm/bỏ transition nặng */
+body.lite-mode .hidden-force {
+    -webkit-transition: none !important;
+    transition: none !important;
+}
+
+/* ---- LITE MODE: Layout fix cho iPad Mini / màn hình nhỏ ---- */
+
+/*
+ * Bottom row: 1 hàng duy nhất, không wrap.
+ * Tất cả 6 widget cùng 1 hàng, mỗi cái tự co lại vừa khít.
+ */
+body.lite-mode #dashboard-bottom-row {
+    -webkit-flex-wrap: nowrap !important;
+    flex-wrap: nowrap !important;
+    max-height: none !important;
+    overflow: hidden !important;
+    -webkit-flex-shrink: 1 !important;
+    flex-shrink: 1 !important;
+    -webkit-align-items: flex-start !important;
+    align-items: flex-start !important;
+    padding-bottom: 0 !important;
+    gap: 0.5vmin !important;
+}
+
+/* Mỗi block: flex basis nhỏ, co giãn đều */
+body.lite-mode #dashboard-bottom-row .info-block {
+    -webkit-flex: 1 1 0 !important;
+    flex: 1 1 0 !important;
+    max-width: none !important;
+    max-height: 40vh !important;
+    min-width: 0 !important;
+    padding: 0.6vmin 0.8vmin !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+}
+
+/*
+ * Content wrapper: padding-bottom đẩy nội dung lên trên radio bar.
+ * Không scroll — toàn bộ dashboard hiện trong 1 màn hình.
+ */
+body.lite-mode .content-wrapper {
+    overflow: hidden !important;
+    padding-bottom: 10vmin !important;
+}
+
+/* === COMPACT: Top row === */
+body.lite-mode #dashboard-top-row {
+    -webkit-flex-shrink: 0 !important;
+    flex-shrink: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+body.lite-mode #dashboard-top-row #digital-clock-wrapper {
+    margin-bottom: 0.3vmin !important;
+}
+
+body.lite-mode #dashboard-top-row #date-display,
+body.lite-mode #dashboard-top-row #weather-widget {
+    padding: 0.5vmin 1.5vmin !important;
+}
+
+/* === COMPACT: Mid row === */
+body.lite-mode #dashboard-mid-row {
+    -webkit-flex-shrink: 0 !important;
+    flex-shrink: 0 !important;
+    margin: 0.2vmin 0 !important;
+}
+
+/* === COMPACT: Font nhỏ hơn trong widget === */
+body.lite-mode .agri-header,
+body.lite-mode .finance-header,
+body.lite-mode .fuel-header {
+    font-size: 1.3vmin !important;
+    margin-bottom: 0.2vmin !important;
+}
+
+body.lite-mode .source-credit {
+    font-size: 0.8vmin !important;
+    margin-top: 0.2vmin !important;
+}
+
+/* === COMPACT: Ẩn phần ít quan trọng trên màn hình nhỏ === */
+body.lite-mode .agri-regions {
+    display: none !important;
+}
+
+/* Date text: giới hạn lunar-event (ngày này năm xưa) không tràn */
+body.lite-mode #lunar-event {
+    max-height: 2.5vmin;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Holiday countdown: giữ gọn 1 dòng */
+body.lite-mode .holiday-countdown {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Legacy unavailable — thông báo "không khả dụng" gọn nhẹ */
+.legacy-unavailable {
+    font-size: 1.2vmin !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    font-style: italic;
+    font-weight: 400 !important;
+}
+
+/* ================================================================
+ * RESPONSIVE — 800px breakpoint (2 columns → 1 column)
+ * Requirements: 3.1
+ * ================================================================ */
+@media (max-width: 800px) {
+    .container {
+        -webkit-flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        padding: 2vmin;
+        overflow-y: hidden;
+    }
+
+    .content-wrapper {
+        -webkit-flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        align-items: center;
+    }
+
+    .info-block {
+        width: 100%;
+        margin-bottom: 2vmin;
+    }
+
+    #dashboard-bottom-row .info-block {
+        -webkit-flex: 1 1 auto;
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: none;
+        padding: 1.5vmin;
+    }
+
+    /* Ẩn calendar và agriculture trên màn hình nhỏ để tránh wrap xuống dòng */
+    #calendar-container {
+        display: none !important;
+    }
+
+    #agri-widget {
+        display: none !important;
+    }
+
+    .shop-name {
+        font-size: 2.5rem;
+    }
+
+    .shop-address {
+        font-size: 1.5rem;
+    }
+
+    .clock-segment span {
+        font-size: 20vw;
+    }
+
+    #digital-clock.seconds-visible .clock-segment span {
+        font-size: 15vw;
+    }
+
+    .clock-separator {
+        font-size: 18vw;
+    }
+
+    #digital-clock.seconds-visible .clock-separator {
+        font-size: 13vw;
+    }
+
+    .date-container,
+    #weather-widget {
+        font-size: 1.8rem;
+    }
+
+    #calendar-container {
+        font-size: 1.2rem;
+        max-width: 90%;
+    }
+
+    #clock-only-date-container,
+    #clock-only-weather-container {
+        font-size: 5vw;
+    }
+
+    .container.clock-only-mode .info-column {
+        height: 100%;
+    }
+
+    .container.clock-only-mode .clock-segment span {
+        font-size: 30vw;
+    }
+
+    .container.clock-only-mode .clock-separator {
+        font-size: 24vw;
+    }
+
+    .container.clock-only-mode #digital-clock.seconds-visible .clock-segment span {
+        font-size: 20vw;
+    }
+}
+
+/* ================================================================
+ * RESPONSIVE — 480px breakpoint (mobile)
+ * Requirements: 3.2, 3.5, 3.8
+ * ================================================================ */
+@media (max-width: 480px) {
+    #settings-panel {
+        width: 95vw;
+    }
+
+    .settings-grid-col {
+        -webkit-flex: 1 1 100%;
+        flex: 1 1 100%;
+    }
+
+    #dashboard-bottom-row {
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
+    #dashboard-bottom-row .info-block {
+        -webkit-flex: 1 1 46%;
+        flex: 1 1 46%;
+        max-width: none;
+        padding: 1vmin;
+    }
+
+    /* Ẩn các widget ít quan trọng trên diđện thoại nhỏ */
+    #calendar-container {
+        display: none !important;
+    }
+
+    #agri-widget {
+        display: none !important;
+    }
+
+    .finance-value {
+        font-size: 1.05rem;
+    }
+
+    .finance-label {
+        font-size: 0.55rem;
+    }
+
+    /* Forecast scrolls horizontally on mobile */
+    #forecast-container {
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+        overflow-x: auto;
+    }
+
+    .forecast-divider {
+        width: 80%;
+        height: 1px;
+        margin: 0.5vmin 0;
+    }
+
+    /* Almanac compact on mobile */
+    .almanac-row {
+        -webkit-flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+    }
+}
+
+/* Small portrait phones */
+@media (max-width: 480px) and (orientation: portrait) {
+    .clock-segment span {
+        font-size: 22vw;
+    }
+
+    .clock-separator {
+        font-size: 19vw;
+    }
+
+    #date-container p {
+        font-size: 0.9rem;
+        margin: 0.2rem 0;
+    }
+
+    #weather-widget {
+        font-size: 1.1rem;
+    }
+
+    #calendar-container {
+        font-size: 0.75rem;
+    }
+
+    #news-ticker {
+        height: 2rem;
+        min-height: 44px;
+    }
+
+    #news-ticker-label {
+        font-size: 0.6rem;
+        padding: 0 0.5rem;
+    }
+
+    .news-ticker-item {
+        font-size: 0.72rem;
+        padding: 0 1rem;
+    }
+
+
+}
+
+/* Tablet portrait */
+@media (min-width: 601px) and (max-width: 800px) and (orientation: portrait) {
+    .clock-segment span {
+        font-size: 17vw;
+    }
+
+    .clock-separator {
+        font-size: 15vw;
+    }
+}
+
+/* ================================================================
+ * RESPONSIVE — Landscape phone (< 900px landscape)
+ * ================================================================ */
+@media (max-width: 900px) and (orientation: landscape) {
+    .container {
+        padding: 2vmin;
+        overflow-y: hidden;
+    }
+
+    .info-block {
+        min-width: 45%;
+    }
+
+    .clock-segment span {
+        font-size: 15vh;
+    }
+
+    .clock-separator {
+        font-size: 12vh;
+    }
+
+    #digital-clock.seconds-visible .clock-segment span {
+        font-size: 11vh;
+    }
+
+    #calendar-container {
+        max-width: 100%;
+    }
+
+    .date-container,
+    #weather-widget {
+        font-size: 1.4rem;
+    }
+}
+
+/* ================================================================
+ * RESPONSIVE — Minimum 320px viewport
+ * Requirements: 3.7 — no content overflow 320px-1920px
+ * ================================================================ */
+@media (max-width: 320px) {
+    .container {
+        padding: 1vmin;
+    }
+
+    .clock-segment span {
+        font-size: 20vw;
+    }
+
+    .clock-separator {
+        font-size: 17vw;
+    }
+
+    .date-container {
+        font-size: 0.8rem;
+        padding: 0.5vmin 1vmin;
+    }
+
+    #weather-widget {
+        font-size: 0.9rem;
+        padding: 0.5vmin 1vmin;
+    }
+
+    #calendar-container {
+        padding: 0.5vmin;
+        max-width: 100%;
+    }
+
+    .calendar-nav {
+        font-size: 1.5vmin;
+    }
+
+    #calendar-title {
+        font-size: 1.5vmin;
+    }
+
+    .solar-day {
+        font-size: 1.2vmin;
+    }
+
+    .lunar-day {
+        font-size: 0.9vmin;
+    }
+
+    .quote-text {
+        font-size: 2.5vmin;
+    }
+
+    .quote-author {
+        font-size: 1.8vmin;
+    }
+
+    .finance-item {
+        min-width: 4rem;
+    }
+
+    .finance-value {
+        font-size: 0.9rem;
+    }
+
+    #settings-panel {
+        width: 95vw;
+    }
+
+    .settings-grid-col {
+        -webkit-flex: 1 1 100%;
+        flex: 1 1 100%;
+    }
+
+    .ios-row {
+        font-size: 0.85rem;
+        padding: 0 0.7rem;
+    }
+}
+
+/* ================================================================
+ * RESPONSIVE — Landscape small phones (height ≤ 480px)
+ * Giảm padding/size để fit nội dung vào màn hình ngang nhỏ
+ * ================================================================ */
+@media (max-height: 480px) and (orientation: landscape) {
+    .container {
+        padding: 0.5vmin 1.5vmin 0 1.5vmin;
+    }
+
+    .content-wrapper {
+        padding-bottom: 6vmin;
+    }
+
+    #dashboard-top-row {
+        margin-bottom: 0.3vmin;
+    }
+
+    .clock-segment span {
+        font-size: 7vmin;
+    }
+
+    .clock-separator {
+        font-size: 5vmin;
+    }
+
+    .clock-segment {
+        padding: 0.3vmin 1.2vmin;
+    }
+
+    .date-container {
+        font-size: 1.8vmin;
+        padding: 0.3vmin 0.8vmin;
+    }
+
+    .date-container p {
+        margin: 0.1vmin 0;
+    }
+
+    .holiday-countdown {
+        padding: 0.2vmin 0.5vmin;
+        margin-top: 0.2vmin;
+    }
+
+    #weather-widget {
+        font-size: 1.8vmin;
+        padding: 0.3vmin 0.8vmin;
+    }
+
+    #weather-location {
+        font-size: 1.3vmin;
+        margin-bottom: 0.2vmin;
+    }
+
+    #forecast-container {
+        padding: 0.4vmin 0.3vmin;
+        margin-top: 0.5vmin;
+        font-size: 1vmin;
+    }
+
+    .forecast-hour {
+        padding: 0.1vmin 0.2vmin;
+    }
+
+    .info-block {
+        margin: 0.2vmin;
+    }
+
+    .quote-text {
+        font-size: 1.8vmin;
+    }
+
+    .quote-author {
+        font-size: 1.3vmin;
+    }
+
+    #dashboard-mid-row {
+        margin: 0;
+    }
+
+    /* Radio bar siêu gọn cho landscape nhỏ */
+    .radio-bar {
+        bottom: 2.5vmin;
+        padding: 0.3vmin 1vmin 0.2vmin 1vmin;
+    }
+
+    .radio-btn {
+        font-size: 2.8vmin;
+        padding: 0.4vmin 0.6vmin;
+    }
+
+    .radio-btn-play {
+        font-size: 3.2vmin;
+    }
+
+    .radio-title {
+        font-size: 1.4vmin;
+    }
+
+    .radio-time {
+        font-size: 1.2vmin;
+    }
+
+    .radio-volume {
+        font-size: 1.2vmin;
+    }
+
+    .radio-channel-btn {
+        font-size: 1.4vmin;
+    }
+
+    .radio-progress-wrap {
+        padding: 0.3vmin 0 0.1vmin 0;
+    }
+
+    .radio-progress-bar {
+        height: 0.5vmin;
+    }
+
+    /* FX ticker gọn cho landscape nhỏ */
+    .fx-ticker {
+        height: 2.2vmin;
+        line-height: 2.2vmin;
+    }
+
+    .fx-code,
+    .fx-val,
+    .fx-sep {
+        font-size: 1vmin;
+    }
+}
+
+/* ================================================================
+ * RESPONSIVE — Portrait phones ≤ 480px width
+ * Radio bar + FX ticker gọn, padding bottom cho content
+ * ================================================================ */
+@media (max-width: 480px) and (orientation: portrait) {
+    .content-wrapper {
+        padding-bottom: 8vmin;
+    }
+
+    #dashboard-bottom-row {
+        padding-bottom: 0.5vmin;
+    }
+
+    .info-block {
+        margin: 0.3vmin;
+    }
+
+    /* Radio bar gọn cho mobile portrait */
+    .radio-bar {
+        bottom: 2.8vmin;
+        padding: 0.5vmin 1.2vmin 0.3vmin 1.2vmin;
+    }
+
+    .radio-btn {
+        font-size: 3vmin;
+        padding: 0.5vmin 0.8vmin;
+    }
+
+    .radio-btn-play {
+        font-size: 3.5vmin;
+    }
+
+    .radio-title {
+        font-size: 1.5vmin;
+    }
+
+    .radio-time {
+        font-size: 1.3vmin;
+    }
+
+    .radio-volume {
+        font-size: 1.3vmin;
+    }
+
+    .radio-channel-btn {
+        font-size: 1.5vmin;
+    }
+
+    .radio-progress-wrap {
+        padding: 0.4vmin 0 0.2vmin 0;
+    }
+
+    .radio-progress-bar {
+        height: 0.6vmin;
+    }
+
+    /* FX ticker gọn */
+    .fx-ticker {
+        height: 2.5vmin;
+        line-height: 2.5vmin;
+    }
+
+    .fx-code,
+    .fx-val,
+    .fx-sep {
+        font-size: 1vmin;
+    }
+}
+
+/* ================================================================
+ * RESPONSIVE — Large screens (> 1200px)
+ * ================================================================ */
+@media (min-width: 1200px) {
+    .clock-segment span {
+        font-size: 11vmin;
+    }
+
+    .clock-separator {
+        font-size: 8vmin;
+    }
+
+    #calendar-container {
+        max-width: 48vmin;
+    }
+}
+
+/* ================================================================
+ * OVERFLOW PREVENTION — Ensure no content clipping
+ * Requirements: 3.7
+ * ================================================================ */
+.date-container,
+#weather-widget,
+#forecast-container,
+#finance-widget,
+.quote-wrapper,
+.aqi-wrapper {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+#calendar-container {
+    overflow: hidden;
+}
+
+/* Ensure all interactive elements meet 48x48px minimum touch target */
+/* Requirements: Android MD3 Standards */
+button,
+[role="button"],
+a.news-ticker-item {
+    min-height: 48px;
+    min-width: 48px;
+}
+
+.calendar-nav {
+    min-width: auto;
+    min-height: auto;
+}
+
+/* ================================================================
+ * NEWS TTS BUTTON — Nút đọc tin trên ticker
+ * ================================================================ */
+#news-tts-btn {
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    color: #f39c12;
+    font-size: 1.1rem;
+    padding: 0 0.6rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    min-width: 48px;
+    min-height: 48px;
+    -webkit-transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
+    -webkit-align-self: center;
+    align-self: center;
+}
+
+#news-tts-btn:hover {
+    background: rgba(243, 156, 18, 0.15);
+}
+
+#news-tts-btn.tts-speaking {
+    color: #e74c3c;
+    border-color: rgba(231, 76, 60, 0.5);
+    -webkit-animation: ttsPulse 1.2s ease-in-out infinite;
+    animation: ttsPulse 1.2s ease-in-out infinite;
+}
+
+@-webkit-keyframes ttsPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+@keyframes ttsPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* ================================================================
+ * NEWS PANEL — Overlay danh sách tin đầy đủ
+ * Kế thừa .dialog-overlay / .dialog-box pattern
+ * ================================================================ */
+#news-panel {
+    z-index: 210;
+}
+
+.news-panel-box {
+    max-width: 680px;
+    width: 95%;
+    max-height: 88vh;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+}
+
+.news-panel-header {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.news-panel-title-h {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #f39c12;
+}
+
+.news-panel-header-actions {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.news-panel-header-actions>* {
+    margin-left: 0.5rem;
+}
+
+.news-panel-action-btn {
+    background: rgba(243, 156, 18, 0.15);
+    border: 1px solid rgba(243, 156, 18, 0.4);
+    color: #f39c12;
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    min-height: 36px;
+    -webkit-transition: background 0.2s;
+    transition: background 0.2s;
+}
+
+.news-panel-action-btn:hover {
+    background: rgba(243, 156, 18, 0.3);
+}
+
+.news-panel-close {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 50%;
+    -webkit-transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s;
+}
+
+.news-panel-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+/* Danh sách tin — scrollable */
+#news-panel-list {
+    -webkit-flex: 1;
+    -webkit-box-flex: 1;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem 0;
+}
+
+/* Mỗi item tin tức */
+.news-panel-item {
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    -webkit-transition: background 0.2s;
+    transition: background 0.2s;
+}
+
+.news-panel-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.news-panel-item.tts-active {
+    background: rgba(243, 156, 18, 0.12);
+    border-left: 3px solid #f39c12;
+}
+
+.news-panel-source {
+    font-size: 0.68rem;
+    color: #f39c12;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+.news-panel-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #F5F5F5;
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+}
+
+.news-panel-desc {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
+}
+
+.news-panel-actions {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.news-panel-actions>* {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.news-panel-btn {
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    text-decoration: none;
+    min-height: 32px;
+    -webkit-transition: background 0.15s;
+    transition: background 0.15s;
+}
+
+.news-panel-read-btn {
+    background: rgba(243, 156, 18, 0.15);
+    border: 1px solid rgba(243, 156, 18, 0.35);
+    color: #f39c12;
+}
+
+.news-panel-read-btn:hover {
+    background: rgba(243, 156, 18, 0.28);
+}
+
+.news-panel-link-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.news-panel-link-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.news-panel-empty {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.88rem;
+    padding: 2rem 1rem;
+}
+
+/* TTS settings — sub-option scope */
+#tts-schedule-group {
+    padding-left: 1.5rem;
+}
+
+/* Ticker item — clickable span replacing anchor */
+span.news-ticker-item {
+    cursor: pointer;
+}
+
+span.news-ticker-item:hover {
+    color: #f39c12;
+}
+
+/* Power-save mode: ẩn TTS button */
+body.power-save-mode #news-tts-btn {
+    display: none !important;
+}
+
+/* ================================================================
+ * LAYOUT OVERRIDES — 3-row dashboard redesign
+ * ================================================================ */
+
+/* Thêm chức năng scroll ẩn cho main container để đề phòng màn hình quá thấp */
+.content-wrapper {
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.content-wrapper::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari */
+}
+
+/* Clock & Weather Top Row Layout: Focus ở giữa trang */
+#dashboard-top-row {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 1vmin;
+}
+
+#dashboard-top-row #digital-clock-wrapper {
+    margin: 0 0 1vmin 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+/* Date/weather layout hàng ngang dưới đồng hồ */
+#dashboard-top-row #date-weather-group {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin: 0;
+}
+
+#dashboard-top-row #date-display {
+    margin: 0 1vmin 0 0;
+}
+
+#dashboard-top-row #weather-widget {
+    margin: 0;
+}
+
+#dashboard-top-row #date-display,
+#dashboard-top-row #weather-widget {
+    background: rgba(15, 15, 20, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 1vmin 2vmin;
+    border-radius: 2vmin;
+    -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 2;
+}
+
+/* Loại bỏ nền kép trên date-weather-group — chỉ con bên trong có nền */
+#dashboard-top-row #date-weather-group {
+    background: transparent;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+/* Quote chiếm toàn bộ mid-row */
+#dashboard-mid-row {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 100%;
+    margin: 0.5vmin 0;
+    -webkit-flex: 0 1 auto;
+    flex: 0 1 auto;
+    min-height: 0;
+}
+
+#dashboard-mid-row .quote-wrapper {
+    margin: 0;
+    max-width: 80vw;
+}
+
+#dashboard-mid-row .quote-text {
+    display: block !important;
+    font-size: 2.5vmin;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* Bottom-row: Grid mềm dẻo, tự động xuống dòng (Wrap) */
+#dashboard-bottom-row {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    max-width: 98vw;
+    max-height: 38vh;
+    margin: 0 auto;
+    padding-bottom: 1vmin;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+#dashboard-bottom-row .info-block {
+    -webkit-flex: 1 1 200px;
+    flex: 1 1 200px;
+    max-width: 420px;
+    max-height: 36vh;
+    min-width: 0;
+    box-sizing: border-box;
+    margin: 0.75vmin;
+    padding: 1.5vmin 2vmin;
+    background: rgba(15, 15, 20, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 2vmin;
+    -webkit-box-shadow: 0 0.5vmin 1.5vmin rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0.5vmin 1.5vmin rgba(0, 0, 0, 0.4);
+    -webkit-justify-content: flex-start;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+/* Loại bỏ hiệu ứng hộp kép (double-box), ép các con bên trong chỉ làm flex container trong suốt */
+#dashboard-bottom-row .finance-wrapper,
+#dashboard-bottom-row .fuel-wrapper,
+#dashboard-bottom-row .kqxs-wrapper,
+#dashboard-bottom-row #calendar-container,
+#dashboard-bottom-row .aqi-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    -webkit-flex-direction: column !important;
+    flex-direction: column !important;
+    -webkit-justify-content: flex-start !important;
+    justify-content: flex-start !important;
+}
+
+/* AQI wrapper — center content vertically */
+#dashboard-bottom-row .aqi-wrapper {
+    -webkit-justify-content: center !important;
+    justify-content: center !important;
+}
+
+/* AQI widget ẩn khi có tag .aqi-hidden */
+.container.aqi-hidden #dashboard-bottom-row #aqi-widget {
+    display: none;
+}
+
+.container.quote-hidden #dashboard-mid-row {
+    display: none;
+}
+
+/* Ticker đã thay thế bằng inline widget */
+
+
+/* ================================================================
+ * NEWS INLINE WIDGET — Khối tin tức ngang hàng, cuộn dọc teleprompter
+ * Giới hạn chiều cao để không vỡ bố cục
+ * ================================================================ */
+#news-widget {
+    padding: 0;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.news-inline-wrapper {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.news-inline-header {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 1vmin;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.news-inline-label {
+    background: #e74c3c;
+    color: #fff;
+    font-size: 1.1vmin;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.news-inline-tts {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    color: #f39c12;
+    font-size: 1rem;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    min-width: 36px;
+    min-height: 36px;
+    -webkit-transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.news-inline-tts:hover {
+    background: rgba(243, 156, 18, 0.15);
+}
+
+.news-inline-tts.tts-speaking {
+    color: #e74c3c;
+    border-color: rgba(231, 76, 60, 0.5);
+    -webkit-animation: ttsPulse 1.2s ease-in-out infinite;
+    animation: ttsPulse 1.2s ease-in-out infinite;
+}
+
+.news-inline-scroll-view {
+    -webkit-flex: 1;
+    -webkit-box-flex: 1;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    min-height: 0;
+}
+
+#news-inline-scroll-content {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.news-scroll-item {
+    padding: 0.6vmin 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    -webkit-transition: background 0.2s, border-left 0.2s;
+    transition: background 0.2s, border-left 0.2s;
+    padding-left: 0.5vmin;
+}
+
+.news-scroll-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.news-scroll-item.news-scroll-active {
+    background: rgba(243, 156, 18, 0.12);
+    border-left: 3px solid #f39c12;
+}
+
+.news-scroll-source {
+    display: block;
+    font-size: 0.9vmin;
+    color: #f39c12;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.2vmin;
+}
+
+.news-scroll-title {
+    display: block;
+    font-size: 1.2vmin;
+    color: #F5F5F5;
+    line-height: 1.35;
+    font-weight: 500;
+}
+
+/* News widget tự co giãn nhưng giới hạn chiều cao */
+#dashboard-bottom-row #news-widget {
+    overflow: hidden;
+    max-height: 36vh;
+}
+
+/* News inline wrapper cũng giới hạn */
+#dashboard-bottom-row .news-inline-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: 100%;
+}
+
+
+/* ================================================================
+ * HOLIDAY COUNTDOWN — Đếm ngược ngày nghỉ lễ (trong date-display)
+ * ================================================================ */
+.holiday-countdown {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background: rgba(243, 156, 18, 0.10);
+    border: 1px solid rgba(243, 156, 18, 0.2);
+    border-radius: 1vmin;
+    padding: 0.4vmin 1vmin;
+    margin-top: 0.5vmin;
+    text-align: center;
+}
+
+.holiday-icon {
+    margin-right: 0.8vmin;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.holiday-name {
+    font-size: 1.2vmin;
+    color: #F5F5F5;
+    font-weight: 600;
+    margin-right: 0.8vmin;
+}
+
+.holiday-days {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.4vmin;
+    font-weight: 800;
+    color: #f39c12;
+    text-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.6);
+}
+
+.holiday-today {
+    font-size: 1.3vmin;
+    font-weight: 800;
+    color: #e74c3c;
+}
+
+/* ================================================================
+ * AGRICULTURE WIDGET — Giá nông sản (cà phê, hồ tiêu)
+ * Cấu trúc giống fuel/kqxs widget
+ * ================================================================ */
+.agri-wrapper {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    background: rgba(20, 20, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
+    border-radius: 2vmin;
+    padding: 1.5vmin 2.5vmin;
+    -webkit-box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    box-shadow: 0 1vmin 3vmin rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 48vmin;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.agri-header {
+    font-size: 1.6vmin;
+    color: #f39c12;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 800;
+    margin-bottom: 1vmin;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5vmin;
+}
+
+.agri-row {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0.8vmin 0;
+}
+
+.agri-type {
+    font-size: 1.4vmin;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    margin-right: 1vmin;
+}
+
+.agri-value {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 2.2vmin;
+    color: #F5F5F5;
+    text-shadow: 0 0.5vmin 1vmin rgba(0, 0, 0, 0.6);
+}
+
+.agri-value.loading {
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 600;
+    font-size: 1.2vmin;
+}
+
+/* Bottom-row override: transparent inner wrapper */
+#dashboard-bottom-row .agri-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    -webkit-flex-direction: column !important;
+    flex-direction: column !important;
+    -webkit-justify-content: space-between !important;
+    justify-content: space-between !important;
+}
+
+/* --- Mở rộng: Trend indicator --- */
+.agri-change {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.2vmin;
+    font-weight: 700;
+    margin-left: 1vmin;
+    padding: 0.2vmin 0.6vmin;
+    border-radius: 0.5vmin;
+}
+
+.agri-change-up {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.agri-change-down {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.12);
+}
+
+.agri-change-flat {
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* --- Shared price-change indicator (finance, fuel) --- */
+.price-change {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.1vmin;
+    font-weight: 700;
+    margin-left: 0.6vmin;
+    padding: 0.15vmin 0.5vmin;
+    border-radius: 0.4vmin;
+    white-space: nowrap;
+}
+
+.price-change:empty {
+    display: none;
+}
+
+.price-change-up {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.price-change-down {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.12);
+}
+
+.price-change-flat {
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* --- Mở rộng: Giá thế giới (dòng nhỏ hơn) --- */
+.agri-row-world {
+    margin-top: 0.3vmin;
+    padding-top: 0.5vmin;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.agri-value-sm {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1.6vmin;
+    color: #e5e7eb;
+}
+
+/* --- Mở rộng: Giá theo vùng --- */
+.agri-regions {
+    margin-top: 0.5vmin;
+    padding-top: 0.4vmin;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.agri-region-item {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 0.1vmin 0;
+}
+
+.agri-region-name {
+    font-size: 1.1vmin;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+.agri-region-price {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.2vmin;
+    font-weight: 700;
+    color: #d1d5db;
+}
+
+.agri-region-change {
+    font-size: 1.0vmin;
+    font-weight: 500;
+    margin-left: 0.4vmin;
+}
+
+/* ================================================================
+ * RADIO CẢI LƯƠNG — Thanh điều khiển radio
+ * ================================================================ */
+.radio-bar {
+    position: fixed;
+    bottom: 3.2vmin;
+    left: 0;
+    right: 0;
+    height: auto;
+    background: rgba(10, 10, 15, 0.92);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 49;
+    padding: 0.8vmin 2vmin 0.4vmin 2vmin;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.radio-top-row {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.radio-controls {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.radio-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 3.5vmin;
+    padding: 0.8vmin 1vmin;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    line-height: 1;
+}
+
+.radio-btn:active {
+    color: #f39c12;
+}
+
+.radio-btn-play {
+    font-size: 4.2vmin;
+    color: #f39c12;
+}
+
+.radio-channel-btn {
+    font-size: 1.8vmin;
+    color: rgba(255, 255, 255, 0.7);
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.radio-channel-btn:active {
+    color: #f39c12;
+}
+
+.radio-sep {
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 1.8vmin;
+    margin: 0 0.6vmin;
+}
+
+.radio-volume {
+    font-size: 1.6vmin;
+    color: rgba(255, 255, 255, 0.5);
+    min-width: 4vmin;
+    text-align: center;
+}
+
+.radio-title-wrap {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    overflow: hidden;
+    margin-left: 1vmin;
+    -webkit-flex: 1;
+    flex: 1;
+    min-width: 0;
+}
+
+.radio-icon {
+    color: #f39c12;
+    font-size: 2.2vmin;
+    margin-right: 0.6vmin;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.radio-title {
+    font-size: 1.8vmin;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.radio-time {
+    font-size: 1.5vmin;
+    color: rgba(255, 255, 255, 0.4);
+    margin-left: 0.8vmin;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.radio-progress-wrap {
+    width: 100%;
+    padding: 0.6vmin 0 0.3vmin 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.radio-progress-bar {
+    position: relative;
+    width: 100%;
+    height: 0.8vmin;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 0.4vmin;
+    overflow: visible;
+}
+
+.radio-progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: #f39c12;
+    border-radius: 0.4vmin;
+    -webkit-transition: width 0.3s linear;
+    transition: width 0.3s linear;
+}
+
+.radio-progress-thumb {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    width: 2vmin;
+    height: 2vmin;
+    background: #f39c12;
+    border-radius: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transition: left 0.3s linear;
+    transition: left 0.3s linear;
+    display: none;
+}
+
+.radio-progress-wrap:hover .radio-progress-thumb,
+.radio-progress-wrap:active .radio-progress-thumb {
+    display: block;
+}
+
+/* ================================================================
+ * FX TICKER — Tỷ giá ngoại tệ + vàng chạy ngang cạnh dưới
+ * ================================================================ */
+.fx-ticker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3.2vmin;
+    line-height: 3.2vmin;
+    background: rgba(0, 0, 0, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    z-index: 50;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.fx-ticker-track {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.fx-ticker-content {
+    display: inline-block;
+    white-space: nowrap;
+    /* Removed will-change: transform — causes visual jank on old browsers */
+}
+
+.fx-item {
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0 1.2vmin;
+}
+
+.fx-code {
+    font-size: 1.2vmin;
+    font-weight: 700;
+    color: #f39c12;
+    margin-right: 0.5vmin;
+}
+
+.fx-val {
+    font-family: 'Outfit', 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.2vmin;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.fx-sep {
+    font-size: 1.2vmin;
+    color: rgba(255, 255, 255, 0.25);
+    margin: 0 0.5vmin;
+}
