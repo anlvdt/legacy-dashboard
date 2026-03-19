@@ -36,3 +36,8 @@
   from = "/api/image-proxy"
   to = "/.netlify/functions/image-proxy"
   status = 200
+
+[[redirects]]
+  from = "/api/tts-proxy"
+  to = "/.netlify/functions/tts-proxy"
+  status = 200

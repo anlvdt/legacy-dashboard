@@ -1,0 +1,842 @@
+[
+  {
+    "id": 1,
+    "text": "Chuồn chuồn bay thấp thì mưa, bay cao thì nắng, bay vừa thì râm.",
+    "author": "Ca dao",
+    "category": "mua-vu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian, kinh nghiệm nông nghiệp lúa nước"
+  },
+  {
+    "id": 2,
+    "text": "Nhất nước, nhì phân, tam cần, tứ giống.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Kinh nghiệm canh tác lúa nước đồng bằng Bắc Bộ"
+  },
+  {
+    "id": 3,
+    "text": "Trời nắng tốt dưa, trời mưa tốt lúa.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Kinh nghiệm nông nghiệp, truyền khẩu"
+  },
+  {
+    "id": 4,
+    "text": "Mau sao thì nắng, vắng sao thì mưa.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Kinh nghiệm quan sát thời tiết dân gian"
+  },
+  {
+    "id": 5,
+    "text": "Tháng giêng rét đài, tháng hai rét lộc, tháng ba rét nàng Bân.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Kinh nghiệm thời tiết miền Bắc, liên quan truyện Nàng Bân"
+  },
+  {
+    "id": 6,
+    "text": "Làm ruộng ăn cơm nằm, chăn tằm ăn cơm đứng.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Kinh nghiệm nông nghiệp, truyền khẩu"
+  },
+  {
+    "id": 7,
+    "text": "Ráng mỡ gà, ai có nhà thì chống.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Kinh nghiệm dự báo bão dân gian"
+  },
+  {
+    "id": 8,
+    "text": "Tấc đất tấc vàng.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian, phản ánh giá trị đất nông nghiệp"
+  },
+  {
+    "id": 9,
+    "text": "Đêm tháng năm chưa nằm đã sáng, ngày tháng mười chưa cười đã tối.",
+    "author": "Ca dao",
+    "category": "mua-vu",
+    "source": "Ca dao Việt Nam — Kinh nghiệm thời tiết theo mùa"
+  },
+  {
+    "id": 10,
+    "text": "Kiến tha lâu cũng đầy tổ.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 11,
+    "text": "Người đẹp vì lụa, lúa tốt vì phân.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Kinh nghiệm nông nghiệp, truyền khẩu"
+  },
+  {
+    "id": 12,
+    "text": "Nắng tốt dưa, mưa tốt lúa.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Kinh nghiệm canh tác"
+  },
+  {
+    "id": 13,
+    "text": "Nhất canh trì, nhị canh viên, tam canh điền.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Hán Việt — Kinh nghiệm canh tác nông nghiệp cổ"
+  },
+  {
+    "id": 14,
+    "text": "Nước chảy đá mòn.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 15,
+    "text": "Cày sâu cuốc bẫm.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Kinh nghiệm nông nghiệp, truyền khẩu"
+  },
+  {
+    "id": 16,
+    "text": "Tháng bảy kiến bò, chỉ lo lại lụt.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Kinh nghiệm dự báo lũ lụt dân gian"
+  },
+  {
+    "id": 17,
+    "text": "Trồng cây gây rừng.",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 18,
+    "text": "Tháng chạp là tháng trồng khoai, tháng giêng trồng đậu tháng hai trồng cà.",
+    "author": "Ca dao",
+    "category": "mua-vu",
+    "source": "Ca dao Việt Nam — Lịch nông vụ truyền thống miền Bắc"
+  },
+  {
+    "text": "Ba tháng trồng cây một ngày trông quả",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 19,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Chó dại có mùa, người dại quanh năm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 20,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Có cấy có trông, có trồng có ăn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 21,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Cốt nhục phân li",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 22,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Đói ăn vụng túng làm càn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 23,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Được mùa buôn vải buôn vóc, mất mùa buôn thóc buôn gạo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 24,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Được mùa chê cơm hẩm, mất mùa thì lẩm cơm hiu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 25,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Én bay cao mưa rào lại tạnh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 26,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Én bay thấp mưa ngập bờ ao",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 27,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Gieo gió gặt bão",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 28,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Đôi ta như ruộng năm sào, Cách bờ ở giữa làm sao cho liền?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 29,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Đom đóm bay ra, trồng cà tra đỗ, Tua rua bằng một, cất bát cơm chăm. Tháng tư mua nứa đan thuyền, Tháng năm tháng sáu gặt miền ruộng chiêm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 30,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Đố ai biết lúa mấy cây, Biết sông mấy khúc, biết cây mấy tầng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 31,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Đất Châu Thành anh ở Xứ Cần Thơ nọ em về Bấy lâu sông cận biển kề Phân tay mai trúc dầm dề hột châu.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 32,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Đất Quảng Nam chưa mưa đã thấm, Rượu Hồng Đào chưa nhấm đã say.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 33,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Lênh đênh qua cửa Thần Phù Khéo tu thì nổi, vụng tu thì chìm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 34,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Ngang lưng thì thắt bao vàng, Đầu đội nón dấu, vai mang súng dài. Một tay thì cắp hỏa mai, Một tay cắp giáo, quan sai xuống thuyền. Tùng tùng trống đánh ngũ liên, Chân bước xuống thuyền nước mắt như mưa.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 35,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Phượng hoàng ở chốn cheo leo, Sa cơ lỡ vận phải theo đàn gà. Bao giờ gió thuận mưa hòa, Thay lông đổi cánh lại ra phượng hoàng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 36,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Ruộng đồng mặc sức chim bay, Nước sông lai láng cá bầy đua bơi.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 37,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Thân em như hạt mưa rào, Hạt rơi xuống giếng, hạt vào vườn hoa. Thân em như hạt mưa sa, Hạt vào đài các, hạt ra ruộng cày.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 38,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Thân em như hạt mưa sa, Hạt xuống giếng ngọc, hạt ra ruộng cày.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 39,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Thân em như cỏ ngoài đồng, Buồn thì anh nhổ, anh trồng rau răm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 40,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Thân em như cánh chuồn chuồn, Khi vui nó đậu, khi buồn nó bay.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 41,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Thân em như giọt nắng xuân, Mơ vào cửa phủ thấm vần thơ anh.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 42,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Tháng giêng chân bước đi cày, Tháng hai vãi lúa ngày ngày siêng năng. Thuận mưa lúa tốt đằng đằng, Tháng mười gặt lúa ta ăn đầy nhà.G",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 43,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Phất phơ chiếc áo giống hình phu quân",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 44,
+    "category": "mua-vu"
+  },
+  {
+    "text": "8. Ai làm Nam Bắc phân kỳ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 45,
+    "category": "mua-vu"
+  },
+  {
+    "text": "18. Ai ơi đừng bỏ ruộng hoang",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 46,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Ví qua ví lại ví trâu vô chuồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 47,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Trách trời sao vội tối, anh chưa phân cạn lời",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 48,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Bỏ ruộng ai cày, bỏ giống ai gieo",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 49,
+    "category": "mua-vu"
+  },
+  {
+    "text": "90. Anh về bán ruộng cây da",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 50,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Hai hàng nước mắt như mưa tháng mười",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 51,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Đem bỏ vào lồng cho kiến nó tha",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 52,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Mai Nam nắng trước, chiều Nồm quạnh sau",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 53,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Dẫu họ chê mình vụng, tập rèn cũng phải hay",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 54,
+    "category": "mua-vu"
+  },
+  {
+    "text": "23. Bao giờ mưa thuận gió hòa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 55,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Khi trời hạn hán, khi hay mưa dầm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 56,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Đồng tiền lúa thóc, mười phần được ba",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 57,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Thơm cây, thơm lá, người trồng cũng thơm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 58,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Cá rô róc rách ruộng cày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 59,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Tuy rằng khác giống, nhưng chung một giàn",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 60,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Mưa rầu, nắng lửa, người ta lừ đừ",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 61,
+    "category": "mua-vu"
+  },
+  {
+    "text": "79. Bước xuống ruộng sâu, em mảng sầu tấc dạ",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 62,
+    "category": "mua-vu"
+  },
+  {
+    "text": "11. Cái kiến mày kiện củ khoai",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 63,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Đừng cho lúa gạo, xóm giềng họ hay!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 64,
+    "category": "mua-vu"
+  },
+  {
+    "text": "41. Chẳng tham ruộng cả, ao tiền",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 65,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Đỏ mồng xanh kiếng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 66,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Nó đậu dưới ruộng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 67,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Ba phần ruộng trẻo chẳng ma nào cày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 68,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Chẳng phải đi cấy đi cày nữa đâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 69,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Nắng mở đường lên họp Chợ Giồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 70,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Ruộng biền, muối mặn đời thanh đạm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 71,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Nắng dãi mưa dầu, hôi hãy còn hôi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 72,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Cành lay bởi gió hoa sầu vì mưa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 73,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Lúa rụng đầy đồng, gà chẳng cần ăn",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 74,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Em nghĩ thân em, như kiếng lấm lem cát bụi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 75,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Gieo nhân nào, gặt quả nấy",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 76,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Giống rồng lại đẻ ra rồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 77,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Ta bỏ vào lồng cho kiến no tha",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 78,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Mua về ta bỏ chuồng gà chuồng heọ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 79,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Bà còng đi chợ trời mưa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 80,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Tuy rằng khác giống nhưng chung một giàn .",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 81,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Câu nguyên gốc là..nói về những người đi trồng cao su",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 82,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Chuồn chuồn có cánh thì bay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 83,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Chuồn chuồn bay thấp thì mưa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 84,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Bay cao thì nắng, bay vừa thì râm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 85,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Đêm qua chớp bể mưa nguồn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 86,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Trời còn khi nắng khi mưa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 87,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Kiến đen tha trứng lên cao, thế nào cũng có mưa rào rất to.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 88,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Mất bò mới lo làm chuồng.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 89,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Mưa tháng ba hoa đất, mưa tháng tư hư đất.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 90,
+    "category": "mua-vu"
+  },
+  {
+    "text": "N Năm nắng mười mưa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 91,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Ở nhà nghe Đông Hà lúa héo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 92,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Ráng mỡ gà thì gió , ráng mỡ chó thì mưa.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 93,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Ruộng bề bề chẳng bằng nghề trong tay.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 94,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Té nước theo mưa.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 95,
+    "category": "mua-vu"
+  },
+  {
+    "text": "TH Tháng bảy kiến bò, chỉ lo lại lụt",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 96,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Tháng hai trồng cà, tháng ba trồng đỗ.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 97,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Trăng quầng thì hạn, trăng tán thì mưa.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 98,
+    "category": "mua-vu"
+  },
+  {
+    "text": "Vụng chèo khéo trống",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 99,
+    "category": "mua-vu"
+  },
+  {
+    "text": "* {{cite book | last1 = Minh | year =  | title = Nắng mới bên thềm xuân | publisher = Công ty Văn hóa Hương Trang | page = 102}}",
+    "author": "Tục ngữ",
+    "category": "mua-vu",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 100
+  },
+  {
+    "text": "Chạy trời sao khỏi nắng",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 101
+  },
+  {
+    "text": "Mưa chùm mây",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 102
+  },
+  {
+    "text": "Mưa gió phải thì",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 103
+  },
+  {
+    "text": "Mưa nấm mối",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 104
+  },
+  {
+    "text": "Quá mù ra mưa",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 105
+  },
+  {
+    "text": "Trận mưa nhuần",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 106
+  },
+  {
+    "text": "Chết nửa mùa",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 107
+  },
+  {
+    "text": "Cười như được mùa",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 108
+  },
+  {
+    "text": "Mây xanh thì nắng mây trắng thì mưa",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 109
+  },
+  {
+    "text": "Một nắng hai sương",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 110
+  },
+  {
+    "text": "Mưa to gió lớn",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 111
+  },
+  {
+    "text": "Trí thức nửa mùa",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 112
+  },
+  {
+    "text": "Ước cau non trái mùa",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 113
+  },
+  {
+    "text": "Văn sĩ nửa mùa",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 114
+  },
+  {
+    "text": "Chớp bể mưa nguồn",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 115
+  },
+  {
+    "text": "Hai sương một nắng",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 116
+  },
+  {
+    "text": "Mùa hè rớt",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 117
+  },
+  {
+    "text": "Mưa Sở mây Tần",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 118
+  },
+  {
+    "text": "Đứng như trời trồng",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 119
+  },
+  {
+    "text": "Trồng cây chuối",
+    "author": "Thành ngữ",
+    "category": "mua-vu",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 120
+  }
+]

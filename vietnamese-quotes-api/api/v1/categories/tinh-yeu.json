@@ -1,0 +1,2830 @@
+[
+  {
+    "id": 1,
+    "text": "Yêu nhau mấy núi cũng trèo, mấy sông cũng lội, mấy đèo cũng qua.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 2,
+    "text": "Thuyền theo lái, gái theo chồng.",
+    "author": "Tục ngữ",
+    "category": "tinh-yeu",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 3,
+    "text": "Đôi ta như lửa mới nhen, như trăng mới mọc, như đèn mới khêu.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 4,
+    "text": "Qua đình ngả nón trông đình, đình bao nhiêu ngói thương mình bấy nhiêu.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian, vùng Bắc Bộ"
+  },
+  {
+    "id": 5,
+    "text": "Yêu nhau tam tứ núi cũng trèo, ngũ lục sông cũng lội, thất bát đèo cũng qua.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Dị bản mở rộng, truyền khẩu"
+  },
+  {
+    "id": 6,
+    "text": "Ước gì sông rộng một gang, bắc cầu dải yếm cho chàng sang chơi.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian, vùng Bắc Bộ"
+  },
+  {
+    "id": 7,
+    "text": "Râu tôm nấu với ruột bầu, chồng chan vợ húp gật đầu khen ngon.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 8,
+    "text": "Yêu nhau cởi áo cho nhau, về nhà mẹ hỏi qua cầu gió bay.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 9,
+    "text": "Trèo lên cây bưởi hái hoa, bước xuống vườn cà hái nụ tầm xuân.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 10,
+    "text": "Tình chỉ đẹp khi còn dang dở.",
+    "author": "Tục ngữ",
+    "category": "tinh-yeu",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 11,
+    "text": "Người duyên bén duyên, người phận bén phận.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 12,
+    "text": "Thương nhau quả ấu cũng tròn, ghét nhau bồ hòn cũng méo.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 13,
+    "text": "Anh đi anh nhớ quê nhà, nhớ canh rau muống nhớ cà dầm tương.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian, phổ biến toàn quốc"
+  },
+  {
+    "id": 14,
+    "text": "Gió đưa cây cải về trời, rau răm ở lại chịu lời đắng cay.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian, vùng Nam Bộ"
+  },
+  {
+    "id": 15,
+    "text": "Tương tư thức mấy đêm rồi, bao giờ gặp mặt mấy lời giãi bay.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 16,
+    "text": "Có phải duyên nhau thì thắm lại.",
+    "author": "Tục ngữ",
+    "category": "tinh-yeu",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 17,
+    "text": "Xa mặt cách lòng.",
+    "author": "Tục ngữ",
+    "category": "tinh-yeu",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 18,
+    "text": "Yêu ai yêu cả đường đi, ghét ai ghét cả tông ti họ hàng.",
+    "author": "Ca dao",
+    "category": "tinh-yeu",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "text": "Ăn chưa nên đọi, nói chửa nên lời/không nên lời",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 19,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ăn khoai nhớ kẻ cho dây mà trồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 20,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ăn không lo, của kho cũng hết",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 21,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ăn lắm thì hết miếng ngon, nói lắm thì hết lời khôn hóa rồ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 22,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ăn lấy vị không ai lấy bị mà đong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 23,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ăn nắm xôi dẻo, nhớ nẻo đường đi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 24,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ăn nhạt mới biết thương mèo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 25,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ăn quả nhớ kẻ trồng cây(, ăn cơm nhớ kẻ đâm, xay, giàn/giần, sàng)",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 26,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Bé không vin, cả gẫy cành",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 27,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Biết thì thưa thốt, không biết thì dựa cột mà nghe",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 28,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Buôn tàu buôn bè không bằng dè miệng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 29,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cái khó bó cái khôn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 30,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cái khó ló cái khôn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 31,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cá không ăn muối cá ươn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 32,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cao không tới thấp không thông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 33,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cắn cơm không vỡ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 34,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cây ngay không sợ chết đứng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 35,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Chín người yêu hơn mười người ghét",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 36,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Chim khôn đỗ nóc nhà quan",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 37,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Chuông không đánh không kêu, đèn không khêu không rạng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 38,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Có dại mới lên khôn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 39,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Có đi/qua có lại mới toại lòng nhau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 40,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Có lớn mà chẳng có khôn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 41,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Có nhân nhân mọc, không nhân nhân trầm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 42,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Có răng, răng nhai, không răng lợi mài cũng xong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 43,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Có tiếng không có miếng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 44,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Công sinh thành không bằng công dưỡng dục",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 45,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Của ít lòng nhiều",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 46,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Của kho không lo cũng hết",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 47,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Dù xây chín đợt phù đồ, không bằng làm phúc cứu cho một người",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 48,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Dao sắc không gọt được chuôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 49,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đã khôn mà không ngoan",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 50,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đan không tầy dặm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 51,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đánh (cho) chết (cái) nết không chừa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 52,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đói trong ruột không ai biết, rách ngoài cật lắm kẻ hay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 53,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Được ăn cả, ngã về không",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 54,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Được tiếng khen, ho hen không còn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 55,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ép dầu ép mỡ ai nỡ ép duyên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 56,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Giàu/giầu tại phận, khó tại duyên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 57,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Giàu/giầu thú quê không bằng ngồi lê Kẻ Chợ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 58,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Khôn ba năm, dại một giờ. Biết vậy dại sớm khỏi chờ ba năm.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 59,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Anh đi anh nhớ quê nhà, Nhớ canh rau muống, nhớ cà dầm tương. Nhớ ai dãi nắng dầm sương, Nhớ ai tát nước bên đường hôm nao.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 60,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Anh đi anh nhớ non buồi Nhớ sông Vị Thủy, nhớ người còn trinh",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 61,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ai về nhớ Vải Ninh Hòa, Nhớ cau Hổ Bái, nhớ cà Đan Nê, Nhớ dừa Quảng Hán, Lựu Khê, Nhớ cơm chợ Bản, thịt dê Quán Lào.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 62,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Anh ơi! Cố chí canh nông Chín phần ta cũng dự trong tám phần Hay gì để ruộng mà ngăn, Làm ruộng lấy lúa,chăn tằm lấy tơ.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 63,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Dù ai nói ngả nói nghiêng, Lòng ta vẫn vững như kiềng ba chân.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 64,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Dù ai đi ngược về xuôi Nhớ ngày giỗ tổ mùng mười tháng ba.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 65,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ai về đến huyện Sa Pa Nhớ xem phong cảnh nóc nhà Đông Dương",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 66,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đường đi không khó vì ngăn sông cách núi, Mà chỉ khó vì lòng người ngại núi e sông.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 67,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đa tình thì vướng nợ tình, Trách người đã vậy, trách mình sao đây !",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 68,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đường dài ngựa chạy biệt tăm, Người thương có nghĩa trăm năm cũng về.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 69,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đầu năm ăn quả thanh yên, Cuối năm ăn bưởi cho nên đèo bòng. Vì cam cho quýt đèo bòng, Vì em nhan sắc cho lòng nhớ thương.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 70,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đói lòng ăn nửa trái sim, Uống lưng bát nước đi tìm người thương Người thương, ơi hỡi, người thương, Đi đâu mà để buồng hương lạnh lùng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 71,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đi qua nghiêng nón, cúi lưng, Anh không chào, em không hỏi, vì chưng đông người.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 72,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đại Hoàng phong cảnh hữu tình, Của nhiều đất rộng gái xinh trai tài.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 73,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đường về Kiếp Bạc bao xa? Đường về Kiếp Bạc có cây đa Bồ Đề. Có yêu anh cắp nón ra về, Giàu ăn, khó chịu chớ hề thở than.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 74,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đi bộ thì khiếp Hải Vân, Đi thuyền thì khiếp sóng Thần, hang Dơi. Yêu nhau cho thịt cho xôi, Ghét nhau đưa đến Kim Bôi , Hạ Bì.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 75,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đò từ Đông Ba, đò qua Đập Đá, Đò từ Vĩ Dạ thẳng ngả Ba Sình. Lờ đờ bóng ngả trăng chênh, Tiếng hò xa vọng, nặng tình nước non.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 76,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đồng tiền không phấn không hồ, Sao mà khéo điểm khéo tô mặt người!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 77,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đèn nào sáng bằng đèn Sa Đéc, Gái nào đẹp bằng gái Nha Mân, Anh thả ghe câu lên xuống mấy lần, Thương em đứt ruột, nhưng tới gần lại run.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 78,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Gái Thái Bình lòng ngay dạ thẳng, Trai bạc tình một cẳng về quê.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 79,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Gà khôn gà chẳng đá lang Gái khôn gái chẳng bỏ làng gái đi.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 80,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Hoa thơm ai chẳng muốn đeo, Người khôn ai nỡ cứ theo nặng lời.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 81,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Hoa thơm ai chẳng nâng niu, Người khôn ai chẳng mến yêu mọi bề.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 82,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lời nói chẳng mất tiền mua, Lựa lời mà nói cho vừa lòng nhau.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 83,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Mình về có nhớ ta chăng, Ta về ta nhớ hàm răng mình cười.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 84,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nhớ ai bổi hổi bồi hồi, Như đứng đống lửa như ngồi đống than.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 85,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Người đâu gặp gỡ làm chi, Trăm năm biết có duyên đường hay không.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 86,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nhiễu điều phủ lấy giá gương, Người trong một nước phải thương nhau cùng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 87,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ngoài miệng thì nói Nam mô, Trong lòng thì chứa ba bồ dao găm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 88,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nam Kì sáu tỉnh em ơi Cửu Long chín ngọn cùng khơi một nguồn, Sông Hương nước chảy trong luôn, Núi Ngự danh tiếng cả muôn dặm ngoài.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 89,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Người ta rượu sớm trà trưa, Thân em đi sớm về trưa cả đời. Lạy trời ứng nghiệm một lời, Cho em gặp được một người em thương.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 90,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Người ta đi cấy lấy công, Tôi nay đi cấy còn trông nhiều bề. Trông trời, trông đất, trông mây, Trông mưa, trông nắng, trông ngày, trông đêm. Trông cho chân cứng đá mềm, Trời yên biển lặng mới yên tấm lòng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 91,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Núi cao chi lắm núi ơi, Núi che mặt trời chẳng thấy người thương!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 92,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ở sao vừa được lòng người, Ở rộng người cười, ở hẹp người chê",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 93,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Phải duyên phải kiếp thì theo, Cám còn ăn được, nữa bèo như anh.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 94,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Qua đình ngả nón trông đình, Đình bao nhiêu ngói, thương mình bấy nhiêu.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 95,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ra đi là sự đã liều, Nắng mai phố lạ, mưa chiều thôn xưa.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 96,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Rồng vàng tắm nước ao tù, Người khôn ở với người ngu bực mình.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 97,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Rượu nhạt uống lắm cũng say, Người khôn nói lắm dẫu hay cũng nhàm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 98,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Rủ nhau xuống bể mò cua, Đem về nấu quả me chua trên rừng. Em ơi chua, ngọt đã từng, Non xanh, nước bạc ta đừng quên nhau.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 99,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ra về bụng nhớ người thương, Tay vỗ thanh giường chép miệng thở than!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 100,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Rau răm hái ngọn còn tươi, Lạng nghe anh nói mấy lời mà cay. Kể chi những chuyện trước đây, Lòng em tưởng những núi này, non kia.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 101,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Rồng chầu ngoài Huế, ngựa tế Đồng Nai, Nước sông trong chảy lộn sông ngoài, Thương người quân tử lạc loài tới đây.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 102,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ruộng ai thì nấy đắp bờ, Duyên ai nấy gặp, đừng chờ uổng công.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 103,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Sông sâu có thể bắc cầu, Lòng người nham hiểm biết đâu mà mò.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 104,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Sông sâu còn có kẻ dò, Lòng người nham hiểm ai đo cho tường.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 105,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Sông Vàm Cỏ nước trong thấy đáy, Dòng Cửu Long xuôi chảy dịu dàng, Ai về Mỹ Thuận, Tiền Giang, Có thương nhớ gã đánh đàn năm xưa?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 106,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thôi thà đừng biết cho xong, Biết bao nhiêu lại đau lòng bấy nhiêu.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 107,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thuyền ơi có nhớ bến chăng Bến thì một dạ khăng khăng nhớ thuyền. (khăng khăng đợi thuyền.)",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 108,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Tóc mai sợi vắn sợi dài, Lấy nhau chẳng đặng thương hoài ngàn năm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 109,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thân tui thui thủi một mình, Đêm đêm lạnh lẽo buồn tình lang thang. Nếu ai nghĩ chuyện đá vàng, Tôi xin được dạo cung đàn tình chung.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 110,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thức khuya mới biết đêm dài, Ở lâu mới biết lòng người có nhân.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 111,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thân em như cam quýt bưởi bòng Ngoài tuy cay đắng trong lòng ngọt ngon.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 112,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thân em như ớt chín cây, Càng tươi ngoài vỏ càng cay trong lòng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 113,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thân em như giếng giữa đàng, Người khôn rửa mặt, người phàm rửa chân.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 114,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thân em như đóa hoa rơi, Phải chăng chàng thật là người yêu hoa?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 115,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thân em như tấm lụa điều, Đã đông nơi chuộng lại nhiều nơi thương.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 116,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thân em như cá trong bồn, Không ăn có chịu, tiếng đồn oan chưa!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 117,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thân em chẳng đáng mấy tiền, Vì tình em nặng, mấy nghìn cũng mua.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 118,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thân em như mấy củ khoai, Sáng sáng anh đói, anh nhai đỡ lòng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 119,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Trầu Bà Điểm xé ra nửa lá, Thuốc Gò Vấp hút đã một hơi, Buồn tình gá nghĩa mà chơi, Hay là anh quyết ở đời với em?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 120,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thương thay cây quê giữa rừng, Cay nồng ai biết, ngát lừng ai hay.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 121,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thương thay thân phận đàn bà, Hơn hai, ba tuổi vẫn là đàn em.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 122,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Xa xôi em chớ ngại ngùng, Xa người, xa tiếng nhưng lòng không xa.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 123,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Yêu nhau yêu cả đường đi, Ghét nhau ghét cả tông chi họ hàng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 124,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Yêu nhau cau bảy bổ ba, Ghét nhau cau sáu bổ ra làm mười.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 125,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cắn cơm không bể, cắn tiền bể hai",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 126,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Hay là trúc đã nhớ mai đi tìm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 127,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cho hai giòng lệ đầm đìa nhớ thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 128,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "27. Ai về có nhớ ta chăng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 129,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ta về ta nhớ hàm răng mình cười",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 130,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lấy anh thì lấy, nằm chung không nằm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 131,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "36. Ăn cơm không rau như nhà giàu chết không nhạc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 132,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nói lắm thì hết lời khôn hóa rồ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 133,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không ăn không ngủ, mất tiền thêm lo",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 134,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "48. Ăn trái nhớ kẻ trồng cây",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 135,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Uống nước nhớ người đào giếng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 136,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Người dưng khác họ đem lòng nhớ thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 137,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "61. Ầu ơ... Ví dầu tình bậu muốn thôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 138,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nước non một gánh chung tình",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 139,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nhớ ai ai có nhớ mình hay chăng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 140,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Bỏ em cấy lúa đồng không một mình",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 141,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "80. Anh ơi, anh giận em chi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 142,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "81. Anh ơi anh ở lại nhà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 143,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "82. Anh ơi đi lính cho Tây",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 144,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "83. Anh ơi em chẳng lấy đâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 145,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "84. Anh ơi nơm cá xong chưa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 146,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Kẻ say tình, mãi không tỉnh đâu em",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 147,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "86. Anh ơi uống rượu thì say,",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 148,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "87. Anh thương em, thương quấn thương quit",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 149,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "88. Anh thương em trầu hết lá lươn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 150,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Chết thì chịu chết, lià đôi anh không lià",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 151,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cũng không ham mộ,",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 152,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Bán cặp trâu già, mới cưới đặng em",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 153,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Bởi không áo ngắn, mới mang áo dài",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 154,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Sao anh không hỏi những ngày còn không?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 155,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Chẳng bằng một lúc ghé gần người khôn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 156,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Trầu cả chợ, sao em gọi là trầu không?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 157,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Trai nam nhi không đối đặng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 158,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Câu đợi, câu chờ, câu nhớ, câu mong",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 159,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Bé cay bé đắng bé xiêu lòng người",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 160,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Có ông ngư phủ biết tình mà thôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 161,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không ai nói chuyện với mình cho vui",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 162,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Liệu bề đát được thì thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 163,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "51. Bầu ơi thương lấy bí cùng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 164,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Qua không bỏ bậu, sao bậu đành bỏ quả",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 165,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không biết thì dựa cột mà nghe",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 166,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "64. Bìm bịp kêu nước lớn anh ơi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 167,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Buôn bán không lời, chèo chống mỏi mê",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 168,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không cho ghe cá đậu gần ghe tôm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 169,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Sao ơi, sao hỡi nhớ ai sao mờ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 170,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Vàng cầm trên tay rớt xuống không phiền",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 171,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Mả chưa cỏ mọc trong lòng đậu thai",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 172,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Chiêm bao thấy bậu dậy rờ chiếu không",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 173,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "5. Cá không ăn muối cá ươn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 174,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Người khôn xem lấy đôi hàng tóc mai",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 175,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Có đâu mặt rỗ đá mài không trơn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 176,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Tôi có lòng nào, ông hãy sáo măng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 177,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Anh thương em cho bạc cho tiền",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 178,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Vàng rơi không tiếc, tiếc công cầm vàng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 179,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Mảng lo buôn bán không về thăm em",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 180,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "24. Cây cao bóng mát không ngồi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 181,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ra ngồi chỗ nắng trách trời không mây",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 182,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Tình xưa còn đó, ngỡ ngàng nan phân!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 183,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "26. Cây khô không dễ mọc chồi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 184,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "27. Cây không trồng nên lòng không tiếc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 185,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đến đây trời khiến đem lòng thương em",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 186,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "29. Cây vông đồng không không trồng mà mọc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 187,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Chớ biểu anh từ người thương, anh không từ",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 188,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Phòng khi em nhớ cầm tay đỡ buồn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 189,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "40. Chặt không đứt, bứt không rời",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 190,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Phơi không khô, chụm không cháy",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 191,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đi buôn cau héo có buồn hay không",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 192,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "43. Chén tình là chén say sưa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 193,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nón tình anh đội nắng mưa trên đầu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 194,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đã chê xôi không dẻo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 195,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lại chê kẹo không ngọ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 196,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Trao cô thì tiếc, giữ thời không yên",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 197,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Muốn vô làm bé biết có bền hay không?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 198,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nhớ người quân tử bên cầu ngẩn ngơ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 199,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Bâng khuâng nhớ bạn chín chiều ruột đau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 200,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "52. Chiều chiều lại nhớ chiều chiều",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 201,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nhớ người áo trắng khăn điều vắt vai",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 202,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thông ngôn, ký lục bạc chục không màng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 203,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "59. Chim khôn kêu tiếng rảnh rang",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 204,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Người khôn nói tiếng dịu dàng dễ nghe",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 205,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "60. Chim khôn mắc phải lưới hồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 206,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Anh hùng lỡ vận vẫn còn duyên anh hùng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 207,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "64. Chim xa cành còn thương nhớ cội",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 208,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Chẳng thà không gặp thì thôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 209,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không dưng, ai dễ đặt điều cho ai",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 210,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Còn như yêu vụng nhớ thầm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 211,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Bơi dọc lội ngang không chắc trở về",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 212,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Phải duyên thì kết, phải lòng thì thương",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 213,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không ai ở lỗ nẻ chui lên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 214,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Chó không chê chủ nhà nghèo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 215,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Vốn không thả lý, gieo đào như ai!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 216,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ngồi không ai dễ đem phần tới cho",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 217,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "130. Có lòng xin tạ ơn long",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 218,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "133. Có yêu thời nói rằng yêu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 219,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Chẳng yêu, thì nói một điều cho xong",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 220,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lờ đờ như nước cho lòng chẳng an",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 221,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không ăn không ngủ có mần được chi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 222,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "136. Còn duyên kén những trai tơ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 223,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "137. Còn duyên như tượng tô vàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 224,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Hết duyên như ổ ong tàn ngày mưa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 225,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "138. Còn duyên kẻ đón người đưa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 226,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Hết duyên đi sớm về trưa một mình",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 227,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lạng vàng không tiếc, tiếc chi ngồi kề",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 228,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lạng vàng không tiếc, tiếc kề má son",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 229,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Buồng không lần lữa hôm mai",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 230,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đặng không mừng, mất không lo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 231,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Tình quê xin thắp bóng đèn chong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 232,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ai thương ai cảm ai nhớ ai trông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 233,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đưa câu mái đẩy chạnh lòng nước non",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 234,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Duyên phải duyên kim cải",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 235,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đánh chết, mà nết không chừa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 236,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đàn bà nói có là không",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 237,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nói yêu là ghét, nói buồn là vui",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 238,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đàn kêu tích tịch tình tang",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 239,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đàn ông không râu vô nghì",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 240,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Anh trông không rõ, anh ngỡ đèn màu",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 241,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Một tiếng anh than ba bốn đôi vàng em không tiếc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 242,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "THương em đứt ruột, nhưng tới gần lại run",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 243,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đồng hồ điểm nhặt nhớ chàng không quên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 244,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Vào ra thương bạn, héo hon ruột vàng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 245,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Aó ngắn chẳng đắp, aó dài không chung",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 246,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Sự tình kẻ ấy, người đây còn dài",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 247,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Trúc với mai, mai về trúc nhớ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 248,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Trúc trở về, mai nhớ trúc không",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 249,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Kể sao cho xiết tấm lòng tương tư",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 250,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Một duyên, hai nợ, ba tình",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 251,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thạnh suy anh chưa biết chớ thấy nàng anh vội thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 252,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đói lòng ăn đọt chà là",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 253,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đói lòng ăn nắm lá sung",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 254,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đói lòng ăn nửa trái sim",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 255,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Uống lưng bát nước đi tìm người thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 256,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đói lòng nuốt trái khổ qua",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 257,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nỡ lòng nào để phượng lià cây",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 258,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Rung sao cho chuyển lòng anh với nàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 259,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Anh mảng thương thầm chưa thấu dạ em",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 260,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Anh gặp em đây không cửa không nhà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 261,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Hồi sớm mai, gặp em sao anh không hỏi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 262,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Hay dạ của chàng nay đã hết thương?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 263,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đầu xuôi đuôi lọt: đầu to mà qua được thì đuôi bé qua dễ dàng. Việc khởi đầu thường khó mà trôi chảy, những việc sau không khó khăn chi.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 264,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đục nước béo cò: tình thế lộn xộn là dịp tốt cho kẻ trục lợi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 265,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đứng núi này trông núi nọ: không an phận, lúc nào cũng phân bì",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 266,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Được lòng ta, xót xa lòng người: phần mình sướng, tội nghiệp phần người",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 267,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Hườn xuyến vuột tay rồi, buồn nghiến, ai thương!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 268,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Em nhớ thương ai mà mặt mày ngơ ngác",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 269,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nhớ tên hốt rác hay thương thằng vét đường mương?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 270,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Em ơi, anh bảo em này",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 271,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Em ơi, em có thương anh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 272,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Em ơi em ở lại nhà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 273,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thuận nhơn tình khoét vách sang chơi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 274,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Em thương nhớ ai ngơ ngẩn bên đầu cầu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 275,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cái sập đá bỏ vắng em không ngồi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 276,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Gái Thới Bình lòng ngay dạ thẳng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 277,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Trai bạc tình một cẳng về quê",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 278,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nước phông-tên tiền rưỡi một đôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 279,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Saigon vui lắm em ơi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 280,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Sao anh không gởi thơ về thăm em?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 281,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đàn ông cũng chuộng, đàn bà cũng yêu",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 282,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Bậu đừng thương nhớ đợi chờ uổng công",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 283,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ông đội buồn tình xách nón chạy theo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 284,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Ông đội đòi cưới ba heo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 285,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Anh đi nằm bãi sao không thấy về",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 286,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Saigon, chợ Mỹ ai mà không hay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 287,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Giận quá mất khôn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 288,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Bởi không áo ngắn, mới mang áo dài .",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 289,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Bỏ thì thương, vương thì tội !",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 290,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Bầu ơi thương lấy bí cùng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 291,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lợi thì có lợi nhưng răng không còn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 292,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đem tiền cho gái có đòi được không ?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 293,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Đò dọc quan cấm, đò ngang không chèo",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 294,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Còn duyên kẻ đón người đưa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 295,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Còn không có mợ thì chợ cũng chẳng bỏ không bữa nào",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 296,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cho anh cắt với chung tình làm đôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 297,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Cá không ươm muối cá ươn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 298,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Hết duyên đi sớm về trưa mặc lòng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 299,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Chim khôn kêu tiếng rảnh rang",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 300,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Người khôn ăn nói dịu dàng dễ nghe",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 301,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không bằng làm phước cứu cho một người",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 302,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lòng ta vẫn vững như kiềng ba chân",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 303,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thà rằng nuôi lợn cho ăn lấy lòng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 304,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không kêu cũng đánh ba hồi cho kêu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 305,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Già răng già lợi đồ chơi không già",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 306,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Quan năm tiền cưới lại đèo buồng cau !",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 307,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thấy em nằm đất anh thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 308,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Khôn ngoan đối đáp người ngoài",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 309,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thịt đâm vào thịt nhớ nhau cả đời",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 310,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lắm mối tối nằm không.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 311,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lời nói không mất tiền mua",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 312,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lựa lời mà nói cho vừa lòng nhau .",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 313,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lo cau trổ muộn, lo già hết duyên",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 314,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Người trong một nước phải thương nhau cùng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 315,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nào ai lấy thước mà đo lòng người",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 316,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thương người như thể thương thân",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 317,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nhường cơm sẻ áo lòng nhân mới là",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 318,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không thương thì quả bồ hòn cũng méo !",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 319,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Sao anh không hỏi những ngày em còn không ?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 320,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thương nhau mấy núi cũng trèo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 321,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Yêu nhau cởi áo cho nhau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 322,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Yêu nhau thì ném miếng trầu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 323,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Yêu nhau cau bổ làm ba",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 324,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "H Hai đánh một không chột cũng què",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 325,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Hai hổ phân tranh, nhứt hổ tử thương",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 326,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "K Khôn ăn cái, dại ăn nước.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 327,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Khôn đâu tới trẻ, khỏe đâu tới già.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 328,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Khôn không qua lẽ, khỏe chẳng qua lời.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 329,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không làm sao nên.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 330,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không có gì là tuyệt đối.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 331,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không có lửa làm sao có khói.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 332,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không có gì tự nhiên có.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 333,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Khôn chết, dại chết, giả chết không chết.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 334,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Khôn nhà, dại chợ.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 335,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Khôn ba năm dại một giờ.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 336,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không nên đề bạn làm thù.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 337,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Khác máu tanh lòng.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 338,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Khôn từ trong trứng khôn ra.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 339,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Không dưng ai dễ đem phần đến cho.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 340,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Lắm kẻ yêu hơn nhiều người ghét.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 341,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Mất lòng trước, được lòng sau.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 342,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Miếng ngon nhớ lâu, đòn đau nhớ đời.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 343,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nước lã không huấy nên hồ.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 344,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "No mất ngon, giận mất khôn.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 345,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nó lú có chú nó khôn.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 346,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Nước lã mà vã nên hồ, tay không mà nổi cơ đồ mới ngoan.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 347,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "O Oán không giải được oán",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 348,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Oán thù nên giải không nên kết",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 349,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Rừng không hai cọp, nước không hai vua",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 350,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Sông sâu còn có kẻ dò, đố ai lấy thước mà đo lòng người",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 351,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Sự thật mất lòng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 352,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Tình sâu, nghĩa nặng.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 353,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Tình thương quán cũng là nhà, lều tranh có nghĩa hơn tòa ngói cao.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 354,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thương cho roi cho vọt, ghét cho ngọt cho bùi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 355,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Thương nhau mấy núi cũng trèo, mấy sông cũng lội mấy đèo cũng qua",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 356,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Trăm đường tránh không khỏi số.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 357,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Trăm hay không bằng tay quen.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 358,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Trăm nghe không bằng một thấy.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 359,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Trong cái khó lại ló cái khôn.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 360,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "U Uống nước nhớ nguồn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 361,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Xôi hỏng bỏng không",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 362,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Xa thương, gần thường",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 363,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Xa mặt cách lòng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 364,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Y Yêu nhau lắm, cắn nhau đau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 365,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Yêu nhau cau sáu bổ ba, ghét nhau cau sáu bổ ra làm mười",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 366,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Yêu trẻ, trẻ đến nhà; kính già, già để tuổi cho.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 367,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Yêu nhau vạn sự chẳng nề, dẫu trăm chỗ lệch cũng kê cho bằng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 368,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "Yêu nhau xa cũng nên gần, ghét nhau cách một bàn chân cũng lìa",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 369,
+    "category": "tinh-yeu"
+  },
+  {
+    "text": "* {{cite book | last1 = Lương | year =  | title = Yêu ngoài giờ | publisher = Công ty Văn hóa Hương Trang | page = 83}}",
+    "author": "Tục ngữ",
+    "category": "tinh-yeu",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 370
+  },
+  {
+    "text": "Đen tình, đỏ bạc.",
+    "author": "Tục ngữ",
+    "category": "tinh-yeu",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 371
+  },
+  {
+    "text": "Phi thương,bất phú.",
+    "author": "Tục ngữ",
+    "category": "tinh-yeu",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 372
+  },
+  {
+    "text": "Uống nước nhớ nguồn",
+    "author": "Tục ngữ",
+    "category": "tinh-yeu",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 373
+  },
+  {
+    "text": "Ăn quả nhớ kẻ trồng cây",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 374
+  },
+  {
+    "text": "Duyên sắt cầm",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 375
+  },
+  {
+    "text": "Kết tóc se duyên",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 376
+  },
+  {
+    "text": "Xăng pha nhớt",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 377
+  },
+  {
+    "text": "Xâm hại tình dục",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 378
+  },
+  {
+    "text": "Ăn quả nhớ kẻ trồng cây, ăn cơm nhớ kẻ đâm, xay, giần, sàng",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 379
+  },
+  {
+    "text": "Cạn tình cạn nghĩa",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 380
+  },
+  {
+    "text": "Hết tình hết nghĩa",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 381
+  },
+  {
+    "text": "Nhật minh yêu trần nhi",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 382
+  },
+  {
+    "text": "Phi thương bất phú",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 383
+  },
+  {
+    "text": "Tình chàng ý thiếp",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 384
+  },
+  {
+    "text": "Tình hết nghĩa còn",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 385
+  },
+  {
+    "text": "Tình thuơng mến thương",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 386
+  },
+  {
+    "text": "Trọn tình trọn nghĩa",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 387
+  },
+  {
+    "text": "Duyên cầm sắt",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 388
+  },
+  {
+    "text": "Nghĩa hải hào tình",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 389
+  },
+  {
+    "text": "Nghĩa nặng tình thâm",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 390
+  },
+  {
+    "text": "Phi vũ tình",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 391
+  },
+  {
+    "text": "Quả bom tình dục",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 392
+  },
+  {
+    "text": "Quả kiếp nhân duyên",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 393
+  },
+  {
+    "text": "Thiên duyên tiền định",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 394
+  },
+  {
+    "text": "Thương cung chi điểu, kiến khúc mộc nhi cao phi",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 395
+  },
+  {
+    "text": "Tình như giấc mộng tan",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 396
+  },
+  {
+    "text": "Trầm hương kỳ duyên",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 397
+  },
+  {
+    "text": "Ý nhạc tâm tình",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 398
+  },
+  {
+    "text": "Đơn thương độc mã",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 399
+  },
+  {
+    "text": "Lưỡng bại câu thương",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 400
+  },
+  {
+    "text": "Tình ngay lí gian",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 401
+  },
+  {
+    "text": "Xát muối vào vết thương",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 402
+  },
+  {
+    "text": "Yêu nhiều thì ốm, ôm nhiều thì yếu",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 403
+  },
+  {
+    "text": "Tôi yêu bạn",
+    "author": "Thành ngữ",
+    "category": "tinh-yeu",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 404
+  }
+]

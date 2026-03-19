@@ -1,0 +1,1451 @@
+[
+  {
+    "id": 1,
+    "text": "Thương người như thể thương thân.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian, ghi trong 'Gia Huấn Ca' (Nguyễn Trãi)"
+  },
+  {
+    "id": 2,
+    "text": "Đói cho sạch, rách cho thơm.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 3,
+    "text": "Lá lành đùm lá rách.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 4,
+    "text": "Một cây làm chẳng nên non, ba cây chụm lại nên hòn núi cao.",
+    "author": "Ca dao",
+    "category": "dao-duc",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 5,
+    "text": "Tốt gỗ hơn tốt nước sơn.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 6,
+    "text": "Uống nước nhớ nguồn.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 7,
+    "text": "Ở hiền gặp lành.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 8,
+    "text": "Gieo nhân nào gặt quả nấy.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — ảnh hưởng Phật giáo (nhân quả)"
+  },
+  {
+    "id": 9,
+    "text": "Cái nết đánh chết cái đẹp.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 10,
+    "text": "Chết trong còn hơn sống đục.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 11,
+    "text": "Đất có lề, quê có thói.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 12,
+    "text": "Gần mực thì đen, gần đèn thì sáng.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — phỏng theo thành ngữ Hán '近朱者赤'"
+  },
+  {
+    "id": 13,
+    "text": "Có đức mặc sức mà ăn.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 14,
+    "text": "Người ta là hoa đất.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 15,
+    "text": "Phi thường bất phú.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Hán Việt — gốc thành ngữ chữ Hán"
+  },
+  {
+    "id": 16,
+    "text": "Ăn ngay nói thẳng.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 17,
+    "text": "Nhiễu điều phủ lấy giá gương, người trong một nước phải thương nhau cùng.",
+    "author": "Ca dao",
+    "category": "dao-duc",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 18,
+    "text": "Mất lòng trước, được lòng sau.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 19,
+    "text": "Nhân bất thập toàn.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Hán Việt — gốc Hán '人無十全'"
+  },
+  {
+    "id": 20,
+    "text": "Hữu xạ tự nhiên hương.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Hán Việt — thành ngữ chữ Hán phổ biến trong văn hóa Việt"
+  },
+  {
+    "id": 21,
+    "text": "Giấy rách phải giữ lấy lề.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 22,
+    "text": "Trâu buộc ghét trâu ăn.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 23,
+    "text": "Ác giả ác báo.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Hán Việt — ảnh hưởng Phật giáo, gốc Hán '惡者惡報'"
+  },
+  {
+    "id": 24,
+    "text": "Khôn ngoan đối đáp người ngoài, gà cùng một mẹ chớ hoài đá nhau.",
+    "author": "Ca dao",
+    "category": "dao-duc",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 25,
+    "text": "Của cho không bằng cách cho.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "text": "Ăn cơm nhà thổi/vác tù và hàng tổng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 26,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Ăn cơm nhà, vác ngà voi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 27,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Ăn mày là ai, ăn mày là ta, đói cơm rách áo hóa ra ăn mày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 28,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Ăn ngay ở thật, mọi tật mọi lành",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 29,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Ăn trộm ăn cướp thành Phật thành Tiên, đi chùa đi chiền bán thân bất toại",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 30,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Bảy mươi chưa đui què, chớ khoe rằng lành",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 31,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Buôn chung với Đức Ông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 32,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Cách sông mới phải lụy đò",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 33,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Cái tóc cái tội",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 34,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Chó cắn áo rách",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 35,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Chùa rách bụt vàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 36,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Chú khi ni, mi khi khác",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 37,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Có kiêng có lành",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 38,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Có phúc thì có phần",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 39,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Cờ bạc là bác thằng bần",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 40,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Cơm chẳng lành, canh chẳng ngọt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 41,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Của làm ra để trên gác, của cờ bạc để ngoài sân, của phù vân để ngoài ngõ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 42,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đang yên đang lành đọc canh phải tội",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 43,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đói cho sạch, rách cho thơm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 44,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đồng tiền tài nhân nghĩa kiệt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 45,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Gà đẻ cục tác",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 46,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Giả lễ Chúa mường",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 47,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Giấy rách giữ lấy lề",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 48,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Ai ơi bưng bát cơm đầy, Dẻo thơm một hạt, đắng cay muôn phần.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 49,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Ai về đến huyện Đông Anh, Ghé xem phong cảnh Loa Thành Thục Vương. Cổ Loa hình ốc khác thường, Trải qua năm tháng, nẻo đường còn đây.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 50,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đường lên Mường Lễ bao xa? Trăm bảy mươi thác, trăm ba mươi ghềnh.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 51,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đường lên xứ Lạng bao la? Cách một trái núi với ba quãng đồng. Ai ơi, đứng lại mà trông, Kìa núi thành Lạng, kìa sông Tam Cờ…",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 52,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đầm Đại Từ hoa sen thơm ngát Giếng Đại Từ nước mát nước trong Dòng Tô uốn khúc lượn quanh Đất nuôi trẻ nhỏ lừng danh trong ngoài.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 53,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Nghèo nhân nghèo nghĩa thì lo, Nghèo tiền nghèo bạc chả lo là nghèo.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 54,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Rừng có mạch, vách có tai, Người trong chưa tỏ, người ngoài đã hay.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 55,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Trách ai tính chuyện đa đoan, Đã hái được mận lại toan bẻ đào.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 56,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Trách người quân tử vô danh, Chơi hoa xong lại bẻ cành bán rao.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 57,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Thân em như cái cọc rào, Mọt thì anh đổi, cớ sao anh phiền.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 58,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Thân em như cái sập vàng, Anh như manh chiếu rách giữa đàng bỏ quên. Lạy trời cho gió cả lên, Cho manh chiếu rách trải trên sập vàng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 59,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Tháng giêng ăn tết ở nhà, Tháng hai cờ bạc, tháng ba hội hè. Tháng tư đong đậu nấu chè, Ăn tết đoan ngọ trở về tháng năm. Tháng sáu buôn nhãn bán trăm, Tháng bảy hôm rằm, xá tội vong nhân. Tháng tám chơi đèn kéo quân, Trở về tháng chín chung chân buôn hồng. Tháng mười buôn thóc, bán bông, Tháng một tháng chạp nên công hoàn thành.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 60,
+    "category": "dao-duc"
+  },
+  {
+    "text": "1. Ai ai cũng tưởng bậu hiền",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 61,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Dẻo thơm một hạt, đắng cay muôn phần",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 62,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đã đốn thì vác cả cành lẫn cây",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 63,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Bỏ tiêu cho ngọt, bỏ hành cho thơm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 64,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Quế thơm ban ngày, lài ngát ban đêm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 65,
+    "category": "dao-duc"
+  },
+  {
+    "text": "15. Bạn bè là nghĩa tương tri",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 66,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Thủ Đức nem nướng, điện Bà Tây Ninh",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 67,
+    "category": "dao-duc"
+  },
+  {
+    "text": "40. Bông chi thơm lạ thơm lung",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 68,
+    "category": "dao-duc"
+  },
+  {
+    "text": "57. Bồ câu bồ các",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 69,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Tha rác lên cây",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 70,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Sương sa lác đác khói bay mịt mờ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 71,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Như nơi đất khách gặp người cố tri",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 72,
+    "category": "dao-duc"
+  },
+  {
+    "text": "8. Cách sông mới phải luỵ thuyền",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 73,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Người xa người tội lắm người ơi!",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 74,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Mỏ nhác cầm chèo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 75,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Khác gì hoa nở trên non một mình",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 76,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Ăn mặc rách rưới mon men ngoài hè",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 77,
+    "category": "dao-duc"
+  },
+  {
+    "text": "127. Có đỏ mà chẳng có thơm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 78,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Sạch cửa sạch nhà, lại ngọt canh cơm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 79,
+    "category": "dao-duc"
+  },
+  {
+    "text": "151. Cờ bạc là bác thằng bần",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 80,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Tào khương nghĩa nặng, sao mầy bỏ tao",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 81,
+    "category": "dao-duc"
+  },
+  {
+    "text": "157. Của làm ra để trên gác",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 82,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Công thì thưởng, tội thì trừng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 83,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Người chê rách rưới, ta là gấm nhung",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 84,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Khác nào cánh nhạn lạc bầy kêu sương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 85,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Biết rồi gối chiếc lẻ loi thêm phiền",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 86,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đố ai quét sạch lá rừng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 87,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Muốn vô gá nghĩa, biết là đặng chăng?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 88,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Muốn cho nhơn nghĩa đạo đồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 89,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Huống chi nhân nghĩa, lià sao cho đành",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 90,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đ Đất lành chim đậu.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 91,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đứng mũi chịu sào: giữ vai quan trọng, chịu trách nhiệm cho tất cả",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 92,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đứt dây động rừng: nói một người, người khác nghĩ ngợi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 93,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Dao trong mình, gươm anh cặp nách",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 94,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Gà đẻ, gà cục tác",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 95,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Ghe anh tách bến tách bờ, em buồn cho trăng mờ sao lặn",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 96,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Giàu cô giàu bác ai làm nấy ăn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 97,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Gỗ huỳnh đàn cậy thơm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 98,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Rác nọ chê rơm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 99,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Giấy rách phải giữ lấy lề",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 100,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Giao trứng cho ác.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 101,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đã đẵn, thì vác cả cành lẫn cây",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 102,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Bói ra ma quét nhà ra rác",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 103,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Chén cơm đôi đũa tách trà ai dâng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 104,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Cái câu này còn có khác hơn một tí đó là..",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 105,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Đà Lạt có thác Camly",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 106,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Tri nhân tri diện bất tri tâm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 107,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Lá lành đùm lá rách",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 108,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Trên đầu những rác cùng rơm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 109,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Nhà sạch thì mát, bát sạch ngon cơm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 110,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Ở hiền gặp lành",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 111,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Lù đù vác cái lu mà chạy.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 112,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Lành ít dữ nhiều.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 113,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Một điều nhịn chín điều lành.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 114,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Một câu nhịn, chín câu lành.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 115,
+    "category": "dao-duc"
+  },
+  {
+    "text": "NH Nhà sạch thì mát, bát sạch ngon cơm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 116,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Ơ Ở hiền gặp lành, ở ác gặp ác",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 117,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Phúc bất trùng lai, hoạ vô đơn chí.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 118,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Q Quân tử phòng thân; tiểu nhân phòng bị, gậy.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 119,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Tai vách mạch rừng.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 120,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Tốt danh hơn lành áo.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 121,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Thua keo này bày keo khác",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 122,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Việc nhà thì nhác việc chú bác thì siêng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 123,
+    "category": "dao-duc"
+  },
+  {
+    "text": "X Xa sông, cách núi.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 124,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Xa thơm gần thối",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 125,
+    "category": "dao-duc"
+  },
+  {
+    "text": "Mỗi thời, mỗi cách",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 126
+  },
+  {
+    "text": "Mưu sự tại nhân, thành sự tại thiên.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 127
+  },
+  {
+    "text": "Nhân nào, quả nấy.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 128
+  },
+  {
+    "text": "Tai vách, mạch rừng.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 129
+  },
+  {
+    "text": "Xa mặt, cách lòng.",
+    "author": "Tục ngữ",
+    "category": "dao-duc",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 130
+  },
+  {
+    "text": "Ác long",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 131
+  },
+  {
+    "text": "Ác man",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 132
+  },
+  {
+    "text": "Ách giữa đàng",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 133
+  },
+  {
+    "text": "Ải mĩ nhân",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 134
+  },
+  {
+    "text": "Áo rách vá vai",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 135
+  },
+  {
+    "text": "Bật tôm tanh tách",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 136
+  },
+  {
+    "text": "Chủ nghĩa tự lo",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 137
+  },
+  {
+    "text": "Giấy rách giữ lề",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 138
+  },
+  {
+    "text": "Nằm giường cá nhân",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 139
+  },
+  {
+    "text": "Quét nhà ra rác",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 140
+  },
+  {
+    "text": "Trâu gác bếp",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 141
+  },
+  {
+    "text": "Ác giả ác báo",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 142
+  },
+  {
+    "text": "Âm dương cách biệt",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 143
+  },
+  {
+    "text": "Ân đoạn nghĩa tuyệt",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 144
+  },
+  {
+    "text": "Bách chiến bách thắng",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 145
+  },
+  {
+    "text": "Bách nhân bách khẩu",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 146
+  },
+  {
+    "text": "Giả nhân giả nghĩa",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 147
+  },
+  {
+    "text": "Hết xí quách",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 148
+  },
+  {
+    "text": "Khách đến nhà không gà thì vịt",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 149
+  },
+  {
+    "text": "Kiết nhân thiên tướng",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 150
+  },
+  {
+    "text": "Lên thác xuống ghềnh",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 151
+  },
+  {
+    "text": "Lù đù vác lu chạy",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 152
+  },
+  {
+    "text": "Nghĩa tử là nghĩa tận",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 153
+  },
+  {
+    "text": "Nhàn cư vi bất thiện",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 154
+  },
+  {
+    "text": "Nhân định thắng thiên",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 155
+  },
+  {
+    "text": "Phú quý sinh lễ nghĩa, bần cùng sinh đạo tặc",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 156
+  },
+  {
+    "text": "Tham thì thâm, cổ nhân đã dạy",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 157
+  },
+  {
+    "text": "Thua keo này, bày keo khác",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 158
+  },
+  {
+    "text": "Việc nhà thì nhác, việc chú bác siêng năng",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 159
+  },
+  {
+    "text": "Xa mặt cách lòng",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 160
+  },
+  {
+    "text": "Ác giả ác báo",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 161
+  },
+  {
+    "text": "Ác hữu ác báo",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 162
+  },
+  {
+    "text": "Ác kê cốt tửu",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 163
+  },
+  {
+    "text": "Ác quả ác báo",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 164
+  },
+  {
+    "text": "Ác mồm ác miệng",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 165
+  },
+  {
+    "text": "Anh hùng cứu mỹ nhân",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 166
+  },
+  {
+    "text": "Bác cổ thông kim",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 167
+  },
+  {
+    "text": "Bách niên giai lão",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 168
+  },
+  {
+    "text": "Bách nhân bách khẩu",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 169
+  },
+  {
+    "text": "Bách phát bách trúng",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 170
+  },
+  {
+    "text": "Cách núi ngăn sông",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 171
+  },
+  {
+    "text": "Chuyền bóng mắt lác",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 172
+  },
+  {
+    "text": "Coi người như rơm như rác",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 173
+  },
+  {
+    "text": "Đền ơn đáp nghĩa",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 174
+  },
+  {
+    "text": "Địa linh nhân kiệt",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 175
+  },
+  {
+    "text": "Đói cơm rách áo",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 176
+  },
+  {
+    "text": "Gửi trứng cho ác",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 177
+  },
+  {
+    "text": "Kiên quan vi bác bất",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 178
+  },
+  {
+    "text": "Mĩ nhân hồng ảnh",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 179
+  },
+  {
+    "text": "Mình gầy xác ve",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 180
+  },
+  {
+    "text": "Ơn cả nghĩa dày",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 181
+  },
+  {
+    "text": "Quan san cách trở",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 182
+  },
+  {
+    "text": "Quân tử chu nhi bất tị, tiểu nhân tị nhi bất chu",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 183
+  },
+  {
+    "text": "Siêng ăn nhác làm",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 184
+  },
+  {
+    "text": "Tác oai tác quái",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 185
+  },
+  {
+    "text": "Tai vách mạch rừng",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 186
+  },
+  {
+    "text": "Tai vách mạch dừng",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 187
+  },
+  {
+    "text": "The thía tốt tiền, người hiền tiền tốt",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 188
+  },
+  {
+    "text": "Thông văn bác sử",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 189
+  },
+  {
+    "text": "Tu kỉ trị nhân",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 190
+  },
+  {
+    "text": "Ác nhân sát đức",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 191
+  },
+  {
+    "text": "Ác như hùm",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 192
+  },
+  {
+    "text": "Anh hùng khó qua ải mĩ nhân",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 193
+  },
+  {
+    "text": "Anh hùng nghĩa hiệp",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 194
+  },
+  {
+    "text": "Khác máu tanh lòng",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 195
+  },
+  {
+    "text": "Lấy dạ tiểu nhân đo lòng quân tử",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 196
+  },
+  {
+    "text": "Nứt đố đổ vách",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 197
+  },
+  {
+    "text": "Thiên mưu bách kế",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 198
+  },
+  {
+    "text": "Thiên phương bách kế",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 199
+  },
+  {
+    "text": "Tuyệt sắc giai nhân",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 200
+  },
+  {
+    "text": "Tự tung tự tác",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 201
+  },
+  {
+    "text": "Vong ân bội nghĩa",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 202
+  },
+  {
+    "text": "Bất tỉnh nhân sự",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 203
+  },
+  {
+    "text": "Ích kỉ hại nhân",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 204
+  },
+  {
+    "text": "Khác máu tanh lòng",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 205
+  },
+  {
+    "text": "Khấu đầu bách bái",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 206
+  },
+  {
+    "text": "Vệ sinh cá nhân",
+    "author": "Thành ngữ",
+    "category": "dao-duc",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 207
+  }
+]

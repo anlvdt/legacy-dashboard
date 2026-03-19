@@ -1,0 +1,877 @@
+[
+  {
+    "id": 1,
+    "text": "Nam quốc sơn hà Nam đế cư, tiệt nhiên định phận tại thiên thư.",
+    "author": "Lý Thường Kiệt",
+    "category": "lich-su",
+    "source": "Lý Thường Kiệt — Bài thơ 'Nam quốc sơn hà', đọc tại phòng tuyến sông Như Nguyệt, 1076. Ghi trong Đại Việt sử ký toàn thư"
+  },
+  {
+    "id": 2,
+    "text": "Ta thà làm quỷ nước Nam còn hơn làm vương đất Bắc.",
+    "author": "Trần Bình Trọng",
+    "category": "lich-su",
+    "source": "Trần Bình Trọng — Lời đáp khi bị quân Nguyên dụ hàng, 1285. Ghi trong Đại Việt sử ký toàn thư"
+  },
+  {
+    "id": 3,
+    "text": "Đánh cho để dài tóc, đánh cho để đen răng, đánh cho nó chích luân bất phản, đánh cho nó phiến giáp bất hoàn.",
+    "author": "Quang Trung",
+    "category": "lich-su",
+    "source": "Quang Trung (Nguyễn Huệ) — Hịch tướng sĩ, 1789. Ghi trong Hoàng Lê nhất thống chí (Ngô gia văn phái)"
+  },
+  {
+    "id": 4,
+    "text": "Nước Đại Việt ta từ trước, vốn xưng nền văn hiến đã lâu.",
+    "author": "Nguyễn Trãi",
+    "category": "lich-su",
+    "source": "Nguyễn Trãi — Bình Ngô đại cáo (平吳大誥), 1428"
+  },
+  {
+    "id": 5,
+    "text": "Tôi chỉ có một sự ham muốn, ham muốn tột bậc, là làm sao cho nước ta được hoàn toàn độc lập.",
+    "author": "Hồ Chí Minh",
+    "category": "lich-su",
+    "source": "Hồ Chí Minh — Trả lời phỏng vấn các nhà báo, 01/1946"
+  },
+  {
+    "id": 6,
+    "text": "Hỡi đồng bào cả nước! Tất cả mọi người đều sinh ra có quyền bình đẳng.",
+    "author": "Hồ Chí Minh",
+    "category": "lich-su",
+    "source": "Hồ Chí Minh — Tuyên ngôn Độc lập, 02/09/1945"
+  },
+  {
+    "id": 7,
+    "text": "Bệ hạ muốn hàng xin hãy chém đầu thần trước đã.",
+    "author": "Trần Quốc Toản",
+    "category": "lich-su",
+    "source": "Trần Quốc Toản — Lời nói khi nhà Trần họp bàn đánh Nguyên-Mông, ~1284. Ghi trong Đại Việt sử ký toàn thư"
+  },
+  {
+    "id": 8,
+    "text": "Sát Thát!",
+    "author": "Quân dân nhà Trần",
+    "category": "lich-su",
+    "source": "Khẩu hiệu thích vào tay lính Trần, Hội nghị Diên Hồng, 1284. Ghi trong Đại Việt sử ký toàn thư"
+  },
+  {
+    "id": 9,
+    "text": "Thần không biết vua nhà Tống là ai cả.",
+    "author": "Mạc Đĩnh Chi",
+    "category": "lich-su",
+    "source": "Mạc Đĩnh Chi — Lời đáp khi đi sứ nhà Nguyên, thế kỷ XIV. Ghi trong An Nam chí lược"
+  },
+  {
+    "id": 10,
+    "text": "Nếu ta không đánh phủ đầu, thì kẻ khác đánh ta trước.",
+    "author": "Lý Thường Kiệt",
+    "category": "lich-su",
+    "source": "Lý Thường Kiệt — Chiến lược 'tiên phát chế nhân' khi tấn công Ung Châu, 1075. Ghi trong Đại Việt sử ký toàn thư"
+  },
+  {
+    "id": 11,
+    "text": "Từ Triệu, Đinh, Lý, Trần bao đời gây nền độc lập. Dù mạnh yếu từng lúc khác nhau, song hào kiệt đời nào cũng có.",
+    "author": "Nguyễn Trãi",
+    "category": "lich-su",
+    "source": "Nguyễn Trãi — Bình Ngô đại cáo (平吳大誥), 1428"
+  },
+  {
+    "id": 12,
+    "text": "Các vua Hùng đã có công dựng nước, Bác cháu ta phải cùng nhau giữ lấy nước.",
+    "author": "Hồ Chí Minh",
+    "category": "lich-su",
+    "source": "Hồ Chí Minh — Nói với bộ đội tại Đền Hùng, 1954"
+  },
+  {
+    "id": 13,
+    "text": "Đem sức ta mà tự giải phóng cho ta.",
+    "author": "Hồ Chí Minh",
+    "category": "lich-su",
+    "source": "Hồ Chí Minh — Bài hát 'Mười chính sách của Việt Minh', 1941"
+  },
+  {
+    "id": 14,
+    "text": "Chúng ta thà hy sinh tất cả, chứ nhất định không chịu mất nước, nhất định không chịu làm nô lệ.",
+    "author": "Hồ Chí Minh",
+    "category": "lich-su",
+    "source": "Hồ Chí Minh — Lời kêu gọi toàn quốc kháng chiến, 19/12/1946"
+  },
+  {
+    "id": 15,
+    "text": "Tướng sĩ một lòng phụ tử, hòa nước sông chén rượu ngọt ngào.",
+    "author": "Trần Hưng Đạo",
+    "category": "lich-su",
+    "source": "Trần Hưng Đạo — Hịch tướng sĩ (檄將士文), 1285"
+  },
+  {
+    "text": "Ăn cỗ đi trước, lội nước theo sau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 16,
+    "category": "lich-su"
+  },
+  {
+    "text": "Ăn mày đánh đổ cầu ao",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 17,
+    "category": "lich-su"
+  },
+  {
+    "text": "Ăn mặn khát nước",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 18,
+    "category": "lich-su"
+  },
+  {
+    "text": "Ăn tìm đến, đánh nhau tìm đi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 19,
+    "category": "lich-su"
+  },
+  {
+    "text": "Biết người biết ta, trăm trận trăm thắng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 20,
+    "category": "lich-su"
+  },
+  {
+    "text": "Cái nết đánh chết cái đẹp",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 21,
+    "category": "lich-su"
+  },
+  {
+    "text": "Chờ khát nước mới lo đào giếng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 22,
+    "category": "lich-su"
+  },
+  {
+    "text": "Chuông kêu khẽ đánh bên thành cũng kêu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 23,
+    "category": "lich-su"
+  },
+  {
+    "text": "Còn nước còn tát(, hết nước tát tới bùn)",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 24,
+    "category": "lich-su"
+  },
+  {
+    "text": "Dân ta phải biết sử ta(, cho tường gốc tích nước nhà Việt Nam.)",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 25,
+    "category": "lich-su"
+  },
+  {
+    "text": "Được nước lấn tới",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 26,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đánh chó, ngó chủ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 27,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đánh đu với tinh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 28,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đánh trống bỏ dùi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 29,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đánh trống lảng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 30,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đánh trống lấp",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 31,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đánh trống qua cửa nhà sấm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 32,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đi nước Lào ăn mắm ngóe",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 33,
+    "category": "lich-su"
+  },
+  {
+    "text": "Được làm vua, thua làm giặc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 34,
+    "category": "lich-su"
+  },
+  {
+    "text": "Gậy đám đánh đám",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 35,
+    "category": "lich-su"
+  },
+  {
+    "text": "Giàu/giầu vể thể khó về thể, mãn uống nước bể bao giờ cạn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 36,
+    "category": "lich-su"
+  },
+  {
+    "text": "Giơ cao đánh khẽ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 37,
+    "category": "lich-su"
+  },
+  {
+    "text": "Tốt gỗ hơn tốt nước sơn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 38,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đôi ta như rắn liu điu, Nước chảy mặc nước, ta dìu lấy nhau.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 39,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đường vô xứ Nghệ quanh quanh, Non xanh nước biếc như tranh họa đồ. Ai vô xứ Nghệ thì vô!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 40,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đồng Tháp Mười cò bay thẳng cánh Nước Tháp Mười lóng lánh cá tôm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 41,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đem chuông đi đấm nước người, Chẳng kêu cũng đấm ba hồi lấy danh.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 42,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đồng Tháp Mười cò bay thẳng cánh, Nước Đồng Mười lóng lánh cá tôm, Muốn ăn bôn súng mắm kho, Thì vô Đồng Tháp ăn no đã thèm,",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 43,
+    "category": "lich-su"
+  },
+  {
+    "text": "Hôm qua tát nước đầu đình, Bỏ quên cái áo trên cành hoa sen. Em được thì cho anh xin, Hay là em (còn) để làm tin trong nhà.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 44,
+    "category": "lich-su"
+  },
+  {
+    "text": "Hỡi cô tát nước bên đàng Sao cô tát ánh trăng vàng đổ đi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 45,
+    "category": "lich-su"
+  },
+  {
+    "text": "Nhà Bè nước chảy chia hai, Ai về Gia Định, Đồng Nai thì về.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 46,
+    "category": "lich-su"
+  },
+  {
+    "text": "Phấn son tô điểm sơn hà, Làm cho rỡ mặt đàn bà nước Nam.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 47,
+    "category": "lich-su"
+  },
+  {
+    "text": "Quân tử là quân tử Tàu, Ăn cơm thì ít, ăn rau thì nhiều.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 48,
+    "category": "lich-su"
+  },
+  {
+    "text": "Sài Gòn có bến Chương Dương, Có dinh Độc Lập có đường Tự Do.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 49,
+    "category": "lich-su"
+  },
+  {
+    "text": "Tốt gỗ hơn tốt nước sơn, Xấu người đẹp nết, còn hơn đẹp người.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 50,
+    "category": "lich-su"
+  },
+  {
+    "text": "Tiếc thay hột gạo trắng ngần, Đã vo nước đục, lại vần than rơm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 51,
+    "category": "lich-su"
+  },
+  {
+    "text": "Thân em như trái xoài trên cây, Gió đông, gió tây, gió nam, gió bắc, Nó đánh lúc la lúc lắc trên cành, Một mai rơi xuống biết đành vào tay ai?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 52,
+    "category": "lich-su"
+  },
+  {
+    "text": "Thân em như thể cánh bèo, Ngược xuôi xuôi ngược theo chiều nước trôi.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 53,
+    "category": "lich-su"
+  },
+  {
+    "text": "Thân em như cái chuông vàng, Để trong thành nội có ngàn quân canh. Thân anh như thể cái chày, Bỏ lăn bỏ lóc chờ ngày dộng chuông.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 54,
+    "category": "lich-su"
+  },
+  {
+    "text": "Phù sa theo nước chảy mênh mông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 55,
+    "category": "lich-su"
+  },
+  {
+    "text": "Nước kia dù đục lóng phèn cũng trong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 56,
+    "category": "lich-su"
+  },
+  {
+    "text": "Dài lưng thời có áo chào nhà vua",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 57,
+    "category": "lich-su"
+  },
+  {
+    "text": "40. Ăn đi giỗ trước, lội nước theo sau",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 58,
+    "category": "lich-su"
+  },
+  {
+    "text": "59. Ầu ơ... Ví dầu cá bống đánh đu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 59,
+    "category": "lich-su"
+  },
+  {
+    "text": "64. Anh đánh thì em chịu đòn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 60,
+    "category": "lich-su"
+  },
+  {
+    "text": "Rừng sâu nước độc anh đừng ở lâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 61,
+    "category": "lich-su"
+  },
+  {
+    "text": "Nhứt đánh nhì đày, hai lẽ mà thôi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 62,
+    "category": "lich-su"
+  },
+  {
+    "text": "Để cho nước chảy hoa trôi lỡ làng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 63,
+    "category": "lich-su"
+  },
+  {
+    "text": "13. Bạc Liêu nước chảy lờ đờ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 64,
+    "category": "lich-su"
+  },
+  {
+    "text": "Tay têm thuốc cống, miệng mời lang quân",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 65,
+    "category": "lich-su"
+  },
+  {
+    "text": "Sáo đẻ dưới nước thì ta lấy mình",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 66,
+    "category": "lich-su"
+  },
+  {
+    "text": "Cho voi đánh sáp, cho gà nhuộm răng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 67,
+    "category": "lich-su"
+  },
+  {
+    "text": "28. Bao giờ nước ngọt đường cay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 68,
+    "category": "lich-su"
+  },
+  {
+    "text": "Gió đánh lung lay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 69,
+    "category": "lich-su"
+  },
+  {
+    "text": "Là vua Cao Tổ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 70,
+    "category": "lich-su"
+  },
+  {
+    "text": "Nước chảy đường qua",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 71,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đánh bạc cầm áo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 72,
+    "category": "lich-su"
+  },
+  {
+    "text": "Có sáo, thì sáo nước trong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 73,
+    "category": "lich-su"
+  },
+  {
+    "text": "Những người quân tử dạ càng đinh ninh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 74,
+    "category": "lich-su"
+  },
+  {
+    "text": "Hơi đâu đáy nước, mình mò bóng trăng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 75,
+    "category": "lich-su"
+  },
+  {
+    "text": "Tao tát nước vào mày sống được chăng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 76,
+    "category": "lich-su"
+  },
+  {
+    "text": "Kêu sao cho quân tử nghe cùng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 77,
+    "category": "lich-su"
+  },
+  {
+    "text": "Hễ ai đánh nó thì trời đánh cho",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 78,
+    "category": "lich-su"
+  },
+  {
+    "text": "Hễ ai đánh chết trời cho quan tiền",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 79,
+    "category": "lich-su"
+  },
+  {
+    "text": "Cướp đêm là giặc, cướp ngày là quan",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 80,
+    "category": "lich-su"
+  },
+  {
+    "text": "Sông kia nước chảy đôi dòng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 81,
+    "category": "lich-su"
+  },
+  {
+    "text": "140. Còn trời còn nước còn non",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 82,
+    "category": "lich-su"
+  },
+  {
+    "text": "Bèo theo nước cuốn qua Vàm Láng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 83,
+    "category": "lich-su"
+  },
+  {
+    "text": "Thế sự nếu dồn cơn nước nổi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 84,
+    "category": "lich-su"
+  },
+  {
+    "text": "Để ra vào kinh sử lắng nghe",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 85,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đánh bạc quen tay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 86,
+    "category": "lich-su"
+  },
+  {
+    "text": "Cá lên mặt nước, cá khô",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 87,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đến đây đất nước lạ lùng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 88,
+    "category": "lich-su"
+  },
+  {
+    "text": "Ai làm nên nỗi nước này chàng ôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 89,
+    "category": "lich-su"
+  },
+  {
+    "text": "Nước Tháp Mười lóng lánh cá tôm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 90,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đời vua Thái Tổ, Thái Tông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 91,
+    "category": "lich-su"
+  },
+  {
+    "text": "Nước xuôi làm rượu quan hà chuốc say",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 92,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đánh trống bỏ giùi: người nông nổi cẩu thả, xong việc vứt bỏ bừa bãi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 93,
+    "category": "lich-su"
+  },
+  {
+    "text": "Được làm vua, thua làm giặc: trong cuộc tranh chấp, kẻ thắng được hơn, người thua chịu kém",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 94,
+    "category": "lich-su"
+  },
+  {
+    "text": "Gạo chợ, nước sông, củi đồng, nồi đất",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 95,
+    "category": "lich-su"
+  },
+  {
+    "text": "Gập ghềnh nước chảy qua đèo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 96,
+    "category": "lich-su"
+  },
+  {
+    "text": "Giặc Tây đánh tới Cần Giờ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 97,
+    "category": "lich-su"
+  },
+  {
+    "text": "Giặc đến nhà, đàn bà phải đánh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 98,
+    "category": "lich-su"
+  },
+  {
+    "text": "Bớ cô gánh nước bên bờ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 99,
+    "category": "lich-su"
+  },
+  {
+    "text": "Gió thổi một ngày năm bảy trận giông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 100,
+    "category": "lich-su"
+  },
+  {
+    "text": "Giọt máu đào hơn ao nước lã",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 101,
+    "category": "lich-su"
+  },
+  {
+    "text": "Giặc đến nhà đàn bà cũng đánh.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 102,
+    "category": "lich-su"
+  },
+  {
+    "text": "Trăm trận trăm thắng.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 103,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đem chuông đi đánh xứ người",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 104,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đục nước béo cò",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 105,
+    "category": "lich-su"
+  },
+  {
+    "text": "Hôm qua tát nước đầu đình",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 106,
+    "category": "lich-su"
+  },
+  {
+    "text": "Hỡi cô tát nước bên đàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 107,
+    "category": "lich-su"
+  },
+  {
+    "text": "Đừng đi nước mặn mà hà ăn chân",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 108,
+    "category": "lich-su"
+  },
+  {
+    "text": "Một giọt máu đào hơn ao nước lã",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 109,
+    "category": "lich-su"
+  },
+  {
+    "text": "Khăng khăng quân tử một lời nhất ngôn.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 110,
+    "category": "lich-su"
+  },
+  {
+    "text": "Máu loãng còn hơn nước lã.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 111,
+    "category": "lich-su"
+  },
+  {
+    "text": "Mía ngọt đánh cả cụm.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 112,
+    "category": "lich-su"
+  },
+  {
+    "text": "Nước chảy về nguồn, lá rụng về cội.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 113,
+    "category": "lich-su"
+  },
+  {
+    "text": "Nước chảy đá mòn.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 114,
+    "category": "lich-su"
+  },
+  {
+    "text": "Nước đổ lá khoai.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 115,
+    "category": "lich-su"
+  },
+  {
+    "text": "Nước chảy, hoa trôi, bèo dạt.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 116,
+    "category": "lich-su"
+  },
+  {
+    "text": "Nước đổ đầu vịt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 117,
+    "category": "lich-su"
+  },
+  {
+    "text": "P Phép nước lệ làng.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 118,
+    "category": "lich-su"
+  },
+  {
+    "text": "Phép vua thua lệ làng.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 119,
+    "category": "lich-su"
+  },
+  {
+    "text": "Quân tử nhất ngôn kí xuất, tứ mã nan truy",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 120,
+    "category": "lich-su"
+  },
+  {
+    "text": "Quân tử trả thù mười năm chưa muộn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 121,
+    "category": "lich-su"
+  },
+  {
+    "text": "Thắng làm vua thua làm giặc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 122,
+    "category": "lich-su"
+  },
+  {
+    "text": "Thừa nước đục thả câu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 123,
+    "category": "lich-su"
+  },
+  {
+    "text": "Trống làng nào làng ấy đánh.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 124,
+    "category": "lich-su"
+  },
+  {
+    "text": "Việc nước trước việc nhà.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 125,
+    "category": "lich-su"
+  }
+]

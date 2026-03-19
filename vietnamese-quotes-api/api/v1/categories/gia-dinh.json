@@ -1,0 +1,4349 @@
+[
+  {
+    "id": 1,
+    "text": "Công cha như núi Thái Sơn, nghĩa mẹ như nước trong nguồn chảy ra.",
+    "author": "Ca dao",
+    "category": "gia-dinh",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 2,
+    "text": "Một giọt máu đào hơn ao nước lã.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 3,
+    "text": "Chị ngã em nâng.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 4,
+    "text": "Con có cha như nhà có nóc.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 5,
+    "text": "Cá không ăn muối cá ươn, con cãi cha mẹ trăm đường con hư.",
+    "author": "Ca dao",
+    "category": "gia-dinh",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 6,
+    "text": "Anh em như thể tay chân, rách lành đùm bọc dở hay đỡ đần.",
+    "author": "Ca dao",
+    "category": "gia-dinh",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 7,
+    "text": "Thuận vợ thuận chồng tát Biển Đông cũng cạn.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 8,
+    "text": "Đi khắp thế gian không ai tốt bằng mẹ, gánh nặng cuộc đời không ai khổ bằng cha.",
+    "author": "Ca dao",
+    "category": "gia-dinh",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 9,
+    "text": "Giàu vì bạn, sang vì vợ.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 10,
+    "text": "Con hơn cha là nhà có phúc.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 11,
+    "text": "Phúc đức tại mẫu.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 12,
+    "text": "Mẹ già như chuối ba hương, như xôi nếp một như đường mía lau.",
+    "author": "Ca dao",
+    "category": "gia-dinh",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 13,
+    "text": "Tre già măng mọc.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 14,
+    "text": "Con dại cái mang.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 15,
+    "text": "Của chồng công vợ.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 16,
+    "text": "Cha mẹ nuôi con bằng trời bằng bể, con nuôi cha mẹ con kể từng ngày.",
+    "author": "Ca dao",
+    "category": "gia-dinh",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 17,
+    "text": "Anh em trong nhà đóng cửa bảo nhau.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 18,
+    "text": "Con khôn nở mặt mẹ cha.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "Tục ngữ Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 19,
+    "text": "Bầu ơi thương lấy bí cùng, tuy rằng khác giống nhưng chung một giàn.",
+    "author": "Ca dao",
+    "category": "gia-dinh",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "id": 20,
+    "text": "Nhà khó cũng đỡ nhau cùng, kẻo mà đói nó lùng cả hai.",
+    "author": "Ca dao",
+    "category": "gia-dinh",
+    "source": "Ca dao Việt Nam — Truyền khẩu dân gian"
+  },
+  {
+    "text": "Anh em khinh trước, làng nước khinh sau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 21,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ăn cơm Tàu, ở nhà Tây, lấy vợ Nhật",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 22,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ăn mặn nói ngay, còn hơn ăn chay nói dối",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 23,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bà con vì tổ tiên, không phải vì tiền vì gạo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 24,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bà khen con bà tốt, tháng mười tháng một bà biết con bà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 25,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bán anh em xa, mua láng giềng gần",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 26,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bỏ con tép bắt con tôm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 27,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cha chung không ai khóc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 28,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cha mẹ đặt đâu, con nằm/ngồi đấy",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 29,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cha mẹ sinh con, trời sinh tính",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 30,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cha hát con khen, ai chen vô lọt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 31,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chết cha còn chú, sẩy mẹ bú dì",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 32,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cha mẹ nuôi con bằng trời bằng bể",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 33,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chê thằng một chai, lấy thằng hai lọ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 34,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng ăn chả vợ ăn nem",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 35,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng học trò, vợ con hát",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 36,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng như đó vợ như hom",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 37,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng trước đánh mau, chồng sau mau đánh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 38,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chửi cha không bằng pha tiếng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 39,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có bát sứ tình phụ bát đàn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 40,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có cha bẻ đùi gà cho con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 41,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có cha có mẹ thì hơn, không cha không mẹ như đờn đứt dây",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 42,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có con tội sống, không con tội chết",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 43,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có cô thì chợ cũng đông, cô đi lấy chồng thì chợ cũng vui",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 44,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có phúc đẻ con biết lội, có tội đẻ con biết trèo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 45,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con cá đánh ngã bát cơm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 46,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con có cha như nhà có nóc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 47,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con có nạ như thiên hạ có vua",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 48,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con dại, cái mang",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 49,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con đã mọc răng còn nói năng gì nữa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 50,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con đầu cháu sớm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 51,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con giun xéo lắm cũng quằn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 52,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con hát, mẹ khen hay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 53,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con hơn cha là nhà có phúc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 54,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con hư tại mẹ cháu hư tại bà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 55,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con không chê cha mẹ khó, chó không chê chủ nhà nghèo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 56,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con nhà lính, tính nhà quan",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 57,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con nhà tông không giống lông cũng giống cánh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 58,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con nhờ đức mẹ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 59,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con ông cháu cha",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 60,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con rồng cháu tiên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 61,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con sâu làm rầu nồi canh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 62,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con vua vua dấu, con chúa chúa yêu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 63,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Của đau con xót",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 64,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Dâu dữ mất họ, chó dữ mất láng giềng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 65,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đẻ con lành, nuôi con què",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 66,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đồng vợ đồng chồng tát biển Đông cũng cạn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 67,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đầy tớ xét công, vợ chồng xét nhân nghĩa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 68,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đem con bỏ chợ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 69,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đẹp con người tươi con của",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 70,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đồng tiền là son phấn con người",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 71,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Được bạn bỏ bè, được con trâu chậm chê me không cày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 72,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Được con riếc, tiếc con rô",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 73,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gái có con như bồ hòn có rễ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 74,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gái có công, chồng chẳng phụ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 75,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gái ơn chồng được bồng con thơ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 76,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Già nhân ngãi, non vợ chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 77,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Giàu/giầu bán ló, khó bán con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 78,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Giàu/giầu hai con mắt khó hai bàn tay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 79,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Giàu/giầu vì bạn, sang vì vợ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 80,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Giặc bên Ngô không bằng bà cô bên chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 81,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Giận con rận đốt cái áo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 82,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Hổ phụ sinh hổ tử",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 83,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Hổ dữ chẳng ăn thịt con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 84,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Khôn ngoan đối đáp người ngoài, gà cùng một mẹ chớ hoài đá nhau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 85,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ai đưa con sáo sang sông, Để cho con sáo sổ lồng bay ra.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 86,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Anh em nào phải người xa, Cùng chung bác mẹ, một nhà cùng thân. Yêu nhau như thể tay chân, Anh em hòa thuận, hai thân vui vầy.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 87,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Áo anh sứt chỉ đường tà Vợ anh chưa có, mẹ già chưa khâu.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 88,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ai về tôi gửi buồng cau, Buồng trước kính mẹ, buồng sau kính thầy.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 89,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Dạy con từ thuở còn thơ, Dạy vợ từ thuở bơ vơ mới về.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 90,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Dù em con bế con bồng, Thi đua yêu nước quyết không lơ là.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 91,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đi cho biết đó biết đây, Ở nhà với mẹ biết ngày nào khôn.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 92,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con gái nói có là không, Nói yêu là ghét, nói buồn là vui.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 93,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đêm qua ra đứng bờ ao, Trông cá, cá lặn, trông sao, sao mờ. Buồn trông con nhện giăng tơ Nhện ơi, nhện hỡi, nhện chờ mối ai ? Buồn trông chênh chếch sao Mai. Sao ơi, sao hỡi, nhớ ai sao mờ?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 94,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đôi ta bắt gặp nhau đây, Như con bò gầy gặp bãi cỏ hoang.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 95,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đôi ta như thể con bài, Đã quyểt thì đánh, đừng nài thấp cao Đôi ta như đá với dao, Năng siếc, năng sắc, năng chào, năng quen.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 96,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đôi ta như lúa đòng đòng, Đẹp duyên nhưng chẳng đẹp lòng mẹ cha Đôi ta như chỉ xe ba, Thầy mẹ xe ít, đôi ta xe nhiều.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 97,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đợi chờ trúc ở với mai, Đợi chờ anh ở với ai chưa chồng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 98,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đôi ta thương mãi nhớ lâu, Như sông nhớ nước, như nhành dâu nhớ tằm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 99,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đông Thành là mẹ là cha, Đói cơm rách áo thì ra Đông Thành.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 100,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đức Thọ gạo trắng nước trong, Ai về Đức Thọ thong dong con người.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 101,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đố anh con rết mấy chân? Núi Đầu Mâu mấy thước, chợ Hôm mấy người?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 102,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đời vua Thái Tổ, Thái Tông, Con bế con bồng, con dắt, con mang. Bò đen húc lẫn bò vàng, Hai con húc chắc, đâm quàng xuống sông. Thằng bé chạy về bảo ông ”Bò đen ta ngã xuống sông mất rồi”.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 103,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đi đâu mà bỏ mẹ già, Gối nghiêng ai sửa, tách trà ai dâng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 104,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đói lòng ăn hột chà là, Để cơm nuôi mẹ , mẹ già yếu răng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 105,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đẻ con chẳng dạy chẳng răn, Thà rằng nuôi lợn mà ăn lấy lòng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 106,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đã sinh ra kiếp ở đời, Trai thời trung hiếu đôi vai cho tròn. Gái thời trinh tịnh lòng son, Sớm hôm gìn giữ kẻo còn chút sai. Trai lành gái tốt ra người, Khuyên con trong bấy nhiêu lời cho chuyên.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 107,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đã rằng là nghĩa vợ chồng, Dầu cho nghiêng núi, cạn sông chẳng rời.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 108,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đắng cay cũng thể ruột rà, Ngọt ngào cho lắm cũng là người dưng. Em chồng ở với chị dâu, Coi chừng kẻo nó giết nhau có ngày. Con cô, con cậu thì xa, Con chú, con bác thật là anh em.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 109,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đường đi những lách cùng lau, Cha mẹ tham giàu ép uổng duyên con. Duyên sao cắc cớ, hỡi duyên! Cầm gương, gương tối, cầm vàng, vàng phai.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 110,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đừng nài lương giáo khác dòng, Vốn đều con Lạc cháu Hồng khi xưa.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 111,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đôi ta như cái đòng đòng, Đẹp duyên, nhưng chẳng đẹp lòng mẹ cha. Đứng bên tê đồng, ngó bên ni đồng, bát ngát mênh mông. Thân em như chẽn lúa đòng đòng, Phất phơ giữa ngọn nắng hồng ban mai.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 112,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đồn rằng quan tướng có danh, Cưỡi ngựa một mình, chẳng phải vịn ai. Ban khen rằng:\"Ấy mới tài\", Ban cho cái áo với hai đồng tiền. Đánh giặc thì chạy trước tiên Xông vào trận tiền cởi khố giặc ra! Giặc sợ, giặc chạy về nhà Trở về gọi mẹ mổ gà khao quân!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 113,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gánh cực mà đổ lên non, Cong lưng mà chạy, cực còn theo sau.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 114,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gắng công kén hộ cốm Vòng Kén chồng Bạch Hạc cho lòng ai vui",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 115,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Hòn đá đóng rong vì dòng nước chảy, Hòn đá bạc đầu vì bởi sương sa. Em với anh cũng muốn kết nghĩa giao hòa, Sợ mẹ bằng biển, sợ cha bằng trời. Em với anh cũng muốn kết tóc ở đời, Sợ rằng mây bạc giữa trời mau tan.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 116,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Làm trai lấy được vợ hiền, Như cầm đồng tiền mua được của ngon.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 117,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lên non mới biết non cao, Nuôi con mới biết công lao mẹ hiền.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 118,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lục tỉnh có hạt Ba Xuyên, Bạc Liêu chữ đặt, bình yên dân rày. Mậu Thìn vốn thiệt năm nay, Một ngàn hai tám, tiếng rày nổi vang. Phong Thạnh vốn thiệt tên làng, Giá Rai là quận, chợ làng kêu chung. Anh em Mười Chức công khùng, Bị tranh điền thổ, rùng rùng thác oan...",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 119,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lênh đênh ba mũi thuyền kề, Thuyền ra Kẻ Chợ, thuyền về sông Dâu.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 120,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lênh đênh ba bốn thuyền kề, Chiếc ra Hà Nội, chiếc về sông Dâu. Vì tằm em phải hái dâu, Vì người lịch sự em ngồi rầu bên nong. Lênh đênh chiếc bách giữa dòng, Thương thân góa bụa phòng không lỡ thì. Gió đưa cây trúc ngã quỳ Ba năm trực tiết còn gì là xuân?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 121,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Muốn sang thì bắc Cầu Kiều Muốn con hay chữ phải yêu lấy thầy.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 122,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mấy đời bánh đúc có xương, Mấy đời dì ghẻ lại thương con chồng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 123,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ già như chuối chín cây, Gió lay mẹ rụng, con phải mồ côi.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 124,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ngó lên nuộc lạt mái nhà, Bao nhiêu nuộc lạt nhớ ông bà bấy nhiêu",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 125,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Nước non lận đận một mình, Thân cò lên thác xuống ghềnh bấy nay. Ai làm cho bể kia đầy, Cho ao kia cạn, cho gầy cò con?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 126,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ớt nào mà ớt chẳng cay, Gái nào mà gái chẳng hay ghen chồng Vôi nào là vôi chẳng nồng, Gái nào là gái có chồng chẳng ghen.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 127,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Phượng hoàng đậu nhánh vông nem, Phải dè năm ngoái cưới em cho rồi. Ngã tư Chợ Gạo nước hồi, Tui chồng mình vợ còn chờ đợi ai.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 128,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Quả cau nho nhỏ, cái vỏ vân vân, Nay anh học gần, mai anh học xa. Lấy anh từ thuở mười ba, Đến năm mười tám thiếp đà năm con. Ra đường thiếp hãy còn son, Về nhà thiếp đã năm con với chàng.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 129,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tiền gạo thì của mẹ cha, Cái nghiên, cái bút thật là của em.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 130,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Rủ nhau đi cấy đi cày, Bây giờ khó nhọc, có ngày phong lưu. Trên đồng cạn, dưới đồng sâu, Chồng cày vợ cấy, con trâu đi bừa.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 131,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ra đường bà nọ bà kia, Về nhà không khỏi cái nia cái sàng. Ra đường võng lộng nghêng ngang, Về nhà hỏi vợ cơm rang đâu rồi ?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 132,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Rau răm đất cứng dễ bứng khó trồng, Dù thương cho lắm cũng chồng người ta.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 133,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ru con con ngủ cho rồi, Mẹ ra chỗ vắng, mẹ ngồi than thân.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 134,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Số giàu đem đến dửng dưng, Lọ là con mắt tráo trưng mới giàu.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 135,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Sông dài cá lội biệt tăm, Phải duyên chồng vợ ngàn năm cũng chờ. Ruộng ai thì nấy đắp bờ, Duyên ai nấy gặp đừng chờ uổng công.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 136,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Số cô chẳng giàu thì nghèo Ngày ba mươi Tết thịt treo trong nhà. Số cô có mẹ có cha Mẹ cô đàn bà, cha cô đàn ông. Số cô có vợ có chồng, Sinh con đầu lòng, chẳng gái thì trai.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 137,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thời giờ ngựa chạy, tên bay, Hết trưa lại tối, hết ngày lại đêm. Đông qua Xuân lại đến liền, Hè về rực rỡ, êm đềm Thu sang. Giờ con chăm học, chăm làm, Thì mai sau sẽ giỏi dang giúp đời. Nước nhà mong đợi con ơi, Hãy luôn ghi nhớ những lời thầy khuyên.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 138,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trăm năm đành lỗi hẹn hò, Cây đa bến cũ, con đò khác đưa.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 139,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tròng trành như nón không quay, Như thuyền không lái như ai không chồng. Gái có chồng như gông đeo cổ, Gái không chồng như mảnh gỗ long đinh. Gỗ long đinh anh còn chữa được, Chớ không chồng chạy ngược chạy xuôi, Không chồng khổ lắm chị em ơi!",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 140,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tiếc thay hạt gạo tám xoan, Thổi nồi đồng điếu lại chan nước cà.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 141,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thương thay thân phận con tằm, Kiếm ăn được mấy phải nằm nhả tơ. Thương thay lũ kiến li ti, Kiếm ăn được mấy phải đi tìm mồi. Thương thay hạc lánh đường mây, Chim bay mỏi cánh biết ngày nào thôi. Thương thay con cuốc giữa trời, Dầu kêu ra máu co người nào nghe.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 142,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thân em như con hạc đầu đình, Muốn bay chẳng cất nổi mình mà bay.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 143,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thân em như cánh hoa hồng, Lấy phải thằng chồng như đống cỏ khô.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 144,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thân em đi lấy chồng chung, Khác nào như cái bung xung chui đầu.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 145,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thân em vất vả trăm bề, Sớm đi ruộng lúa, tối về ruộng dâu. Có lược chẳng kịp chải đầu, Có cau chẳng kịp têm trầu mà ăn.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 146,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thanh Trì có bánh cuốn ngon, Có gò Ngũ Nhạc có con sông Hồng. Thanh Trì cảnh đẹp người đông, Có cây sáo trúc bên đồng lúa xanh.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 147,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thương thay thân phận con rùa, Lên đình đội hạc xuống chùa đội bia.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 148,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trầu Đồng Nai trầu ăn nhả bã, Thuốc Đồng Môn thuốc hút phà hơi. Trầu nồng thuốc thắm ai ơi, Gá duyên chồng vợ ở đời trăm năm.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 149,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trời cho cày cấy đầy đồng, Xứ nào xứ nấy trong lòng vui ghê. Một mai gặt lúa đem về, Thờ cha kính mẹ nhiều bề hiếu trung.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 150,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trâu ơi ta bảo trâu này, Trâu ra ngoài ruộng trâu cày với ta. Cấy cày vốn nghiệp nông gia, Ta đây trâu đấy ai mà quản công. Thằng Sang nói chuyện lung tung Thằng Trung nói chuyện mọi người dễ nghe thằng Sang như con chó đẻ Nó ngu hơn cả thằng điên giữa đường",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 151,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Uốn tre uốn thuở còn măng, Dạy vợ dạy thuở băn khoăn mới về.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 152,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Về ăn bánh đúc lá đa, Người ơi người hỡi công cha ngày ngày.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 153,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ví dầu dượng cháu người dưng, Cháu cho dượng lấy dượng cưng suốt đời.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 154,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Xấu xa cũng thế chồng ta, Dù cho tốt đẹp cũng ra chồng người.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 155,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Yêu nhau cởi áo trao nhau, Về nhà mẹ hỏi, qua cầu gió bay.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 156,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ già như chuối ba hương, Như cơm nếp mật, như đường mía lau. Đường mía lau càng lâu càng ngát, Cơm nếp mật ngào ngạt hương say. Ba hương lây lất tháng ngày, Gió đưa mẹ rụng, con rày mồ côi.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao Việt Nam, truyền khẩu dân gian",
+    "id": 157,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "2. Ai đem con sáo sang sông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 158,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Để cho con sáo sổ lồng bay cao",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 159,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Sông ơi, thấm mát đời con gái",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 160,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chẳng muốn lìa sông, chẳng muốn lấy chồng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 161,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ai mà nói dối cùng chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 162,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "23. Ai phụ tôi có đất trời chứng giám",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 163,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Phận tôi nghèo, tôi không dám phụ ai",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 164,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lấy chồng cho đáng hình dong con người",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 165,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thương sao cho được vợ người mà thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 166,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con gà nuốt trộng, cá bống nuốt tươi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 167,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Làm thì chọn việc cỏn con mà làm.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 168,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lớn lên con phải cố học hành",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 169,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con đừng lêu lổng kẻ cười người chê",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 170,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "52. Ầu ợ.. Cháu ơi cháu ngủ cho lâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 171,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ cháu đi cấy đồng sâu chưa về",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 172,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bắt được con trắm con trê",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 173,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tròng cổ mang về bà cháu mình ăn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 174,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "56. Ầu ơ... Má ơi đừng đánh con đau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 175,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Để con hát bội làm đào má coi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 176,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ầu ơ... Mẹ ơi đừng đánh con đau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 177,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Để con bắt cá hái rau mẹ dung",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 178,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Hái rau rau héo, hỏi sao mẹ dùng hả con?...",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 179,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Kho ba lượng thịt để dành mẹ ăn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 180,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "62. Ầu ơ... Ví dầu ví dẫu ví dâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 181,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tánh em hoa nguyệt mười con chẳng chừa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 182,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "65. Anh đã có vợ hay chưa?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 183,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ già anh ở nơi nao",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 184,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Hai vai gánh vác mẹ già, con thơ",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 185,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "73. Anh em bốn bể là nhà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 186,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Người dưng khác họ vẫn là anh em",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 187,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trước làm đẹp mặt nở mày mẹ cha",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 188,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Sau là không phụ tình ta bao ngày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 189,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Anh muốn vợ bé, em thì lấy cho",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 190,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con dại cả bầy bỏ lại ai nuôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 191,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Anh bồng ra gốc mít, anh bồng khít gốc chanh",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 192,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cau hết nửa vườn, cha với mẹ nào hay",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 193,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Dầu mà cha mẹ có hay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 194,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "94. Anh về làm rể ăn cơm với cá",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 195,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Em về làm dâu ăn rau má với rạm đồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 196,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng mình lịch sự nửa người nửa ta",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 197,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng mình sẽ tới tay ta phen này",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 198,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Vợ anh chưa có, mẹ già chưa khâu",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 199,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bây giờ em đã có chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 200,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cũng mua cho được mà nuôi mẹ già",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 201,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chàng ơi đừng phụ khó tham giàu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 202,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Khi lành tôn trượng, khi đau phụ phàng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 203,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "10. Bà con khó xin đừng bỏ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 204,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ngồi trong cửa sổ gởi thư lấy chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 205,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bói xem một quẻ lấy chồng lợi chăng?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 206,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Vợ cùng kham khổ, chẳng nên phụ tình",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 207,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con một nhà đứa trắng đứa đen,",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 208,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Long Lân Quy Phụng một đoàn tứ linh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 209,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cha con nhà Nguyễn bế bồng nhau đi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 210,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Sau nhà cô Huệ có nhiều gà con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 211,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tưởng sự lấy chồng, tỉnh như con sáo",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 212,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "43. Buồn tình cha chả buồn tình",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 213,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đố ai ve được con đò Thủ Thiêm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 214,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "46. Bắt con ngựa ngựa ô, ngựa ô tra khớp",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 215,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ai ghẹo gì mày hỡi cá rô con?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 216,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bán buôn nuôi mẹ cầm chừng đợi anh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 217,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "60. Biển sâu, con cá lớn vẫy vùng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 218,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bì con ông lái với tôi chân sào",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 219,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thương anh em phải sớm hôm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 220,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Buồn trông con nhện giăng tơ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 221,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con chim, cái cú, nằm nghiêng thở dài",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 222,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con mắt lừ đừ cơm chẳng muốn ăn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 223,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "73. Buổi chợ đông con cá đồng anh chê lạt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 224,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Buổi chợ tan rồi con tép bạc anh cũng khen ngon",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 225,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đã dê con chị, lại bồng con em",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 226,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "76. Bước lên xe kiếng đi viếng mả chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 227,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chờ con bạn ngọc thở than đôi lời",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 228,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lá rau tập tàng còn ở ruộng dâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 229,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con cãi cha mẹ trăm đường con hư",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 230,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lơ mơ có kẻ mất chồng như chơi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 231,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Muốn lấy vợ đẹp, nhưng không có tiền",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 232,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đừng sáo nước đục, đau lòng cò con",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 233,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một trăm con gái rửa chân cầu này",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 234,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Anh có thương em, xin sắm một con đò",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 235,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ mày đi cấy ruộng sâu chưa về",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 236,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ mày vất vả chân tay suốt ngày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 237,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "16. Cái răng cái tóc là góc con người",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 238,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ già không thể sống đời với con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 239,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con không đẻ nên mẹ ghẻ không thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 240,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con cá lòng tong ẩn bóng ăn rong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 241,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con gái xóm này chẳng chọc mà theo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 242,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cha mẹ hiền lành để đức cho con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 243,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cây đức lắm chồi, người đức lắm con",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 244,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đời cha vinh hiển đời con sang giàu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 245,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lấy chi nuôi mẹ, lấy gì nuôi em?",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 246,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "33. Cha mẹ anh có đánh quằn đánh quại",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 247,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "34. Cha mẹ nuôi con biển hồ lai láng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 248,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con nuôi cha mẹ tính tháng tính ngày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 249,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "35. Chanh chua thì khế cũng chua",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 250,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chanh bán có muà, khế bán quanh năm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 251,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "36. Cháu ơi cháu ngủ cho ngon",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 252,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "(Đố là con gì? Con sam)",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 253,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lấy chồng thợ bạc đeo vàng đỏ tay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 254,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trông về quê mẹ ruột đau chín chiều",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 255,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lia thia quen chậu, vợ chồng quen hơi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 256,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Nuôi con ai dễ kể công tháng ngày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 257,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Nhà tui ở dưới đám dâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 258,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "68. Chị lấy chồng em gặm giò heo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 259,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thuốc đâu mà chữa con người lẳng lơ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 260,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "72. Chồng chài, vợ lưới con câu",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 261,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thằng rể đóng đáy, con dâu đi nò",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 262,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "73. Chồng chung chồng chạ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 263,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ai khéo hầu hạ thì được chồng riêng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 264,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "74. Chồng già vợ trẻ là duyên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 265,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Vợ già, chồng trẻ là tiên ba đời",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 266,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "75. Chồng già vợ trẻ là tiên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 267,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Vợ già, chồng trẻ là duyên trên đời",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 268,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "76. Chồng giận thì vợ làm lành",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 269,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Muốn lấy vợ bé em thì lấy cho",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 270,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "77. Chồng thấp mà lấy vợ cao",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 271,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "78. Chồng thấp mà vợ lại cao",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 272,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trai tơ đòi vợ khóc thầm thâu đêm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 273,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Em đi co kheó đụng giường mẹ hay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 274,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Muối chua chanh mặn anh tìm được em",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 275,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Từ anh chồng cũ đến chàng là năm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 276,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "86. Con ai đem bỏ chùa này",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 277,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "A di đà Phật, con thầy thầy nuôi",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 278,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "87. Con cá buôi quạt đuôi ra biển Bắc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 279,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "88. Con cá đối nằm trên cối đá",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 280,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng gần không lấy, bậu lấy chồng xa",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 281,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mai sau cha yếu mẹ già",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 282,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "89. Con cá mày ở dưới ao",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 283,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "90. Con cá trong lờ đỏ hoe con mắt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 284,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con cá ngoài lờ ngúc ngoắc muốn vô",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 285,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "91. Con chim chích choè",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 286,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Nó đậu cành chanh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 287,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con chim chích chòe...",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 288,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "92. Con chim mày ở trên cây",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 289,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "93. Con chim nho nhỏ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 290,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "94. Con có cha mẹ đẻ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 291,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "95. Con cóc là cậu ông trời",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 292,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con cóc là cậu thầy nho",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 293,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "96. Con công hay múa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 294,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con công hay múa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 295,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "97. Con đỉa đeo bà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 296,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con gà cục tác",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 297,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con mèo cầm lái",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 298,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con rái chạy buồm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 299,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con tôm tát nước...",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 300,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "98. Con gái giống cha giàu ba họ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 301,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con trai giống mẹ khó ba đời",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 302,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "99. Con gái mà gả chồng xa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 303,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một là mất giỗ hai là mất con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 304,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con gái mà gả chồng gần",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 305,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "100. Con gái ông Bang che dù che lọng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 306,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con gái bà bống thổi lửa tắt đèn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 307,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "101. Con hơn cha là nhà có phúc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 308,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "102. Con hư tại mẹ, cháu hư tại bà",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 309,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "103. Con không cha như nhà không nóc",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 310,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con không mẹ con khóc tối ngày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 311,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "104. Con không chê cha mẹ khó",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 312,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "105. Con kiến mày ở trong nhà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 313,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "106. Con lên ba cả nhà học nói",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 314,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "107. Con mèo mà trèo cây cau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 315,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mua mắm, mua muối giỗ cha con mèo",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 316,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "108. Con mèo con chuột có long",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 317,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "109. Con nhà lính, tính nhà quan",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 318,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "110. Con nhà tông, chẳng giống lông cũng giống cánh",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 319,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "111. Con quốc kêu réo rắt trên ngàn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 320,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gà rừng táo tác gọi con tha mồi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 321,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "112. Con người có tổ có tong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 322,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "113. Con ơi học lấy nghề cha",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 323,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "114. Con ơi nhớ lấy câu này",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 324,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "115. Con sâu làm rầu nồi canh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 325,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "116. Con sông bên lở, bên bồi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 326,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "117. Con út con ít như mít chín cây",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 327,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "118. Con vua thì được làm vua",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 328,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con sãi ở chùa thì quét lá đa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 329,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "120. Có cha có mẹ thì hơn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 330,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Không cha không mẹ như đờn đứt dây¨",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 331,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "121. Có chồng mà chẳng có con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 332,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "123. Có con mà gả chồng gần",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 333,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Nửa đêm đốt đuốc đem phần cho cha",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 334,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có con mà gả chồng xa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 335,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "125. Có của thì có mẹ nàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 336,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chị là con gái nhà giầu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 337,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Em là con gái nhà hèn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 338,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có đâu chanh, khế sánh phần lựu lể",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 339,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Xin đừng đi lại mà chồng em ghen",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 340,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "131. Có phước đẻ con biết lội",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 341,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có tội đẻ con hay trèo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 342,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có phước lấy được vợ già",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 343,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "132. Có thằng chồng ghiền như ông tiên nho nhỏ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 344,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có thằng chồng say như trong chay ngoài hội",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 345,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "135. Còn cha gót đỏ như son",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 346,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đến khi cha thác, gót con đen xì",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 347,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Hết duyên ông lão cũng quơ làm chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 348,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có hai con nhỏ đứng hầu hai bên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 349,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cô chưa lấy chồng, còn chờ đợi ai",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 350,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con chị đi mất, anh vồ con em",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 351,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con chị đi mất, con em trốn chồng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 352,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "146. Công cha như núi Thái Sơn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 353,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Nghĩa mẹ như nước trong nguồn chảy ra",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 354,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một lòng thờ mẹ kính cha",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 355,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cho tròn chữ hiếu mới là đạo con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 356,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "148. Công anh làm rể có tài",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 357,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trước thăm phụ mẫu, sau là thăm em",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 358,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Em cho chị mượn chồng em vài ngày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 359,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng em đâu phải trâu cày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 360,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cha mẹ cú, đẻ con tiên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 361,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cha mẹ hiền, sinh con thảo",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 362,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trai đi mất vợ gái về thêm con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 363,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "164. Con gà cục tác lá chanh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 364,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con lợn ủn ỉn mua hành cho tôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 365,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con chó khóc đứng khóc ngồi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 366,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Dạy con từ thuở còn thơ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 367,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Dạy vợ từ thuở bơ vơ mới về",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 368,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tóc em như lông con chó xồm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 369,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Xức tóc con Thị Mầu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 370,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Dốc một lòng lấy chồng hay chữ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 371,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Rồi mai mốt đây con bạn nói dià nhà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 372,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cho qua nhắn kỉnh thăm cô bác với ông bà đặng bình an",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 373,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đàn bà không vú lấy gì nuôi con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 374,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đêm về em lăn lộn như con chim phượng hoàng bị tên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 375,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Hỏi con bạn vàng nó cứu không?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 376,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con chim kêu cũng sợ, con cá vẫy vùng cũng lo",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 377,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đề huề chồng vợ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 378,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đi chùa lạy Phật cầu chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 379,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ở nhà với mẹ biết ngày nào khôn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 380,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Để cơm nuôi mẹ, mẹ già yếu răng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 381,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng một thì lấy, chồng chung thì đừng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 382,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Nuốt vô sợ đắng, nhả ra con bạn cười",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 383,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con dao lá trúc đã kề tóc mai",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 384,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đôi ta như thể con tằm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 385,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đôi ta như thể con ong",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 386,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con quấn con quít, con trong con ngoài",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 387,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đôi ta như thể con bài",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 388,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng đánh vợ kết chẳng sai con nào",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 389,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ru con không hát, em chừa nguyệt hoa",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 390,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đố anh con rít mấy chưn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 391,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mấy người bán áo con trai",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 392,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bây giờ cô lấy chồng đâủ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 393,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đổng Kim Lân hồi còn nhỏ, đi bán giỏ nuôi mẹ",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 394,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Qua còn thương bậu, bậu khoan có chồng",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 395,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Qua đây thương bậu hơn chồng bậu thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 396,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mai sau em có theo chồng đất xa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 397,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đời cha ăn mặn đời con khát nước.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 398,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đi dối cha, về nhà dối chú: kẻ gian xảo, bất hiếu",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 399,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Em có chồng sao em không nói?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 400,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Em liều một chén dầu chanh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 401,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con nào hỗn dữ vuốt nanh em bẻ liền",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 402,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con nào độc hiểm, em nghiền ra tro",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 403,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Vườn dâu em hái mẹ già em thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 404,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ già một nắng hai sương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 405,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Em thấy anh em cũng muốn chào",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 406,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Sợ anh chồng cũ nó đứng bờ rào nó trông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 407,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Em chấy anh em cũng muốn chào",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 408,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Em về hỏi mẹ cùng cha",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 409,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có cho em lấy chồng xa hay đừng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 410,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con trai Thủ Thừa cỡi ngựa xuống mua",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 411,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trai chưa làm rể, gái vào làm dâu",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 412,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lấy chồng về đó một đời sướng thân",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 413,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một con cá lội mấy người buông câu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 414,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bà già tập tễnh mua heo cưới chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 415,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ghét con xẩm lai mê trai, mi lai nhãn khứ",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 416,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con gái đương thì rỗng toác toàng toang",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 417,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Giàu cha giàu mẹ thì ham",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 418,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Giả đò mua khế bán chanh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 419,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Giận chồng xách gói ra đi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 420,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng theo năn nỉ, khoái tù ti trở về",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 421,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Anh mê vợ bé bỏ bè con thơ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 422,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con thơ tay ẵm tay bồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 423,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tay dắt mẹ chồng, đầu đội thúng bông",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 424,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mụ đội đòi cưới con mèo cụt đuôi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 425,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con trăng lặn rồi gió biết đưa ai?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 426,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gió mùa thu mẹ đưa con ngủ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 427,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con bạn xa rồi để nhớ để thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 428,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Em đi lấy chồng nâng túi sửa khăn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 429,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con gái Bình Định cầm roi đi quyền",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 430,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Anh em như thể tay chân.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 431,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng mình lịch sự nửa người nửa tạ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 432,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng mình sẽ tới tay ta phen nàỵ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 433,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Buồng trước kính mẹ, buồng sau kính thầy",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 434,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ai đem con sáo sang sông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 435,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Để cho con sáo xổ lồng nó bay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 436,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Làm thì chọn việc cỏn con mà làm .",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 437,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bói xem một quẻ có chồng lợi chăng ?",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 438,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ngồi trong cửa sổ gửi thư kén chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 439,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Hỏi rằng chị Nguyệt đã chừng mấy con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 440,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bồng bồng mẹ bế con sang",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 441,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Muốn con hay chữ thời yêu kính thầy",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 442,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Buổi chợ đông, con cá hồng, chê lạt,",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 443,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Buổi chợ tàn, con tép bạc cũng phải mua !",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 444,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ngó về quê mẹ ruột đau chín chiều",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 445,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng gần không lấy đi lấy chồng xa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 446,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một mai cha yếu mẹ gìa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 447,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng em áo rách em thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 448,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng người áo gấm, xông hương mặc người",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 449,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trông về quê mẹ ruột đau chín chiều !",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 450,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Nhà tôi ở trước đám dâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 451,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "\"Nhà em ở dưới đám dâu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 452,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cho anh cắt với làm đôi vợ chồng ! )",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 453,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con người có tổ có tông",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 454,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Công cha như núi Thái Sơn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 455,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cho tròn chữ hiếu mới là đạo con !",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 456,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có duyên lấy được chồng già",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 457,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gánh gạo đưa chồng, tiếng khóc nỉ non",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 458,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ già chưa dễ ở đời với con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 459,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có con phải khổ vì con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 460,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có chồng phải ngậm bồ hòn đắng cay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 461,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có cha có mẹ thì hơn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 462,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Không cha không mẹ như đờn không dây",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 463,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con vua thì lại làm vua",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 464,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con sãi ở chùa lại quét lá đa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 465,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con vua thất thế lại ra quét chùa",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 466,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con ơi học lấy nghề cha",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 467,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con ơi nhớ lấy câu này",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 468,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cha đời cái áo rách này",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 469,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chàng ơi, phụ thiếp làm chi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 470,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng già vợ trẻ là tiên",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 471,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Vợ già chồng trẻ là duyên nợ trần",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 472,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng ra áo rách ta thương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 473,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Còn cha gót đỏ như son",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 474,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mất cha gót mẹ gót con đen sì",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 475,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đến khi cha chết gót con như bùn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 476,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Dạy con từ thủa còn thơ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 477,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Dạy vợ từ thủa ban sơ mới về",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 478,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một lá cho vợ, lá toan cùng người",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 479,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đẻ con chẳng dạy chẳng răn",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 480,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Bõ công bác mẹ sinh thành ra em",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 481,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gái không chồng như thuyền không lái",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 482,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trai không vợ như ngựa không cương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 483,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gái có chồng như gông đeo cổ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 484,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Trai có vợ như rợ buộc chân",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 485,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một con cá lội lắm người buông câu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 486,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Giàu vì bạn , sang vì vợ",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 487,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mai mốt lấy chồng anh sẽ giúp cho",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 488,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một con lợn béo, một vò rượu tăm",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 489,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thấy mẹ nằm võng, thấy cha nằm giường",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 490,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gà cùng một mẹ chớ hoài đá nhau",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 491,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Không chồng mà chửa mới ngoan",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 492,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có chồng mà chưả thế gian chuyện thường",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 493,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Không chồng ăn bữa nồi năm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 494,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Có chồng ăn bữa nồi mười",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 495,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ăn đói ăn khát mà nuôi lấy chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 496,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đến khi đỗ trạng chín nghìn bà con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 497,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng yêu chồng bảo râu rồng trời cho",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 498,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng yêu chồng bảo ngáy cho vui nhà",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 499,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng yêu chồng bảo về nhà đỡ cơm",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 500,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng yêu chồng bảo hoa thơm giắt đầu",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 501,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mấy đời mẹ ghẻ có thương con chồng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 502,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ nuôi con bằng trời bằng bể",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 503,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con nuôi mẹ, con kể từng ngày",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 504,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ già lo bảy lo ba,",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 505,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ già như chuối Ba Hương",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 506,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mồ côi cha ăn cơm với cá",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 507,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mồ côi mẹ liếm lá đầu đường",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 508,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một con ngựa đau , cả tàu bỏ cỏ !",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 509,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Lấy chồng Bình Định ngại dài đường đi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 510,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "No bụng đói con mắt",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 511,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gái nào là gái chẳng hay ghen chồng.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 512,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Gái nào là gái có chồng chẳng ghen !",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 513,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tiền, gạo là của mẹ cha",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 514,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Đến năm mười tám thiếp đà năm con",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 515,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Về nhà thiếp đã năm con cùng chàng",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 516,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Chồng chan, vợ húp gật đầu khen ngon",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 517,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Con heo có béo, cỗ lòng mới ngon",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 518,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Phú ông xin đổi con chim đồi mồi",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 519,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Em lấy chồng rồi anh tiếc lắm thay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 520,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thuận vợ, thuận chồng tát biển Đông cũng cạn",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 521,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Về nhà mẹ hỏi qua cầu gió bay",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 522,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Hi sinh đời bố, củng cố đời con",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 523,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Khỏi vòng cong đuôi.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 524,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một con ngựa đau, cả tàu bỏ cỏ.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 525,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một con chim én không làm nên mùa xuân.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 526,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mèo nhỏ bắt chuột con.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 527,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Một con sâu làm rầu nồi canh",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 528,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Mẹ hát, con khen hay.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 529,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "M Mẹ cày con cấy.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 530,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Muốn sang thì bắc cầu kiều, muốn con hay chữ thì yêu lấy thầy.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 531,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Nói lời phải giữ lấy lời, Đừng như con bướm đậu rồi lại bay.",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 532,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Nôm na là cha mánh khóe.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 533,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Ở xó chuồng heo,hơn là theo phía vợ",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 534,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tốt gỗ hơn tốt nước sơn, xấu người đẹp nết con hơn đẹp người",
+    "author": "Ca dao",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 535,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tham giàu phụ khó. tham sang phụ phần",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 536,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tham giàu phụ ngải",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 537,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Tham phú phụ bần",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 538,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thất bại là mẹ thành công",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 539,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Thật thà là cha dại.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 540,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Uốn cây từ thuở còn non. Dạy con từ thuở con còn ngây thơ.",
+    "author": "Tục ngữ",
+    "source": "vi.wikiquote.org — Ca dao tục ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 541,
+    "category": "gia-dinh"
+  },
+  {
+    "text": "Cha nào, con nấy.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 542
+  },
+  {
+    "text": "* {{cite book | last1 = Lê | year = 1991 | title = Lột mặt nạ những con thò lò chính trị | publisher = Mẹ Việt Nam | page = 38}}",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 543
+  },
+  {
+    "text": "Con sâu làm rầu nồi canh.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 544
+  },
+  {
+    "text": "Con sâu làm rầu nồi canh - Một người làm đĩ xấu danh đàn bà .",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 545
+  },
+  {
+    "text": "Chim sợ cành cong.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 546
+  },
+  {
+    "text": "Chưa khỏi vòng đã cong đuôi.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 547
+  },
+  {
+    "text": "Đời cha ăn mặn, đời con khát nước.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 548
+  },
+  {
+    "text": "* {{cite book | last1 = Nguyễn | year = 1997 | title = Bí mật gia đình Lâm Bưu | publisher = Văn Nghệ | page = 432}}",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 549
+  },
+  {
+    "text": "Không vào hang cọp sao bắt được cọp con.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 550
+  },
+  {
+    "text": "Kiên nhẫn là mẹ thành công.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 551
+  },
+  {
+    "text": "No bụng đói con mắt.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 552
+  },
+  {
+    "text": "Thất bại là mẹ thành công.",
+    "author": "Tục ngữ",
+    "category": "gia-dinh",
+    "source": "en.wikiquote.org — Vietnamese proverbs, truyền khẩu dân gian",
+    "id": 553
+  },
+  {
+    "text": "Bán anh em xa mua láng giềng gần",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 554
+  },
+  {
+    "text": "Cha dỡ đó mẹ xó chùa",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 555
+  },
+  {
+    "text": "Chiềng cha chiềng chú",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 556
+  },
+  {
+    "text": "Chồng nụ chồng hoa",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 557
+  },
+  {
+    "text": "Chua chanh chát muối",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 558
+  },
+  {
+    "text": "Con cháu hơn ông vải",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 559
+  },
+  {
+    "text": "Con tạo xoay vần",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 560
+  },
+  {
+    "text": "Con tịnh",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 561
+  },
+  {
+    "text": "Duyên con Thắm",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 562
+  },
+  {
+    "text": "Đánh lận con đen",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 563
+  },
+  {
+    "text": "Khô như con mắm",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 564
+  },
+  {
+    "text": "Lanh chanh như hành không muối",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 565
+  },
+  {
+    "text": "Nghe miết điếc con ráy",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 566
+  },
+  {
+    "text": "Sảy cha còn chú",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 567
+  },
+  {
+    "text": "Sảy mẹ còn cha",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 568
+  },
+  {
+    "text": "Thuận vợ thuận chồng, tát Biển Đông cũng cạn",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Tục ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 569
+  },
+  {
+    "text": "Anh em ai đầy nồi ấy",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 570
+  },
+  {
+    "text": "Anh em chém nhau bằng xống, không ai chém nhau bằng lưỡi",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 571
+  },
+  {
+    "text": "Anh em nắm nem",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 572
+  },
+  {
+    "text": "Anh em như chân như tay",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 573
+  },
+  {
+    "text": "Con dại cái mang",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 574
+  },
+  {
+    "text": "Cơm tẻ mẹ ruột",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 575
+  },
+  {
+    "text": "Lọ là con mắt tráo trưng mới giầu",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 576
+  },
+  {
+    "text": "Mang con bỏ chợ",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 577
+  },
+  {
+    "text": "Mẹ cú con tiên, mẹ hiền con thảo",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 578
+  },
+  {
+    "text": "Mẹ khen con hát hay",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 579
+  },
+  {
+    "text": "Một con ngựa đau cả tàu bỏ cỏ",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 580
+  },
+  {
+    "text": "Người ăn thì còn, con ăn thì mất",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 581
+  },
+  {
+    "text": "Nguồn đục thì dòng không trong, gốc cong thì cây không thẳng",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 582
+  },
+  {
+    "text": "Nhìn đui con mắt",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 583
+  },
+  {
+    "text": "Nhũn như con chi chi",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 584
+  },
+  {
+    "text": "Ông mất tay giò, bà thò chai rượu",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 585
+  },
+  {
+    "text": "Ơn cha báo đáp, ơn mẹ dưỡng thành",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 586
+  },
+  {
+    "text": "Ơn cha nghĩa mẹ",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 587
+  },
+  {
+    "text": "Thả con săn sắt, bắt con cá rô",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 588
+  },
+  {
+    "text": "Tương tư không ốm cũng sầu, con ruồi đậu mép chẳng đau cũng buồn",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 589
+  },
+  {
+    "text": "Vắt chanh bỏ vỏ",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 590
+  },
+  {
+    "text": "Xem/trông/nhìn mặt mà bắt hình dong, con lợn có béo thì lòng mới ngon",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 591
+  },
+  {
+    "text": "Xơi cả bù loong con tán",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wikiquote.org — Thành ngữ Việt Nam, truyền khẩu dân gian",
+    "id": 592
+  },
+  {
+    "text": "Buôn thúng bán mẹt",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 593
+  },
+  {
+    "text": "Cắt cổ con nít",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 594
+  },
+  {
+    "text": "Chuẩn cơm mẹ nấu",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 595
+  },
+  {
+    "text": "Coi người bằng nửa con mắt",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 596
+  },
+  {
+    "text": "Con cháu các cụ",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 597
+  },
+  {
+    "text": "Con dại cái mang",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 598
+  },
+  {
+    "text": "Gà sống nuôi con",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 599
+  },
+  {
+    "text": "Gà trống nuôi con",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 600
+  },
+  {
+    "text": "Mất hút con mẹ hàng lươn",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 601
+  },
+  {
+    "text": "Mẹ tròn con vuông",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 602
+  },
+  {
+    "text": "Một con ngựa đau cả tàu bỏ cỏ",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 603
+  },
+  {
+    "text": "Nhí nhảnh như con cá cảnh",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 604
+  },
+  {
+    "text": "Nhìn người bằng nửa con mắt",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 605
+  },
+  {
+    "text": "Quê cha đất tổ",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 606
+  },
+  {
+    "text": "Sảy mẹ bú dì",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 607
+  },
+  {
+    "text": "Thằng ngô con đĩ",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 608
+  },
+  {
+    "text": "Trần gian còn sót lại con ma nhà họ Hứa",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 609
+  },
+  {
+    "text": "Vợ khôn dạy chồng dại",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 610
+  },
+  {
+    "text": "Vợ lẽ con thêm",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 611
+  },
+  {
+    "text": "Vợ thằng đậu",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Thành ngữ tiếng Việt, truyền khẩu dân gian",
+    "id": 612
+  },
+  {
+    "text": "Anh em cây khế",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 613
+  },
+  {
+    "text": "Anh em cọc chèo",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 614
+  },
+  {
+    "text": "Anh em thúc bá",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 615
+  },
+  {
+    "text": "Hai người đàn bà và một con vịt thành cái chợ",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "en.wiktionary.org — Vietnamese idioms, truyền khẩu dân gian",
+    "id": 616
+  },
+  {
+    "text": "Cha anh hùng, con hảo hán",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 617
+  },
+  {
+    "text": "Con hư tại mẹ, cháu hư tại bà",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 618
+  },
+  {
+    "text": "Con hư tại mẹ",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 619
+  },
+  {
+    "text": "Năm cha ba mẹ",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 620
+  },
+  {
+    "text": "Thuận vợ thuận chồng",
+    "author": "Thành ngữ",
+    "category": "gia-dinh",
+    "source": "vi.wiktionary.org — Thể loại:Cụm từ tiếng Việt, truyền khẩu dân gian",
+    "id": 621
+  }
+]

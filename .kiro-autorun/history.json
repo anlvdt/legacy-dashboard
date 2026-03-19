@@ -439,5 +439,1139 @@
     "timestamp": "2026-03-07T02:05:07.561Z",
     "reason": "Trigger: waiting on your input",
     "status": "auto-approved"
+  },
+  {
+    "id": 64,
+    "command": "Run (OCR exact)",
+    "timestamp": "2026-03-07T02:06:19.654Z",
+    "reason": "Trigger: waiting on your input",
+    "status": "auto-approved"
+  },
+  {
+    "id": 65,
+    "command": "Run (OCR exact)",
+    "timestamp": "2026-03-07T02:06:19.656Z",
+    "reason": "Trigger: waiting on your input",
+    "status": "auto-approved"
+  },
+  {
+    "id": 66,
+    "command": "Run (OCR partial)",
+    "timestamp": "2026-03-07T02:06:19.657Z",
+    "reason": "Trigger: waiting on your input",
+    "status": "auto-approved"
+  },
+  {
+    "id": 67,
+    "command": "no_button",
+    "timestamp": "2026-03-07T02:45:19.738Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 68,
+    "command": "no_button",
+    "timestamp": "2026-03-07T02:45:19.744Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 69,
+    "command": "no_button",
+    "timestamp": "2026-03-07T02:45:19.745Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 70,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T02:59:31.667Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 71,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T02:59:35.672Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 72,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T02:59:35.675Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 73,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T02:59:41.686Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 74,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T02:59:41.689Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 75,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T02:59:41.693Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 76,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T02:59:47.695Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 77,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T02:59:47.702Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 78,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T02:59:47.707Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 79,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T02:59:47.710Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 80,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T03:00:15.799Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 81,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T03:00:15.804Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 82,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T03:00:15.806Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 83,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T03:00:15.808Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 84,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T03:00:19.806Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 85,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T03:00:19.808Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 86,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T03:00:19.810Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 87,
+    "command": "Searched workspace",
+    "timestamp": "2026-03-07T03:00:19.811Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 88,
+    "command": "kiem tra ma nguon tr...",
+    "timestamp": "2026-03-07T03:08:23.286Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 89,
+    "command": "kiem tra ma nguon tr...",
+    "timestamp": "2026-03-07T03:08:27.292Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 90,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:08:27.294Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 91,
+    "command": "kiem tra ma nguon tr...",
+    "timestamp": "2026-03-07T03:08:33.300Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 92,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:08:33.303Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 93,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:08:33.305Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 94,
+    "command": "kiem tra ma nguon tr...",
+    "timestamp": "2026-03-07T03:08:37.312Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 95,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:08:37.319Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 96,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:08:37.321Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 97,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:08:37.323Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 98,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:08:53.366Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 99,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:08:53.372Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 100,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:08:53.374Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 101,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:08:53.379Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 102,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:10:47.198Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 103,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:10:51.208Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 104,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:10:51.212Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 105,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:11:37.295Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 106,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:11:37.299Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 107,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:11:37.301Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 108,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:11:41.301Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 109,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:11:41.304Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 110,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:11:41.306Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 111,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:11:41.307Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 112,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:12:45.420Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 113,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:12:45.425Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 114,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:12:45.429Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 115,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:12:45.431Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 116,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:12:49.421Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 117,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:12:49.425Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 118,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:12:49.426Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 119,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:12:49.431Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 120,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:13:07.470Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 121,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:13:07.473Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 122,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:13:07.475Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 123,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:13:07.477Z",
+    "reason": "Trigger: waiting on your input [AX API]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 124,
+    "command": "no_button",
+    "timestamp": "2026-03-07T03:16:10.096Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 125,
+    "command": "no_button",
+    "timestamp": "2026-03-07T03:16:16.103Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 126,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:16:16.105Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 127,
+    "command": "no_button",
+    "timestamp": "2026-03-07T03:16:20.112Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 128,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:16:20.115Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 129,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:16:20.117Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 130,
+    "command": "no_button",
+    "timestamp": "2026-03-07T03:16:22.114Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 131,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:16:22.116Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 132,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:16:22.118Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 133,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:16:22.120Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 134,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:16:28.129Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 135,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:16:28.148Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 136,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:16:28.151Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 137,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:16:28.153Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 138,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:18:54.628Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 139,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:35.742Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 140,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:39.750Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 141,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:39.752Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 142,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:45.759Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 143,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:45.767Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 144,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:45.769Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 145,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:51.778Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 146,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:51.782Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 147,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:51.785Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 148,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:51.787Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 149,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:57.792Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 150,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:57.813Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 151,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:57.817Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 152,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:22:57.819Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 153,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:01.799Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 154,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:01.877Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 155,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:01.882Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 156,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:01.885Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 157,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:24.368Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 158,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:28.373Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 159,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:28.375Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 160,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:32.378Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 161,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:32.382Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 162,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:32.384Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 163,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:36.384Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 164,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:36.386Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 165,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:36.387Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 166,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:36.388Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 167,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:42.395Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 168,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:42.398Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 169,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:42.399Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 170,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:42.401Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 171,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:52.424Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 172,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:52.427Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 173,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:52.428Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 174,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:52.428Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 175,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:58.430Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 176,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:58.432Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 177,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:58.434Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 178,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:23:58.435Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 179,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:24:30.482Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 180,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:24:30.486Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 181,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:24:30.490Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 182,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:24:30.492Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 183,
+    "command": "no_button",
+    "timestamp": "2026-03-07T03:26:57.773Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 184,
+    "command": "no_button",
+    "timestamp": "2026-03-07T03:27:01.778Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 185,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:01.780Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 186,
+    "command": "no_button",
+    "timestamp": "2026-03-07T03:27:05.788Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 187,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:05.792Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 188,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:05.802Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 189,
+    "command": "no_button",
+    "timestamp": "2026-03-07T03:27:13.800Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 190,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:13.802Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 191,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:13.804Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 192,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:13.806Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 193,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:17.808Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 194,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:17.811Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 195,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:17.814Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 196,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:17.816Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 197,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:59.871Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 198,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:59.929Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 199,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:59.933Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 200,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:27:59.939Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 201,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:03.874Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 202,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:03.876Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 203,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:03.878Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 204,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:03.879Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 205,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:11.889Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 206,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:11.893Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 207,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:11.895Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 208,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:11.896Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 209,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:13.894Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 210,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:13.896Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 211,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:13.898Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 212,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:13.902Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 213,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:27.907Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 214,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:27.914Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 215,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:27.919Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 216,
+    "command": "legacy-dashboard",
+    "timestamp": "2026-03-07T03:28:27.920Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 217,
+    "command": "npm test 2>&1 | tail -5",
+    "timestamp": "2026-03-07T03:32:34.293Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 218,
+    "command": "How It Works",
+    "timestamp": "2026-03-07T03:37:51.704Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 219,
+    "command": "How It Works",
+    "timestamp": "2026-03-07T03:38:09.756Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 220,
+    "command": "no_button",
+    "timestamp": "2026-03-07T03:38:09.761Z",
+    "reason": "Stuck 5 cycles — no focus steal",
+    "status": "denied"
+  },
+  {
+    "id": 221,
+    "command": "npm test 2>&1 | tail -5",
+    "timestamp": "2026-03-07T03:40:27.400Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 222,
+    "command": "npm test 2>&1 | tail -5",
+    "timestamp": "2026-03-07T03:41:01.483Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 223,
+    "command": "npm test 2>&1 | tail -5",
+    "timestamp": "2026-03-07T03:41:01.487Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 224,
+    "command": "npm test 2>&1 | tail -5",
+    "timestamp": "2026-03-07T03:53:47.094Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
+  },
+  {
+    "id": 225,
+    "command": "git status",
+    "timestamp": "2026-03-19T10:23:13.475Z",
+    "reason": "Trigger: waiting on your input [OCR-click]",
+    "status": "auto-approved"
   }
 ]
