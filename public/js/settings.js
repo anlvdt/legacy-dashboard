@@ -723,29 +723,57 @@ LF.settings.bindEvents = function () {
         });
     }
 
-    // Export button
+    // Export button — dùng clipboard API, fallback prompt()
     var exportBtn = document.getElementById('export-settings-btn');
     if (exportBtn) {
         exportBtn.addEventListener('click', function () {
             var data = LF.settings.exportSettings();
-            if (data) {
+            if (!data) { return; }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(data).then(function () {
+                    alert('Đã sao chép cài đặt vào clipboard!');
+                }, function () {
+                    try { prompt('Sao chép chuỗi cài đặt:', data); } catch (e) { }
+                });
+            } else {
                 try { prompt('Sao chép chuỗi cài đặt:', data); } catch (e) { }
             }
         });
     }
 
-    // Import button
+    // Import button — dùng clipboard API, fallback prompt()
     var importBtn = document.getElementById('import-settings-btn');
     if (importBtn) {
         importBtn.addEventListener('click', function () {
-            var input = prompt('Dán chuỗi cài đặt:');
-            if (input) {
+            var doImport = function (input) {
+                if (!input) { return; }
                 var result = LF.settings.importSettings(input);
                 if (result) {
                     LF.settings.current = result;
                     LF.settings.save();
                     LF.settings.apply();
+                    alert('Nhập cài đặt thành công!');
+                } else {
+                    alert('Chuỗi cài đặt không hợp lệ.');
                 }
+            };
+            if (navigator.clipboard && navigator.clipboard.readText) {
+                navigator.clipboard.readText().then(function (text) {
+                    if (text && text.length > 0) {
+                        if (confirm('Nhập cài đặt từ clipboard?')) {
+                            doImport(text);
+                        }
+                    } else {
+                        var input = prompt('Dán chuỗi cài đặt:');
+                        doImport(input);
+                    }
+                }, function () {
+                    var input = prompt('Dán chuỗi cài đặt:');
+                    doImport(input);
+                });
+            } else {
+                var input = prompt('Dán chuỗi cài đặt:');
+                doImport(input);
             }
         });
     }

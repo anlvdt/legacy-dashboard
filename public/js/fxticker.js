@@ -14,10 +14,6 @@ LF.fxticker.CACHE_TTL = 1800000; // 30 phút
 /** Danh sách đồng tiền cần hiển thị */
 LF.fxticker.CURRENCIES = ['EUR', 'JPY', 'GBP', 'CNY', 'KRW', 'THB', 'AUD', 'SGD', 'TWD'];
 
-/** Animation frame ID */
-LF.fxticker._animId = null;
-LF.fxticker._position = 0;
-
 /**
  * Khởi tạo ticker
  */
@@ -104,7 +100,7 @@ LF.fxticker._fmt = function (num) {
 };
 
 /**
- * Render ticker content và bắt đầu animation
+ * Render ticker content và bắt đầu animation bằng CSS
  * @param {Array} items - [{code, value, unit}]
  */
 LF.fxticker._render = function (items) {
@@ -125,54 +121,42 @@ LF.fxticker._render = function (items) {
     content.innerHTML = html + '<span class="fx-sep">\u00B7</span>' + html;
     container.style.display = '';
 
-    LF.fxticker._startScroll();
+    // Dùng CSS animation thay vì JS rAF loop — tiết kiệm CPU/pin
+    LF.fxticker._startCSSScroll(content);
 };
 
 /**
- * Bắt đầu scroll animation (dùng requestAnimationFrame)
+ * Bắt đầu scroll animation bằng CSS (tiết kiệm CPU hơn JS rAF)
+ * @param {HTMLElement} content
  */
-LF.fxticker._startScroll = function () {
-    var content = document.getElementById('fx-ticker-content');
+LF.fxticker._startCSSScroll = function (content) {
     if (!content) { return; }
 
-    LF.fxticker._position = 0;
-    var speed = 0.3; // pixels per frame
+    // Tính thời gian animation dựa trên chiều rộng nội dung
+    var halfWidth = content.scrollWidth / 2;
+    var speed = 30; // pixels per second
+    var duration = Math.round(halfWidth / speed);
+    if (duration < 10) { duration = 10; }
 
-    function step() {
-        LF.fxticker._position -= speed;
-        var halfWidth = content.scrollWidth / 2;
-        if (Math.abs(LF.fxticker._position) >= halfWidth) {
-            LF.fxticker._position = 0;
-        }
-        content.style.webkitTransform = 'translateX(' + LF.fxticker._position + 'px)';
-        content.style.transform = 'translateX(' + LF.fxticker._position + 'px)';
-        LF.fxticker._animId = (typeof requestAnimationFrame === 'function')
-            ? requestAnimationFrame(step)
-            : setTimeout(step, 16);
+    // Inject keyframes nếu chưa có
+    if (!document.getElementById('fx-ticker-keyframes')) {
+        var style = document.createElement('style');
+        style.id = 'fx-ticker-keyframes';
+        style.textContent = '@-webkit-keyframes fxTickerScroll { from { -webkit-transform: translateX(0); } to { -webkit-transform: translateX(-50%); } } @keyframes fxTickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }';
+        document.getElementsByTagName('head')[0].appendChild(style);
     }
 
-    if (LF.fxticker._animId) {
-        if (typeof cancelAnimationFrame === 'function') {
-            cancelAnimationFrame(LF.fxticker._animId);
-        } else {
-            clearTimeout(LF.fxticker._animId);
-        }
-    }
-    LF.fxticker._animId = (typeof requestAnimationFrame === 'function')
-        ? requestAnimationFrame(step)
-        : setTimeout(step, 16);
+    content.style.webkitAnimation = 'fxTickerScroll ' + duration + 's linear infinite';
+    content.style.animation = 'fxTickerScroll ' + duration + 's linear infinite';
 };
 
 /**
  * Dừng scroll animation
  */
 LF.fxticker.stop = function () {
-    if (LF.fxticker._animId) {
-        if (typeof cancelAnimationFrame === 'function') {
-            cancelAnimationFrame(LF.fxticker._animId);
-        } else {
-            clearTimeout(LF.fxticker._animId);
-        }
-        LF.fxticker._animId = null;
+    var content = document.getElementById('fx-ticker-content');
+    if (content) {
+        content.style.webkitAnimation = 'none';
+        content.style.animation = 'none';
     }
 };

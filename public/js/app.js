@@ -37,25 +37,13 @@ LF.app._polyfillRAF = function () {
 
 /**
  * Tải Google Fonts không block rendering
- * media="print" onload="this.media='all'"
- * Fallback font stack: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif
+ * Fonts Inter + Outfit đã được tải trong HTML head
+ * Hàm này giữ lại cho backward compat nhưng không tải thêm font thừa
  * Requirements: 11.6, 11.7
  */
 LF.app._loadGoogleFonts = function () {
-    if (typeof document === 'undefined') { return; }
-
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap';
-    link.media = 'print';
-    link.onload = function () {
-        this.media = 'all';
-    };
-
-    var head = document.getElementsByTagName('head')[0];
-    if (head) {
-        head.appendChild(link);
-    }
+    // Inter + Outfit đã được tải qua <link> trong app.html
+    // Không cần tải thêm Roboto
 };
 
 /**

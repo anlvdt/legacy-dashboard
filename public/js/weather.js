@@ -301,7 +301,7 @@ LF.weather.loadForecast = function () {
         return;
     }
 
-    var forecastUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&hourly=temperature_2m,weather_code&daily=sunrise,sunset&timezone=auto&forecast_days=2';
+    var forecastUrl = '/api/weather-forecast?lat=' + lat + '&lon=' + lon;
 
     LF.utils.makeRequest(forecastUrl, function (err, data) {
         if (err || !data || !data.hourly || !data.hourly.time) {
@@ -404,7 +404,7 @@ LF.weather.loadAQI = function () {
  * @param {number} lon
  */
 LF.weather._fetchAQI = function (lat, lon) {
-    var url = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=' + lat + '&longitude=' + lon + '&current=european_aqi';
+    var url = '/api/weather-aqi?lat=' + lat + '&lon=' + lon;
 
     LF.utils.makeRequest(url, function (err, data) {
         if (err || !data || !data.current || typeof data.current.european_aqi === 'undefined') {
@@ -588,7 +588,7 @@ LF.weather.loadUV = function () {
  * @param {number} lon
  */
 LF.weather._fetchUV = function (lat, lon) {
-    var url = 'https://currentuvindex.com/api/v1/uvi?latitude=' + lat + '&longitude=' + lon;
+    var url = '/api/weather-uv?lat=' + lat + '&lon=' + lon;
 
     LF.utils.makeRequest(url, function (err, data) {
         if (err || !data || !data.ok || !data.now || typeof data.now.uvi !== 'number') {

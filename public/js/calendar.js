@@ -312,12 +312,11 @@ LF.calendar._renderMonthly = function (baseDate) {
         var isOtherMonth = false;
 
         if (dayNum < 1) {
-            // Ngày tháng trước
+            // Ngày tháng trước (month là 0-based, cellMonth cần 1-based cho solarToLunar)
             cellDate = prevMonthDays + dayNum;
-            cellMonth = month; // JS month (0-based), tháng trước = month - 1 + 1 = month
             cellYear = year;
             if (month === 0) { cellMonth = 12; cellYear = year - 1; }
-            else { cellMonth = month; }
+            else { cellMonth = month; } // month (0-based) = tháng trước (1-based)
             isOtherMonth = true;
             lunar = LF.calendar.solarToLunar(cellDate, cellMonth, cellYear);
         } else if (dayNum > daysInMonth) {

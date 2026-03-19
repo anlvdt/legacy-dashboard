@@ -10,7 +10,7 @@ var LF = LF || {};
 LF.slideshow = {};
 
 /** Danh sách interval hợp lệ */
-LF.slideshow._validIntervals = [10000, 15000, 30000, 60000];
+LF.slideshow._validIntervals = [12000, 10000, 15000, 30000, 60000];
 
 /** Interval mặc định */
 LF.slideshow._defaultInterval = 12000;
