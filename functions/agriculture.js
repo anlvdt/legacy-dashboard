@@ -105,21 +105,28 @@ const fetchHTML = async (url, timeout) => {
 
 // ─── Parsers: Cà phê ─────────────────────────────────────────────────────────
 
+/**
+ * Parse giá cà phê nội địa trung bình từ giacaphe.com/
+ * HTML: <span class="s-price" data-cur="92566.666666667">92,600</span>
+ */
 const parseCoffeePrice = (html) => {
     if (!html) return null;
-    var m;
-    // "trung bình XX,XXX" hoặc "trung bình ở mức XX,XXX"
-    m = html.match(/trung b[ìi]nh[^0-9]{0,30}?([0-9]+[.,][0-9]{3})/i);
+    // Pattern 1: data-cur attribute (chính xác nhất, trang chủ giacaphe.com)
+    var m = html.match(/data-cur="([0-9]+(?:\.[0-9]+)?)"/);
+    if (m) return Math.round(parseFloat(m[1]));
+
+    // Pattern 2: text trong span.s-price "92,600"
+    m = html.match(/class="s-price"[^>]*>([0-9]{2,3},[0-9]{3})</);
+    if (m) return parseInt(m[1].replace(/,/g, ''), 10);
+
+    // Pattern 3: "Trung bình" gần số giá
+    m = html.match(/[Tt]rung b[ìi]nh[^0-9]{0,50}?([0-9]{2,3}[.,][0-9]{3})/);
     if (m) return parseInt(m[1].replace(/[.,]/g, ''), 10);
-    // "XX,XXX đ/kg"
+
+    // Pattern 4: "XX,XXX đ/kg"
     m = html.match(/([0-9]{2,3}[.,][0-9]{3})\s*[đd]\/kg/);
     if (m) return parseInt(m[1].replace(/[.,]/g, ''), 10);
-    // og:description hoặc meta description
-    m = html.match(/(?:og:description|name=["']description["'])[^>]*content=["'][^"']*?([0-9]{2,3}[.,][0-9]{3})[^"']*?[đd]\/kg/i);
-    if (m) return parseInt(m[1].replace(/[.,]/g, ''), 10);
-    // JSON-LD "price"
-    m = html.match(/"price"\s*:\s*"?([0-9]{2,3}[.,][0-9]{3})"?/i);
-    if (m) return parseInt(m[1].replace(/[.,]/g, ''), 10);
+
     return null;
 };
 
@@ -132,6 +139,11 @@ const parseCoffeeChange = (html) => {
     return 0;
 };
 
+/**
+ * Parse giá cà phê theo vùng.
+ * Lưu ý: giacaphe.com dùng CSS obfuscation cho giá vùng (inject bằng JS),
+ * nên chỉ parse được khi có CF Browser Rendering. Trả về [] nếu không có.
+ */
 const parseCoffeeRegions = (html) => {
     if (!html) return [];
     var regions = [];
@@ -146,7 +158,13 @@ const parseCoffeeRegions = (html) => {
         var found = false;
         for (var j = 0; j < r.aliases.length && !found; j++) {
             try {
-                var m = html.match(new RegExp(r.aliases[j] + '[^0-9]{0,50}?([0-9]{2,3}[.,][0-9]{3})', 'i'));
+                // Tìm giá ngay sau tên vùng trong cùng row <tr>
+                var rowRe = new RegExp('<td[^>]*>' + r.aliases[j] + '<\\/td>[\\s\\S]{0,300}?data-price=[\'"]([0-9,]+)[\'"]', 'i');
+                var m = html.match(rowRe);
+                if (!m) {
+                    // Fallback: text gần tên vùng
+                    m = html.match(new RegExp(r.aliases[j] + '[^0-9]{0,50}?([0-9]{2,3}[.,][0-9]{3})', 'i'));
+                }
                 if (m && m[1]) {
                     var price = parseInt(m[1].replace(/[.,]/g, ''), 10);
                     if (price > 10000 && price < 500000) {
@@ -163,53 +181,77 @@ const parseCoffeeRegions = (html) => {
     return regions;
 };
 
+/**
+ * Parse giá Robusta London (USD/tấn) từ giacaphe.com/
+ * HTML: <td class='gnd-gia' data-price='3693'>3,693</td>  (row London/RC)
+ */
 const parseCoffeeWorld = (html) => {
     if (!html) return null;
-    var m;
+    // Pattern 1: row London với data-thi-truong='RC'
+    var m = html.match(/data-thi-truong='RC'[\s\S]{0,200}?data-price='([0-9]+(?:\.[0-9]+)?)'>/i);
+    if (m) return parseInt(m[1], 10);
+
+    // Pattern 2: data-price trong section#robusta (trang truc-tuyen)
     m = html.match(/id=["']robusta["'][\s\S]{0,3000}?data-price=["'](\d+(?:\.\d+)?)["']/i);
     if (m) return parseInt(m[1], 10);
-    m = html.match(/id=["']robusta-london["'][\s\S]{0,2000}?data-price=["'](\d+(?:\.\d+)?)["']/i);
-    if (m) return parseInt(m[1], 10);
-    // text fallback: "Robusta ... 2,500 USD"
+
+    // Pattern 3: text fallback
     m = html.match(/[Rr]obusta[^0-9]{0,50}?([1-9][0-9]{3,4}(?:\.[0-9]+)?)\s*(?:USD|usd|\$)/);
     if (m) return parseInt(m[1], 10);
+
     return null;
 };
 
 const parseRobustaChange = (html) => {
     if (!html) return null;
+    // Row London: data-price change ngay sau giá
+    var m = html.match(/data-thi-truong='RC'[\s\S]{0,300}?price_change'[^>]*data-price='([-0-9.]+)'/i);
+    if (m) return parseFloat(m[1]);
+
     var section = html.match(/id=["']robusta["'][\s\S]{0,15000}?<\/table>/i)
         || html.match(/id=["']robusta-london["'][\s\S]{0,5000}?<\/table>/i);
     if (!section) return null;
     var prices = section[0].match(/data-price=["']([\d.+-]+)["']/gi);
     if (prices && prices.length >= 2) {
-        var m = prices[1].match(/["']([\d.+-]+)["']/);
-        if (m) return parseFloat(m[1]);
+        var mm = prices[1].match(/["']([\d.+-]+)["']/);
+        if (mm) return parseFloat(mm[1]);
     }
     return null;
 };
 
+/**
+ * Parse giá Arabica New York (USD cent/lb) từ giacaphe.com/
+ * HTML: <td class='gnd-gia' data-price='292.9'>292.90</td>  (row New York/KC)
+ */
 const parseArabicaPrice = (html) => {
     if (!html) return null;
-    var m, section;
-    section = html.match(/id=["']coffee_ice["'][\s\S]{0,15000}?<\/table>/i);
+    // Pattern 1: row New York với data-thi-truong='KC'
+    var m = html.match(/data-thi-truong='KC'[\s\S]{0,200}?data-price='([0-9]+(?:\.[0-9]+)?)'>/i);
+    if (m) return parseFloat(m[1]);
+
+    // Pattern 2: section#coffee_ice (trang truc-tuyen)
+    var section = html.match(/id=["']coffee_ice["'][\s\S]{0,15000}?<\/table>/i);
     if (section) {
         m = section[0].match(/data-price=["']([\d.]+)["']/i);
         if (m) return parseFloat(m[1]);
     }
+
+    // Pattern 3: 2nd livequote table
     var tables = html.match(/class=["'][^"']*livequote[^"']*["'][\s\S]*?<\/table>/gi);
     if (tables && tables.length >= 2) {
         m = tables[1].match(/data-price=["']([\d.]+)["']/i);
         if (m) return parseFloat(m[1]);
     }
-    // text fallback
-    m = html.match(/[Aa]rabica[^0-9]{0,50}?([1-3][0-9]{2}(?:\.[0-9]+)?)\s*(?:cent|¢|USD)/);
-    if (m) return parseFloat(m[1]);
+
     return null;
 };
 
 const parseArabicaChange = (html) => {
     if (!html) return null;
+    // Row New York change
+    var m = html.match(/data-thi-truong='KC'[\s\S]{0,300}?price_change'[^>]*data-price='([-0-9.]+)'/i);
+    if (m) return parseFloat(m[1]);
+
     var section = html.match(/id=["']coffee_ice["'][\s\S]{0,15000}?<\/table>/i);
     if (!section) {
         var tables = html.match(/class=["'][^"']*livequote[^"']*["'][\s\S]*?<\/table>/gi);
@@ -218,8 +260,8 @@ const parseArabicaChange = (html) => {
     if (!section) return null;
     var prices = section[0].match(/data-price=["']([\d.+-]+)["']/gi);
     if (prices && prices.length >= 2) {
-        var m = prices[1].match(/["']([\d.+-]+)["']/);
-        if (m) return parseFloat(m[1]);
+        var mm = prices[1].match(/["']([\d.+-]+)["']/);
+        if (mm) return parseFloat(mm[1]);
     }
     return null;
 };
@@ -280,9 +322,10 @@ exports.handler = async function (event, context) {
     }
 
     try {
-        const [noiDiaHtml, trucTuyenHtml, pepperHtml, riceHtml] = await Promise.all([
-            fetchHTML('https://giacaphe.com/gia-ca-phe-noi-dia/', 12000),
-            fetchHTML('https://giacaphe.com/gia-ca-phe-truc-tuyen/', 12000),
+        // giacaphe.com/gia-ca-phe-noi-dia/ và /gia-ca-phe-truc-tuyen/ đều trả 403
+        // Trang chủ giacaphe.com/ trả 200 và chứa đủ: giá nội địa TB + giá thế giới RC/KC
+        const [coffeeHtml, pepperHtml, riceHtml] = await Promise.all([
+            fetchHTML('https://giacaphe.com/', 12000),
             fetchHTML('https://giatieu.com/gia-tieu-hom-nay/', 10000),
             fetchHTML('https://chogaomientay.com/bang-gia-gao-hom-nay/', 8000)
         ]);
@@ -291,16 +334,14 @@ exports.handler = async function (event, context) {
         var coffeeWorld = null, arabica = null, robustaChange = null, arabicaChange = null;
         var pepper = null, pepperChange = null, rice = null;
 
-        if (noiDiaHtml) {
-            coffee        = parseCoffeePrice(noiDiaHtml);
-            coffeeRegions = parseCoffeeRegions(noiDiaHtml);
-            coffeeChange  = parseCoffeeChange(noiDiaHtml);
-        }
-        if (trucTuyenHtml) {
-            coffeeWorld   = parseCoffeeWorld(trucTuyenHtml);
-            arabica       = parseArabicaPrice(trucTuyenHtml);
-            robustaChange = parseRobustaChange(trucTuyenHtml);
-            arabicaChange = parseArabicaChange(trucTuyenHtml);
+        if (coffeeHtml) {
+            coffee        = parseCoffeePrice(coffeeHtml);
+            coffeeRegions = parseCoffeeRegions(coffeeHtml);  // returns [] — giá vùng dùng JS injection
+            coffeeChange  = parseCoffeeChange(coffeeHtml);
+            coffeeWorld   = parseCoffeeWorld(coffeeHtml);
+            arabica       = parseArabicaPrice(coffeeHtml);
+            robustaChange = parseRobustaChange(coffeeHtml);
+            arabicaChange = parseArabicaChange(coffeeHtml);
         }
         if (pepperHtml) {
             pepper       = parsePepperPrice(pepperHtml);
