@@ -119,7 +119,7 @@ function cleanText(raw) {
 
 function extractiveSummary(text, maxLen) {
     if (!text) { return ''; }
-    maxLen = maxLen || 180;
+    maxLen = maxLen || 400;
     var sentences = text.replace(/([.!?])\s+/g, '$1\n').split('\n');
     var result = '';
     for (var i = 0; i < sentences.length; i++) {
@@ -139,16 +139,15 @@ function extractiveSummary(text, maxLen) {
 
 function cfAISummarize(accountId, apiToken, title, fullText) {
     return new Promise(function (resolve) {
-        // Giới hạn input để tránh vượt context window
-        var content = fullText.length > 1500 ? fullText.substring(0, 1500) + '...' : fullText;
-        var prompt = 'Tóm tắt bài báo công nghệ sau thành 2-3 câu tiếng Việt ngắn gọn, súc tích (tối đa 200 ký tự). Chỉ trả về câu tóm tắt, không giải thích thêm.\n\nTiêu đề: ' + title + '\nNội dung bài viết: ' + content;
+        var content = fullText.length > 3000 ? fullText.substring(0, 3000) + '...' : fullText;
+        var prompt = 'Tóm tắt bài báo công nghệ sau thành 3-4 câu tiếng Việt đầy đủ thông tin chính (khoảng 300-400 ký tự). Nêu rõ: sự kiện gì, sản phẩm/công nghệ nào, tác động/ý nghĩa. Chỉ trả về đoạn tóm tắt, không thêm tiêu đề hay giải thích.\n\nTiêu đề: ' + title + '\nNội dung bài viết: ' + content;
 
         var body = JSON.stringify({
             messages: [
-                { role: 'system', content: 'Bạn là trợ lý tóm tắt tin tức công nghệ tiếng Việt. Trả lời ngắn gọn, chính xác.' },
+                { role: 'system', content: 'Bạn là biên tập viên tin công nghệ tiếng Việt. Tóm tắt súc tích nhưng đầy đủ thông tin chính, viết liền mạch như bản tin phát thanh.' },
                 { role: 'user', content: prompt }
             ],
-            max_tokens: 150,
+            max_tokens: 300,
             temperature: 0.3
         });
 
@@ -173,8 +172,8 @@ function cfAISummarize(accountId, apiToken, title, fullText) {
                     var text = json.result && json.result.response;
                     if (text && text.trim().length > 10) {
                         text = text.trim();
-                        if (text.length > 220) {
-                            text = text.substring(0, 220).replace(/\s+\S*$/, '') + '...';
+                        if (text.length > 450) {
+                            text = text.substring(0, 450).replace(/\s+\S*$/, '') + '...';
                         }
                         return resolve(text);
                     }
@@ -260,7 +259,7 @@ exports.handler = async function (event) {
         var allItems = rawItems.map(function (it, idx) {
             return {
                 title:        it.title,
-                summary:      extractiveSummary(articleTexts[idx], 200),
+                summary:      extractiveSummary(articleTexts[idx], 400),
                 link:         it.link,
                 source:       it.source,
                 pubDate:      it.pubDate,
