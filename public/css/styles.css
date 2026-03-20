@@ -3702,6 +3702,12 @@ body.power-save-mode #news-tts-btn {
     background: rgba(255,255,255,0.04);
 }
 
+.technews-card-active {
+    background: rgba(255,200,50,0.12);
+    border-left: 2px solid rgba(255,200,50,0.7);
+    padding-left: calc(0.6vmin - 2px);
+}
+
 .technews-source {
     display: block;
     font-size: 0.85vmin;

@@ -602,6 +602,10 @@ LF.technews._render = function (items) {
 
     widget.style.display = '';
     LF.technews._startScroll();
+
+    // Hiện nút TTS
+    var techTtsBtn = document.getElementById('technews-tts-btn');
+    if (techTtsBtn) { techTtsBtn.style.display = ''; }
 };
 
 /**

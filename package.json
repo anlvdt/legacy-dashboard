@@ -10,6 +10,7 @@
     "vitest": "^3.2.1"
   },
   "dependencies": {
+    "@netlify/blobs": "^10.7.4",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "msedge-tts": "^2.0.4"

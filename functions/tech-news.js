@@ -1,48 +1,41 @@
 const https = require('https');
 
 /**
- * tech-news.js — Tin công nghệ tóm tắt AI
+ * tech-news.js — Tin công nghệ tóm tắt AI từ bài viết gốc
  *
- * Nguồn RSS: VnExpress, Tuổi Trẻ, Thanh Niên, Dân Trí, VietnamNet, Zing, Tinhte
- * Tóm tắt: Cloudflare Workers AI (llama-3.1-8b-instruct) nếu có CF_ACCOUNT_ID + CF_AI_TOKEN
- * Fallback: extractive (câu đầu tiên có nghĩa từ description RSS)
- *
- * CF Workers AI free tier: 10,000 neurons/ngày — hard cap, không charge thêm.
- * Mỗi lần tóm tắt ~50-80 neurons → ~120-200 bài/ngày trong free tier.
- * Cache 10 phút → thực tế chỉ gọi AI ~144 lần/ngày nếu refresh liên tục.
+ * Flow: RSS → lấy link → fetch full article → extract text → AI summarize
+ * Netlify free tier timeout: 10s → giới hạn 3 sources × 2 bài = 6 bài/lần
  */
 
 const SOURCES = [
-    { name: 'VnExpress',   url: 'https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss' },
-    { name: 'Tuổi Trẻ',   url: 'https://tuoitre.vn/rss/nhip-song-so.rss' },
-    { name: 'Thanh Niên',  url: 'https://thanhnien.vn/rss/cong-nghe.rss' },
-    { name: 'Dân Trí',     url: 'https://dantri.com.vn/rss/suc-manh-so.rss' },
-    { name: 'VietnamNet',  url: 'https://vietnamnet.vn/rss/cong-nghe.rss' },
-    { name: 'Zing Tech',   url: 'https://znews.vn/rss/cong-nghe.rss' },
-    { name: 'Tinhte',      url: 'https://tinhte.vn/rss' }
+    { name: 'VnExpress',  url: 'https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss' },
+    { name: 'Tuổi Trẻ',  url: 'https://tuoitre.vn/rss/nhip-song-so.rss' },
+    { name: 'Thanh Niên', url: 'https://thanhnien.vn/rss/cong-nghe.rss' },
+    { name: 'Dân Trí',    url: 'https://dantri.com.vn/rss/suc-manh-so.rss' },
+    { name: 'VietnamNet', url: 'https://vietnamnet.vn/rss/cong-nghe.rss' },
+    { name: 'Tinhte',     url: 'https://tinhte.vn/rss' }
 ];
 
-const ITEMS_PER_SOURCE = 4;
-const FETCH_TIMEOUT = 8000;
-const AI_TIMEOUT = 10000;
+const ITEMS_PER_SOURCE = 2;
+const RSS_TIMEOUT      = 5000;
+const ARTICLE_TIMEOUT  = 5000;
+const AI_TIMEOUT       = 6000;
 
 // ─── Fetch ────────────────────────────────────────────────────────────────────
 
-function fetchURL(url) {
+function fetchURL(url, timeout) {
+    timeout = timeout || RSS_TIMEOUT;
     return new Promise(function (resolve) {
         var req = https.get(url, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (compatible; LegacyFrame/1.0)',
-                'Accept': 'application/rss+xml, text/xml, */*'
-            },
-            timeout: FETCH_TIMEOUT
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LegacyFrame/1.0)', 'Accept': '*/*' },
+            timeout: timeout
         }, function (res) {
             if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
                 var next = res.headers.location;
                 if (!next.startsWith('http')) {
                     try { next = new URL(next, url).href; } catch (e) { return resolve(''); }
                 }
-                return resolve(fetchURL(next));
+                return resolve(fetchURL(next, timeout));
             }
             if (res.statusCode !== 200) { return resolve(''); }
             var body = '';
@@ -54,18 +47,62 @@ function fetchURL(url) {
     });
 }
 
+// ─── Extract article text từ HTML ─────────────────────────────────────────────
+
+/**
+ * Lấy nội dung chính từ HTML bài báo.
+ * Ưu tiên các selector phổ biến của báo VN, fallback về <p> tags.
+ * Giới hạn 2000 ký tự để không vượt context AI.
+ */
+function extractArticleText(html) {
+    if (!html) { return ''; }
+
+    // Xóa script, style, nav, header, footer, ads
+    html = html
+        .replace(/<script[\s\S]*?<\/script>/gi, '')
+        .replace(/<style[\s\S]*?<\/style>/gi, '')
+        .replace(/<nav[\s\S]*?<\/nav>/gi, '')
+        .replace(/<header[\s\S]*?<\/header>/gi, '')
+        .replace(/<footer[\s\S]*?<\/footer>/gi, '')
+        .replace(/<!--[\s\S]*?-->/g, '');
+
+    // Thử extract từ các container bài viết phổ biến
+    var containers = [
+        /class="[^"]*(?:article-body|fck_detail|detail-content|content-detail|singular-content|entry-content|post-content|article__body|article-content)[^"]*"[^>]*>([\s\S]*?)<\/(?:div|article|section)>/i,
+        /class="[^"]*(?:maincontent|main-content|content-main)[^"]*"[^>]*>([\s\S]*?)<\/div>/i
+    ];
+
+    var text = '';
+    for (var i = 0; i < containers.length; i++) {
+        var m = html.match(containers[i]);
+        if (m) { text = m[1]; break; }
+    }
+
+    // Fallback: lấy tất cả <p>
+    if (!text) { text = html; }
+
+    // Extract text từ <p> tags
+    var paragraphs = [];
+    var pRe = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+    var pm;
+    while ((pm = pRe.exec(text)) !== null) {
+        var p = pm[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        p = decodeEntities(p);
+        if (p.length > 30) { paragraphs.push(p); }
+    }
+
+    var result = paragraphs.join(' ');
+    if (result.length > 2000) { result = result.substring(0, 2000); }
+    return result;
+}
+
 // ─── HTML entity decode ───────────────────────────────────────────────────────
 
 function decodeEntities(str) {
     return str
         .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
         .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
-        .replace(/&aacute;/g, 'á').replace(/&agrave;/g, 'à').replace(/&atilde;/g, 'ã')
-        .replace(/&acirc;/g, 'â').replace(/&eacute;/g, 'é').replace(/&egrave;/g, 'è')
-        .replace(/&ecirc;/g, 'ê').replace(/&iacute;/g, 'í').replace(/&igrave;/g, 'ì')
-        .replace(/&oacute;/g, 'ó').replace(/&ograve;/g, 'ò').replace(/&otilde;/g, 'õ')
-        .replace(/&ocirc;/g, 'ô').replace(/&uacute;/g, 'ú').replace(/&ugrave;/g, 'ù')
-        .replace(/&ucirc;/g, 'û').replace(/&#\d+;/g, '');
+        .replace(/&#\d+;/g, '').replace(/&[a-z]+;/g, ' ');
 }
 
 function cleanText(raw) {
@@ -74,16 +111,16 @@ function cleanText(raw) {
     s = s.replace(/<[^>]+>/g, ' ');
     s = decodeEntities(s);
     s = s.replace(/\s+/g, ' ').trim();
-    s = s.replace(/^\([^)]{1,30}\)\s*[-–]\s*/, ''); // bỏ "(Dân trí) -"
+    s = s.replace(/^\([^)]{1,30}\)\s*[-–]\s*/, '');
     return s;
 }
 
 // ─── Extractive fallback ──────────────────────────────────────────────────────
 
-function extractiveSummary(desc, maxLen) {
-    if (!desc) { return ''; }
+function extractiveSummary(text, maxLen) {
+    if (!text) { return ''; }
     maxLen = maxLen || 180;
-    var sentences = desc.replace(/([.!?])\s+/g, '$1\n').split('\n');
+    var sentences = text.replace(/([.!?])\s+/g, '$1\n').split('\n');
     var result = '';
     for (var i = 0; i < sentences.length; i++) {
         var s = sentences[i].trim();
@@ -93,32 +130,25 @@ function extractiveSummary(desc, maxLen) {
         else { break; }
     }
     if (!result) {
-        result = desc.length > maxLen ? desc.substring(0, maxLen).replace(/\s+\S*$/, '') + '...' : desc;
+        result = text.length > maxLen ? text.substring(0, maxLen).replace(/\s+\S*$/, '') + '...' : text;
     }
     return result;
 }
 
-// ─── Cloudflare Workers AI summarization ─────────────────────────────────────
+// ─── Cloudflare Workers AI ────────────────────────────────────────────────────
 
-/**
- * Gọi CF Workers AI để tóm tắt 1 bài.
- * Model: @cf/meta/llama-3.1-8b-instruct (hỗ trợ tiếng Việt tốt)
- * @param {string} accountId
- * @param {string} apiToken
- * @param {string} title
- * @param {string} desc
- * @returns {Promise<string|null>}
- */
-function cfAISummarize(accountId, apiToken, title, desc) {
+function cfAISummarize(accountId, apiToken, title, fullText) {
     return new Promise(function (resolve) {
-        var prompt = 'Tóm tắt bài báo công nghệ sau thành 1-2 câu tiếng Việt ngắn gọn, súc tích (tối đa 150 ký tự). Chỉ trả về câu tóm tắt, không giải thích thêm.\n\nTiêu đề: ' + title + '\nNội dung: ' + desc;
+        // Giới hạn input để tránh vượt context window
+        var content = fullText.length > 1500 ? fullText.substring(0, 1500) + '...' : fullText;
+        var prompt = 'Tóm tắt bài báo công nghệ sau thành 2-3 câu tiếng Việt ngắn gọn, súc tích (tối đa 200 ký tự). Chỉ trả về câu tóm tắt, không giải thích thêm.\n\nTiêu đề: ' + title + '\nNội dung bài viết: ' + content;
 
         var body = JSON.stringify({
             messages: [
                 { role: 'system', content: 'Bạn là trợ lý tóm tắt tin tức công nghệ tiếng Việt. Trả lời ngắn gọn, chính xác.' },
                 { role: 'user', content: prompt }
             ],
-            max_tokens: 120,
+            max_tokens: 150,
             temperature: 0.3
         });
 
@@ -142,10 +172,9 @@ function cfAISummarize(accountId, apiToken, title, desc) {
                     var json = JSON.parse(data);
                     var text = json.result && json.result.response;
                     if (text && text.trim().length > 10) {
-                        // Trim về 180 ký tự
                         text = text.trim();
-                        if (text.length > 180) {
-                            text = text.substring(0, 180).replace(/\s+\S*$/, '') + '...';
+                        if (text.length > 220) {
+                            text = text.substring(0, 220).replace(/\s+\S*$/, '') + '...';
                         }
                         return resolve(text);
                     }
@@ -174,12 +203,12 @@ function parseRSS(xml, sourceName, limit) {
         var descM  = block.match(/<description[^>]*>([\s\S]*?)<\/description>/i);
         var dateM  = block.match(/<pubDate[^>]*>([\s\S]*?)<\/pubDate>/i);
 
-        var title = titleM ? cleanText(titleM[1]) : '';
-        var link  = linkM  ? linkM[1].replace(/<!\[CDATA\[/g,'').replace(/\]\]>/g,'').trim() : '';
-        var desc  = descM  ? cleanText(descM[1]) : '';
-        var pubDate = dateM ? dateM[1].trim() : '';
+        var title   = titleM ? cleanText(titleM[1]) : '';
+        var link    = linkM  ? linkM[1].replace(/<!\[CDATA\[/g, '').replace(/\]\]>/g, '').trim() : '';
+        var desc    = descM  ? cleanText(descM[1]) : '';
+        var pubDate = dateM  ? dateM[1].trim() : '';
 
-        if (!title || title.length < 5) { continue; }
+        if (!title || title.length < 5 || !link) { continue; }
         items.push({ title, desc, link, source: sourceName, pubDate });
     }
     return items;
@@ -202,9 +231,9 @@ exports.handler = async function (event) {
 
     try {
         // 1. Fetch tất cả RSS song song
-        const xmlList = await Promise.all(SOURCES.map(s => fetchURL(s.url)));
+        const xmlList = await Promise.all(SOURCES.map(function (s) { return fetchURL(s.url, RSS_TIMEOUT); }));
 
-        // 2. Parse
+        // 2. Parse RSS → lấy link + title + desc (fallback)
         var rawItems = [];
         for (var i = 0; i < SOURCES.length; i++) {
             var parsed = parseRSS(xmlList[i], SOURCES[i].name, ITEMS_PER_SOURCE);
@@ -219,39 +248,36 @@ exports.handler = async function (event) {
             };
         }
 
-        // 3. Summarize — AI nếu có token, extractive nếu không
-        var allItems = [];
+        // 3. Fetch full article song song, fallback về RSS desc nếu thất bại
+        var articleTexts = await Promise.all(rawItems.map(function (it) {
+            return fetchURL(it.link, ARTICLE_TIMEOUT).then(function (html) {
+                var text = extractArticleText(html);
+                return text.length > 100 ? text : it.desc; // fallback về RSS desc
+            });
+        }));
+
+        // 4. Build items với extractive summary từ full article (luôn có)
+        var allItems = rawItems.map(function (it, idx) {
+            return {
+                title:        it.title,
+                summary:      extractiveSummary(articleTexts[idx], 200),
+                link:         it.link,
+                source:       it.source,
+                pubDate:      it.pubDate,
+                aiSummarized: false
+            };
+        });
+
+        // 5. AI summarize từ full article text, race với timeout 8s
         if (useAI) {
-            // Gọi AI song song, giới hạn concurrency 5 để tránh rate limit
-            var BATCH = 5;
-            for (var b = 0; b < rawItems.length; b += BATCH) {
-                var batch = rawItems.slice(b, b + BATCH);
-                var summaries = await Promise.all(batch.map(function (it) {
-                    return cfAISummarize(CF_ACCOUNT_ID, CF_AI_TOKEN, it.title, it.desc);
-                }));
-                for (var k = 0; k < batch.length; k++) {
-                    allItems.push({
-                        title:   batch[k].title,
-                        summary: summaries[k] || extractiveSummary(batch[k].desc, 180),
-                        link:    batch[k].link,
-                        source:  batch[k].source,
-                        pubDate: batch[k].pubDate,
-                        aiSummarized: !!summaries[k]
+            var aiTimeout = new Promise(function (resolve) { setTimeout(resolve, 8000); });
+            var aiWork = Promise.all(rawItems.map(function (it, idx) {
+                return cfAISummarize(CF_ACCOUNT_ID, CF_AI_TOKEN, it.title, articleTexts[idx])
+                    .then(function (s) {
+                        if (s) { allItems[idx].summary = s; allItems[idx].aiSummarized = true; }
                     });
-                }
-            }
-        } else {
-            // Extractive fallback
-            for (var n = 0; n < rawItems.length; n++) {
-                allItems.push({
-                    title:   rawItems[n].title,
-                    summary: extractiveSummary(rawItems[n].desc, 180),
-                    link:    rawItems[n].link,
-                    source:  rawItems[n].source,
-                    pubDate: rawItems[n].pubDate,
-                    aiSummarized: false
-                });
-            }
+            }));
+            await Promise.race([aiWork, aiTimeout]);
         }
 
         return {

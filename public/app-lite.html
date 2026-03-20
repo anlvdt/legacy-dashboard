@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -8,16 +8,17 @@
     <title>Legacy Frame Lite</title>
     <style>
         /* ================================================================
-         * Legacy Frame Lite — Tối ưu tối đa cho iPad Mini 1
-         * Hỗ trợ landscape (1024×681) + portrait (768×960)
-         * Không dùng: CSS Grid, CSS Variables, clamp(), backdrop-filter
+         * Legacy Frame Lite — Responsive via JS root font-size
+         * Strategy: fitPage() sets html font-size = viewport_unit px
+         * where viewport_unit = min(vw, vh) / 10 (capped 8px-20px)
+         * All sizing uses em — scales correctly on any DPI/screen size
          * ================================================================ */
-        html,
-        body {
+        html, body {
             height: 100%;
             margin: 0;
             padding: 0;
             overflow: hidden;
+            /* font-size set dynamically by fitPage() JS */
         }
 
         body {
@@ -27,18 +28,13 @@
             -webkit-font-smoothing: antialiased;
         }
 
-
-
-        /* ── PAGE WRAPPER: display:table — gold standard for iOS 9 ──
-         * The ONLY reliable way to stack top-bar + content + bottom-bar
-         * on iOS 9 without height calculations or position:fixed.
-         * Table rows auto-distribute: bars get fixed height,
-         * content fills remaining space automatically. */
+        /* ── PAGE WRAPPER: display:table — iOS 9 compatible ── */
         .page-wrapper {
             position: relative;
             display: table;
             table-layout: fixed;
             width: 100%;
+            height: 100%;
             background: #1a1a2e;
             background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #0f0c29), color-stop(50%, #302b63), color-stop(100%, #24243e));
             background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
@@ -46,28 +42,26 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* height set by JS: window.innerHeight */
         }
 
-        /* ── TOP BAR: News ticker ── */
-        .top-bar {
-            display: table-row;
-            height: 52px;
-        }
-
+        /* ── TOP BAR ── */
+        .top-bar { display: table-row; }
         .top-bar-cell {
             display: table-cell;
             vertical-align: middle;
-            padding: 8px 2vmin 4px;
+            padding: 0.3em 0.8em;
             white-space: nowrap;
             background: rgba(0, 0, 0, 0.7);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: 3.2em;
         }
 
         .news-scroller {
-            width: 100%;
-            height: 44px;
-            line-height: 44px;
+            display: inline-block;
+            vertical-align: middle;
+            width: calc(100% - 3.2em);
+            height: 2.6em;
+            line-height: 2.6em;
             overflow: hidden;
             white-space: nowrap;
         }
@@ -75,23 +69,30 @@
         .top-news-content {
             display: inline-block;
             white-space: nowrap;
-            line-height: 44px;
+            line-height: 2.6em;
         }
 
         .news-item {
             display: inline;
-            font-size: 6vmin;
-            padding: 0 2vmin;
+            font-size: 1.5em;
+            padding: 0 0.5em;
             color: rgba(255, 255, 255, 0.9);
         }
 
         .news-sep {
             color: #f39c12;
-            padding: 0 1vmin;
-            font-size: 6vmin;
+            padding: 0 0.3em;
+            font-size: 1.5em;
         }
 
-        /* CSS marquee animation — GPU-accelerated, zero JS per frame */
+        .news-tag {
+            color: #f39c12;
+            font-weight: 700;
+            font-size: 1.3em;
+            margin-right: 0.2em;
+        }
+
+        /* CSS marquee animation */
         .marquee-animated {
             display: inline-block;
             -webkit-animation: marquee-scroll 60s linear infinite;
@@ -100,35 +101,21 @@
         }
 
         @-webkit-keyframes marquee-scroll {
-            0% {
-                -webkit-transform: translateX(0);
-            }
-
-            100% {
-                -webkit-transform: translateX(-50%);
-            }
+            0%   { -webkit-transform: translateX(0); }
+            100% { -webkit-transform: translateX(-50%); }
         }
-
         @keyframes marquee-scroll {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* ── CONTENT ROW ── */
-        .content-row {
-            display: table-row;
-            background: none;
-        }
-
+        .content-row { display: table-row; height: 100%; background: none; }
         .content-cell {
             display: table-cell;
             vertical-align: top;
             background: rgba(0, 0, 0, 0.45);
+            overflow: hidden;
         }
 
         .content-wrapper {
@@ -143,25 +130,12 @@
             overflow: hidden;
         }
 
-        /* Event countdown in info area */
-        .event-countdown {
-            text-align: center;
-            font-size: 2.5vmin;
-            font-weight: 700;
-            color: #f39c12;
-            padding: 0.3vmin 0;
-        }
-
-        /* ── BOTTOM BAR: FX ticker ── */
-        .bottom-bar {
-            display: table-row;
-            height: 48px;
-        }
-
+        /* ── BOTTOM BAR ── */
+        .bottom-bar { display: table-row; }
         .bottom-bar-cell {
             display: table-cell;
             vertical-align: middle;
-            height: 48px;
+            height: 3em;
             background: rgba(0, 0, 0, 0.7);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             white-space: nowrap;
@@ -171,11 +145,11 @@
             display: inline-block;
             vertical-align: top;
             white-space: nowrap;
-            padding: 0 1.5vmin;
-            font-size: 3.5vmin;
+            padding: 0 0.7em;
+            font-size: 1em;
             font-weight: 700;
             color: #f39c12;
-            line-height: 48px;
+            line-height: 3em;
             border-right: 1px solid rgba(255, 255, 255, 0.15);
         }
 
@@ -183,38 +157,18 @@
             display: inline-block;
             vertical-align: top;
             overflow: hidden;
-            height: 48px;
-            line-height: 48px;
+            height: 3em;
+            line-height: 3em;
             white-space: nowrap;
         }
 
-        .fx-content {
-            display: inline-block;
-            white-space: nowrap;
-            line-height: 48px;
-        }
+        .fx-content { display: inline-block; white-space: nowrap; line-height: 3em; }
+        .fx-item { display: inline; font-size: 1em; padding: 0 0.5em; }
+        .fx-code { color: #f39c12; font-weight: 700; }
+        .fx-val  { color: rgba(255, 255, 255, 0.9); margin-left: 0.3em; }
+        .fx-sep  { color: rgba(255, 255, 255, 0.3); padding: 0 0.3em; }
 
-        .fx-item {
-            display: inline;
-            font-size: 3vmin;
-            padding: 0 1.5vmin;
-        }
-
-        .fx-code {
-            color: #f39c12;
-            font-weight: 700;
-        }
-
-        .fx-val {
-            color: rgba(255, 255, 255, 0.9);
-            margin-left: 0.5vmin;
-        }
-
-        .fx-sep {
-            color: rgba(255, 255, 255, 0.3);
-            padding: 0 0.5vmin;
-        }
-
+        /* ── COLUMNS ── */
         .col-left {
             display: -webkit-box;
             display: -webkit-flex;
@@ -222,16 +176,17 @@
             -webkit-box-orient: vertical;
             -webkit-flex-direction: column;
             flex-direction: column;
-            -webkit-box-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
             -webkit-box-align: center;
             -webkit-align-items: center;
             align-items: center;
-            -webkit-box-flex: 1;
-            -webkit-flex: 1 1 0;
-            flex: 1 1 0;
-            padding: 2vmin;
+            -webkit-box-flex: 1.1;
+            -webkit-flex: 1.1 1 0;
+            flex: 1.1 1 0;
+            min-width: 0;
+            padding: 1.2em 1em;
             overflow: hidden;
         }
 
@@ -242,19 +197,21 @@
             -webkit-box-orient: vertical;
             -webkit-flex-direction: column;
             flex-direction: column;
-            -webkit-box-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-box-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-            -webkit-box-flex: 1.3;
-            -webkit-flex: 1.3 1 0;
-            flex: 1.3 1 0;
-            padding: 2vmin;
+            -webkit-box-pack: flex-start;
+            -webkit-justify-content: flex-start;
+            justify-content: flex-start;
+            -webkit-box-align: stretch;
+            -webkit-align-items: stretch;
+            align-items: stretch;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1 1 0;
+            flex: 1 1 0;
+            min-width: 0;
+            padding: 0.6em 0.8em;
             overflow: hidden;
         }
 
+        /* ── CLOCK ── */
         .clock-wrapper {
             display: -webkit-box;
             display: -webkit-flex;
@@ -265,7 +222,7 @@
             -webkit-box-align: center;
             -webkit-align-items: center;
             align-items: center;
-            margin-bottom: 2vmin;
+            width: 100%;
         }
 
         #digital-clock {
@@ -284,47 +241,37 @@
         .clock-seg {
             background: rgba(20, 20, 20, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 2vmin;
-            padding: 0.3vmin 1.5vmin;
-            -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
-            box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
+            border-radius: 0.25em;
+            padding: 0.05em 0.25em;
+            -webkit-box-shadow: 0 0.1em 0.4em rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0.1em 0.4em rgba(0, 0, 0, 0.6);
         }
 
         .clock-seg span {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             font-weight: 800;
-            font-size: 20vmin;
+            font-size: 7em;
             color: #fff;
             letter-spacing: 0.03em;
-            text-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.8), 0 0 1vmin rgba(255, 255, 255, 0.2);
+            text-shadow: 0 0.05em 0.2em rgba(0, 0, 0, 0.8);
+            display: block;
+            line-height: 1.05;
         }
 
         .clock-sep {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             font-weight: 800;
-            font-size: 12vmin;
+            font-size: 4.4em;
             color: #fff;
-            margin: 0 1vmin;
-            text-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.8);
+            margin: 0 0.1em;
+            text-shadow: 0 0.05em 0.2em rgba(0, 0, 0, 0.8);
         }
 
-        @-webkit-keyframes blink {
-            50% {
-                opacity: 0.15;
-            }
-        }
+        @-webkit-keyframes blink { 50% { opacity: 0.15; } }
+        @keyframes blink         { 50% { opacity: 0.15; } }
+        .colon-blink { -webkit-animation: blink 1s infinite; animation: blink 1s infinite; }
 
-        @keyframes blink {
-            50% {
-                opacity: 0.15;
-            }
-        }
-
-        .colon-blink {
-            -webkit-animation: blink 1s infinite;
-            animation: blink 1s infinite;
-        }
-
+        /* ── INFO GROUP ── */
         .info-group {
             display: -webkit-box;
             display: -webkit-flex;
@@ -335,48 +282,35 @@
             -webkit-box-align: center;
             -webkit-align-items: center;
             align-items: center;
-            margin-bottom: 2vmin;
         }
 
-        .date-box,
-        .weather-box {
+        .event-countdown {
+            text-align: center;
+            font-size: 0.9em;
             font-weight: 700;
-            padding: 0.6vmin 2vmin;
+            color: #7ecfff;
+            padding: 0.2em 0;
+        }
+
+        .date-box, .weather-box {
+            font-weight: 700;
+            padding: 0.3em 0.9em;
             background: rgba(15, 15, 20, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 1.5vmin;
-            -webkit-box-shadow: 0 0.3vmin 1.5vmin rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0.3vmin 1.5vmin rgba(0, 0, 0, 0.5);
+            border-radius: 0.35em;
+            -webkit-box-shadow: 0 0.1em 0.4em rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0.1em 0.4em rgba(0, 0, 0, 0.5);
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
             text-align: center;
         }
 
-        .date-box {
-            font-size: 3.8vmin;
-        }
+        .date-box { font-size: 1.35em; }
+        .date-box p { margin: 0.1em 0; }
+        #greg-date { font-weight: 700; }
+        #lunar-date { color: #f39c12; }
 
-        .date-box p {
-            margin: 0.15vmin 0;
-        }
-
-        #greg-date {
-            font-weight: 700;
-        }
-
-        #lunar-date {
-            color: #f39c12;
-        }
-
-        .weather-box {
-            font-size: 3vmin;
-            margin-top: 0.4vmin;
-        }
-
-        #weather-loc {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.8vmin;
-            margin-bottom: 0.2vmin;
-        }
+        .weather-box { font-size: 1.15em; margin-top: 0.3em; }
+        #weather-loc { color: rgba(255, 255, 255, 0.7); font-size: 0.85em; margin-bottom: 0.15em; }
 
         .weather-line {
             display: -webkit-box;
@@ -389,46 +323,34 @@
             -webkit-align-items: center;
             align-items: center;
         }
+        .weather-line > span { margin: 0 0.3em; }
+        #weather-desc { font-size: 0.9em; font-weight: 400; opacity: 0.8; }
 
-        .weather-line>span {
-            margin: 0 0.4rem;
-        }
-
-        #weather-desc {
-            font-size: 1.8vmin;
-            font-weight: 400;
-            opacity: 0.8;
-        }
-
-        .quote-wrap {
-            padding: 0.5vmin 1vmin;
-            text-align: center;
-        }
-
+        /* ── QUOTE ── */
+        .quote-wrap { padding: 0.3em 0.5em; text-align: center; }
         .quote-text {
-            font-size: 2.8vmin;
+            font-size: 1.15em;
             font-style: italic;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.9);
             text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
         }
+        .quote-author { font-size: 0.9em; color: #f39c12; margin-top: 0.2em; }
 
-        .quote-author {
-            font-size: 1.8vmin;
-            color: #f39c12;
-            margin-top: 0.3vmin;
-        }
-
+        /* ── CALENDAR ── */
         #cal-container {
             background: rgba(20, 20, 20, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 1.5vmin;
-            border-radius: 2vmin;
+            padding: 0.5em;
+            border-radius: 0.4em;
             width: 100%;
+            max-width: 100%;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
-            -webkit-box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
-            box-shadow: 0 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
+            -webkit-box-shadow: 0 0.15em 0.5em rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0.15em 0.5em rgba(0, 0, 0, 0.6);
+            -webkit-transform-origin: top center;
+            transform-origin: top center;
         }
 
         #cal-header {
@@ -445,28 +367,21 @@
             -webkit-box-flex: 1;
             -webkit-flex: 1;
             flex: 1;
-            font-size: 2.5vmin;
+            font-size: 0.85em;
             font-weight: 700;
             text-align: center;
         }
 
         .cal-nav {
             cursor: pointer;
-            font-size: 2.5vmin;
+            font-size: 0.85em;
             -webkit-user-select: none;
             user-select: none;
-            padding: 0.3vmin 1vmin;
+            padding: 0.2em 0.5em;
         }
 
-        #cal-grid {
-            margin-top: 0.2vmin;
-        }
-
-        #cal-grid::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
+        #cal-grid { margin-top: 0.15em; }
+        #cal-grid::after { content: ""; display: table; clear: both; }
 
         .cal-cell {
             float: left;
@@ -479,15 +394,12 @@
         .cal-cell::before {
             content: '';
             display: block;
-            padding-top: 78%;
+            padding-top: 80%;
         }
 
         .cal-inner {
             position: absolute;
-            top: 1px;
-            right: 1px;
-            bottom: 1px;
-            left: 1px;
+            top: 1px; right: 1px; bottom: 1px; left: 1px;
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
@@ -500,130 +412,59 @@
             text-align: center;
         }
 
-        .day-hdr .cal-inner {
-            font-weight: 700;
-            color: #f39c12;
-            font-size: 2.8vmin;
-        }
-
-        .solar-d {
-            font-size: 3.5vmin;
-            font-weight: 700;
-            display: block;
-        }
-
-        .lunar-d {
-            font-size: 2vmin;
-            display: block;
-            color: #f39c12;
-            opacity: 0.8;
-        }
-
-        .other-m {
-            opacity: 0.3;
-        }
+        .day-hdr .cal-inner { font-weight: 700; color: #f39c12; font-size: 0.85em; }
+        .solar-d { font-size: 1em; font-weight: 700; display: block; }
+        .lunar-d { font-size: 0.65em; display: block; color: #f39c12; opacity: 0.8; }
+        .other-m { opacity: 0.3; }
 
         .today-cell .cal-inner {
             background-color: rgba(243, 156, 18, 0.85);
             color: #000;
-            border-radius: 0.8vmin;
+            border-radius: 0.2em;
             font-weight: 800;
-            -webkit-box-shadow: 0 0.3vmin 0.8vmin rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0.3vmin 0.8vmin rgba(0, 0, 0, 0.5);
+            -webkit-box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.5);
         }
+        .today-cell .lunar-d { color: #000; }
 
-        .today-cell .lunar-d {
-            color: #000;
-        }
-
-        /* ===== PORTRAIT: stack dọc ===== */
+        /* ===== PORTRAIT: stack vertically ===== */
         @media screen and (orientation: portrait) {
             .content-wrapper {
                 -webkit-box-orient: vertical;
                 -webkit-flex-direction: column;
                 flex-direction: column;
             }
-
-            .col-right {
-                -webkit-box-flex: 1;
-                -webkit-flex: 1 1 auto;
-                flex: 1 1 auto;
-            }
-
             .col-left {
                 -webkit-box-flex: 0;
                 -webkit-flex: 0 0 auto;
                 flex: 0 0 auto;
+                width: 100%;
+                padding: 0.4em 0.8em;
             }
-
-            .clock-seg span {
-                font-size: 10vmin;
+            .col-right {
+                -webkit-box-flex: 1;
+                -webkit-flex: 1 1 auto;
+                flex: 1 1 auto;
+                width: 100%;
+                padding: 0.4em 0.8em;
             }
-
-            .clock-sep {
-                font-size: 7vmin;
-            }
-
-            .clock-wrapper {
-                margin-bottom: 0.8vmin;
-            }
-
-            .info-group {
-                margin-bottom: 0.8vmin;
-            }
-
-            .date-box {
-                font-size: 2.5vmin;
-            }
-
-            .weather-box {
-                font-size: 2vmin;
-            }
-
-            .quote-text {
-                font-size: 1.8vmin;
-            }
-
-            .quote-author {
-                font-size: 1.2vmin;
-            }
-
-            #cal-container {
-                max-width: 80vmin;
-            }
-
-            .solar-d {
-                font-size: 1.8vmin;
-            }
-
-            .lunar-d {
-                font-size: 1.1vmin;
-            }
-
-            .day-hdr .cal-inner {
-                font-size: 1.4vmin;
-            }
-
-            #cal-title {
-                font-size: 1.8vmin;
-            }
-
-            .cal-cell::before {
-                padding-top: 85%;
-            }
+            .clock-seg span { font-size: 4em; }
+            .clock-sep { font-size: 2.5em; }
+            .clock-wrapper { margin-bottom: 0.3em; }
+            .info-group { margin-bottom: 0.3em; }
         }
 
         .lite-badge {
             position: fixed;
-            bottom: 90px;
-            right: 1vmin;
-            font-size: 1.5vmin;
+            bottom: 3.5em;
+            right: 0.5em;
+            font-size: 0.65em;
             color: rgba(255, 255, 255, 0.35);
             pointer-events: none;
             z-index: 999;
         }
 
-        /* TTS Speaker Button — inline with news bar */
+        /* TTS Speaker Button */
         #tts-btn {
             display: -webkit-inline-box;
             display: -webkit-inline-flex;
@@ -634,9 +475,9 @@
             -webkit-box-pack: center;
             -webkit-justify-content: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
-            min-width: 36px;
+            width: 2.4em;
+            height: 2.4em;
+            min-width: 2.4em;
             border-radius: 50%;
             border: 2px solid rgba(255, 255, 255, 0.3);
             background: rgba(0, 0, 0, 0.4);
@@ -644,13 +485,13 @@
             -webkit-tap-highlight-color: transparent;
             -ms-touch-action: manipulation;
             touch-action: manipulation;
-            margin-right: 6px;
+            margin-right: 0.4em;
             vertical-align: middle;
         }
 
         #tts-btn svg {
-            width: 20px;
-            height: 20px;
+            width: 1.3em;
+            height: 1.3em;
             fill: #f39c12;
             vertical-align: middle;
         }
@@ -762,27 +603,139 @@
 
             /* ============================================================
              * FIT PAGE TO VISIBLE VIEWPORT
-             * On iOS 9: height:100% = layout viewport (includes toolbar)
-             *           window.innerHeight = visible viewport (excludes toolbar)
+             *
+             * Strategy:
+             *  1. Measure true visible viewport (window.innerHeight accounts
+             *     for iOS Safari chrome). Add a small buffer for iOS toolbar.
+             *  2. Compute a "unit" = visible_h / 30 so the whole layout fits
+             *     in ~30 units vertically. Clamp to [6px, 18px].
+             *  3. Set html font-size = unit px → all em-based sizes scale.
+             *  4. Explicitly size page-wrapper, content-cell, content-wrapper
+             *     so display:table rows fill the screen correctly.
+             *  5. Scale calendar down if it still overflows col-right.
+             *
+             * DPI / high-DPI: window.innerWidth/Height are already in CSS px
+             * (device-independent pixels), so devicePixelRatio doesn't affect
+             * the layout math — the browser handles physical pixel mapping.
              * ============================================================ */
             var pageWrapper = document.querySelector('.page-wrapper');
+            var topBarCell = document.querySelector('.top-bar-cell');
+            var bottomBarCell = document.querySelector('.bottom-bar-cell');
+            var contentCell = document.querySelector('.content-cell');
+            var contentWrapper = document.querySelector('.content-wrapper');
+
+            function scaleCalendar() {
+                var calContainer = document.getElementById('cal-container');
+                var colRight = document.querySelector('.col-right');
+                if (!calContainer || !colRight) { return; }
+
+                // Reset transform first so we measure natural size
+                calContainer.style.webkitTransform = '';
+                calContainer.style.transform = '';
+                calContainer.style.marginBottom = '';
+                calContainer.style.width = '';
+
+                // Also constrain width to col-right
+                var availW = colRight.offsetWidth;
+                if (availW > 0) {
+                    calContainer.style.width = availW + 'px';
+                }
+
+                var availH = colRight.offsetHeight;
+                var naturalH = calContainer.offsetHeight;
+
+                if (availH > 0 && naturalH > 0 && naturalH > availH * 0.95) {
+                    var s = (availH * 0.94) / naturalH;
+                    // Also check width constraint
+                    var naturalW = calContainer.offsetWidth;
+                    if (availW > 0 && naturalW > 0) {
+                        var sw = (availW * 0.98) / naturalW;
+                        if (sw < s) { s = sw; }
+                    }
+                    calContainer.style.webkitTransform = 'scale(' + s + ')';
+                    calContainer.style.transform = 'scale(' + s + ')';
+                    calContainer.style.webkitTransformOrigin = 'top center';
+                    calContainer.style.transformOrigin = 'top center';
+                    // Collapse dead space below the scaled-down element
+                    calContainer.style.marginBottom = '-' + Math.ceil(naturalH * (1 - s)) + 'px';
+                }
+            }
+
             function fitPage() {
                 if (!pageWrapper) { return; }
-                var h = window.innerHeight || document.documentElement.clientHeight || 768;
-                // Subtract Safari address bar + toolbar (~64px on iPad Mini 1)
-                h = h - 40;
-                pageWrapper.style.height = h + 'px';
+
+                // CSS pixels — device-independent, DPI handled by browser
+                var vw = window.innerWidth  || document.documentElement.clientWidth  || 1024;
+                var vh = window.innerHeight || document.documentElement.clientHeight || 768;
+
+                // iOS Safari: innerHeight already reflects visible area.
+                // Guard against toolbar on narrow portrait phones.
+                var isPortrait = vh > vw;
+                var iosBrowserGuard = (isPortrait && vw < 500) ? 50 : 0;
+                var h = vh - iosBrowserGuard;
+                if (h < 200) { h = vh; }
+
+                // Size the table wrapper to exactly the visible area
+                pageWrapper.style.width  = vw + 'px';
+                pageWrapper.style.height = h  + 'px';
+
+                /* ── ROOT FONT SIZE ──────────────────────────────────────
+                 * Use BOTH dimensions so layout fits in either orientation.
+                 *
+                 * Landscape (vw > vh):
+                 *   - Height is the constraint. Two columns side by side.
+                 *   - Budget: top(3.2u) + content(23.8u) + bottom(3u) = 30u
+                 *   - unit = h / 30
+                 *
+                 * Portrait (vh > vw):
+                 *   - Width is the constraint. Columns stack vertically.
+                 *   - Clock + info + calendar stacked → more vertical space.
+                 *   - unit = vw / 20  (fits clock + calendar in width)
+                 *
+                 * Take the smaller of the two so nothing overflows.
+                 * Clamp [7px, 22px].
+                 * ──────────────────────────────────────────────────────── */
+                var unitH = h / 30;
+                var unitW = isPortrait ? (vw / 20) : (vw / 50);
+                var unit = Math.min(unitH, unitW);
+                if (unit < 7)  { unit = 7; }
+                if (unit > 22) { unit = 22; }
+                document.documentElement.style.fontSize = unit + 'px';
+
+                /* ── CONTENT CELL HEIGHT ─────────────────────────────────
+                 * Force content-cell to fill remaining height after bars.
+                 * ──────────────────────────────────────────────────────── */
+                if (contentCell && contentWrapper) {
+                    var topH = (topBarCell && topBarCell.offsetHeight > 0)
+                        ? topBarCell.offsetHeight : Math.round(3.2 * unit);
+                    var botH = (bottomBarCell && bottomBarCell.offsetHeight > 0)
+                        ? bottomBarCell.offsetHeight : Math.round(3.0 * unit);
+                    var cellH = h - topH - botH;
+                    if (cellH < 80) { cellH = 80; }
+                    contentCell.style.height = cellH + 'px';
+                    contentWrapper.style.height = cellH + 'px';
+                }
+
+                // Scale calendar after layout has settled
+                setTimeout(scaleCalendar, 80);
             }
+
             fitPage();
+
             if (window.addEventListener) {
                 window.addEventListener('resize', fitPage, false);
                 window.addEventListener('orientationchange', function () {
-                    setTimeout(fitPage, 300);
+                    // Wait for browser to finish rotating before measuring
+                    setTimeout(fitPage, 350);
+                }, false);
+                // Re-run after full page load (images, fonts settled)
+                window.addEventListener('load', function () {
+                    setTimeout(fitPage, 200);
                 }, false);
             } else if (window.attachEvent) {
                 window.attachEvent('onresize', fitPage);
+                window.attachEvent('onload', function () { setTimeout(fitPage, 200); });
             }
-            // No setInterval — resize and orientationchange are sufficient
 
             /* ============================================================
              * CLOCK
@@ -1239,17 +1192,22 @@
             }
 
             renderCalendar(calBase);
+            // Re-run fitPage after calendar renders so scaleCalendar has real dimensions
+            setTimeout(fitPage, 150);
+            setTimeout(scaleCalendar, 300);
 
             if (calPrevEl) {
                 calPrevEl.onclick = function () {
                     calBase.setMonth(calBase.getMonth() - 1);
                     renderCalendar(calBase);
+                    setTimeout(scaleCalendar, 80);
                 };
             }
             if (calNextEl) {
                 calNextEl.onclick = function () {
                     calBase.setMonth(calBase.getMonth() + 1);
                     renderCalendar(calBase);
+                    setTimeout(scaleCalendar, 80);
                 };
             }
 
@@ -1335,10 +1293,10 @@
                     { m: 1, d: 1, name: 'Tết Dương lịch', emoji: '🎉' },
                     { m: 2, d: 14, name: 'Valentine', emoji: '❤️' },
                     { m: 3, d: 8, name: 'Quốc tế Phụ nữ', emoji: '🌷' },
-                    { m: 4, d: 30, name: 'Giải phóng miền Nam', emoji: '🇻🇳' },
+                    { m: 4, d: 30, name: 'Giải phóng miền Nam', emoji: '[VN]' },
                     { m: 5, d: 1, name: 'Quốc tế Lao động', emoji: '✊' },
                     { m: 6, d: 1, name: 'Quốc tế Thiếu nhi', emoji: '👶' },
-                    { m: 9, d: 2, name: 'Quốc khánh', emoji: '🇻🇳' },
+                    { m: 9, d: 2, name: 'Quốc khánh', emoji: '[VN]' },
                     { m: 10, d: 20, name: 'Ngày Phụ nữ VN', emoji: '💐' },
                     { m: 11, d: 20, name: 'Ngày Nhà giáo', emoji: '📚' },
                     { m: 12, d: 25, name: 'Giáng sinh', emoji: '🎄' }
@@ -1379,10 +1337,15 @@
                 }
 
                 if (nearest) {
+                    var tag = nearest.emoji;
+                    var isVN = (tag === '[VN]');
+                    var prefix = isVN
+                        ? '<span style="background:#da251d;color:#ffcd00;font-weight:800;padding:0 0.3em;border-radius:0.2em;font-size:0.9em;margin-right:0.3em;">VN</span>'
+                        : tag + ' ';
                     if (nearest.days === 0) {
-                        countdownEl.textContent = nearest.emoji + ' Hôm nay: ' + nearest.name + '!';
+                        countdownEl.innerHTML = prefix + 'Hôm nay: ' + nearest.name + '!';
                     } else {
-                        countdownEl.textContent = nearest.emoji + ' Còn ' + nearest.days + ' ngày → ' + nearest.name;
+                        countdownEl.innerHTML = prefix + 'Còn ' + nearest.days + ' ngày \u2192 ' + nearest.name;
                     }
                 }
             }
@@ -1443,21 +1406,36 @@
 
             // Store parsed news for TTS
             var parsedNewsItems = [];
+            var parsedTechItems = [];
+
+            function buildMarquee() {
+                if (!newsContentEl) { return; }
+                var allItems = [];
+                var i;
+                // Tech news lên đầu (tag [CN]), tin thường theo sau
+                for (i = 0; i < parsedTechItems.length; i++) {
+                    allItems.push({ title: parsedTechItems[i].title, tag: 'CN' });
+                }
+                for (i = 0; i < parsedNewsItems.length; i++) {
+                    allItems.push({ title: parsedNewsItems[i].title, tag: '' });
+                }
+                if (!allItems.length) { return; }
+                var html = '';
+                for (i = 0; i < allItems.length; i++) {
+                    if (allItems[i].tag) {
+                        html += '<span class="news-tag">[' + allItems[i].tag + ']</span>';
+                    }
+                    html += '<span class="news-item">' + allItems[i].title + '</span>';
+                    if (i < allItems.length - 1) { html += '<span class="news-sep">\u00b7</span>'; }
+                }
+                newsContentEl.innerHTML = html + '<span class="news-sep">\u00b7</span>' + html;
+                startNewsScroll();
+            }
 
             function renderNews(items) {
-                if (!newsContentEl || items.length === 0) { return; }
+                if (!items || !items.length) { return; }
                 parsedNewsItems = items;
-                var html = '';
-                var i;
-                for (i = 0; i < items.length; i++) {
-                    html += '<span class="news-item">' + items[i].title + '</span>';
-                    if (i < items.length - 1) {
-                        html += '<span class="news-sep">·</span>';
-                    }
-                }
-                // Duplicate for seamless loop
-                newsContentEl.innerHTML = html + '<span class="news-sep">·</span>' + html;
-                startNewsScroll();
+                buildMarquee();
             }
 
             function startNewsScroll() {
@@ -1729,7 +1707,6 @@
                 if (idx >= ttsItems.length) {
                     var now = new Date().getTime();
                     if (ttsLoopUntil > 0 && now < ttsLoopUntil) {
-                        // Loop back to start
                         ttsCurrentIndex = 0;
                         idx = 0;
                     } else {
@@ -1741,7 +1718,9 @@
                 var item = ttsItems[idx];
                 var parts = [];
                 if (item.title) { parts.push(item.title + '.'); }
-                if (item.desc && item.desc !== item.title) { parts.push(item.desc); }
+                // Đọc tóm tắt: tech news dùng summary (AI), tin thường dùng desc (RSS)
+                var summary = item.summary || item.desc || '';
+                if (summary && summary !== item.title) { parts.push(summary); }
                 var fullText = ttsNormalize(parts.join(' '));
                 ttsPlayOne(fullText, idx, function () {
                     if (!ttsIsReading) { return; }
@@ -1752,13 +1731,21 @@
 
             // loopMinutes: 0 = read once, N = keep looping for N minutes
             function readNewsNow(loopMinutes) {
-                if (!parsedNewsItems || parsedNewsItems.length === 0) { return; }
-                ttsItems = parsedNewsItems;
+                // Tech news trước (summary từ AI), tin thường sau (desc từ RSS)
+                var combined = [];
+                var i;
+                for (i = 0; i < parsedTechItems.length; i++) {
+                    combined.push({ title: parsedTechItems[i].title || '', summary: parsedTechItems[i].summary || '' });
+                }
+                for (i = 0; i < parsedNewsItems.length; i++) {
+                    combined.push({ title: parsedNewsItems[i].title || '', desc: parsedNewsItems[i].desc || '' });
+                }
+                if (!combined.length) { return; }
+                ttsItems = combined;
                 ttsCurrentIndex = 0;
                 ttsIsReading = true;
                 ttsLoopUntil = (loopMinutes && loopMinutes > 0)
-                    ? new Date().getTime() + (loopMinutes * 60000)
-                    : 0;
+                    ? new Date().getTime() + (loopMinutes * 60000) : 0;
                 ttsUpdateBtn(true);
                 ttsReadNext();
             }
@@ -1767,6 +1754,17 @@
                 if (!text) { return; }
                 ttsPlayOne(ttsNormalize(text), -1, function () { });
             }
+
+            // ── TECH NEWS — merge vào marquee trên cùng ──
+            function loadTechNews() {
+                xhrGet('/api/tech-news', function (err, data) {
+                    if (err || !data || !data.items || !data.items.length) { return; }
+                    parsedTechItems = data.items;
+                    buildMarquee(); // rebuild marquee với tech news xen vào
+                }, 20000);
+            }
+            loadTechNews();
+            setInterval(loadTechNews, 600000);
 
             // ── SCHEDULED AUTO-READ ──
             // Default schedule: 06:30. Long-press 🔊 to change.
@@ -1819,11 +1817,8 @@
                 if (currentTime === ttsSchedule && lastScheduleDate !== today) {
                     lastScheduleDate = today;
                     ttsUnlocked = true;
-                    // Refresh news first, then read in 30-min loop
                     loadNews();
-                    setTimeout(function () {
-                        readNewsNow(30);
-                    }, 10000);
+                    setTimeout(function () { readNewsNow(30); }, 10000);
                 }
 
                 // Hourly time announcement

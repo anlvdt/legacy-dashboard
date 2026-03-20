@@ -16,6 +16,7 @@ LF.tts = {};
 LF.tts._isReading = false;
 LF.tts._currentIndex = 0;
 LF.tts._items = [];
+LF.tts._readingTechNews = false;
 LF.tts._scheduleTimer = null;
 LF.tts._audio = null;
 LF.tts._prefetchedAudio = null;
@@ -172,26 +173,124 @@ LF.tts._speakEdgeTTS = function (text, onDone, onError, idx) {
 LF.tts.stop = function () {
     LF.tts._isReading = false;
     LF.tts._currentIndex = 0;
+    LF.tts._readingTechNews = false;
 
     if (LF.tts._audio) {
-        try {
-            LF.tts._audio.pause();
-            LF.tts._audio.src = '';
-        } catch (e) { }
+        try { LF.tts._audio.pause(); LF.tts._audio.src = ''; } catch (e) { }
         LF.tts._audio = null;
     }
 
     LF.tts._updateTTSButton(false);
+    LF.tts._updateTechTTSButton(false);
 
-    // Resume cuộn tự động
-    if (LF.news) {
-        LF.news._scrollPaused = false;
-        LF.news.clearHighlight();
+    // Resume cuộn
+    if (LF.news) { LF.news._scrollPaused = false; LF.news.clearHighlight(); }
+    if (LF.technews) {
+        LF.technews._scrollPaused = false;
+        var container = document.getElementById('technews-list');
+        if (container) {
+            var cards = container.getElementsByClassName('technews-card');
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].className = cards[i].className.replace(/\s*technews-card-active/g, '');
+            }
+        }
     }
 };
 
 /**
- * Đọc một news item qua Edge TTS
+ * Đọc một tech news item (title + summary)
+ */
+LF.tts.readTechNewsItem = function (item, onEnd, idx) {
+    if (!item) { if (onEnd) { onEnd(); } return; }
+    var parts = [];
+    if (item.title) { parts.push(item.title + '.'); }
+    if (item.summary && item.summary !== item.title) { parts.push(item.summary); }
+    var fullText = LF.tts._normalizeText(parts.join(' '));
+
+    // Highlight card đang đọc
+    var container = document.getElementById('technews-list');
+    if (container) {
+        var cards = container.getElementsByClassName('technews-card');
+        var i;
+        for (i = 0; i < cards.length; i++) {
+            cards[i].className = cards[i].className.replace(/\s*technews-card-active/g, '');
+        }
+        if (cards[idx]) {
+            cards[idx].className = cards[idx].className + ' technews-card-active';
+            // Cuộn tới card đang đọc
+            if (LF.technews) { LF.technews._scrollOffset = cards[idx].offsetTop; }
+        }
+    }
+
+    LF.tts._speakEdgeTTS(fullText, function () { if (onEnd) { onEnd(); } },
+        function () { if (onEnd) { onEnd(); } }, idx);
+};
+
+/**
+ * Đọc danh sách tech news, sau đó tự động chuyển sang tin thường
+ */
+LF.tts.readTechNewsList = function (items, startIndex) {
+    if (!items || items.length === 0) {
+        // Không có tech news → đọc tin thường luôn
+        var newsItems = (LF.news && LF.news._items) ? LF.news._items : [];
+        if (newsItems.length > 0) { LF.tts.readNewsList(newsItems, 0); }
+        return;
+    }
+
+    LF.tts._items = items;
+    LF.tts._currentIndex = (typeof startIndex === 'number') ? startIndex : 0;
+    LF.tts._isReading = true;
+    LF.tts._readingTechNews = true;
+
+    // Tạm dừng cuộn tech news
+    if (LF.technews) { LF.technews._scrollPaused = true; }
+
+    LF.tts._updateTTSButton(true);
+    LF.tts._updateTechTTSButton(true);
+    LF.tts._readNextTech();
+};
+
+/**
+ * Đọc tech news item tiếp theo
+ */
+LF.tts._readNextTech = function () {
+    if (!LF.tts._isReading) { return; }
+
+    var items = LF.tts._items;
+    var idx = LF.tts._currentIndex;
+
+    if (idx >= items.length) {
+        // Hết tech news → chuyển sang tin thường
+        LF.tts._readingTechNews = false;
+        LF.tts._updateTechTTSButton(false);
+        if (LF.technews) {
+            LF.technews._scrollPaused = false;
+            // Xóa highlight
+            var container = document.getElementById('technews-list');
+            if (container) {
+                var cards = container.getElementsByClassName('technews-card');
+                for (var i = 0; i < cards.length; i++) {
+                    cards[i].className = cards[i].className.replace(/\s*technews-card-active/g, '');
+                }
+            }
+        }
+        // Chuyển sang đọc tin thường
+        var newsItems = (LF.news && LF.news._items) ? LF.news._items : [];
+        if (newsItems.length > 0) {
+            LF.tts.readNewsList(newsItems, 0);
+        } else {
+            LF.tts._isReading = false;
+            LF.tts._updateTTSButton(false);
+        }
+        return;
+    }
+
+    LF.tts.readTechNewsItem(items[idx], function () {
+        if (!LF.tts._isReading) { return; }
+        LF.tts._currentIndex++;
+        LF.tts._readNextTech();
+    }, idx);
+};
  * Nếu Edge TTS lỗi → skip bài này, chuyển bài tiếp (chỉ cuộn)
  */
 LF.tts.readNewsItem = function (item, onEnd, idx) {
@@ -287,6 +386,25 @@ LF.tts._readNext = function () {
  * ================================================================ */
 
 /**
+ * Cập nhật nút TTS tech news
+ */
+LF.tts._updateTechTTSButton = function (isReading) {
+    var speakerSvg = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" style="vertical-align:-0.1em"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
+    var stopSvg = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" style="vertical-align:-0.1em"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>';
+    var btn = document.getElementById('technews-tts-btn');
+    if (!btn) { return; }
+    if (isReading) {
+        btn.innerHTML = stopSvg;
+        btn.title = 'Dừng đọc';
+        if (btn.className.indexOf('tts-speaking') === -1) { btn.className = btn.className + ' tts-speaking'; }
+    } else {
+        btn.innerHTML = speakerSvg;
+        btn.title = 'Đọc tin công nghệ';
+        btn.className = btn.className.replace(/\s*tts-speaking/g, '');
+    }
+};
+
+/**
  * Cập nhật nút TTS trên inline widget
  */
 LF.tts._updateTTSButton = function (isReading) {
@@ -355,20 +473,31 @@ LF.tts.scheduleDaily = function (timeStr) {
 };
 
 LF.tts._triggerMorningRead = function () {
-    var items = (LF.news && LF.news._items && LF.news._items.length) ? LF.news._items : null;
+    var techItems = (LF.technews && LF.technews._items && LF.technews._items.length) ? LF.technews._items : [];
+    var newsItems = (LF.news && LF.news._items && LF.news._items.length) ? LF.news._items : null;
 
-    if (!items || items.length === 0) {
+    // Nếu có tech news → đọc tech trước rồi tự chuyển sang tin thường
+    if (techItems.length > 0) {
+        LF.tts.readTechNewsList(techItems, 0);
+        return;
+    }
+
+    // Không có tech news → đọc tin thường
+    if (!newsItems || newsItems.length === 0) {
         if (LF.news && LF.news.loadMultiSource) { LF.news.loadMultiSource(); }
         setTimeout(function () {
             var loaded = (LF.news && LF.news._items && LF.news._items.length) ? LF.news._items : [];
-            if (loaded.length > 0) {
+            var tech = (LF.technews && LF.technews._items && LF.technews._items.length) ? LF.technews._items : [];
+            if (tech.length > 0) {
+                LF.tts.readTechNewsList(tech, 0);
+            } else if (loaded.length > 0) {
                 LF.tts.readNewsList(loaded, 0);
             }
         }, 15000);
         return;
     }
 
-    LF.tts.readNewsList(items, 0);
+    LF.tts.readNewsList(newsItems, 0);
 };
 
 LF.tts.stopSchedule = function () {
@@ -401,6 +530,20 @@ LF.tts.init = function () {
                 if (items.length > 0) {
                     LF.tts.readNewsList(items, 0);
                 }
+            }
+        });
+    }
+
+    // Nút TTS tech news — đọc tech news trước, hết thì đọc tin thường
+    var techTtsBtn = document.getElementById('technews-tts-btn');
+    if (techTtsBtn) {
+        techTtsBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (LF.tts._isReading) {
+                LF.tts.stop();
+            } else {
+                var techItems = (LF.technews && LF.technews._items) ? LF.technews._items : [];
+                LF.tts.readTechNewsList(techItems, 0);
             }
         });
     }
