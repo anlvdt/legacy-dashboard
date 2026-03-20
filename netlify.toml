@@ -61,3 +61,8 @@
   from = "/api/tech-news"
   to = "/.netlify/functions/tech-news"
   status = 200
+
+[[redirects]]
+  from = "/api/news-summary"
+  to = "/.netlify/functions/news-summary"
+  status = 200
