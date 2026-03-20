@@ -11,6 +11,7 @@ const ALLOWED_DOMAINS = [
     'dantri.com.vn',
     'tuoitre.vn',
     'sjc.com.vn',
+    'webgia.com',
     'open.er-api.com'
 ];
 

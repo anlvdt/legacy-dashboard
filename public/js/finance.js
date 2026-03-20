@@ -373,45 +373,43 @@ LF.finance.loadGoldSJC = function () {
     }
 
     var providers = [
-        // 1. Primary: Webgia API - free JSON endpoint
+        // 1. Primary: webgia.com/gia-vang/sjc/ — scrape qua proxy
+        // HTML: <td>Vàng SJC 1L, 10L, 1KG</td><td class="text-right">17.190.000</td><td ...>17.490.000</td>
         function (done) {
-            var url = 'https://api.webgia.com/gold/';
-            LF.utils.makeRequest(url, function (err, data) {
-                if (err || !data) { return done(new Error("webgia gold API failed")); }
-                var sjcPrice = null;
-                // webgia returns array, find SJC 1 luong entry
-                if (data && data.data) {
-                    var list = data.data;
-                    for (var k = 0; k < list.length; k++) {
-                        if (list[k].name && list[k].name.indexOf('SJC') >= 0 && list[k].buy) {
-                            // Price comes in thousands VND
-                            sjcPrice = parseFloat(list[k].buy) / 1000;
-                            break;
-                        }
-                    }
-                }
-                if (sjcPrice && sjcPrice > 50) {
-                    return done(null, sjcPrice);
-                }
-                done(new Error("webgia: no SJC data"));
-            }, 6000);
-        },
-        // 2. Fallback 1: /api/proxy to try SJC public page
-        function (done) {
-            var targetUrl = 'https://sjc.com.vn/';
+            var targetUrl = 'https://webgia.com/gia-vang/sjc/';
             var reqUrl = '/api/proxy?url=' + encodeURIComponent(targetUrl);
             LF.utils.makeRequest(reqUrl, function (err, data) {
                 var sjcPrice = null;
                 if (!err && typeof data === 'string') {
-                    var match = data.match(/([0-9]{2,3}[.,][0-9]{3}).*?lượng/i);
-                    if (match && match[1]) {
-                        sjcPrice = parseFloat(match[1].replace(/\./g, '').replace(/,/g, '.'));
+                    // Tìm "Vàng SJC 1L" row, lấy giá bán ra (cột 2)
+                    var m = data.match(/V[àa]ng SJC 1L[^<]{0,30}<\/td>\s*<td[^>]*>([0-9.]+)<\/td>\s*<td[^>]*>([0-9.]+)<\/td>/i);
+                    if (m && m[2]) {
+                        // Giá dạng "17.490.000" → chia 1.000.000 = triệu VND
+                        sjcPrice = parseFloat(m[2].replace(/\./g, '')) / 1000000;
                     }
                 }
                 if (sjcPrice && sjcPrice > 50) {
                     return done(null, sjcPrice);
                 }
-                done(new Error("SJC page scrape failed"));
+                done(new Error("webgia SJC scrape failed"));
+            }, 8000);
+        },
+        // 2. Fallback: webgia.com/gia-vang/ (trang tổng hợp, cùng cấu trúc)
+        function (done) {
+            var targetUrl = 'https://webgia.com/gia-vang/';
+            var reqUrl = '/api/proxy?url=' + encodeURIComponent(targetUrl);
+            LF.utils.makeRequest(reqUrl, function (err, data) {
+                var sjcPrice = null;
+                if (!err && typeof data === 'string') {
+                    var m = data.match(/V[àa]ng SJC 1L[^<]{0,30}<\/td>\s*<td[^>]*>([0-9.]+)<\/td>\s*<td[^>]*>([0-9.]+)<\/td>/i);
+                    if (m && m[2]) {
+                        sjcPrice = parseFloat(m[2].replace(/\./g, '')) / 1000000;
+                    }
+                }
+                if (sjcPrice && sjcPrice > 50) {
+                    return done(null, sjcPrice);
+                }
+                done(new Error("webgia gold page scrape failed"));
             }, 8000);
         },
         // 3. Fallback 2: Estimate from World Gold (+ SJC premium ~5 triệu VND/lượng)
