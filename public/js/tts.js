@@ -62,7 +62,7 @@ LF.tts._normalizeText = function (text) {
         'BCH': 'Ban chấp hành',
         'TW': 'Trung ương',
         'BQP': 'Bộ quốc phòng',
-        'BCA': 'Bộ công án',
+        'BCA': 'Bộ công an',
         'BTC': 'Bộ tài chính',
         'BCT': 'Bộ công thương',
         'TAND': 'Tòa án nhân dân',
@@ -75,10 +75,8 @@ LF.tts._normalizeText = function (text) {
     for (var key in dict) {
         if (dict.hasOwnProperty(key)) {
             var val = dict[key];
-            var regexPattern = '(^|\\\\s|[(\\\\[\\"\\\'\\u201C\\u2018])(' + key.replace(/\\./g, '\\\\.') + ')(?=\\\\s|$|[.,;:?!)\\\\]\\"\\\'\\u201D\\u2019])';
-            var regex = new RegExp(regexPattern, 'g');
-            str = str.replace(regex, function (match, p1, p2) { return p1 + val; });
-            str = str.replace(regex, function (match, p1, p2) { return p1 + val; });
+            // Dùng simple string replace thay vì regex phức tạp để tránh lỗi escape
+            str = str.split(key).join(val);
         }
     }
     return str;
@@ -97,18 +95,11 @@ LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
         return;
     }
 
-    var audio;
-    if (LF.tts._prefetchedAudio && LF.tts._prefetchIndex === idx) {
-        audio = LF.tts._prefetchedAudio;
-        LF.tts._prefetchedAudio = null;
-        LF.tts._prefetchIndex = -1;
-    } else {
-        var url = LF.tts.TTS_PROXY
-            + '?q=' + encodeURIComponent(text)
-            + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
-            + '&rate=-15%';
-        audio = new Audio(url);
-    }
+    var url = LF.tts.TTS_PROXY
+        + '?q=' + encodeURIComponent(text)
+        + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
+        + '&rate=-15%';
+    var audio = new Audio(url);
 
     LF.tts._audio = audio;
 
@@ -202,10 +193,8 @@ LF.tts.stop = function () {
  */
 LF.tts.readTechNewsItem = function (item, onEnd, idx) {
     if (!item) { if (onEnd) { onEnd(); } return; }
-    var parts = [];
-    if (item.title) { parts.push(item.title + '.'); }
-    if (item.summary && item.summary !== item.title) { parts.push(item.summary); }
-    var fullText = LF.tts._normalizeText(parts.join(' '));
+    // Chỉ đọc title để tránh bị cắt nửa chừng
+    var fullText = LF.tts._normalizeText(item.title || '');
 
     // Highlight card đang đọc
     var container = document.getElementById('technews-list');
@@ -299,13 +288,8 @@ LF.tts.readNewsItem = function (item, onEnd, idx) {
         return;
     }
 
-    var parts = [];
-    if (item.title) { parts.push(item.title + '.'); }
-    if (item.description && item.description !== item.title) {
-        parts.push(item.description);
-    }
-    var fullText = parts.join(' ');
-    fullText = LF.tts._normalizeText(fullText);
+    // Chỉ đọc title để tránh bị cắt nửa chừng do text quá dài
+    var fullText = LF.tts._normalizeText(item.title || '');
 
     // Cuộn tới bài đang đọc
     if (LF.news && LF.news.scrollToItem) {
@@ -316,7 +300,7 @@ LF.tts.readNewsItem = function (item, onEnd, idx) {
         fullText,
         function () { if (onEnd) { onEnd(); } },
         function () {
-            // Edge TTS lỗi → bỏ qua, chuyển bài tiếp (chỉ cuộn, không đọc)
+            // Edge TTS lỗi → bỏ qua, chuyển bài tiếp
             if (onEnd) { onEnd(); }
         },
         idx
@@ -360,20 +344,7 @@ LF.tts._readNext = function () {
         return;
     }
 
-    // Prefetch bài tiếp theo
-    if (idx + 1 < items.length) {
-        var nextItem = items[idx + 1];
-        var nextParts = [];
-        if (nextItem.title) { nextParts.push(nextItem.title + '.'); }
-        if (nextItem.description && nextItem.description !== nextItem.title) {
-            nextParts.push(nextItem.description);
-        }
-        var nextText = LF.tts._normalizeText(nextParts.join(' '));
-        var gender = (LF.settings && LF.settings.current && LF.settings.current.ttsVoiceGender) ? LF.settings.current.ttsVoiceGender : 'female';
-        var voice = (gender === 'male') ? 'vi-VN-NamMinhNeural' : 'vi-VN-HoaiMyNeural';
-        LF.tts._prefetchEdge(nextText, voice, idx + 1);
-    }
-
+    // Prefetch bài tiếp theo đã bị tắt — tránh double request gây rate limit
     LF.tts.readNewsItem(items[idx], function () {
         if (!LF.tts._isReading) { return; }
         LF.tts._currentIndex++;

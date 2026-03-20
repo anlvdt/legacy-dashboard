@@ -19,7 +19,7 @@ const { MsEdgeTTS, OUTPUT_FORMAT } = require('msedge-tts');
  * Netlify Blobs chỉ khả dụng khi deploy trên Netlify (context.site.id tồn tại).
  * Khi chạy local (netlify dev), tự động fallback về in-memory.
  */
-const RATE_LIMIT_MAX = 10;
+const RATE_LIMIT_MAX = 60;
 const RATE_LIMIT_WINDOW = 60000;
 
 // In-memory fallback (dùng khi local dev hoặc Blobs không khả dụng)
