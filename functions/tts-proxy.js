@@ -12,28 +12,73 @@ if (!globalThis.crypto) {
 
 const { MsEdgeTTS, OUTPUT_FORMAT } = require('msedge-tts');
 
-/** Rate limit đơn giản: tối đa 30 requests/phút per IP */
-const rateLimitMap = {};
-const RATE_LIMIT_MAX = 30;
+/**
+ * Rate limit dựa trên Netlify Blobs (persistent) hoặc fallback in-memory.
+ * Tối đa RATE_LIMIT_MAX requests/phút per IP.
+ *
+ * Netlify Blobs chỉ khả dụng khi deploy trên Netlify (context.site.id tồn tại).
+ * Khi chạy local (netlify dev), tự động fallback về in-memory.
+ */
+const RATE_LIMIT_MAX = 10;
 const RATE_LIMIT_WINDOW = 60000;
 
-function checkRateLimit(ip) {
+// In-memory fallback (dùng khi local dev hoặc Blobs không khả dụng)
+const _memRateLimit = {};
+
+async function checkRateLimit(ip, context) {
     var now = Date.now();
-    if (!rateLimitMap[ip] || now - rateLimitMap[ip].start > RATE_LIMIT_WINDOW) {
-        rateLimitMap[ip] = { start: now, count: 1 };
+    var key = 'rl_' + ip.replace(/[^a-zA-Z0-9]/g, '_');
+
+    // Thử dùng Netlify Blobs nếu đang chạy trên Netlify
+    try {
+        if (context && context.site && context.site.id) {
+            const { getStore } = require('@netlify/blobs');
+            var store = getStore({ name: 'rate-limit', consistency: 'strong' });
+            var raw = await store.get(key);
+            var entry = raw ? JSON.parse(raw) : null;
+
+            if (!entry || now - entry.start > RATE_LIMIT_WINDOW) {
+                await store.set(key, JSON.stringify({ start: now, count: 1 }), { ttl: 120 });
+                return true;
+            }
+            entry.count++;
+            await store.set(key, JSON.stringify(entry), { ttl: 120 });
+            return entry.count <= RATE_LIMIT_MAX;
+        }
+    } catch (e) {
+        // Blobs không khả dụng — fallback in-memory
+    }
+
+    // Fallback: in-memory (không bền vững qua cold start, nhưng vẫn có tác dụng trong warm instance)
+    if (!_memRateLimit[ip] || now - _memRateLimit[ip].start > RATE_LIMIT_WINDOW) {
+        _memRateLimit[ip] = { start: now, count: 1 };
         return true;
     }
-    rateLimitMap[ip].count++;
-    return rateLimitMap[ip].count <= RATE_LIMIT_MAX;
+    _memRateLimit[ip].count++;
+    return _memRateLimit[ip].count <= RATE_LIMIT_MAX;
 }
 
+const CORS_HEADERS = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+};
+
 exports.handler = async function (event, context) {
+    // CORS preflight
+    if (event.httpMethod === 'OPTIONS') {
+        return { statusCode: 204, headers: CORS_HEADERS, body: '' };
+    }
+
     // Rate limit check
     var clientIp = (event.headers && (event.headers['x-forwarded-for'] || event.headers['client-ip'])) || 'unknown';
-    if (!checkRateLimit(clientIp)) {
+    // x-forwarded-for có thể chứa nhiều IP (proxy chain) — lấy IP đầu tiên
+    clientIp = clientIp.split(',')[0].trim();
+
+    if (!(await checkRateLimit(clientIp, context))) {
         return {
             statusCode: 429,
-            headers: { 'Access-Control-Allow-Origin': '*' },
+            headers: CORS_HEADERS,
             body: JSON.stringify({ error: 'Too many requests. Please wait.' })
         };
     }
@@ -43,16 +88,27 @@ exports.handler = async function (event, context) {
     var voice = (event.queryStringParameters && event.queryStringParameters.voice) || 'vi-VN-HoaiMyNeural';
     var rate = (event.queryStringParameters && event.queryStringParameters.rate) || '-0%';
 
-    if (!q) {
+    // Validate và giới hạn độ dài input trước khi xử lý
+    if (!q || typeof q !== 'string') {
         return {
             statusCode: 400,
-            headers: { 'Access-Control-Allow-Origin': '*' },
+            headers: CORS_HEADERS,
             body: 'Missing q parameter'
         };
     }
+    if (q.length > 1500) {
+        return {
+            statusCode: 400,
+            headers: CORS_HEADERS,
+            body: JSON.stringify({ error: 'Text quá dài. Tối đa 1500 ký tự.' })
+        };
+    }
 
-    // Giới hạn độ dài để tránh timeout Lambda (10s)
-    q = q.substring(0, 1500);
+    // Validate voice parameter (chỉ cho phép các giọng tiếng Việt)
+    var ALLOWED_VOICES = ['vi-VN-HoaiMyNeural', 'vi-VN-NamMinhNeural'];
+    if (ALLOWED_VOICES.indexOf(voice) === -1) {
+        voice = 'vi-VN-HoaiMyNeural';
+    }
 
     // Escape XML characters để tránh lỗi SSML parse của msedgetts
     q = q.replace(/&/g, '&amp;')
@@ -78,11 +134,10 @@ exports.handler = async function (event, context) {
 
         return {
             statusCode: 200,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
+            headers: Object.assign({}, CORS_HEADERS, {
                 'Content-Type': 'audio/mpeg',
-                'Cache-Control': 'public, max-age=86400' // cache TTS requests
-            },
+                'Cache-Control': 'public, max-age=86400'
+            }),
             body: buffer.toString('base64'),
             isBase64Encoded: true
         };
@@ -91,7 +146,7 @@ exports.handler = async function (event, context) {
         console.error("Edge TTS Error:", err);
         return {
             statusCode: 500,
-            headers: { 'Access-Control-Allow-Origin': '*' },
+            headers: CORS_HEADERS,
             body: JSON.stringify({ error: err.message })
         };
     }

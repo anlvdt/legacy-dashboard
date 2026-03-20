@@ -6,6 +6,9 @@ const https = require('https');
  * Trả về JSON array các video IDs
  */
 exports.handler = async function(event) {
+    if (event.httpMethod === 'OPTIONS') {
+        return { statusCode: 204, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' }, body: '' };
+    }
     var q = (event.queryStringParameters || {}).q || 'cải lương xưa hay nhất';
     var maxResults = parseInt((event.queryStringParameters || {}).n) || 20;
 

@@ -15,6 +15,9 @@ const fetchHTML = (url) => new Promise((resolve, reject) => {
 });
 
 exports.handler = async function (event, context) {
+    if (event.httpMethod === 'OPTIONS') {
+        return { statusCode: 204, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' }, body: '' };
+    }
     // We scrape a reliable public source like webgia.com for petrol prices since there's no official open API
     const TARGET_URL = 'https://webgia.com/gia-xang-dau/petrolimex/';
 

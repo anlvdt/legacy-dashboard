@@ -34,6 +34,9 @@ const extractTBody = (html, regexDB, regexG1, regionName) => {
 };
 
 exports.handler = async function (event, context) {
+    if (event.httpMethod === 'OPTIONS') {
+        return { statusCode: 204, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' }, body: '' };
+    }
     const providers = [
         // 1. Primary: XSKT.com.vn HTML Scraper
         async () => {

@@ -92,6 +92,10 @@ LF.calendar._extractChi = function (canChiStr) {
  */
 LF.calendar.solarToLunar = function (dd, mm, yy) {
     try {
+        // Validate input cơ bản — tránh truyền tháng 0 hoặc âm từ _renderMonthly
+        if (!dd || !mm || !yy || mm < 1 || mm > 12 || dd < 1 || dd > 31) {
+            throw new Error('Invalid date input');
+        }
         var solarDate = new _calendar.SolarDate({ day: dd, month: mm, year: yy });
         var lunarDate = _calendar.LunarDate.fromSolarDate(solarDate);
         var lunarData = lunarDate.get();
@@ -231,9 +235,11 @@ LF.calendar.getHoliday = function (dd, mm, yy, lunarDay, lunarMonth) {
         return LF.calendar._solarHolidays[solarKey];
     }
 
-    // Kiểm tra ngày lễ âm lịch
-    if (typeof lunarDay === 'number' && typeof lunarMonth === 'number') {
-        var lunarKey = lunarDay + '/' + lunarMonth;
+    // Ép kiểu về number để tránh false negative khi nhận string
+    var lDay = parseInt(lunarDay, 10);
+    var lMonth = parseInt(lunarMonth, 10);
+    if (!isNaN(lDay) && !isNaN(lMonth)) {
+        var lunarKey = lDay + '/' + lMonth;
         if (LF.calendar._lunarHolidays[lunarKey]) {
             return LF.calendar._lunarHolidays[lunarKey];
         }
@@ -361,11 +367,12 @@ LF.calendar._renderMonthly = function (baseDate) {
 };
 
 /**
- * 8. updateMainDate() — Cập nhật hiển thị ngày trên dashboard
+ * 8. updateMainDate(date) — Cập nhật hiển thị ngày trên dashboard
  * Cập nhật #gregorian-date-p, #lunar-date-p, #lunar-event
+ * @param {Date} [date] - Ngày cần hiển thị, mặc định là new Date()
  */
-LF.calendar.updateMainDate = function () {
-    var now = new Date();
+LF.calendar.updateMainDate = function (date) {
+    var now = date instanceof Date ? date : new Date();
     var dayOfWeek = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
     var day = ('0' + now.getDate()).slice(-2);
     var month = ('0' + (now.getMonth() + 1)).slice(-2);
@@ -394,7 +401,7 @@ LF.calendar.updateMainDate = function () {
 
 /**
  * Danh sách ngày nghỉ lễ chính thức (có nghỉ) — dùng cho countdown
- * Bao gồm cả dương lịch và âm lịch
+ * Đồng bộ với _lunarHolidays/_solarHolidays ở trên
  */
 LF.calendar._officialHolidays = {
     solar: {
@@ -406,27 +413,105 @@ LF.calendar._officialHolidays = {
     lunar: {
         '1/1': 'Tết Nguyên Đán',
         '10/3': 'Giỗ Tổ Hùng Vương',
-        '15/1': 'Tết Nguyên Tiêu'
+        '15/1': 'Tết Nguyên Tiêu',
+        '23/12': 'Ông Táo'
     }
+};
+
+/** Cache cho getNextHoliday — reset mỗi ngày */
+LF.calendar._nextHolidayCache = null;
+LF.calendar._nextHolidayCacheDate = '';
+
+/**
+ * Lấy ngày nghỉ lễ tiếp theo và số ngày còn lại.
+ * Kết quả được cache trong ngày để tránh tính lại 420+ lần solarToLunar.
+ * @returns {Object} {name, date, daysLeft} hoặc null
+ */
+LF.calendar.getNextHoliday = function () {
+    var now = new Date();
+    var todayStr = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate();
+
+    // Trả cache nếu vẫn còn trong ngày
+    if (LF.calendar._nextHolidayCache && LF.calendar._nextHolidayCacheDate === todayStr) {
+        return LF.calendar._nextHolidayCache;
+    }
+
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var year = now.getFullYear();
+    var candidates = [];
+    var key, parts, d, m, solarDate;
+
+    var years = [year, year + 1];
+    var yi;
+    for (yi = 0; yi < years.length; yi++) {
+        var y = years[yi];
+
+        for (key in LF.calendar._officialHolidays.solar) {
+            if (!LF.calendar._officialHolidays.solar.hasOwnProperty(key)) { continue; }
+            parts = key.split('/');
+            d = parseInt(parts[0], 10);
+            m = parseInt(parts[1], 10);
+            solarDate = new Date(y, m - 1, d);
+            if (solarDate >= today) {
+                candidates.push({ name: LF.calendar._officialHolidays.solar[key], date: solarDate });
+            }
+        }
+
+        for (key in LF.calendar._officialHolidays.lunar) {
+            if (!LF.calendar._officialHolidays.lunar.hasOwnProperty(key)) { continue; }
+            parts = key.split('/');
+            d = parseInt(parts[0], 10);
+            m = parseInt(parts[1], 10);
+            // false = không tìm tháng nhuận cho ngày lễ chính thức
+            solarDate = LF.calendar._lunarToSolar(d, m, y, false);
+            if (solarDate && solarDate >= today) {
+                candidates.push({ name: LF.calendar._officialHolidays.lunar[key], date: solarDate });
+            }
+        }
+    }
+
+    if (candidates.length === 0) {
+        LF.calendar._nextHolidayCache = null;
+        LF.calendar._nextHolidayCacheDate = todayStr;
+        return null;
+    }
+
+    candidates.sort(function (a, b) { return a.date.getTime() - b.date.getTime(); });
+
+    var next = candidates[0];
+    var diff = next.date.getTime() - today.getTime();
+    var result = {
+        name: next.name,
+        date: next.date,
+        daysLeft: Math.ceil(diff / 86400000)
+    };
+
+    LF.calendar._nextHolidayCache = result;
+    LF.calendar._nextHolidayCacheDate = todayStr;
+    return result;
 };
 
 /**
  * Chuyển ngày âm lịch sang dương lịch (tìm ngày dương tương ứng)
  * Duyệt từ ngày bắt đầu, tìm ngày dương có âm lịch khớp
+ * Hỗ trợ cả tháng nhuận: nếu isLeapMonth=true thì tìm ngày trong tháng nhuận
  * @param {number} lunarDay
  * @param {number} lunarMonth
  * @param {number} year - năm dương lịch để tìm
+ * @param {boolean} [isLeapMonth] - true nếu cần tìm trong tháng nhuận
  * @returns {Date|null}
  */
-LF.calendar._lunarToSolar = function (lunarDay, lunarMonth, year) {
-    // Duyệt từ tháng 1 đến tháng 12 của năm, tìm ngày dương có âm lịch khớp
+LF.calendar._lunarToSolar = function (lunarDay, lunarMonth, year, isLeapMonth) {
     var d, m, lunar;
     for (m = 1; m <= 12; m++) {
         var daysInMonth = new Date(year, m, 0).getDate();
         for (d = 1; d <= daysInMonth; d++) {
             try {
                 lunar = LF.calendar.solarToLunar(d, m, year);
-                if (lunar.day === lunarDay && lunar.lunarMonth === lunarMonth && !lunar.isLeap) {
+                if (lunar.day === lunarDay && lunar.lunarMonth === lunarMonth) {
+                    // Nếu yêu cầu tháng nhuận thì phải khớp isLeap
+                    if (isLeapMonth && !lunar.isLeap) { continue; }
+                    if (!isLeapMonth && lunar.isLeap) { continue; }
                     return new Date(year, m - 1, d);
                 }
             } catch (e) {
@@ -435,70 +520,6 @@ LF.calendar._lunarToSolar = function (lunarDay, lunarMonth, year) {
         }
     }
     return null;
-};
-
-/**
- * Lấy ngày nghỉ lễ tiếp theo và số ngày còn lại
- * @returns {Object} {name, date, daysLeft} hoặc null
- */
-LF.calendar.getNextHoliday = function () {
-    var now = new Date();
-    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    var year = now.getFullYear();
-    var candidates = [];
-    var key, parts, d, m, solarDate;
-
-    // Thu thập tất cả ngày lễ dương lịch trong năm nay và năm sau
-    var years = [year, year + 1];
-    var yi;
-    for (yi = 0; yi < years.length; yi++) {
-        var y = years[yi];
-        for (key in LF.calendar._officialHolidays.solar) {
-            if (!LF.calendar._officialHolidays.solar.hasOwnProperty(key)) { continue; }
-            parts = key.split('/');
-            d = parseInt(parts[0], 10);
-            m = parseInt(parts[1], 10);
-            solarDate = new Date(y, m - 1, d);
-            if (solarDate >= today) {
-                candidates.push({
-                    name: LF.calendar._officialHolidays.solar[key],
-                    date: solarDate
-                });
-            }
-        }
-
-        // Thu thập ngày lễ âm lịch — chuyển sang dương lịch
-        for (key in LF.calendar._officialHolidays.lunar) {
-            if (!LF.calendar._officialHolidays.lunar.hasOwnProperty(key)) { continue; }
-            parts = key.split('/');
-            d = parseInt(parts[0], 10);
-            m = parseInt(parts[1], 10);
-            solarDate = LF.calendar._lunarToSolar(d, m, y);
-            if (solarDate && solarDate >= today) {
-                candidates.push({
-                    name: LF.calendar._officialHolidays.lunar[key],
-                    date: solarDate
-                });
-            }
-        }
-    }
-
-    if (candidates.length === 0) { return null; }
-
-    // Sắp xếp theo ngày gần nhất
-    candidates.sort(function (a, b) {
-        return a.date.getTime() - b.date.getTime();
-    });
-
-    var next = candidates[0];
-    var diff = next.date.getTime() - today.getTime();
-    var daysLeft = Math.ceil(diff / 86400000);
-
-    return {
-        name: next.name,
-        date: next.date,
-        daysLeft: daysLeft
-    };
 };
 
 /**

@@ -14,6 +14,12 @@ const ALLOWED_DOMAINS = [
     'open.er-api.com'
 ];
 
+const CORS_HEADERS = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+};
+
 function isAllowedUrl(url) {
     try {
         const parsed = new URL(url);
@@ -30,16 +36,19 @@ function isAllowedUrl(url) {
 }
 
 /**
- * Fetch URL với recursive redirect (tối đa maxRedirects hops)
- * Chỉ follow redirect đến domain trong whitelist
+ * Fetch URL với recursive redirect (tối đa maxRedirects hops).
+ * Validate whitelist tại TỪNG bước redirect — không chỉ URL ban đầu.
+ * Trả về { statusCode, headers, body, finalUrl } để caller có thể
+ * kiểm tra finalUrl một lần nữa nếu cần.
  */
 function fetchWithRedirects(url, maxRedirects) {
     return new Promise((resolve, reject) => {
         if (maxRedirects <= 0) {
             return reject(new Error('Too many redirects'));
         }
+        // Validate whitelist tại mỗi hop — ngăn redirect chain bypass
         if (!isAllowedUrl(url)) {
-            return resolve({ statusCode: 403, headers: {}, body: JSON.stringify({ error: 'Redirect domain not allowed' }) });
+            return resolve({ statusCode: 403, headers: {}, body: JSON.stringify({ error: 'Redirect domain not allowed' }), finalUrl: url });
         }
         const lib = url.startsWith('https') ? https : http;
         const req = lib.get(url, {
@@ -47,12 +56,17 @@ function fetchWithRedirects(url, maxRedirects) {
             timeout: 10000
         }, (res) => {
             if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-                fetchWithRedirects(res.headers.location, maxRedirects - 1).then(resolve).catch(reject);
+                const nextUrl = res.headers.location;
+                // Validate redirect destination trước khi follow
+                if (!isAllowedUrl(nextUrl)) {
+                    return resolve({ statusCode: 403, headers: {}, body: JSON.stringify({ error: 'Redirect destination not allowed' }), finalUrl: nextUrl });
+                }
+                fetchWithRedirects(nextUrl, maxRedirects - 1).then(resolve).catch(reject);
                 return;
             }
             let body = '';
             res.on('data', chunk => body += chunk);
-            res.on('end', () => resolve({ statusCode: res.statusCode, headers: res.headers, body }));
+            res.on('end', () => resolve({ statusCode: res.statusCode, headers: res.headers, body, finalUrl: url }));
         });
         req.on('error', reject);
         req.on('timeout', () => { req.destroy(); reject(new Error('Request timeout')); });
@@ -60,16 +74,21 @@ function fetchWithRedirects(url, maxRedirects) {
 }
 
 exports.handler = async function(event, context) {
-    const targetUrl = event.queryStringParameters.url;
-    
+    // CORS preflight
+    if (event.httpMethod === 'OPTIONS') {
+        return { statusCode: 204, headers: CORS_HEADERS, body: '' };
+    }
+
+    const targetUrl = event.queryStringParameters && event.queryStringParameters.url;
+
     if (!targetUrl) {
-         return { statusCode: 400, body: 'Missing URL parameter' };
+        return { statusCode: 400, headers: CORS_HEADERS, body: 'Missing URL parameter' };
     }
 
     if (!isAllowedUrl(targetUrl)) {
         return {
             statusCode: 403,
-            headers: { 'Access-Control-Allow-Origin': '*' },
+            headers: CORS_HEADERS,
             body: JSON.stringify({ error: 'Domain not allowed' })
         };
     }
@@ -77,18 +96,26 @@ exports.handler = async function(event, context) {
     try {
         const data = await fetchWithRedirects(targetUrl, 5);
 
+        // Double-check: validate final URL sau toàn bộ redirect chain
+        if (!isAllowedUrl(data.finalUrl)) {
+            return {
+                statusCode: 403,
+                headers: CORS_HEADERS,
+                body: JSON.stringify({ error: 'Final redirect destination not allowed' })
+            };
+        }
+
         return {
             statusCode: data.statusCode || 200,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': data.headers ? data.headers['content-type'] : 'text/plain',
-            },
+            headers: Object.assign({}, CORS_HEADERS, {
+                'Content-Type': data.headers ? data.headers['content-type'] : 'text/plain'
+            }),
             body: data.body
         };
     } catch (error) {
         return {
             statusCode: 500,
-            headers: { 'Access-Control-Allow-Origin': '*' },
+            headers: CORS_HEADERS,
             body: JSON.stringify({ error: error.message })
         };
     }

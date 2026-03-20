@@ -10,6 +10,9 @@ const https = require('https');
 const http = require('http');
 
 exports.handler = async function (event, context) {
+    if (event.httpMethod === 'OPTIONS') {
+        return { statusCode: 204, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' }, body: '' };
+    }
     var targetUrl = (event.queryStringParameters && event.queryStringParameters.url) || '';
 
     if (!targetUrl) {

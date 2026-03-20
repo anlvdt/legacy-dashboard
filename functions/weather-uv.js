@@ -23,6 +23,9 @@ const fetch = (url) => new Promise((resolve, reject) => {
 });
 
 exports.handler = async function (event, context) {
+    if (event.httpMethod === 'OPTIONS') {
+        return { statusCode: 204, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' }, body: '' };
+    }
     const { lat, lon } = event.queryStringParameters;
 
     if (!lat || !lon) {
