@@ -509,3 +509,151 @@ LF.news.openPanel = function () { };
 LF.news.closePanel = function () { };
 LF.news.bindPanelEvents = function () { };
 LF.news._buildPanelList = function () { };
+
+/* ================================================================
+ * TECH NEWS — Tin công nghệ tóm tắt extractive
+ * Hiển thị dạng card cuộn dọc, tách biệt với news ticker chính
+ * ES5 compatible
+ * ================================================================ */
+
+LF.technews = {};
+
+LF.technews.CACHE_KEY = 'tech_news';
+LF.technews.CACHE_TTL = 600000; // 10 phút
+LF.technews._items = [];
+LF.technews._scrollAnimId = null;
+LF.technews._scrollOffset = 0;
+LF.technews._scrollPaused = false;
+LF.technews._refreshTimer = null;
+
+/**
+ * Tải tin công nghệ từ Netlify function
+ */
+LF.technews.load = function () {
+    var cached = LF.utils.cacheGet(LF.technews.CACHE_KEY);
+    if (cached && cached.length) {
+        LF.technews._render(cached);
+        return;
+    }
+
+    LF.utils.makeRequest('/api/tech-news', function (err, data) {
+        if (err || !data || !data.items || !data.items.length) {
+            // Thử cache cũ
+            var stale = LF.utils.cacheGetStale(LF.technews.CACHE_KEY);
+            if (stale && stale.length) { LF.technews._render(stale); }
+            return;
+        }
+        LF.utils.cacheSet(LF.technews.CACHE_KEY, data.items, LF.technews.CACHE_TTL);
+        LF.technews._render(data.items);
+    }, 12000);
+};
+
+/**
+ * Render danh sách tin vào widget
+ */
+LF.technews._render = function (items) {
+    var container = document.getElementById('technews-list');
+    var widget = document.getElementById('technews-widget');
+    if (!container || !widget) { return; }
+
+    LF.technews._items = items || [];
+
+    // Clear
+    while (container.firstChild) { container.removeChild(container.firstChild); }
+
+    if (!items || !items.length) {
+        widget.style.display = 'none';
+        return;
+    }
+
+    var i, item, card, sourceEl, titleEl, summaryEl;
+    for (i = 0; i < items.length; i++) {
+        item = items[i];
+
+        card = document.createElement('div');
+        card.className = 'technews-card';
+
+        sourceEl = document.createElement('span');
+        sourceEl.className = 'technews-source';
+        sourceEl.textContent = item.source || '';
+
+        titleEl = document.createElement('div');
+        titleEl.className = 'technews-title';
+        titleEl.textContent = item.title || '';
+
+        summaryEl = document.createElement('div');
+        summaryEl.className = 'technews-summary';
+        summaryEl.textContent = item.summary || '';
+
+        card.appendChild(sourceEl);
+        card.appendChild(titleEl);
+        if (item.summary) { card.appendChild(summaryEl); }
+
+        // Click mở link
+        (function (lnk) {
+            if (lnk) {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function () { window.open(lnk, '_blank'); });
+            }
+        })(item.link);
+
+        container.appendChild(card);
+    }
+
+    widget.style.display = '';
+    LF.technews._startScroll();
+};
+
+/**
+ * Cuộn dọc tự động (teleprompter)
+ */
+LF.technews._startScroll = function () {
+    var view = document.getElementById('technews-scroll-view');
+    var content = document.getElementById('technews-list');
+    if (!view || !content) { return; }
+
+    LF.technews._stopScroll();
+    LF.technews._scrollOffset = 0;
+    var speed = 0.4;
+
+    function animate() {
+        if (!LF.technews._scrollPaused) {
+            LF.technews._scrollOffset += speed;
+            var contentH = content.scrollHeight;
+            var viewH = view.offsetHeight;
+            if (LF.technews._scrollOffset >= contentH) {
+                LF.technews._scrollOffset = -viewH;
+            }
+            content.style.cssText = '-webkit-transform:translateY(' + (-LF.technews._scrollOffset) + 'px);transform:translateY(' + (-LF.technews._scrollOffset) + 'px)';
+        }
+        LF.technews._scrollAnimId = typeof requestAnimationFrame === 'function'
+            ? requestAnimationFrame(animate)
+            : setTimeout(animate, 16);
+    }
+
+    LF.technews._scrollAnimId = typeof requestAnimationFrame === 'function'
+        ? requestAnimationFrame(animate)
+        : setTimeout(animate, 16);
+};
+
+LF.technews._stopScroll = function () {
+    if (LF.technews._scrollAnimId !== null) {
+        if (typeof cancelAnimationFrame === 'function') {
+            cancelAnimationFrame(LF.technews._scrollAnimId);
+        } else {
+            clearTimeout(LF.technews._scrollAnimId);
+        }
+        LF.technews._scrollAnimId = null;
+    }
+};
+
+/**
+ * Khởi tạo và schedule refresh
+ */
+LF.technews.init = function () {
+    LF.technews.load();
+    if (LF.technews._refreshTimer) { clearInterval(LF.technews._refreshTimer); }
+    LF.technews._refreshTimer = setInterval(function () {
+        LF.technews.load();
+    }, LF.technews.CACHE_TTL);
+};

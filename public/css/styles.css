@@ -3645,6 +3645,103 @@ body.power-save-mode #news-tts-btn {
     max-height: 100%;
 }
 
+/* ================================================================
+ * TECH NEWS WIDGET
+ * ================================================================ */
+
+.technews-wrapper {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.technews-header {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 0.4vmin 0.6vmin 0.3vmin;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.technews-label {
+    font-size: 1vmin;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+}
+
+.technews-scroll-view {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.technews-list {
+    position: absolute;
+    width: 100%;
+    will-change: transform;
+}
+
+.technews-card {
+    padding: 0.7vmin 0.6vmin;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    cursor: default;
+}
+
+.technews-card:hover {
+    background: rgba(255,255,255,0.04);
+}
+
+.technews-source {
+    display: block;
+    font-size: 0.85vmin;
+    font-weight: 600;
+    color: rgba(100,180,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.2vmin;
+}
+
+.technews-title {
+    font-size: 1.15vmin;
+    font-weight: 600;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.35;
+    margin-bottom: 0.25vmin;
+}
+
+.technews-summary {
+    font-size: 1vmin;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.4;
+}
+
+#dashboard-bottom-row .technews-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: 100%;
+}
+
+body.lite-mode .technews-wrapper {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
 
 /* ================================================================
  * HOLIDAY COUNTDOWN — Đếm ngược ngày nghỉ lễ (trong date-display)

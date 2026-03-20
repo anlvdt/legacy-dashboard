@@ -56,3 +56,8 @@
   from = "/api/weather-uv"
   to = "/.netlify/functions/weather-uv"
   status = 200
+
+[[redirects]]
+  from = "/api/tech-news"
+  to = "/.netlify/functions/tech-news"
+  status = 200

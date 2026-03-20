@@ -162,7 +162,8 @@ LF.app.applyClockOnlyMode = function () {
         'aqi-widget',
         'agriculture-widget',
         'fx-ticker',
-        'radio-bar'
+        'radio-bar',
+        'technews-widget'
     ];
 
     var i, el;
@@ -358,6 +359,9 @@ LF.app._refreshAllAPIs = function () {
     setTimeout(function () {
         if (LF.news && LF.news.loadMultiSource) {
             LF.news.loadMultiSource();
+        }
+        if (LF.technews && LF.technews.load) {
+            LF.technews.load();
         }
     }, 10000);
 
@@ -626,6 +630,13 @@ LF.app.init = function () {
             }, 4000);
         }
 
+        // Tin công nghệ (lazy-load, sau tin tức)
+        if (!current.clockOnlyMode && LF.technews && LF.technews.init) {
+            setTimeout(function () {
+                LF.technews.init();
+            }, 8000);
+        }
+
         // TTS — luôn init để nút TTS hiện khi có tin tức
         if (LF.tts && LF.tts.init) {
             setTimeout(function () {
@@ -709,6 +720,14 @@ LF.app._loadStaleCache = function (current) {
         var newsData = LF.utils.cacheGetStale('news');
         if (newsData && newsData.length > 0) {
             LF.news._renderInline(newsData, true);
+        }
+    }
+
+    // Tin công nghệ
+    if (LF.technews && LF.technews._render) {
+        var techData = LF.utils.cacheGetStale('tech_news');
+        if (techData && techData.length > 0) {
+            LF.technews._render(techData);
         }
     }
 
