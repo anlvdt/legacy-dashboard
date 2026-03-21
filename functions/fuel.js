@@ -1,5 +1,16 @@
 const https = require('https');
 
+// Simple in-memory rate limiter: 20 req/min per IP
+const _rl = {};
+function rateLimit(ip) {
+    var now = Date.now();
+    var w = _rl[ip];
+    if (!w || now - w.t > 60000) { _rl[ip] = { t: now, c: 1 }; return false; }
+    if (w.c >= 20) { return true; }
+    w.c++;
+    return false;
+}
+
 // A simple utility to fetch raw HTML
 const fetchHTML = (url) => new Promise((resolve, reject) => {
     https.get(url, {
@@ -17,6 +28,10 @@ const fetchHTML = (url) => new Promise((resolve, reject) => {
 exports.handler = async function (event, context) {
     if (event.httpMethod === 'OPTIONS') {
         return { statusCode: 204, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' }, body: '' };
+    }
+    const clientIp = (event.headers && (event.headers['x-forwarded-for'] || event.headers['client-ip'])) || 'unknown';
+    if (rateLimit(clientIp)) {
+        return { statusCode: 429, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ error: 'Too many requests' }) };
     }
     // We scrape a reliable public source like webgia.com for petrol prices since there's no official open API
     const TARGET_URL = 'https://webgia.com/gia-xang-dau/petrolimex/';

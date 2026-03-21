@@ -329,7 +329,7 @@ exports.handler = async function (event) {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
-                'Cache-Control': 'public, max-age=600'
+                'Cache-Control': 'public, max-age=1800'
             },
             body: JSON.stringify({
                 items: allItems,

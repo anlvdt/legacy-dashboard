@@ -70,8 +70,7 @@ LF.news.CACHE_TTL = 900000;
 LF.news.CORS_PROXIES = [
     '/api/proxy?url=',
     'https://api.allorigins.win/raw?url=',
-    'https://corsproxy.io/?',
-    'https://cors.lol/?'
+    'https://corsproxy.io/?'
 ];
 
 /** RSS timeout riêng: 10 giây cho mỗi proxy */

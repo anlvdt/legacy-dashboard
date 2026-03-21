@@ -15,9 +15,6 @@ LF.app._isOffline = false;
 LF.app._clockOnlySettingsTimer = null;
 LF.app._onlineRefreshTimer = null;
 
-/** Danh sách interval IDs cần tạm dừng khi clock-only */
-LF.app._pausedIntervals = [];
-
 /**
  * Fallback requestAnimationFrame cho trình duyệt rất cũ
  * Requirement: 11.7

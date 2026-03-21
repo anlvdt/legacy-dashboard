@@ -10,6 +10,10 @@ const ALLOWED_DOMAINS = [
     'thanhnien.vn',
     'dantri.com.vn',
     'tuoitre.vn',
+    'vietnamnet.vn',
+    'tinhte.vn',
+    'genk.vn',
+    'techz.vn',
     'sjc.com.vn',
     'webgia.com',
     'open.er-api.com'

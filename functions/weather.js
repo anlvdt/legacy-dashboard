@@ -1,5 +1,16 @@
 const https = require('https');
 
+// Simple in-memory rate limiter: 30 req/min per IP
+const _rl = {};
+function rateLimit(ip) {
+    var now = Date.now();
+    var w = _rl[ip];
+    if (!w || now - w.t > 60000) { _rl[ip] = { t: now, c: 1 }; return false; }
+    if (w.c >= 30) { return true; }
+    w.c++;
+    return false;
+}
+
 const fetch = (url) => new Promise((resolve, reject) => {
     const req = https.get(url, {
         headers: { 'User-Agent': 'LegacyFrame/1.0' }
@@ -28,11 +39,26 @@ exports.handler = async function (event, context) {
     }
     const { lat, lon, city } = event.queryStringParameters;
 
+    const clientIp = (event.headers && (event.headers['x-forwarded-for'] || event.headers['client-ip'])) || 'unknown';
+    if (rateLimit(clientIp)) {
+        return { statusCode: 429, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ error: 'Too many requests' }) };
+    }
+
     if (!lat || !lon) {
         return {
             statusCode: 400,
             headers: { 'Access-Control-Allow-Origin': '*' },
             body: JSON.stringify({ error: 'Latitude (lat) and Longitude (lon) are required.' }),
+        };
+    }
+
+    const latN = parseFloat(lat);
+    const lonN = parseFloat(lon);
+    if (isNaN(latN) || isNaN(lonN) || latN < -90 || latN > 90 || lonN < -180 || lonN > 180) {
+        return {
+            statusCode: 400,
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            body: JSON.stringify({ error: 'Invalid lat/lon range.' }),
         };
     }
 

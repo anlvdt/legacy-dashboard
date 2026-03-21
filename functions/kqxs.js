@@ -1,6 +1,17 @@
 const https = require('https');
 const http = require('http');
 
+// Simple in-memory rate limiter: 20 req/min per IP
+const _rl = {};
+function rateLimit(ip) {
+    var now = Date.now();
+    var w = _rl[ip];
+    if (!w || now - w.t > 60000) { _rl[ip] = { t: now, c: 1 }; return false; }
+    if (w.c >= 20) { return true; }
+    w.c++;
+    return false;
+}
+
 const fetchHTML = (url, followRedirects = 3) => new Promise((resolve) => {
     const lib = url.startsWith('https') ? https : http;
     lib.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } }, (res) => {
@@ -37,6 +48,10 @@ exports.handler = async function (event, context) {
     if (event.httpMethod === 'OPTIONS') {
         return { statusCode: 204, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' }, body: '' };
     }
+    const clientIp = (event.headers && (event.headers['x-forwarded-for'] || event.headers['client-ip'])) || 'unknown';
+    if (rateLimit(clientIp)) {
+        return { statusCode: 429, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ error: 'Too many requests' }) };
+    }
     const providers = [
         // 1. Primary: XSKT.com.vn HTML Scraper
         async () => {
@@ -64,14 +79,14 @@ exports.handler = async function (event, context) {
 
             return { mb, mt, mn, timestamp: new Date().toISOString(), source: "xskt.com.vn" };
         },
-        // 2. Fallback: Mocked fallback logic
+        // 2. Fallback: trả lỗi rõ ràng thay vì mock data
         async () => {
             return {
-                mb: { province: "Miền Bắc (Dự phòng)", date: "Hôm nay", dacbiet: "---", giai1: "---" },
+                mb: { province: "Miền Bắc", date: "Hôm nay", dacbiet: null, giai1: null, source: "unavailable" },
                 mt: null,
                 mn: null,
                 timestamp: new Date().toISOString(),
-                source: "Fallback Node"
+                source: "unavailable"
             };
         }
     ];
