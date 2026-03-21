@@ -6,3 +6,6 @@ node_modules/
 
 # Kiro internal
 .kiro-autorun/
+# Environment variables — KHÔNG commit lên git
+.env
+.env.local

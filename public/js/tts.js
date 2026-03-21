@@ -43,42 +43,298 @@ LF.tts.isSpeechSupported = function () {
 LF.tts._normalizeText = function (text) {
     if (!text) return '';
     var str = text;
-    var dict = {
-        'UBND': 'Ủy ban nhân dân',
-        'HĐND': 'Hội đồng nhân dân',
-        'TP.HCM': 'Thành phố Hồ Chí Minh',
-        'TPHCM': 'Thành phố Hồ Chí Minh',
-        'TP HCM': 'Thành phố Hồ Chí Minh',
-        'HN': 'Hà Nội',
-        'CSGT': 'Cảnh sát giao thông',
-        'BĐS': 'Bất động sản',
-        'TTXVN': 'Thông tấn xã Việt Nam',
-        'GD&ĐT': 'Giáo dục và Đào tạo',
-        'GD-ĐT': 'Giáo dục và Đào tạo',
-        'KH&CN': 'Khoa học và Công nghệ',
-        'BHXH': 'Bảo hiểm xã hội',
-        'BHYT': 'Bảo hiểm y tế',
-        'NXB': 'Nhà xuất bản',
-        'BCH': 'Ban chấp hành',
-        'TW': 'Trung ương',
-        'BQP': 'Bộ quốc phòng',
-        'BCA': 'Bộ công an',
-        'BTC': 'Bộ tài chính',
-        'BCT': 'Bộ công thương',
-        'TAND': 'Tòa án nhân dân',
-        'VKSND': 'Viện kiểm sát nhân dân',
-        'TANDTC': 'Tòa án nhân dân tối cao',
-        'CSĐT': 'Cảnh sát điều tra',
-        'GTVT': 'Giao thông vận tải'
-    };
 
-    for (var key in dict) {
-        if (dict.hasOwnProperty(key)) {
-            var val = dict[key];
-            // Dùng simple string replace thay vì regex phức tạp để tránh lỗi escape
-            str = str.split(key).join(val);
-        }
+    // ── Thứ tự quan trọng: dài/cụ thể trước, ngắn/chung sau ──────────────────
+
+    var dict = [
+        // Địa danh & tổ chức nhà nước
+        ['TP.HCM',   'Thành phố Hồ Chí Minh'],
+        ['TPHCM',    'Thành phố Hồ Chí Minh'],
+        ['TP HCM',   'Thành phố Hồ Chí Minh'],
+        ['UBND',     'Ủy ban nhân dân'],
+        ['HĐND',     'Hội đồng nhân dân'],
+        ['TTXVN',    'Thông tấn xã Việt Nam'],
+        ['TANDTC',   'Tòa án nhân dân tối cao'],
+        ['TAND',     'Tòa án nhân dân'],
+        ['VKSND',    'Viện kiểm sát nhân dân'],
+        ['CSĐT',     'Cảnh sát điều tra'],
+        ['CSGT',     'Cảnh sát giao thông'],
+        ['GD&ĐT',    'Giáo dục và Đào tạo'],
+        ['GD-ĐT',    'Giáo dục và Đào tạo'],
+        ['KH&CN',    'Khoa học và Công nghệ'],
+        ['GTVT',     'Giao thông vận tải'],
+        ['BHXH',     'Bảo hiểm xã hội'],
+        ['BHYT',     'Bảo hiểm y tế'],
+        ['NXB',      'Nhà xuất bản'],
+        ['BCH',      'Ban chấp hành'],
+        ['BQP',      'Bộ Quốc phòng'],
+        ['BCA',      'Bộ Công an'],
+        ['BTC',      'Bộ Tài chính'],
+        ['BCT',      'Bộ Công thương'],
+        ['BĐS',      'Bất động sản'],
+        ['TW',       'Trung ương'],
+        ['HN',       'Hà Nội'],
+
+        // ── Thương hiệu & tên sản phẩm công nghệ ─────────────────────────────
+        // Apple
+        ['iPhone',   'ai phôn'],
+        ['iPad',     'ai pét'],
+        ['MacBook',  'mác buk'],
+        ['iMac',     'ai mác'],
+        ['AirPods',  'e pót'],
+        ['AirTag',   'e tắc'],
+        ['Apple Watch', 'áp pồ uốt'],
+        ['Apple TV', 'áp pồ ti vi'],
+        ['Apple Intelligence', 'áp pồ in tê li gần'],
+        ['App Store', 'áp sto'],
+        ['iOS',      'ai ô ét'],
+        ['iPadOS',   'ai pét ô ét'],
+        ['macOS',    'mác ô ét'],
+        ['watchOS',  'uốt ô ét'],
+        ['tvOS',     'ti vi ô ét'],
+        ['visionOS', 'vi dần ô ét'],
+        ['Apple',    'áp pồ'],
+
+        // Google
+        ['Google Pixel', 'gú gồ pích xồ'],
+        ['Google Maps',  'gú gồ mép'],
+        ['Google Drive', 'gú gồ đrai'],
+        ['Google Meet',  'gú gồ mít'],
+        ['Google Docs',  'gú gồ đóc'],
+        ['Google',   'gú gồ'],
+        ['Gmail',    'gờ meo'],
+        ['YouTube',  'diu túp'],
+        ['Android',  'an đờ roi'],
+        ['Chrome',   'crôm'],
+        ['Gemini',   'gê mi ni'],
+        ['Bard',     'bát'],
+
+        // Microsoft
+        ['Microsoft', 'mai cờ rô sốp'],
+        ['Windows',  'uyn đô'],
+        ['Xbox',     'éc bóc'],
+        ['OneDrive', 'oan đrai'],
+        ['Outlook',  'ao lúc'],
+        ['Teams',    'tím'],
+        ['Copilot',  'cô pai lốt'],
+        ['Azure',    'a dua'],
+        ['Bing',     'binh'],
+
+        // Samsung & Android OEM
+        ['Samsung',  'sam sung'],
+        ['Galaxy',   'ga lắc xi'],
+        ['Xiaomi',   'si ao mi'],
+        ['OPPO',     'ô pô'],
+        ['Vivo',     'vi vô'],
+        ['Realme',   'ri ồ mi'],
+        ['OnePlus',  'oan pờ lớt'],
+        ['Huawei',   'hua uây'],
+        ['Honor',    'ô nơ'],
+        ['Motorola', 'mô tô rô la'],
+        ['Nokia',    'nô kia'],
+        ['Sony',     'sô ni'],
+        ['LG',       'eo gờ'],
+        ['Asus',     'a xút'],
+        ['Lenovo',   'lê nô vô'],
+        ['Dell',     'đeo'],
+        ['HP',       'hát pê'],
+        ['Acer',     'ây xơ'],
+        ['MSI',      'em ét ai'],
+        ['Razer',    'rây dơ'],
+
+        // Chip & phần cứng
+        ['Snapdragon', 'snép đờ ra gần'],
+        ['Dimensity',  'đi men xi ti'],
+        ['Exynos',     'éc xi nốt'],
+        ['Kirin',      'ki rin'],
+        ['MediaTek',   'mê đia tếch'],
+        ['Qualcomm',   'quân com'],
+        ['NVIDIA',     'en vi đia'],
+        ['GeForce',    'gờ phót'],
+        ['Radeon',     'ra đi ôn'],
+        ['Intel',      'in teo'],
+        ['AMD',        'ây em đi'],
+        ['ARM',        'a ờ em'],
+        ['TSMC',       'ti ét em xi'],
+        ['RAM',        'ram'],
+        ['ROM',        'rom'],
+        ['SSD',        'ét ét đi'],
+        ['HDD',        'hát đi đi'],
+        ['USB',        'diu ét bi'],
+        ['HDMI',       'hát đi em ai'],
+        ['GPU',        'gờ pờ diu'],
+        ['CPU',        'xê pờ diu'],
+        ['NPU',        'en pờ diu'],
+
+        // Mạng & kết nối
+        ['WiFi',     'uai fai'],
+        ['Wi-Fi',    'uai fai'],
+        ['Bluetooth', 'blú tút'],
+        ['5G',       'năm gờ'],
+        ['4G',       'bốn gờ'],
+        ['3G',       'ba gờ'],
+        ['NFC',      'en ép xê'],
+        ['VPN',      'vê pê en'],
+        ['DNS',      'đê en ét'],
+        ['IP',       'ai pê'],
+
+        // Phần mềm & dịch vụ
+        ['ChatGPT',  'chát gờ pê tê'],
+        ['GPT-4',    'gờ pê tê bốn'],
+        ['GPT-4o',   'gờ pê tê bốn ô'],
+        ['GPT',      'gờ pê tê'],
+        ['OpenAI',   'ô pần ai'],
+        ['Claude',   'clôt'],
+        ['Llama',    'la ma'],
+        ['Mistral',  'mít trồ'],
+        ['DeepSeek', 'đíp xíc'],
+        ['Grok',     'grốc'],
+        ['Meta AI',  'mê ta ai'],
+        ['Meta',     'mê ta'],
+        ['Facebook', 'phây búc'],
+        ['Instagram', 'in xờ ta gram'],
+        ['TikTok',   'tíc tóc'],
+        ['Twitter',  'tuýt tơ'],
+        ['X.com',    'éc chấm com'],
+        ['LinkedIn', 'linh đin'],
+        ['Zalo',     'da lô'],
+        ['Telegram', 'tê lê gram'],
+        ['WhatsApp', 'uốt áp'],
+        ['Spotify',  'xờ pô ti fai'],
+        ['Netflix',  'nét phờ lích'],
+        ['Zoom',     'zum'],
+        ['Slack',    'xlắc'],
+        ['Discord',  'đít cót'],
+        ['GitHub',   'gít hắp'],
+        ['GitLab',   'gít láp'],
+        ['Docker',   'đóc cơ'],
+        ['Kubernetes', 'cu bơ nê tít'],
+        ['Linux',    'li nớt'],
+        ['Ubuntu',   'u bun tu'],
+        ['Debian',   'đê bi ần'],
+        ['Python',   'pai thần'],
+        ['JavaScript', 'gia va xcờ ríp'],
+        ['TypeScript', 'tai pờ xcờ ríp'],
+        ['React',    'ri ắc'],
+        ['Node.js',  'nốt gờ ét'],
+        ['npm',      'en pê em'],
+        ['API',      'ây pê ai'],
+        ['SDK',      'ét đê kê'],
+        ['IDE',      'ai đê i'],
+        ['UI',       'diu ai'],
+        ['UX',       'diu éc'],
+        ['AI',       'ây ai'],
+        ['ML',       'em eo'],
+        ['LLM',      'eo eo em'],
+        ['AR',       'ây a'],
+        ['VR',       'vê a'],
+        ['XR',       'éc a'],
+        ['IoT',      'ai ô ti'],
+        ['NFT',      'en ép ti'],
+        ['Web3',     'uép ba'],
+        ['DeFi',     'đê fai'],
+        ['Blockchain', 'blóc chen'],
+        ['Bitcoin',  'bít coin'],
+        ['Ethereum', 'i thê ri ầm'],
+        ['crypto',   'cờ ríp tô'],
+        ['Crypto',   'cờ ríp tô'],
+
+        // Đơn vị & ký hiệu kỹ thuật
+        ['GHz',      'ghi ga hét'],
+        ['MHz',      'mê ga hét'],
+        ['GB',       'ghi ga bai'],
+        ['TB',       'tê ra bai'],
+        ['MB',       'mê ga bai'],
+        ['KB',       'ki lô bai'],
+        ['Gbps',     'ghi ga bít mỗi giây'],
+        ['Mbps',     'mê ga bít mỗi giây'],
+        ['mAh',      'mi li am pe giờ'],
+        ['W',        'oát'],
+        ['GW',       'ghi ga oát'],
+        ['MW',       'mê ga oát'],
+        ['kW',       'ki lô oát'],
+        ['nm',       'na nô mét'],
+        ['fps',      'khung hình mỗi giây'],
+        ['Hz',       'hét'],
+        ['ms',       'mi li giây'],
+
+        // Tên công ty VN & quốc tế
+        ['Viettel',  'viết teo'],
+        ['VNPT',     'vê en pê tê'],
+        ['MobiFone', 'mô bi phôn'],
+        ['Vietnamobile', 'việt nam mô bai'],
+        ['FPT',      'ép pê tê'],
+        ['VNG',      'vê en gờ'],
+        ['Vingroup', 'vin grúp'],
+        ['VinFast',  'vin phát'],
+        ['Momo',     'mô mô'],
+        ['ZaloPay',  'da lô pây'],
+        ['VNPay',    'vê en pây'],
+        ['Shopee',   'sô pi'],
+        ['Lazada',   'la da đa'],
+        ['Tiki',     'ti ki'],
+        ['Sendo',    'xen đô'],
+        ['Grab',     'gráp'],
+        ['Be',       'bi'],
+        ['Gojek',    'gô giéc'],
+        ['Tinhte',   'tinh tế'],
+        ['GenK',     'ghen kê'],
+        ['ICTNews',  'ai xê tê niu'],
+        ['VnReview', 'vê en ri viu'],
+        ['Techz',    'tếch'],
+        ['CafeF',    'ca phê ép'],
+        ['VnExpress', 'vê en éc pờ rét'],
+        ['Zing',     'dinh'],
+        ['Kenh14',   'kênh mười bốn'],
+        ['Dantri',   'dân trí'],
+        ['Tuoitre',  'tuổi trẻ'],
+        ['Thanhnien', 'thanh niên'],
+        ['VietnamNet', 'việt nam nét'],
+        ['Baomoi',   'báo mới'],
+
+        // Viết tắt tiếng Anh thông dụng trong tin tức
+        ['CEO',      'xê i ô'],
+        ['CTO',      'xê ti ô'],
+        ['CFO',      'xê ép ô'],
+        ['COO',      'xê ô ô'],
+        ['IPO',      'ai pê ô'],
+        ['M&A',      'em và ây'],
+        ['GDP',      'gờ đê pê'],
+        ['USD',      'đô la Mỹ'],
+        ['EUR',      'ơ rô'],
+        ['GBP',      'bảng Anh'],
+        ['JPY',      'yên Nhật'],
+        ['CNY',      'nhân dân tệ'],
+        ['VND',      'đồng'],
+        ['tỷ USD',   'tỷ đô la Mỹ'],
+        ['triệu USD', 'triệu đô la Mỹ'],
+        ['Q1',       'quý một'],
+        ['Q2',       'quý hai'],
+        ['Q3',       'quý ba'],
+        ['Q4',       'quý bốn'],
+        ['H1',       'nửa đầu năm'],
+        ['H2',       'nửa cuối năm'],
+        ['vs.',      'so với'],
+        ['vs',       'so với'],
+        ['%',        ' phần trăm'],
+        ['&',        ' và ']
+    ];
+
+    var i, pair, key, val;
+    for (i = 0; i < dict.length; i++) {
+        pair = dict[i];
+        key = pair[0];
+        val = pair[1];
+        str = str.split(key).join(val);
     }
+
+    // Xóa URL nếu còn sót
+    str = str.replace(/https?:\/\/\S+/g, '');
+    // Xóa ký tự đặc biệt thừa
+    str = str.replace(/[_\[\]{}|\\^~`<>]/g, ' ');
+    // Chuẩn hóa khoảng trắng
+    str = str.replace(/\s{2,}/g, ' ').replace(/^\s+|\s+$/g, '');
+
     return str;
 };
 
@@ -280,6 +536,8 @@ LF.tts._readNextTech = function () {
         LF.tts._readNextTech();
     }, idx);
 };
+
+/**
  * Nếu Edge TTS lỗi → skip bài này, chuyển bài tiếp (chỉ cuộn)
  */
 LF.tts.readNewsItem = function (item, onEnd, idx) {

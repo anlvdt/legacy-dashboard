@@ -13,7 +13,9 @@ const SOURCES = [
     { name: 'Thanh Niên', url: 'https://thanhnien.vn/rss/cong-nghe.rss' },
     { name: 'Dân Trí',    url: 'https://dantri.com.vn/rss/suc-manh-so.rss' },
     { name: 'VietnamNet', url: 'https://vietnamnet.vn/rss/cong-nghe.rss' },
-    { name: 'Tinhte',     url: 'https://tinhte.vn/rss' }
+    { name: 'Tinhte',     url: 'https://tinhte.vn/rss' },
+    { name: 'GenK',       url: 'https://genk.vn/rss/home.rss' },
+    { name: 'Techz',      url: 'https://www.techz.vn/rss/cong-nghe.rss' }
 ];
 
 const ITEMS_PER_SOURCE = 2;
@@ -92,7 +94,7 @@ function extractArticleText(html) {
     }
 
     var result = paragraphs.join(' ');
-    if (result.length > 2000) { result = result.substring(0, 2000); }
+    if (result.length > 6000) { result = result.substring(0, 6000); }
     return result;
 }
 
@@ -135,7 +137,60 @@ function extractiveSummary(text, maxLen) {
     return result;
 }
 
-// ─── Cloudflare Workers AI ────────────────────────────────────────────────────
+// ─── Gemini Flash Summarize ───────────────────────────────────────────────────
+
+function geminiSummarize(apiKey, title, fullText) {
+    return new Promise(function (resolve) {
+        var content = fullText.length > 6000 ? fullText.substring(0, 6000) : fullText;
+        var prompt = 'Tóm tắt bài báo công nghệ sau thành đoạn văn tiếng Việt hoàn chỉnh, tự nhiên, đầy đủ thông tin chính. Yêu cầu:\n- 4-6 câu, khoảng 400-600 ký tự\n- Nêu đủ: sản phẩm gì, thông số/tính năng nổi bật, giá bán, ngày ra mắt (nếu có)\n- Câu cuối phải kết thúc hoàn chỉnh, không bị ngắt giữa chừng\n- Giữ nguyên tên thương hiệu, model bằng tiếng Anh\n- Chỉ trả về đoạn tóm tắt, không thêm tiêu đề hay gạch đầu dòng\n\nTiêu đề: ' + title + '\nNội dung bài viết:\n' + content;
+
+        var body = JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { maxOutputTokens: 600, temperature: 0.15 }
+        });
+
+        var options = {
+            hostname: 'generativelanguage.googleapis.com',
+            path: '/v1beta/models/gemini-2.5-flash-lite:generateContent?key=' + apiKey,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(body)
+            },
+            timeout: AI_TIMEOUT
+        };
+
+        var req = https.request(options, function (res) {
+            var data = '';
+            res.on('data', function (c) { data += c; });
+            res.on('end', function () {
+                try {
+                    var json = JSON.parse(data);
+                    var text = json.candidates &&
+                               json.candidates[0] &&
+                               json.candidates[0].content &&
+                               json.candidates[0].content.parts &&
+                               json.candidates[0].content.parts[0] &&
+                               json.candidates[0].content.parts[0].text;
+                    if (text && text.trim().length > 10) {
+                        text = text.trim();
+                        if (text.length > 700) {
+                            text = text.substring(0, text.lastIndexOf('.') + 1) || text.substring(0, 700);
+                        }
+                        return resolve(text);
+                    }
+                } catch (e) { /* fall through */ }
+                resolve(null);
+            });
+        });
+        req.on('error', function () { resolve(null); });
+        req.on('timeout', function () { req.destroy(); resolve(null); });
+        req.write(body);
+        req.end();
+    });
+}
+
+// ─── Cloudflare Workers AI (fallback) ────────────────────────────────────────
 
 function cfAISummarize(accountId, apiToken, title, fullText) {
     return new Promise(function (resolve) {
@@ -226,7 +281,8 @@ exports.handler = async function (event) {
 
     const CF_ACCOUNT_ID = process.env.CF_ACCOUNT_ID;
     const CF_AI_TOKEN   = process.env.CF_AI_TOKEN;
-    const useAI = !!(CF_ACCOUNT_ID && CF_AI_TOKEN);
+    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+    const useAI = !!(GEMINI_API_KEY || (CF_ACCOUNT_ID && CF_AI_TOKEN));
 
     try {
         // 1. Fetch tất cả RSS song song
@@ -271,10 +327,12 @@ exports.handler = async function (event) {
         if (useAI) {
             var aiTimeout = new Promise(function (resolve) { setTimeout(resolve, 8000); });
             var aiWork = Promise.all(rawItems.map(function (it, idx) {
-                return cfAISummarize(CF_ACCOUNT_ID, CF_AI_TOKEN, it.title, articleTexts[idx])
-                    .then(function (s) {
-                        if (s) { allItems[idx].summary = s; allItems[idx].aiSummarized = true; }
-                    });
+                var summarize = GEMINI_API_KEY
+                    ? geminiSummarize(GEMINI_API_KEY, it.title, articleTexts[idx])
+                    : cfAISummarize(CF_ACCOUNT_ID, CF_AI_TOKEN, it.title, articleTexts[idx]);
+                return summarize.then(function (s) {
+                    if (s) { allItems[idx].summary = s; allItems[idx].aiSummarized = true; }
+                });
             }));
             await Promise.race([aiWork, aiTimeout]);
         }

@@ -2,6 +2,11 @@
   functions = "functions/"
   publish = "public/"
 
+# ── Environment Variables (set in Netlify Dashboard → Site Settings → Env Vars)
+# GEMINI_API_KEY   = "AIza..."   ← Gemini Flash (ưu tiên, miễn phí tại aistudio.google.com)
+# CF_ACCOUNT_ID    = "..."       ← Cloudflare AI (fallback, nếu không có Gemini)
+# CF_AI_TOKEN      = "..."       ← Cloudflare AI token
+
 [[redirects]]
   from = "/api/weather"
   to = "/.netlify/functions/weather"
