@@ -249,10 +249,10 @@ LF.tts._normalizeText = function (text) {
         ['Gbps',     'ghi ga bít mỗi giây'],
         ['Mbps',     'mê ga bít mỗi giây'],
         ['mAh',      'mi li am pe giờ'],
-        ['W',        'oát'],
         ['GW',       'ghi ga oát'],
         ['MW',       'mê ga oát'],
         ['kW',       'ki lô oát'],
+        ['W',        'oát'],
         ['nm',       'na nô mét'],
         ['fps',      'khung hình mỗi giây'],
         ['Hz',       'hét'],
@@ -320,16 +320,23 @@ LF.tts._normalizeText = function (text) {
         ['&',        ' và ']
     ];
 
+    // Xóa URL trước khi replace dictionary (tránh match ký tự trong URL)
+    str = str.replace(/https?:\/\/\S+/g, '');
+
     var i, pair, key, val;
     for (i = 0; i < dict.length; i++) {
         pair = dict[i];
         key = pair[0];
         val = pair[1];
-        str = str.split(key).join(val);
+        // Các entry ngắn (≤3 ký tự chữ/số) cần word boundary để tránh match giữa từ
+        // Ví dụ: 'W' không nên match trong 'WHO', 'nm' không nên match trong 'environment'
+        if (key.length <= 3 && /^[A-Za-z0-9]+$/.test(key)) {
+            str = str.replace(new RegExp('\\b' + key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'g'), val);
+        } else {
+            str = str.split(key).join(val);
+        }
     }
 
-    // Xóa URL nếu còn sót
-    str = str.replace(/https?:\/\/\S+/g, '');
     // Xóa ký tự đặc biệt thừa
     str = str.replace(/[_\[\]{}|\\^~`<>]/g, ' ');
     // Chuẩn hóa khoảng trắng
