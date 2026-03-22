@@ -1913,14 +1913,12 @@
                 ttsChunkPos = 0;
                 ttsLoopUntil = 0;
                 clearTimeout(ttsSafetyTimer);
-                try { ttsAudioA.pause(); ttsAudioA.src = ''; } catch (e) { }
-                try { ttsAudioB.pause(); ttsAudioB.src = ''; } catch (e) { }
+                try { ttsAudioEl.pause(); ttsAudioEl.src = ''; } catch (e) { }
                 ttsUpdateBtn(false);
             }
 
             function ttsReadNext() {
-                // Now handled by ttsPlayGapless
-                ttsPlayGapless();
+                ttsPlayChunks();
             }
 
             // loopMinutes: 0 = read once, N = keep looping for N minutes
@@ -1946,16 +1944,15 @@
                     ? new Date().getTime() + (loopMinutes * 60000) : 0;
                 ttsBuildChunkList();
                 ttsUpdateBtn(true);
-                ttsPlayGapless();
+                ttsPlayChunks();
             }
 
             function speakText(text) {
                 if (!text) { return; }
-                // Quick single text — use audio A directly
                 var url = ttsBuildUrl(ttsNormalize(text));
-                ttsAudioA.src = url;
-                ttsAudioA.load();
-                try { ttsAudioA.play(); } catch (e) { }
+                ttsAudioEl.src = url;
+                ttsAudioEl.load();
+                try { ttsAudioEl.play(); } catch (e) { }
             }
 
             // ── TECH NEWS — merge vào marquee trên cùng ──
