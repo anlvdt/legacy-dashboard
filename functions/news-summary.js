@@ -114,17 +114,33 @@ function extractArticleText(html) {
         .replace(/<nav[\s\S]*?<\/nav>/gi, '')
         .replace(/<header[\s\S]*?<\/header>/gi, '')
         .replace(/<footer[\s\S]*?<\/footer>/gi, '')
-        .replace(/<!--[\s\S]*?-->/g, '');
+        .replace(/<!--[\s\S]*?-->/g, '')
+        .replace(/<figure[\s\S]*?<\/figure>/gi, '')
+        .replace(/<aside[\s\S]*?<\/aside>/gi, '');
 
+    // Selectors phổ biến của báo VN (VnExpress, Tuổi Trẻ, Dân Trí, Thanh Niên, VietnamNet, GenK, Tinhte)
     var containers = [
-        /class="[^"]*(?:article-body|fck_detail|detail-content|content-detail|singular-content|entry-content|post-content|article__body|article-content)[^"]*"[^>]*>([\s\S]*?)<\/(?:div|article|section)>/i,
-        /class="[^"]*(?:maincontent|main-content|content-main)[^"]*"[^>]*>([\s\S]*?)<\/div>/i
+        /class="[^"]*\bfck_detail\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\barticle-body\b[^"]*"[^>]*>([\s\S]*?)<\/(?:div|article)>/i,
+        /class="[^"]*\bdetail-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\bcontent-detail\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\bsingular-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\bentry-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\bpost-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\barticle__body\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\barticle-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\bdetail__content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\bdetail-text-body\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\bcontent-news-detail\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\bmaincontent\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /class="[^"]*\bmain-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+        /<article[^>]*>([\s\S]*?)<\/article>/i
     ];
 
     var text = '';
     for (var i = 0; i < containers.length; i++) {
         var m = html.match(containers[i]);
-        if (m) { text = m[1]; break; }
+        if (m && m[1].length > 200) { text = m[1]; break; }
     }
     if (!text) { text = html; }
 
@@ -144,7 +160,7 @@ function extractArticleText(html) {
 
 function extractiveSummary(text, maxLen) {
     if (!text) { return ''; }
-    maxLen = maxLen || 400;
+    maxLen = maxLen || 600;
     var sentences = text.replace(/([.!?])\s+/g, '$1\n').split('\n');
     var result = '';
     for (var i = 0; i < sentences.length; i++) {
@@ -269,6 +285,8 @@ function parseRSS(xml, sourceName, limit) {
     if (!xml) { return items; }
     var re = /<item>([\s\S]*?)<\/item>/gi;
     var m;
+    var now = Date.now();
+    var MAX_AGE_MS = 6 * 3600 * 1000; // chỉ lấy bài trong 6 giờ gần nhất
     while ((m = re.exec(xml)) !== null && items.length < limit) {
         var block = m[1];
         var titleM = block.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
@@ -283,6 +301,15 @@ function parseRSS(xml, sourceName, limit) {
 
         if (!title || title.length < 5 || !link) { continue; }
         if (isSensitive(title) || isSensitive(desc)) { continue; }
+
+        // Lọc bài cũ
+        if (pubDate) {
+            try {
+                var pubTime = new Date(pubDate).getTime();
+                if (!isNaN(pubTime) && (now - pubTime) > MAX_AGE_MS) { continue; }
+            } catch (e) { /* nếu parse lỗi thì vẫn giữ bài */ }
+        }
+
         items.push({ title, desc, link, source: sourceName, pubDate });
     }
     return items;
@@ -333,7 +360,7 @@ exports.handler = async function (event) {
         var allItems = rawItems.map(function (it, idx) {
             return {
                 title:        it.title,
-                summary:      extractiveSummary(articleTexts[idx], 400),
+                summary:      extractiveSummary(articleTexts[idx], 600),
                 link:         it.link,
                 source:       it.source,
                 pubDate:      it.pubDate,
@@ -360,7 +387,7 @@ exports.handler = async function (event) {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
-                'Cache-Control': 'public, max-age=1800'
+                'Cache-Control': 'public, max-age=900'
             },
             body: JSON.stringify({
                 items: allItems,
