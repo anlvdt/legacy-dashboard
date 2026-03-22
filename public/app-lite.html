@@ -1572,7 +1572,7 @@
 
             function ttsPlayOne(text, idx, onEnd) {
                 if (!ttsIsReading && idx !== -1) { if (onEnd) { onEnd(); } return; }
-                var url = TTS_PROXY + '?q=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(ttsVoice) + '&rate=-15%';
+                var url = TTS_PROXY + '?q=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(ttsVoice) + '&rate=' + encodeURIComponent('-15%');
                 var ended = false;
                 function finish() {
                     if (ended) { return; }

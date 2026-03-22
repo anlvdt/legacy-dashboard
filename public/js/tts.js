@@ -361,7 +361,10 @@ LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
     var url = LF.tts.TTS_PROXY
         + '?q=' + encodeURIComponent(text)
         + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
-        + '&rate=-15%';
+        + '&rate=' + encodeURIComponent('-15%');
+    if (typeof console !== 'undefined' && console.log) {
+        console.log('[TTS] Playing:', text.substring(0, 80), '| URL length:', url.length);
+    }
     var audio = new Audio(url);
 
     LF.tts._audio = audio;
@@ -387,7 +390,7 @@ LF.tts._prefetchEdge = function (text, voice, idx) {
     var url = LF.tts.TTS_PROXY
         + '?q=' + encodeURIComponent(text)
         + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
-        + '&rate=-15%';
+        + '&rate=' + encodeURIComponent('-15%');
 
     var audio = new Audio();
     audio.preload = "auto";
@@ -555,6 +558,10 @@ LF.tts.readNewsItem = function (item, onEnd, idx) {
 
     // Chỉ đọc title để tránh bị cắt nửa chừng do text quá dài
     var fullText = LF.tts._normalizeText(item.title || '');
+    if (typeof console !== 'undefined' && console.log) {
+        console.log('[TTS] News #' + idx + ' raw:', (item.title || '').substring(0, 60));
+        console.log('[TTS] News #' + idx + ' normalized:', fullText.substring(0, 80));
+    }
 
     // Cuộn tới bài đang đọc
     if (LF.news && LF.news.scrollToItem) {
