@@ -488,7 +488,35 @@ LF.tts._normalizeText = function (text) {
  * ================================================================ */
 
 /**
- * Phát một đoạn text qua Edge TTS proxy
+ * Chia text thành chunks nhỏ (~400 ký tự) tại dấu câu
+ */
+LF.tts._splitText = function (text) {
+    var MAX_CHUNK = 400;
+    if (!text || text.length <= MAX_CHUNK) { return [text]; }
+    var chunks = [];
+    var remaining = text;
+    while (remaining.length > MAX_CHUNK) {
+        var cut = remaining.substring(0, MAX_CHUNK);
+        var lastDot = -1;
+        var i;
+        var breaks = ['. ', '! ', '? ', ', ', '; ', ': '];
+        for (i = 0; i < breaks.length; i++) {
+            var pos = cut.lastIndexOf(breaks[i]);
+            if (pos > 100 && pos > lastDot) { lastDot = pos + 1; }
+        }
+        if (lastDot === -1) {
+            lastDot = cut.lastIndexOf(' ');
+            if (lastDot < 100) { lastDot = MAX_CHUNK; }
+        }
+        chunks.push(remaining.substring(0, lastDot).replace(/^\s+|\s+$/g, ''));
+        remaining = remaining.substring(lastDot).replace(/^\s+/, '');
+    }
+    if (remaining.length > 0) { chunks.push(remaining); }
+    return chunks;
+};
+
+/**
+ * Phát một đoạn text qua Edge TTS proxy (chia chunks nếu dài)
  */
 LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
     if (!text) {
@@ -496,46 +524,50 @@ LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
         return;
     }
 
-    var url = LF.tts.TTS_PROXY
-        + '?q=' + encodeURIComponent(text)
-        + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
-        + '&rate=' + encodeURIComponent('+10%');
-    if (typeof console !== 'undefined' && console.log) {
-        console.log('[TTS] Playing:', text.substring(0, 80), '| URL length:', url.length);
+    var chunks = LF.tts._splitText(text);
+    var chunkIdx = 0;
+
+    function playChunk() {
+        if (!LF.tts._isReading) { if (onEnd) { onEnd(); } return; }
+        if (chunkIdx >= chunks.length) { if (onEnd) { onEnd(); } return; }
+
+        var chunk = chunks[chunkIdx];
+        var url = LF.tts.TTS_PROXY
+            + '?q=' + encodeURIComponent(chunk)
+            + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
+            + '&rate=' + encodeURIComponent('+10%');
+        if (typeof console !== 'undefined' && console.log) {
+            console.log('[TTS] #' + idx + ' chunk ' + (chunkIdx + 1) + '/' + chunks.length + ':', chunk.substring(0, 60));
+        }
+        var audio = new Audio(url);
+        LF.tts._audio = audio;
+
+        audio.onended = function () {
+            LF.tts._audio = null;
+            chunkIdx++;
+            playChunk();
+        };
+
+        audio.onerror = function () {
+            LF.tts._audio = null;
+            chunkIdx++;
+            playChunk();
+        };
+
+        try { audio.play(); } catch (e) {
+            chunkIdx++;
+            playChunk();
+        }
     }
-    var audio = new Audio(url);
 
-    LF.tts._audio = audio;
-
-    audio.onended = function () {
-        LF.tts._audio = null;
-        if (onEnd) { onEnd(); }
-    };
-
-    audio.onerror = function () {
-        LF.tts._audio = null;
-        if (onError) { onError(); }
-    };
-
-    try { audio.play(); } catch (e) { if (onError) { onError(); } }
+    playChunk();
 };
 
 /**
- * Tải trước audio của bài tiếp theo
+ * Tải trước audio — tạm tắt khi dùng chunking
  */
 LF.tts._prefetchEdge = function (text, voice, idx) {
-    if (!text) return;
-    var url = LF.tts.TTS_PROXY
-        + '?q=' + encodeURIComponent(text)
-        + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
-        + '&rate=' + encodeURIComponent('+10%');
-
-    var audio = new Audio();
-    audio.preload = "auto";
-    audio.src = url;
-
-    LF.tts._prefetchedAudio = audio;
-    LF.tts._prefetchIndex = idx;
+    // Chunking mode: không prefetch vì text sẽ được chia nhỏ
 };
 
 /**

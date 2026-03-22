@@ -1719,42 +1719,78 @@
             var ttsAudioEl = document.createElement('audio');
             ttsAudioEl.setAttribute('preload', 'auto');
 
+            // Chia text thành chunks nhỏ (~400 ký tự) tại dấu câu
+            function ttsSplitText(text) {
+                var MAX_CHUNK = 400;
+                if (!text || text.length <= MAX_CHUNK) { return [text]; }
+                var chunks = [];
+                var remaining = text;
+                while (remaining.length > MAX_CHUNK) {
+                    var cut = remaining.substring(0, MAX_CHUNK);
+                    // Tìm dấu câu gần nhất để cắt
+                    var lastDot = -1;
+                    var i;
+                    var breaks = ['. ', '! ', '? ', ', ', '; ', ': '];
+                    for (i = 0; i < breaks.length; i++) {
+                        var pos = cut.lastIndexOf(breaks[i]);
+                        if (pos > 100 && pos > lastDot) { lastDot = pos + 1; }
+                    }
+                    if (lastDot === -1) {
+                        // Không tìm thấy dấu câu → cắt tại khoảng trắng
+                        lastDot = cut.lastIndexOf(' ');
+                        if (lastDot < 100) { lastDot = MAX_CHUNK; }
+                    }
+                    chunks.push(remaining.substring(0, lastDot).replace(/^\s+|\s+$/g, ''));
+                    remaining = remaining.substring(lastDot).replace(/^\s+/, '');
+                }
+                if (remaining.length > 0) { chunks.push(remaining); }
+                return chunks;
+            }
+
             function ttsPlayOne(text, idx, onEnd) {
                 if (!ttsIsReading && idx !== -1) { if (onEnd) { onEnd(); } return; }
-                if (typeof console !== 'undefined' && console.log) {
-                    console.log('[TTS-LITE] #' + idx + ' text:', text.substring(0, 80));
-                }
-                var url = TTS_PROXY + '?q=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(ttsVoice) + '&rate=' + encodeURIComponent('+10%');
-                var ended = false;
-                function finish() {
-                    if (ended) { return; }
-                    ended = true;
-                    clearTimeout(ttsSafetyTimer);
-                    if (onEnd) { onEnd(); }
-                }
-                // Safety timeout per item (60s)
-                clearTimeout(ttsSafetyTimer);
-                ttsSafetyTimer = setTimeout(finish, 60000);
-                ttsAudioEl.onended = finish;
-                ttsAudioEl.onerror = function(e) {
+                var chunks = ttsSplitText(text);
+                var chunkIdx = 0;
+
+                function playChunk() {
+                    if (!ttsIsReading && idx !== -1) { if (onEnd) { onEnd(); } return; }
+                    if (chunkIdx >= chunks.length) { if (onEnd) { onEnd(); } return; }
+                    var chunk = chunks[chunkIdx];
                     if (typeof console !== 'undefined' && console.log) {
-                        console.log('[TTS-LITE] Audio error for #' + idx, ttsAudioEl.error ? ttsAudioEl.error.code : 'unknown');
+                        console.log('[TTS-LITE] #' + idx + ' chunk ' + (chunkIdx + 1) + '/' + chunks.length + ':', chunk.substring(0, 60));
                     }
-                    finish();
-                };
-                // Change src on SAME element (keeps iOS unlock)
-                ttsAudioEl.src = url;
-                ttsAudioEl.load();
-                try {
-                    var playResult = ttsAudioEl.play();
-                    if (playResult && typeof playResult.then === 'function') {
-                        playResult.then(function () { }).catch(function () { finish(); });
+                    var url = TTS_PROXY + '?q=' + encodeURIComponent(chunk) + '&voice=' + encodeURIComponent(ttsVoice) + '&rate=' + encodeURIComponent('+10%');
+                    var ended = false;
+                    function finish() {
+                        if (ended) { return; }
+                        ended = true;
+                        clearTimeout(ttsSafetyTimer);
+                        chunkIdx++;
+                        playChunk();
                     }
-                } catch (e) { finish(); }
-                // Watchdog: if no event fires in 8s and audio not playing, skip
-                setTimeout(function () {
-                    if (!ended && ttsAudioEl.paused && ttsAudioEl.currentTime === 0) { finish(); }
-                }, 8000);
+                    clearTimeout(ttsSafetyTimer);
+                    ttsSafetyTimer = setTimeout(finish, 30000);
+                    ttsAudioEl.onended = finish;
+                    ttsAudioEl.onerror = function(e) {
+                        if (typeof console !== 'undefined' && console.log) {
+                            console.log('[TTS-LITE] Audio error for #' + idx + ' chunk ' + chunkIdx, ttsAudioEl.error ? ttsAudioEl.error.code : 'unknown');
+                        }
+                        finish();
+                    };
+                    ttsAudioEl.src = url;
+                    ttsAudioEl.load();
+                    try {
+                        var playResult = ttsAudioEl.play();
+                        if (playResult && typeof playResult.then === 'function') {
+                            playResult.then(function () { }).catch(function () { finish(); });
+                        }
+                    } catch (e) { finish(); }
+                    setTimeout(function () {
+                        if (!ended && ttsAudioEl.paused && ttsAudioEl.currentTime === 0) { finish(); }
+                    }, 5000);
+                }
+
+                playChunk();
             }
 
             // Loop control
