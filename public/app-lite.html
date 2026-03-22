@@ -1775,16 +1775,13 @@
                 if (ttsBtn) { ttsBtn.innerHTML = reading ? SVG_STOP : SVG_SPEAKER; }
             }
 
-            // DUAL audio elements for gapless playback — preload next while current plays
-            var ttsAudioA = document.createElement('audio');
-            var ttsAudioB = document.createElement('audio');
-            ttsAudioA.setAttribute('preload', 'auto');
-            ttsAudioB.setAttribute('preload', 'auto');
-            var ttsCurrentAudio = ttsAudioA; // which one is currently playing
+            // SINGLE audio element — iOS 9 requires same element to stay "unlocked"
+            var ttsAudioEl = document.createElement('audio');
+            ttsAudioEl.setAttribute('preload', 'auto');
 
-            // Chia text thành chunks (~1200 ký tự) tại dấu câu
+            // Chia text thành chunks (~400 ký tự) tại dấu câu
             function ttsSplitText(text) {
-                var MAX_CHUNK = 1200;
+                var MAX_CHUNK = 400;
                 if (!text || text.length <= MAX_CHUNK) { return [text]; }
                 var chunks = [];
                 var remaining = text;
@@ -1795,11 +1792,11 @@
                     var breaks = ['. ', '! ', '? ', ', ', '; ', ': '];
                     for (i = 0; i < breaks.length; i++) {
                         var pos = cut.lastIndexOf(breaks[i]);
-                        if (pos > 200 && pos > lastDot) { lastDot = pos + 1; }
+                        if (pos > 100 && pos > lastDot) { lastDot = pos + 1; }
                     }
                     if (lastDot === -1) {
                         lastDot = cut.lastIndexOf(' ');
-                        if (lastDot < 200) { lastDot = MAX_CHUNK; }
+                        if (lastDot < 100) { lastDot = MAX_CHUNK; }
                     }
                     chunks.push(remaining.substring(0, lastDot).replace(/^\s+|\s+$/g, ''));
                     remaining = remaining.substring(lastDot).replace(/^\s+/, '');
@@ -1813,7 +1810,7 @@
                 return TTS_PROXY + '?q=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(v) + '&rate=' + encodeURIComponent('+0%');
             }
 
-            // Flatten all items into a single list of chunks for gapless playback
+            // Flatten all items into a single list of chunks
             var ttsAllChunks = [];  // [{text, itemIdx}]
             var ttsChunkPos = 0;
 
@@ -1834,14 +1831,28 @@
             }
 
             function ttsPlayOne(text, idx, onEnd) {
-                // Legacy wrapper — not used in new gapless flow
-                if (onEnd) { onEnd(); }
+                // Legacy wrapper for speakText
+                if (!text) { if (onEnd) { onEnd(); } return; }
+                var url = ttsBuildUrl(text);
+                var ended = false;
+                function finish() {
+                    if (ended) { return; }
+                    ended = true;
+                    if (onEnd) { onEnd(); }
+                }
+                ttsAudioEl.onended = finish;
+                ttsAudioEl.onerror = finish;
+                ttsAudioEl.src = url;
+                ttsAudioEl.load();
+                try {
+                    var p = ttsAudioEl.play();
+                    if (p && typeof p.then === 'function') { p.then(function(){}).catch(finish); }
+                } catch (e) { finish(); }
             }
 
-            function ttsPlayGapless() {
+            function ttsPlayChunks() {
                 if (!ttsIsReading) { return; }
                 if (ttsChunkPos >= ttsAllChunks.length) {
-                    // Check loop
                     var now = new Date().getTime();
                     if (ttsLoopUntil > 0 && now < ttsLoopUntil) {
                         ttsChunkPos = 0;
@@ -1856,9 +1867,6 @@
                 var voices = ['vi-VN-HoaiMyNeural', 'vi-VN-NamMinhNeural'];
                 var voice = voices[chunk.itemIdx % 2];
                 var url = ttsBuildUrl(chunk.text, voice);
-                // Use current audio element
-                var playing = ttsCurrentAudio;
-                var next = (playing === ttsAudioA) ? ttsAudioB : ttsAudioA;
 
                 if (typeof console !== 'undefined' && console.log) {
                     console.log('[TTS-LITE] chunk ' + (ttsChunkPos + 1) + '/' + ttsAllChunks.length + ' item#' + chunk.itemIdx + ':', chunk.text.substring(0, 60));
@@ -1870,39 +1878,29 @@
                     ended = true;
                     clearTimeout(ttsSafetyTimer);
                     ttsChunkPos++;
-                    ttsCurrentAudio = next;
-                    ttsPlayGapless();
-                }
-
-                // Preload next chunk into the other audio element
-                if (ttsChunkPos + 1 < ttsAllChunks.length) {
-                    var nextChunk = ttsAllChunks[ttsChunkPos + 1];
-                    var nextVoice = voices[nextChunk.itemIdx % 2];
-                    var nextUrl = ttsBuildUrl(nextChunk.text, nextVoice);
-                    next.src = nextUrl;
-                    next.load();
+                    ttsPlayChunks();
                 }
 
                 clearTimeout(ttsSafetyTimer);
                 ttsSafetyTimer = setTimeout(finish, 30000);
-                playing.onended = finish;
-                playing.onerror = function() {
+                ttsAudioEl.onended = finish;
+                ttsAudioEl.onerror = function() {
                     if (typeof console !== 'undefined' && console.log) {
                         console.log('[TTS-LITE] Audio error chunk ' + ttsChunkPos);
                     }
                     finish();
                 };
-                playing.src = url;
-                playing.load();
+                ttsAudioEl.src = url;
+                ttsAudioEl.load();
                 try {
-                    var playResult = playing.play();
+                    var playResult = ttsAudioEl.play();
                     if (playResult && typeof playResult.then === 'function') {
                         playResult.then(function () { }).catch(function () { finish(); });
                     }
                 } catch (e) { finish(); }
                 // Watchdog
                 setTimeout(function () {
-                    if (!ended && playing.paused && playing.currentTime === 0) { finish(); }
+                    if (!ended && ttsAudioEl.paused && ttsAudioEl.currentTime === 0) { finish(); }
                 }, 5000);
             }
 
