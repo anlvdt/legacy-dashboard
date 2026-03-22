@@ -82,18 +82,30 @@ function extractArticleText(html) {
         var startRe = new RegExp('class="[^"]*\\b' + containerNames[i] + '\\b[^"]*"', 'i');
         var startIdx = html.search(startRe);
         if (startIdx === -1) { continue; }
-        var chunk = html.substring(startIdx, Math.min(startIdx + 50000, html.length));
+        var chunk = html.substring(startIdx, Math.min(startIdx + 30000, html.length));
+        // Cắt tại các dấu hiệu kết thúc nội dung bài
+        var endMarkers = [
+            'class="box-tinlienquan', 'class="related', 'class="tags',
+            'class="box_comment', 'class="comment', 'class="social',
+            'class="footer', 'class="breadcrumb', 'class="box-author',
+            'id="box_comment', 'id="comment', 'Điều khoản sử dụng',
+            'class="sidebar', 'class="widget', 'class="banner'
+        ];
+        for (var j = 0; j < endMarkers.length; j++) {
+            var endIdx = chunk.indexOf(endMarkers[j]);
+            if (endIdx > 200) { chunk = chunk.substring(0, endIdx); }
+        }
         text = chunk;
         break;
     }
 
     // Fallback: thử <article> tag
     if (!text) {
-        var artMatch = html.match(/<article[^>]*>([\s\S]*)<\/article>/i);
-        if (artMatch && artMatch[1].length > 200) { text = artMatch[1]; }
+        var artMatch = html.match(/<article[^>]*>([\s\S]{200,30000}?)<\/article>/i);
+        if (artMatch) { text = artMatch[1]; }
     }
 
-    if (!text) { text = html; }
+    if (!text) { text = html.substring(0, 30000); }
 
     // Extract text từ tất cả <p> tags trong vùng nội dung
     var paragraphs = [];
