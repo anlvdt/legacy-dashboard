@@ -535,7 +535,7 @@ LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
         var url = LF.tts.TTS_PROXY
             + '?q=' + encodeURIComponent(chunk)
             + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
-            + '&rate=' + encodeURIComponent('+10%');
+            + '&rate=' + encodeURIComponent('+0%');
         if (typeof console !== 'undefined' && console.log) {
             console.log('[TTS] #' + idx + ' chunk ' + (chunkIdx + 1) + '/' + chunks.length + ':', chunk.substring(0, 60));
         }

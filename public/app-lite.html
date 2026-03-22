@@ -1759,7 +1759,7 @@
                     if (typeof console !== 'undefined' && console.log) {
                         console.log('[TTS-LITE] #' + idx + ' chunk ' + (chunkIdx + 1) + '/' + chunks.length + ':', chunk.substring(0, 60));
                     }
-                    var url = TTS_PROXY + '?q=' + encodeURIComponent(chunk) + '&voice=' + encodeURIComponent(ttsVoice) + '&rate=' + encodeURIComponent('+10%');
+                    var url = TTS_PROXY + '?q=' + encodeURIComponent(chunk) + '&voice=' + encodeURIComponent(ttsVoice) + '&rate=' + encodeURIComponent('+0%');
                     var ended = false;
                     function finish() {
                         if (ended) { return; }
