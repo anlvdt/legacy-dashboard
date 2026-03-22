@@ -4,18 +4,24 @@ const https = require('https');
  * tech-news.js — Tin công nghệ tóm tắt AI từ bài viết gốc
  *
  * Flow: RSS → lấy link → fetch full article → extract text → AI summarize
- * Netlify free tier timeout: 10s → 8 sources × 2 bài = 16 bài/lần
+ * Netlify free tier timeout: 10s → 14 sources × 2 bài = 28 bài/lần
  */
 
 const SOURCES = [
-    { name: 'VnExpress',  url: 'https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss' },
-    { name: 'Tuổi Trẻ',  url: 'https://tuoitre.vn/rss/nhip-song-so.rss' },
-    { name: 'Thanh Niên', url: 'https://thanhnien.vn/rss/cong-nghe.rss' },
-    { name: 'Dân Trí',    url: 'https://dantri.com.vn/rss/suc-manh-so.rss' },
-    { name: 'VietnamNet', url: 'https://vietnamnet.vn/rss/cong-nghe.rss' },
-    { name: 'Tinhte',     url: 'https://tinhte.vn/rss' },
-    { name: 'GenK',       url: 'https://genk.vn/rss/home.rss' },
-    { name: 'Techz',      url: 'https://www.techz.vn/rss/cong-nghe.rss' }
+    { name: 'VnExpress',    url: 'https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss' },
+    { name: 'Tuổi Trẻ',    url: 'https://tuoitre.vn/rss/nhip-song-so.rss' },
+    { name: 'Thanh Niên',   url: 'https://thanhnien.vn/rss/cong-nghe.rss' },
+    { name: 'Dân Trí',      url: 'https://dantri.com.vn/rss/suc-manh-so.rss' },
+    { name: 'VietnamNet',   url: 'https://vietnamnet.vn/rss/cong-nghe.rss' },
+    { name: 'Tinhte',       url: 'https://tinhte.vn/rss' },
+    { name: 'GenK',         url: 'https://genk.vn/rss/home.rss' },
+    { name: 'Techz',        url: 'https://www.techz.vn/rss/cong-nghe.rss' },
+    { name: 'VTV',          url: 'https://vtv.vn/rss/cong-nghe.rss' },
+    { name: 'Soha',         url: 'https://soha.vn/rss/cong-nghe.rss' },
+    { name: 'Người Đưa Tin', url: 'https://www.nguoiduatin.vn/rss/cong-nghe.rss' },
+    { name: '24h',          url: 'https://cdn.24h.com.vn/upload/rss/congnghethongtin.rss' },
+    { name: 'ZNews',        url: 'https://znews.vn/rss/cong-nghe.rss' },
+    { name: 'VTC News',     url: 'https://vtcnews.vn/rss/cong-nghe.rss' }
 ];
 
 const ITEMS_PER_SOURCE = 2;
