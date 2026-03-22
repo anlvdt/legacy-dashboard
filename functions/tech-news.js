@@ -104,7 +104,13 @@ function decodeEntities(str) {
     return str
         .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
         .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
-        .replace(/&#\d+;/g, '').replace(/&[a-z]+;/g, ' ');
+        .replace(/&#x([0-9a-fA-F]+);/g, function (_, hex) {
+            return String.fromCharCode(parseInt(hex, 16));
+        })
+        .replace(/&#(\d+);/g, function (_, dec) {
+            return String.fromCharCode(parseInt(dec, 10));
+        })
+        .replace(/&[a-z]+;/g, ' ');
 }
 
 function cleanText(raw) {
