@@ -177,9 +177,46 @@ LF.tts._normalizeText = function (text) {
         ['Lucid',    'lu xít'],
         ['NIO',      'ni ô'],
         ['Hyundai',  'hiên đê'],
+        ['Kia',      'ki a'],
+        ['VinFast',  'vin phát'],
+        ['Land Cruiser', 'len cru dơ'],
+        ['Toyota',   'tô yô ta'],
+        ['Honda',    'hon đa'],
+        ['Mazda',    'mát đa'],
+        ['BMW',      'bi em đáp liu'],
+        ['Mercedes', 'mẹc xê đét'],
+        ['Porsche',  'po sơ'],
+        ['Audi',     'ao đi'],
+        ['Lexus',    'lếch xớt'],
+
+        // Model names & suffixes
+        ['Pro Max',  'prô mắc'],
+        ['Ultra',    'ân tra'],
+        ['Plus',     'plớt'],
+        ['Mini PC',  'mi ni pê xê'],
+        ['Mini Pro', 'mi ni prô'],
+        ['Mini',     'mi ni'],
+        ['Pro',      'prô'],
+        ['Max',      'mắc'],
+        ['Lite',     'lai'],
+        ['Elite',    'ê lít'],
+        ['Air',      'e'],
+        ['SE',       'ét i'],
+        ['4K',       'bốn kê'],
+        ['8K',       'tám kê'],
+        ['2K',       'hai kê'],
+        ['1080p',    'một không tám không pê'],
+        ['720p',     'bảy hai không pê'],
 
         // Chip & phần cứng
+        ['Snapdragon 8 Elite', 'snép đờ ra gần tám ê lít'],
         ['Snapdragon', 'snép đờ ra gần'],
+        ['Ryzen',    'rai dần'],
+        ['Core Ultra', 'co ân tra'],
+        ['Core i9',  'co ai chín'],
+        ['Core i7',  'co ai bảy'],
+        ['Core i5',  'co ai năm'],
+        ['Core i3',  'co ai ba'],
         ['Dimensity',  'đi men xi ti'],
         ['Exynos',     'éc xi nốt'],
         ['Kirin',      'ki rin'],
@@ -201,6 +238,7 @@ LF.tts._normalizeText = function (text) {
         ['GPU',        'gờ pờ diu'],
         ['CPU',        'xê pờ diu'],
         ['NPU',        'en pờ diu'],
+        ['TPU',        'tê pờ diu'],
         ['SoC',        'ét ô xê'],
         ['OLED',       'ô lét'],
         ['AMOLED',     'a mô lét'],
@@ -222,6 +260,7 @@ LF.tts._normalizeText = function (text) {
         ['5G',       'năm gờ'],
         ['4G',       'bốn gờ'],
         ['3G',       'ba gờ'],
+        ['6G',       'sáu gờ'],
         ['NFC',      'en ép xê'],
         ['VPN',      'vê pê en'],
         ['DNS',      'đê en ét'],
@@ -247,6 +286,12 @@ LF.tts._normalizeText = function (text) {
         ['Stable Diffusion', 'xtây bồ đi phiu dần'],
         ['Runway',   'ran uây'],
         ['Cursor',   'cơ xơ'],
+        ['Claude',   'clôt'],
+        ['Llama',    'la ma'],
+        ['Mistral',  'mít trồ'],
+        ['Copilot',  'cô pai lốt'],
+        ['Gemma',    'gê ma'],
+        ['Phi-3',    'fai ba'],
         ['Meta AI',  'mê ta ai'],
         ['Meta',     'mê ta'],
         ['Facebook', 'phây búc'],
@@ -337,6 +382,7 @@ LF.tts._normalizeText = function (text) {
         ['fps',      'khung hình mỗi giây'],
         ['Hz',       'hét'],
         ['ms',       'mi li giây'],
+        ['PC',       'pê xê'],
 
         // Tên công ty VN & quốc tế
         ['Viettel',  'viết teo'],
@@ -371,6 +417,10 @@ LF.tts._normalizeText = function (text) {
         ['Thanhnien', 'thanh niên'],
         ['VietnamNet', 'việt nam nét'],
         ['Baomoi',   'báo mới'],
+        ['Pi Network', 'pai nét uốc'],
+        ['DeFi',     'đê fai'],
+        ['NFT',      'en ép ti'],
+        ['Web3',     'uép ba'],
 
         // Viết tắt tiếng Anh thông dụng trong tin tức
         ['CEO',      'xê i ô'],
@@ -449,7 +499,7 @@ LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
     var url = LF.tts.TTS_PROXY
         + '?q=' + encodeURIComponent(text)
         + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
-        + '&rate=' + encodeURIComponent('-15%');
+        + '&rate=' + encodeURIComponent('+10%');
     if (typeof console !== 'undefined' && console.log) {
         console.log('[TTS] Playing:', text.substring(0, 80), '| URL length:', url.length);
     }
@@ -478,7 +528,7 @@ LF.tts._prefetchEdge = function (text, voice, idx) {
     var url = LF.tts.TTS_PROXY
         + '?q=' + encodeURIComponent(text)
         + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
-        + '&rate=' + encodeURIComponent('-15%');
+        + '&rate=' + encodeURIComponent('+10%');
 
     var audio = new Audio();
     audio.preload = "auto";

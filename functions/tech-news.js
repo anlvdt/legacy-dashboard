@@ -4,7 +4,7 @@ const https = require('https');
  * tech-news.js — Tin công nghệ tóm tắt AI từ bài viết gốc
  *
  * Flow: RSS → lấy link → fetch full article → extract text → AI summarize
- * Netlify free tier timeout: 10s → 8 sources × 1 bài = 8 bài/lần
+ * Netlify free tier timeout: 10s → 8 sources × 2 bài = 16 bài/lần
  */
 
 const SOURCES = [
@@ -18,7 +18,7 @@ const SOURCES = [
     { name: 'Techz',      url: 'https://www.techz.vn/rss/cong-nghe.rss' }
 ];
 
-const ITEMS_PER_SOURCE = 1;
+const ITEMS_PER_SOURCE = 2;
 const RSS_TIMEOUT      = 8000;
 const ARTICLE_TIMEOUT  = 8000;
 const AI_TIMEOUT       = 8000;
