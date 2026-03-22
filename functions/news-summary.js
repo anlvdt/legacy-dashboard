@@ -1,16 +1,23 @@
 var https = require('https');
 
 /**
- * news-summary.js — Tin tức tổng hợp từ Google News RSS
+ * news-summary.js — Tin tức tổng hợp tóm tắt từ bài viết gốc
  *
- * Dùng Google News RSS "Tin mới nhất" cho Việt Nam.
- * 1 request duy nhất, đã sort theo thời gian, nhiều nguồn tự động.
- * Không cần fetch article — dùng description snippet từ Google News.
+ * Flow: RSS (song song) → parse → fetch top N articles → extractive summary
+ * Tối ưu cho Netlify free tier 10s timeout
  */
 
-var GNEWS_URL = 'https://news.google.com/rss?hl=vi&gl=VN&ceid=VN:vi';
-var GNEWS_TIMEOUT = 6000;
-var MAX_ITEMS = 40;
+var SOURCES = [
+    { name: 'VnExpress',  url: 'https://vnexpress.net/rss/tin-moi-nhat.rss' },
+    { name: 'Tuổi Trẻ',  url: 'https://tuoitre.vn/rss/tin-moi-nhat.rss' },
+    { name: 'Dân Trí',    url: 'https://dantri.com.vn/rss/home.rss' },
+    { name: 'Thanh Niên', url: 'https://thanhnien.vn/rss/home.rss' }
+];
+
+var ITEMS_PER_SOURCE = 3;
+var MAX_ARTICLES     = 10;
+var RSS_TIMEOUT      = 3000;
+var ARTICLE_TIMEOUT  = 3000;
 
 var BLOCKED_WORDS = [
     'tâm sự', 'phòng the', 'ái ân', 'ngoại tình', 'giường chiếu',
@@ -28,10 +35,9 @@ function isSensitive(text) {
     return false;
 }
 
-// ─── Fetch ────────────────────────────────────────────────────────────────────
 
 function fetchURL(url, timeout) {
-    timeout = timeout || GNEWS_TIMEOUT;
+    timeout = timeout || RSS_TIMEOUT;
     return new Promise(function (resolve) {
         var req = https.get(url, {
             headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LegacyFrame/1.0)', 'Accept': '*/*' },
@@ -53,9 +59,6 @@ function fetchURL(url, timeout) {
         req.on('timeout', function () { req.destroy(); resolve(''); });
     });
 }
-
-
-// ─── HTML entity decode ───────────────────────────────────────────────────────
 
 var HTML_ENTITIES = {
     'aacute':'á','agrave':'à','atilde':'ã','acirc':'â','aring':'å',
@@ -92,73 +95,131 @@ function decodeEntities(str) {
 function cleanText(raw) {
     if (!raw) { return ''; }
     var s = raw.replace(/<!\[CDATA\[/g, '').replace(/\]\]>/g, '');
-    // Decode entities TRƯỚC để &lt;a href&gt; thành <a href> rồi strip
     s = decodeEntities(s);
     s = s.replace(/<[^>]+>/g, ' ');
-    s = decodeEntities(s); // decode lần 2 cho double-encoded
+    s = decodeEntities(s);
     s = s.replace(/\s+/g, ' ').trim();
+    s = s.replace(/^\([^)]{1,30}\)\s*[-–]\s*/, '');
     return s;
 }
 
-// ─── Parse Google News RSS ────────────────────────────────────────────────────
+function extractArticleText(html) {
+    if (!html) { return ''; }
+    html = html
+        .replace(/<script[\s\S]*?<\/script>/gi, '')
+        .replace(/<style[\s\S]*?<\/style>/gi, '')
+        .replace(/<nav[\s\S]*?<\/nav>/gi, '')
+        .replace(/<header[\s\S]*?<\/header>/gi, '')
+        .replace(/<footer[\s\S]*?<\/footer>/gi, '')
+        .replace(/<!--[\s\S]*?-->/g, '')
+        .replace(/<figure[\s\S]*?<\/figure>/gi, '')
+        .replace(/<aside[\s\S]*?<\/aside>/gi, '');
 
-function parseGoogleNewsRSS(xml, limit) {
+    var containerNames = [
+        'fck_detail', 'article-body', 'detail-content', 'content-detail',
+        'singular-content', 'entry-content', 'post-content', 'article__body',
+        'article-content', 'detail__content', 'detail-text-body',
+        'content-news-detail', 'maincontent', 'main-content'
+    ];
+
+    var text = '';
+    for (var i = 0; i < containerNames.length; i++) {
+        var startRe = new RegExp('class="[^"]*\\b' + containerNames[i] + '\\b[^"]*"', 'i');
+        var startIdx = html.search(startRe);
+        if (startIdx === -1) { continue; }
+        var chunk = html.substring(startIdx, Math.min(startIdx + 20000, html.length));
+        var endMarkers = [
+            'class="box-tinlienquan', 'class="related', 'class="tags',
+            'class="box_comment', 'class="comment', 'class="social',
+            'class="footer', 'class="breadcrumb', 'class="box-author',
+            'id="box_comment', 'id="comment', 'Điều khoản sử dụng',
+            'class="sidebar', 'class="widget', 'class="banner'
+        ];
+        for (var j = 0; j < endMarkers.length; j++) {
+            var endIdx = chunk.indexOf(endMarkers[j]);
+            if (endIdx > 200) { chunk = chunk.substring(0, endIdx); }
+        }
+        text = chunk;
+        break;
+    }
+
+    if (!text) {
+        var artMatch = html.match(/<article[^>]*>([\s\S]{200,20000}?)<\/article>/i);
+        if (artMatch) { text = artMatch[1]; }
+    }
+    if (!text) { text = html.substring(0, 20000); }
+
+    var paragraphs = [];
+    var pRe = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+    var pm;
+    while ((pm = pRe.exec(text)) !== null) {
+        var p = pm[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        p = decodeEntities(p);
+        if (p.length > 30) { paragraphs.push(p); }
+    }
+
+    var result = paragraphs.join(' ');
+    result = result.replace(/\s{2,}/g, ' ').trim();
+    if (result.length > 5000) { result = result.substring(0, 5000); }
+    return result;
+}
+
+function extractiveSummary(text, maxLen) {
+    if (!text) { return ''; }
+    maxLen = maxLen || 600;
+    var sentences = text.replace(/([.!?])\s+/g, '$1\n').split('\n');
+    var result = '';
+    for (var i = 0; i < sentences.length; i++) {
+        var s = sentences[i].trim();
+        if (s.length < 20) { continue; }
+        if (!result) { result = s; }
+        else if (result.length + s.length + 1 <= maxLen) { result += ' ' + s; }
+        else { break; }
+    }
+    if (!result) {
+        result = text.length > maxLen ? text.substring(0, maxLen).replace(/\s+\S*$/, '') + '...' : text;
+    }
+    var lastPunct = Math.max(result.lastIndexOf('.'), result.lastIndexOf('!'), result.lastIndexOf('?'));
+    if (lastPunct > result.length * 0.4) {
+        result = result.substring(0, lastPunct + 1);
+    } else if (result.slice(-1) !== '.' && result.slice(-1) !== '!' && result.slice(-1) !== '?') {
+        result = result + '.';
+    }
+    return result;
+}
+
+
+function parseRSS(xml, sourceName, limit) {
     var items = [];
     if (!xml) { return items; }
     var re = /<item>([\s\S]*?)<\/item>/gi;
     var m;
+    var now = Date.now();
+    var MAX_AGE_MS = 12 * 3600 * 1000;
     while ((m = re.exec(xml)) !== null && items.length < limit) {
         var block = m[1];
-        var titleM  = block.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-        var descM   = block.match(/<description[^>]*>([\s\S]*?)<\/description>/i);
-        var dateM   = block.match(/<pubDate[^>]*>([\s\S]*?)<\/pubDate>/i);
-        var sourceM = block.match(/<source[^>]*>([\s\S]*?)<\/source>/i);
+        var titleM = block.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+        var linkM  = block.match(/<link[^>]*>([\s\S]*?)<\/link>/i);
+        var descM  = block.match(/<description[^>]*>([\s\S]*?)<\/description>/i);
+        var dateM  = block.match(/<pubDate[^>]*>([\s\S]*?)<\/pubDate>/i);
 
-        var rawTitle = titleM ? cleanText(titleM[1]) : '';
-        var desc     = descM  ? cleanText(descM[1])  : '';
-        var pubDate  = dateM  ? dateM[1].replace(/<!\[CDATA\[/g, '').replace(/\]\]>/g, '').trim() : '';
-        var source   = sourceM ? cleanText(sourceM[1]) : '';
+        var title   = titleM ? cleanText(titleM[1]) : '';
+        var link    = linkM  ? linkM[1].replace(/<!\[CDATA\[/g, '').replace(/\]\]>/g, '').trim() : '';
+        var desc    = descM  ? cleanText(descM[1]) : '';
+        var pubDate = dateM  ? dateM[1].trim() : '';
 
-        if (!rawTitle || rawTitle.length < 5) { continue; }
-
-        // Google News title format: "Tiêu đề - Nguồn". Tách nguồn ra.
-        var title = rawTitle;
-        if (source) {
-            var suffix = ' - ' + source;
-            if (title.length > suffix.length && title.substring(title.length - suffix.length) === suffix) {
-                title = title.substring(0, title.length - suffix.length).trim();
-            }
-        }
-
-        // Lọc tin nhạy cảm
+        if (!title || title.length < 5 || !link) { continue; }
         if (isSensitive(title) || isSensitive(desc)) { continue; }
-
-        // Google News description chứa links bài liên quan — extract text bổ sung
-        var summary = desc;
-        summary = summary.replace(/Xem toàn bộ.*$/i, '').trim();
-        if (summary) {
-            var titleIdx = summary.indexOf(title);
-            if (titleIdx >= 0) {
-                var after = summary.substring(titleIdx + title.length).trim();
-                if (source && after.indexOf(source) === 0) {
-                    after = after.substring(source.length).trim();
-                }
-                if (after.length > 20) { summary = after; }
-            }
+        if (pubDate) {
+            try {
+                var pubTime = new Date(pubDate).getTime();
+                if (!isNaN(pubTime) && (now - pubTime) > MAX_AGE_MS) { continue; }
+            } catch (e) { }
         }
-        if (!summary || summary.length < 10) { summary = ''; }
-
-        items.push({
-            title:   title,
-            summary: summary,
-            source:  source,
-            pubDate: pubDate
-        });
+        items.push({ title: title, desc: desc, link: link, source: sourceName, pubDate: pubDate });
     }
     return items;
 }
-
-// ─── Handler ──────────────────────────────────────────────────────────────────
 
 exports.handler = async function (event) {
     if (event.httpMethod === 'OPTIONS') {
@@ -170,16 +231,41 @@ exports.handler = async function (event) {
     }
 
     try {
-        var xml = await fetchURL(GNEWS_URL, GNEWS_TIMEOUT);
-        var items = parseGoogleNewsRSS(xml, MAX_ITEMS);
+        var xmlList = await Promise.all(SOURCES.map(function (s) { return fetchURL(s.url, RSS_TIMEOUT); }));
 
-        if (items.length === 0) {
-            return {
-                statusCode: 500,
-                headers: { 'Access-Control-Allow-Origin': '*' },
-                body: JSON.stringify({ error: 'Không thể tải tin tức' })
-            };
+        var rawItems = [];
+        for (var i = 0; i < SOURCES.length; i++) {
+            var parsed = parseRSS(xmlList[i], SOURCES[i].name, ITEMS_PER_SOURCE);
+            for (var j = 0; j < parsed.length; j++) { rawItems.push(parsed[j]); }
         }
+
+        if (rawItems.length === 0) {
+            return { statusCode: 500, headers: { 'Access-Control-Allow-Origin': '*' },
+                body: JSON.stringify({ error: 'Không thể tải tin tức' }) };
+        }
+
+        // Fetch article cho top N bài
+        var articleTexts = await Promise.all(rawItems.map(function (it, idx) {
+            if (idx < MAX_ARTICLES) {
+                return fetchURL(it.link, ARTICLE_TIMEOUT).then(function (html) {
+                    var text = extractArticleText(html);
+                    return text.length > 100 ? text : it.desc;
+                });
+            }
+            return Promise.resolve(it.desc || '');
+        }));
+
+        var allItems = rawItems.map(function (it, idx) {
+            var summary = extractiveSummary(articleTexts[idx], 600);
+            if (!summary || summary.length < 20) { summary = it.desc || ''; }
+            return {
+                title:   it.title,
+                summary: summary,
+                link:    it.link,
+                source:  it.source,
+                pubDate: it.pubDate
+            };
+        });
 
         return {
             statusCode: 200,
@@ -189,16 +275,13 @@ exports.handler = async function (event) {
                 'Cache-Control': 'public, max-age=900'
             },
             body: JSON.stringify({
-                items: items,
-                total: items.length,
+                items: allItems,
+                total: allItems.length,
                 timestamp: new Date().toISOString()
             })
         };
     } catch (e) {
-        return {
-            statusCode: 500,
-            headers: { 'Access-Control-Allow-Origin': '*' },
-            body: JSON.stringify({ error: e.message })
-        };
+        return { statusCode: 500, headers: { 'Access-Control-Allow-Origin': '*' },
+            body: JSON.stringify({ error: e.message }) };
     }
 };
