@@ -11,7 +11,7 @@ const SOURCES = [
     { name: 'VnExpress',    url: 'https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss' },
     { name: 'Tuổi Trẻ',    url: 'https://tuoitre.vn/rss/nhip-song-so.rss' },
     { name: 'Thanh Niên',   url: 'https://thanhnien.vn/rss/cong-nghe.rss' },
-    { name: 'Dân Trí',      url: 'https://dantri.com.vn/rss/suc-manh-so.rss' },
+    { name: 'Dân Trí',      url: 'https://dantri.com.vn/rss/cong-nghe.rss' },
     { name: 'VietnamNet',   url: 'https://vietnamnet.vn/rss/cong-nghe.rss' },
     { name: 'Tinhte',       url: 'https://tinhte.vn/rss' },
     { name: 'GenK',         url: 'https://genk.vn/rss/home.rss' },
@@ -124,6 +124,9 @@ function extractArticleText(html) {
     }
 
     var result = paragraphs.join(' ');
+    // Lọc bỏ UI text rác (nút Thích, menu, breadcrumb...)
+    result = result.replace(/\b(Thích|Không thích|Bình luận|Chia sẻ|Đăng nhập|Đăng ký|Xem thêm|Tinh tế|Sự kiện|Video|Khuyến mãi)\s*\d*/gi, ' ');
+    result = result.replace(/\s{2,}/g, ' ').trim();
     if (result.length > 8000) { result = result.substring(0, 8000); }
     return result;
 }
@@ -194,6 +197,13 @@ function extractiveSummary(text, maxLen) {
     }
     if (!result) {
         result = text.length > maxLen ? text.substring(0, maxLen).replace(/\s+\S*$/, '') + '...' : text;
+    }
+    // Đảm bảo kết thúc tại dấu câu hoàn chỉnh
+    var lastPunct = Math.max(result.lastIndexOf('.'), result.lastIndexOf('!'), result.lastIndexOf('?'));
+    if (lastPunct > result.length * 0.4) {
+        result = result.substring(0, lastPunct + 1);
+    } else if (result.slice(-1) !== '.' && result.slice(-1) !== '!' && result.slice(-1) !== '?') {
+        result = result + '.';
     }
     return result;
 }
