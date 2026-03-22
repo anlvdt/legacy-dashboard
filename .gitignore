@@ -9,3 +9,8 @@ node_modules/
 # Environment variables — KHÔNG commit lên git
 .env
 .env.local
+
+# Development test artifacts
+_test_*
+test_*
+test-*.mp3

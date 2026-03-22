@@ -9,9 +9,30 @@
 const https = require('https');
 const http = require('http');
 
+// ── Rate limit (in-memory, 30 req/min per IP) ──
+var _rlMap = {};
+var RL_WINDOW = 60000;
+var RL_MAX = 30;
+function checkRL(ip) {
+    var now = Date.now();
+    if (!_rlMap[ip] || now - _rlMap[ip].s > RL_WINDOW) {
+        _rlMap[ip] = { s: now, c: 1 };
+        return true;
+    }
+    _rlMap[ip].c++;
+    return _rlMap[ip].c <= RL_MAX;
+}
+
 exports.handler = async function (event, context) {
     if (event.httpMethod === 'OPTIONS') {
         return { statusCode: 204, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' }, body: '' };
+    }
+
+    // Rate limit
+    var clientIp = (event.headers && (event.headers['x-forwarded-for'] || event.headers['client-ip'])) || 'unknown';
+    clientIp = clientIp.split(',')[0].trim();
+    if (!checkRL(clientIp)) {
+        return { statusCode: 429, headers: { 'Access-Control-Allow-Origin': '*' }, body: 'Too many requests' };
     }
     var targetUrl = (event.queryStringParameters && event.queryStringParameters.url) || '';
 
