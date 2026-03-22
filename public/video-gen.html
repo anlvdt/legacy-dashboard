@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tạo Video Tin Tức TikTok</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f0f1a;color:#e0e0e0;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px}
+h1{color:#ffcc00;font-size:1.6em;margin:20px 0 8px;text-align:center}
+.subtitle{color:#888;font-size:.9em;margin-bottom:24px}
+.card{background:#1a1a2e;border-radius:16px;padding:24px;width:100%;max-width:520px;margin-bottom:16px;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+.card h2{font-size:1.1em;color:#ffcc00;margin-bottom:12px}
+label{display:block;color:#aaa;font-size:.85em;margin:10px 0 4px}
+select,input[type=number]{width:100%;padding:10px 12px;background:#16213e;border:1px solid #333;border-radius:8px;color:#fff;font-size:.95em}
+select:focus,input:focus{outline:none;border-color:#ffcc00}
+.row{display:flex;gap:12px}
+.row>*{flex:1}
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-size:1.05em;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,#ffcc00,#ff9500);color:#1a1a2e}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,204,0,.3)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-download{background:#16213e;color:#ffcc00;border:2px solid #ffcc00;margin-top:8px}
+.btn-download:hover{background:#ffcc00;color:#1a1a2e}
+#status{margin-top:16px;padding:16px;background:#16213e;border-radius:12px;display:none;max-height:300px;overflow-y:auto}
+#status.show{display:block}
+.log-line{font-family:'Cascadia Code',monospace;font-size:.82em;padding:2px 0;color:#8892b0}
+.log-line.ok{color:#64ffda}
+.log-line.err{color:#ff6b6b}
+.log-line.info{color:#ffcc00}
+.progress{width:100%;height:6px;background:#16213e;border-radius:3px;margin:12px 0;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,#ffcc00,#ff9500);border-radius:3px;transition:width .3s;width:0}
+#videoPreview{display:none;width:100%;max-width:520px;margin-top:16px}
+#videoPreview video{width:100%;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.5)}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<h1>🎬 Tạo Video Tin Tức</h1>
+<p class="subtitle">Auto-generate TikTok news video với Ken Burns + Karaoke subtitle</p>
+
+<div class="card">
+  <h2>⚙️ Cấu hình</h2>
+  <div class="row">
+    <div>
+      <label>Tin công nghệ</label>
+      <input type="number" id="maxTech" value="4" min="0" max="8">
+    </div>
+    <div>
+      <label>Tin tổng hợp</label>
+      <input type="number" id="maxGen" value="4" min="0" max="8">
+    </div>
+  </div>
+  <label>Giọng đọc</label>
+  <select id="voice">
+    <option value="vi-VN-HoaiMyNeural">HoaiMy (Nữ)</option>
+    <option value="vi-VN-NamMinhNeural">NamMinh (Nam)</option>
+  </select>
+  <label>Tốc độ đọc</label>
+  <select id="rate">
+    <option value="+0%">Bình thường</option>
+    <option value="+10%">Nhanh hơn (+10%)</option>
+    <option value="+20%">Nhanh (+20%)</option>
+    <option value="-10%">Chậm hơn (-10%)</option>
+  </select>
+</div>
+
+<div class="card">
+  <button class="btn btn-primary" id="btnGenerate" onclick="startGenerate()">
+    🚀 Tạo Video
+  </button>
+  <div class="progress" id="progressWrap" style="display:none">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div id="status"></div>
+</div>
+
+<div id="videoPreview">
+  <div class="card" style="padding:12px">
+    <video controls id="videoPlayer"></video>
+    <button class="btn btn-download" id="btnDownload" onclick="downloadVideo()">
+      ⬇️ Tải Video
+    </button>
+  </div>
+</div>
+
+<div class="card" id="historyCard">
+  <h2>📁 Video đã tạo</h2>
+  <div id="videoList" style="font-size:.85em;color:#888">Đang tải...</div>
+</div>
+
+<script>
+var statusEl = document.getElementById('status');
+var progressBar = document.getElementById('progressBar');
+var progressWrap = document.getElementById('progressWrap');
+var btnGenerate = document.getElementById('btnGenerate');
+var videoPreview = document.getElementById('videoPreview');
+var videoPlayer = document.getElementById('videoPlayer');
+var currentVideoUrl = '';
+
+function log(msg, type) {
+  statusEl.classList.add('show');
+  var div = document.createElement('div');
+  div.className = 'log-line ' + (type || '');
+  div.textContent = msg;
+  statusEl.appendChild(div);
+  statusEl.scrollTop = statusEl.scrollHeight;
+}
+
+function setProgress(pct) {
+  progressWrap.style.display = 'block';
+  progressBar.style.width = pct + '%';
+}
+
+async function startGenerate() {
+  statusEl.innerHTML = '';
+  statusEl.classList.add('show');
+  videoPreview.style.display = 'none';
+  btnGenerate.disabled = true;
+  btnGenerate.textContent = '⏳ Đang tạo...';
+  setProgress(5);
+
+  var opts = {
+    maxTech: parseInt(document.getElementById('maxTech').value) || 4,
+    maxGen: parseInt(document.getElementById('maxGen').value) || 4,
+    voice: document.getElementById('voice').value,
+    rate: document.getElementById('rate').value
+  };
+
+  log('Bắt đầu tạo video...', 'info');
+  log('Cấu hình: ' + opts.maxTech + ' tin tech, ' + opts.maxGen + ' tin tổng hợp', '');
+
+  try {
+    // Gọi API tạo video (streaming progress)
+    var resp = await fetch('/api/video-generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(opts)
+    });
+
+    if (!resp.ok) {
+      var errText = await resp.text();
+      throw new Error('Server error: ' + resp.status + ' ' + errText);
+    }
+
+    // Đọc streaming response
+    var reader = resp.body.getReader();
+    var decoder = new TextDecoder();
+    var buffer = '';
+    var videoUrl = '';
+
+    while (true) {
+      var result = await reader.read();
+      if (result.done) break;
+      buffer += decoder.decode(result.value, { stream: true });
+
+      var lines = buffer.split('\n');
+      buffer = lines.pop(); // giữ lại dòng chưa hoàn chỉnh
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        if (!line) continue;
+        try {
+          var evt = JSON.parse(line);
+          if (evt.type === 'log') log(evt.msg, evt.level || '');
+          if (evt.type === 'progress') setProgress(evt.pct);
+          if (evt.type === 'done') {
+            videoUrl = evt.url;
+            setProgress(100);
+            log('✅ Video hoàn thành!', 'ok');
+          }
+          if (evt.type === 'error') {
+            log('❌ ' + evt.msg, 'err');
+          }
+        } catch(e) { /* ignore non-JSON lines */ }
+      }
+    }
+
+    if (videoUrl) {
+      currentVideoUrl = videoUrl;
+      videoPlayer.src = videoUrl;
+      videoPreview.style.display = 'block';
+    }
+
+  } catch(err) {
+    log('❌ Lỗi: ' + err.message, 'err');
+  }
+
+  btnGenerate.disabled = false;
+  btnGenerate.textContent = '🚀 Tạo Video';
+}
+
+function downloadVideo() {
+  if (!currentVideoUrl) return;
+  var a = document.createElement('a');
+  a.href = currentVideoUrl;
+  a.download = 'news_video.mp4';
+  a.click();
+}
+
+// Load danh sách video đã tạo
+async function loadVideoList() {
+  try {
+    var resp = await fetch('/api/video-list');
+    var list = await resp.json();
+    var el = document.getElementById('videoList');
+    if (list.length === 0) { el.textContent = 'Chưa có video nào'; return; }
+    el.innerHTML = '';
+    list.forEach(function(v) {
+      var div = document.createElement('div');
+      div.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #222';
+      var sizeMB = (v.size / 1024 / 1024).toFixed(1);
+      var date = new Date(v.date).toLocaleString('vi-VN');
+      div.innerHTML = '<div><div style="color:#e0e0e0">' + v.name + '</div>'
+        + '<div style="font-size:.8em;color:#666">' + sizeMB + 'MB · ' + date + '</div></div>'
+        + '<div style="display:flex;gap:8px">'
+        + '<a href="' + v.url + '" target="_blank" style="color:#ffcc00;text-decoration:none">▶</a>'
+        + '<a href="' + v.url + '" download style="color:#64ffda;text-decoration:none">⬇</a>'
+        + '</div>';
+      el.appendChild(div);
+    });
+  } catch(e) { document.getElementById('videoList').textContent = 'Lỗi tải danh sách'; }
+}
+loadVideoList();
+</script>
+</body>
+</html>
