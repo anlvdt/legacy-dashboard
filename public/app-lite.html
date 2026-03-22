@@ -1799,6 +1799,40 @@
                 ttsUpdateBtn(false);
             }
 
+            // ── Read log: theo dõi tin đã đọc ──
+            var TTS_READ_LOG_KEY = 'lf_tts_read_log';
+            var TTS_READ_LOG_MAX = 200;
+
+            function ttsGetReadLog() {
+                try {
+                    var raw = localStorage.getItem(TTS_READ_LOG_KEY);
+                    if (raw) { return JSON.parse(raw); }
+                } catch (e) { }
+                return [];
+            }
+
+            function ttsMarkRead(title) {
+                if (!title) { return; }
+                var log = ttsGetReadLog();
+                // Dùng 40 ký tự đầu title làm key (tránh trùng nhưng tiết kiệm)
+                var key = title.substring(0, 40);
+                if (log.indexOf(key) === -1) {
+                    log.push(key);
+                    // Giới hạn log size
+                    if (log.length > TTS_READ_LOG_MAX) {
+                        log = log.slice(log.length - TTS_READ_LOG_MAX);
+                    }
+                    try { localStorage.setItem(TTS_READ_LOG_KEY, JSON.stringify(log)); } catch (e) { }
+                }
+            }
+
+            function ttsIsRead(title) {
+                if (!title) { return false; }
+                var key = title.substring(0, 40);
+                var log = ttsGetReadLog();
+                return log.indexOf(key) !== -1;
+            }
+
             function ttsReadNext() {
                 if (!ttsIsReading) { return; }
                 var idx = ttsCurrentIndex;
@@ -1839,6 +1873,8 @@
                     clearTimeout(ttsSafetyTimer);
                     ttsAudioEl.onended = null;
                     ttsAudioEl.onerror = null;
+                    // Đánh dấu tin đã đọc
+                    ttsMarkRead(item.title);
                     if (!ttsIsReading) { return; }
                     ttsCurrentIndex++;
                     ttsReadNext();
@@ -1894,8 +1930,22 @@
                 for (i = 0; i < parsedNewsItems.length; i++) {
                     combined.push({ title: parsedNewsItems[i].title || '', summary: parsedNewsItems[i].summary || '', desc: parsedNewsItems[i].desc || '' });
                 }
-                if (!combined.length) { return; }
-                ttsItems = combined;
+                // Lọc bỏ tin đã đọc
+                var unread = [];
+                for (i = 0; i < combined.length; i++) {
+                    if (!ttsIsRead(combined[i].title)) {
+                        unread.push(combined[i]);
+                    }
+                }
+                if (typeof console !== 'undefined' && console.log) {
+                    console.log('[TTS-LITE] Unread: ' + unread.length + '/' + combined.length);
+                }
+                if (!unread.length) {
+                    // Tất cả đã đọc — thông báo
+                    ttsPlayOne(ttsNormalize('Không có tin mới.'), -1, function () { });
+                    return;
+                }
+                ttsItems = unread;
                 ttsCurrentIndex = 0;
                 ttsIsReading = true;
                 ttsLoopUntil = (loopMinutes && loopMinutes > 0)
