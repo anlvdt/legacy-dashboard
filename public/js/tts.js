@@ -422,6 +422,132 @@ LF.tts._normalizeText = function (text) {
         ['NFT',      'en ép ti'],
         ['Web3',     'uép ba'],
 
+        // ── Thuật ngữ CNTT, điện thoại, AI bổ sung ──────────────────────────
+        // Điện thoại & phụ kiện
+        ['smartphone', 'xờ mát phôn'],
+        ['Smartphone', 'xờ mát phôn'],
+        ['smartwatch', 'xờ mát uốt'],
+        ['Smartwatch', 'xờ mát uốt'],
+        ['tablet',   'táp lét'],
+        ['Tablet',   'táp lét'],
+        ['laptop',   'láp tóp'],
+        ['Laptop',   'láp tóp'],
+        ['desktop',  'đét tóp'],
+        ['Desktop',  'đét tóp'],
+        ['wearable', 'ue ra bồ'],
+        ['Wearable', 'ue ra bồ'],
+        ['foldable', 'phôn đa bồ'],
+        ['Foldable', 'phôn đa bồ'],
+        ['notch',    'nóc'],
+        ['bezel',    'bê dồ'],
+        ['refresh rate', 'tần số quét'],
+        ['Refresh Rate', 'tần số quét'],
+        ['megapixel', 'mê ga píc xồ'],
+        ['Megapixel', 'mê ga píc xồ'],
+        ['selfie',   'xeo phi'],
+        ['Selfie',   'xeo phi'],
+        ['wireless', 'uai lét'],
+        ['Wireless', 'uai lét'],
+        ['charger',  'cha giơ'],
+        ['fast charging', 'sạc nhanh'],
+        ['Fast Charging', 'sạc nhanh'],
+        ['MagSafe',  'mắc xây'],
+        ['Qi',       'chi'],
+
+        // AI & Machine Learning
+        ['transformer', 'tran pho mơ'],
+        ['Transformer', 'tran pho mơ'],
+        ['neural network', 'niu rồ nét uốc'],
+        ['Neural Network', 'niu rồ nét uốc'],
+        ['deep learning', 'đíp lơ ninh'],
+        ['Deep Learning', 'đíp lơ ninh'],
+        ['machine learning', 'mơ shin lơ ninh'],
+        ['Machine Learning', 'mơ shin lơ ninh'],
+        ['fine-tuning', 'phai tunh ninh'],
+        ['Fine-tuning', 'phai tunh ninh'],
+        ['fine tuning', 'phai tunh ninh'],
+        ['prompt',   'prôm'],
+        ['Prompt',   'prôm'],
+        ['token',    'tô kần'],
+        ['Token',    'tô kần'],
+        ['chatbot',  'chát bót'],
+        ['Chatbot',  'chát bót'],
+        ['multimodal', 'mân ti mô đồ'],
+        ['Multimodal', 'mân ti mô đồ'],
+        ['open source', 'mã nguồn mở'],
+        ['Open Source', 'mã nguồn mở'],
+        ['open-source', 'mã nguồn mở'],
+        ['benchmark', 'ben mác'],
+        ['Benchmark', 'ben mác'],
+        ['dataset',  'đa ta xét'],
+        ['Dataset',  'đa ta xét'],
+        ['startup',  'xờ tát áp'],
+        ['Startup',  'xờ tát áp'],
+        ['cloud',    'clao'],
+        ['Cloud',    'clao'],
+        ['server',   'xơ vơ'],
+        ['Server',   'xơ vơ'],
+        ['data center', 'đa ta xen tơ'],
+        ['Data Center', 'đa ta xen tơ'],
+        ['chip',     'chíp'],
+        ['Chip',     'chíp'],
+        ['firmware', 'phơm ue'],
+        ['Firmware', 'phơm ue'],
+        ['update',   'áp đây'],
+        ['Update',   'áp đây'],
+        ['upgrade',  'áp grây'],
+        ['Upgrade',  'áp grây'],
+        ['feature',  'phi chơ'],
+        ['Feature',  'phi chơ'],
+        ['display',  'đít plây'],
+        ['Display',  'đít plây'],
+        ['sensor',   'xen xơ'],
+        ['Sensor',   'xen xơ'],
+        ['router',   'rao tơ'],
+        ['Router',   'rao tơ'],
+        ['modem',    'mô đem'],
+        ['Modem',    'mô đem'],
+        ['streaming', 'xờ tri minh'],
+        ['Streaming', 'xờ tri minh'],
+        ['podcast',  'pót cát'],
+        ['Podcast',  'pót cát'],
+        ['hashtag',  'hát tắc'],
+        ['Hashtag',  'hát tắc'],
+        ['trending', 'tren đinh'],
+        ['Trending', 'tren đinh'],
+        ['viral',    'vai rồ'],
+        ['Viral',    'vai rồ'],
+        ['online',   'on lai'],
+        ['Online',   'on lai'],
+        ['offline',  'óp lai'],
+        ['Offline',  'óp lai'],
+        ['download', 'đao lốt'],
+        ['Download', 'đao lốt'],
+        ['upload',   'áp lốt'],
+        ['Upload',   'áp lốt'],
+        ['backup',   'bắc áp'],
+        ['Backup',   'bắc áp'],
+        ['hacker',   'hắc cơ'],
+        ['Hacker',   'hắc cơ'],
+        ['malware',  'mao ue'],
+        ['Malware',  'mao ue'],
+        ['ransomware', 'ran xầm ue'],
+        ['Ransomware', 'ran xầm ue'],
+        ['phishing', 'phít sinh'],
+        ['Phishing', 'phít sinh'],
+        ['firewall', 'phai uồ'],
+        ['Firewall', 'phai uồ'],
+        ['encryption', 'en cờ ríp sần'],
+        ['Encryption', 'en cờ ríp sần'],
+        ['pixel',    'píc xồ'],
+        ['Pixel',    'píc xồ'],
+        ['drone',    'đờ rôn'],
+        ['Drone',    'đờ rôn'],
+        ['robot',    'rô bốt'],
+        ['Robot',    'rô bốt'],
+        ['robotics', 'rô bốt tíc'],
+        ['Robotics', 'rô bốt tíc'],
+
         // Viết tắt tiếng Anh thông dụng trong tin tức
         ['CEO',      'xê i ô'],
         ['CTO',      'xê ti ô'],
@@ -488,10 +614,10 @@ LF.tts._normalizeText = function (text) {
  * ================================================================ */
 
 /**
- * Chia text thành chunks nhỏ (~400 ký tự) tại dấu câu
+ * Chia text thành chunks (~1200 ký tự) tại dấu câu
  */
 LF.tts._splitText = function (text) {
-    var MAX_CHUNK = 400;
+    var MAX_CHUNK = 1200;
     if (!text || text.length <= MAX_CHUNK) { return [text]; }
     var chunks = [];
     var remaining = text;
@@ -502,11 +628,11 @@ LF.tts._splitText = function (text) {
         var breaks = ['. ', '! ', '? ', ', ', '; ', ': '];
         for (i = 0; i < breaks.length; i++) {
             var pos = cut.lastIndexOf(breaks[i]);
-            if (pos > 100 && pos > lastDot) { lastDot = pos + 1; }
+            if (pos > 200 && pos > lastDot) { lastDot = pos + 1; }
         }
         if (lastDot === -1) {
             lastDot = cut.lastIndexOf(' ');
-            if (lastDot < 100) { lastDot = MAX_CHUNK; }
+            if (lastDot < 200) { lastDot = MAX_CHUNK; }
         }
         chunks.push(remaining.substring(0, lastDot).replace(/^\s+|\s+$/g, ''));
         remaining = remaining.substring(lastDot).replace(/^\s+/, '');
@@ -515,8 +641,13 @@ LF.tts._splitText = function (text) {
     return chunks;
 };
 
+/** Dual audio elements for gapless playback */
+LF.tts._audioA = null;
+LF.tts._audioB = null;
+LF.tts._currentAudioSlot = 'A';
+
 /**
- * Phát một đoạn text qua Edge TTS proxy (chia chunks nếu dài)
+ * Phát text qua Edge TTS proxy — dual-buffer gapless
  */
 LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
     if (!text) {
@@ -527,37 +658,51 @@ LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
     var chunks = LF.tts._splitText(text);
     var chunkIdx = 0;
 
+    // Ensure dual audio elements exist
+    if (!LF.tts._audioA) { LF.tts._audioA = new Audio(); }
+    if (!LF.tts._audioB) { LF.tts._audioB = new Audio(); }
+
+    function buildUrl(t) {
+        return LF.tts.TTS_PROXY
+            + '?q=' + encodeURIComponent(t)
+            + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
+            + '&rate=' + encodeURIComponent('+0%');
+    }
+
     function playChunk() {
         if (!LF.tts._isReading) { if (onEnd) { onEnd(); } return; }
         if (chunkIdx >= chunks.length) { if (onEnd) { onEnd(); } return; }
 
         var chunk = chunks[chunkIdx];
-        var url = LF.tts.TTS_PROXY
-            + '?q=' + encodeURIComponent(chunk)
-            + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
-            + '&rate=' + encodeURIComponent('+0%');
+        var playing = (LF.tts._currentAudioSlot === 'A') ? LF.tts._audioA : LF.tts._audioB;
+        var next = (LF.tts._currentAudioSlot === 'A') ? LF.tts._audioB : LF.tts._audioA;
+        LF.tts._audio = playing;
+
         if (typeof console !== 'undefined' && console.log) {
             console.log('[TTS] #' + idx + ' chunk ' + (chunkIdx + 1) + '/' + chunks.length + ':', chunk.substring(0, 60));
         }
-        var audio = new Audio(url);
-        LF.tts._audio = audio;
 
-        audio.onended = function () {
+        // Preload next chunk
+        if (chunkIdx + 1 < chunks.length) {
+            next.src = buildUrl(chunks[chunkIdx + 1]);
+            next.load();
+        }
+
+        var ended = false;
+        function finish() {
+            if (ended) { return; }
+            ended = true;
             LF.tts._audio = null;
-            chunkIdx++;
-            playChunk();
-        };
-
-        audio.onerror = function () {
-            LF.tts._audio = null;
-            chunkIdx++;
-            playChunk();
-        };
-
-        try { audio.play(); } catch (e) {
+            LF.tts._currentAudioSlot = (LF.tts._currentAudioSlot === 'A') ? 'B' : 'A';
             chunkIdx++;
             playChunk();
         }
+
+        playing.onended = finish;
+        playing.onerror = finish;
+        playing.src = buildUrl(chunk);
+        playing.load();
+        try { playing.play(); } catch (e) { finish(); }
     }
 
     playChunk();
@@ -605,6 +750,12 @@ LF.tts.stop = function () {
     if (LF.tts._audio) {
         try { LF.tts._audio.pause(); LF.tts._audio.src = ''; } catch (e) { }
         LF.tts._audio = null;
+    }
+    if (LF.tts._audioA) {
+        try { LF.tts._audioA.pause(); LF.tts._audioA.src = ''; } catch (e) { }
+    }
+    if (LF.tts._audioB) {
+        try { LF.tts._audioB.pause(); LF.tts._audioB.src = ''; } catch (e) { }
     }
 
     LF.tts._updateTTSButton(false);

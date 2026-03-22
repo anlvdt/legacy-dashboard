@@ -96,11 +96,11 @@ exports.handler = async function (event, context) {
             body: 'Missing q parameter'
         };
     }
-    if (q.length > 1500) {
+    if (q.length > 3000) {
         return {
             statusCode: 400,
             headers: CORS_HEADERS,
-            body: JSON.stringify({ error: 'Text quá dài. Tối đa 1500 ký tự.' })
+            body: JSON.stringify({ error: 'Text quá dài. Tối đa 3000 ký tự.' })
         };
     }
 
