@@ -132,6 +132,17 @@ exports.handler = async function (event, context) {
 
         const buffer = Buffer.concat(chunks);
 
+        if (buffer.length === 0) {
+            console.error("Edge TTS returned empty audio for:", q.substring(0, 60));
+            return {
+                statusCode: 502,
+                headers: CORS_HEADERS,
+                body: JSON.stringify({ error: 'Empty audio response' })
+            };
+        }
+
+        console.log("TTS OK:", q.substring(0, 40), "→", buffer.length, "bytes");
+
         return {
             statusCode: 200,
             headers: Object.assign({}, CORS_HEADERS, {

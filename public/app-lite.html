@@ -1572,6 +1572,9 @@
 
             function ttsPlayOne(text, idx, onEnd) {
                 if (!ttsIsReading && idx !== -1) { if (onEnd) { onEnd(); } return; }
+                if (typeof console !== 'undefined' && console.log) {
+                    console.log('[TTS-LITE] #' + idx + ' text:', text.substring(0, 80));
+                }
                 var url = TTS_PROXY + '?q=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(ttsVoice) + '&rate=' + encodeURIComponent('-15%');
                 var ended = false;
                 function finish() {
@@ -1584,7 +1587,12 @@
                 clearTimeout(ttsSafetyTimer);
                 ttsSafetyTimer = setTimeout(finish, 60000);
                 ttsAudioEl.onended = finish;
-                ttsAudioEl.onerror = finish;
+                ttsAudioEl.onerror = function(e) {
+                    if (typeof console !== 'undefined' && console.log) {
+                        console.log('[TTS-LITE] Audio error for #' + idx, ttsAudioEl.error ? ttsAudioEl.error.code : 'unknown');
+                    }
+                    finish();
+                };
                 // Change src on SAME element (keeps iOS unlock)
                 ttsAudioEl.src = url;
                 ttsAudioEl.load();
@@ -1651,7 +1659,7 @@
                     combined.push({ title: parsedTechItems[i].title || '', summary: parsedTechItems[i].summary || '' });
                 }
                 for (i = 0; i < parsedNewsItems.length; i++) {
-                    combined.push({ title: parsedNewsItems[i].title || '', desc: parsedNewsItems[i].desc || '' });
+                    combined.push({ title: parsedNewsItems[i].title || '', summary: parsedNewsItems[i].summary || '', desc: parsedNewsItems[i].desc || '' });
                 }
                 if (!combined.length) { return; }
                 ttsItems = combined;
