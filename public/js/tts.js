@@ -724,8 +724,9 @@ LF.tts._speakEdgeTTS = function (text, onDone, onError, idx) {
         return;
     }
 
-    var gender = (LF.settings && LF.settings.current && LF.settings.current.ttsVoiceGender) ? LF.settings.current.ttsVoiceGender : 'female';
-    var voice = (gender === 'male') ? 'vi-VN-NamMinhNeural' : 'vi-VN-HoaiMyNeural';
+    // Luân phiên giọng nam/nữ theo index bài
+    var voices = ['vi-VN-HoaiMyNeural', 'vi-VN-NamMinhNeural'];
+    var voice = voices[(typeof idx === 'number' ? idx : 0) % 2];
 
     LF.tts._playEdge(
         text, voice,
@@ -1090,10 +1091,18 @@ LF.tts.init = function () {
             if (LF.tts._isReading) {
                 LF.tts.stop();
             } else {
-                var items = (LF.news && LF.news._items) ? LF.news._items : [];
-                if (items.length > 0) {
-                    LF.tts.readNewsList(items, 0);
-                }
+                // Fetch tin mới trước khi đọc
+                if (LF.news && LF.news.loadMultiSource) { LF.news.loadMultiSource(); }
+                if (LF.technews && LF.technews.load) { LF.technews.load(); }
+                setTimeout(function () {
+                    var techItems = (LF.technews && LF.technews._items) ? LF.technews._items : [];
+                    if (techItems.length > 0) {
+                        LF.tts.readTechNewsList(techItems, 0);
+                    } else {
+                        var items = (LF.news && LF.news._items) ? LF.news._items : [];
+                        if (items.length > 0) { LF.tts.readNewsList(items, 0); }
+                    }
+                }, 3000);
             }
         });
     }
@@ -1106,8 +1115,12 @@ LF.tts.init = function () {
             if (LF.tts._isReading) {
                 LF.tts.stop();
             } else {
-                var techItems = (LF.technews && LF.technews._items) ? LF.technews._items : [];
-                LF.tts.readTechNewsList(techItems, 0);
+                // Fetch tin mới trước khi đọc
+                if (LF.technews && LF.technews.load) { LF.technews.load(); }
+                setTimeout(function () {
+                    var techItems = (LF.technews && LF.technews._items) ? LF.technews._items : [];
+                    LF.tts.readTechNewsList(techItems, 0);
+                }, 3000);
             }
         });
     }

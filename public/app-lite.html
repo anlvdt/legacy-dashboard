@@ -1808,8 +1808,9 @@
                 return chunks;
             }
 
-            function ttsBuildUrl(text) {
-                return TTS_PROXY + '?q=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(ttsVoice) + '&rate=' + encodeURIComponent('+0%');
+            function ttsBuildUrl(text, voiceOverride) {
+                var v = voiceOverride || ttsVoice;
+                return TTS_PROXY + '?q=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(v) + '&rate=' + encodeURIComponent('+0%');
             }
 
             // Flatten all items into a single list of chunks for gapless playback
@@ -1851,7 +1852,10 @@
                 }
 
                 var chunk = ttsAllChunks[ttsChunkPos];
-                var url = ttsBuildUrl(chunk.text);
+                // Luân phiên giọng nam/nữ theo item index
+                var voices = ['vi-VN-HoaiMyNeural', 'vi-VN-NamMinhNeural'];
+                var voice = voices[chunk.itemIdx % 2];
+                var url = ttsBuildUrl(chunk.text, voice);
                 // Use current audio element
                 var playing = ttsCurrentAudio;
                 var next = (playing === ttsAudioA) ? ttsAudioB : ttsAudioA;
@@ -1872,7 +1876,9 @@
 
                 // Preload next chunk into the other audio element
                 if (ttsChunkPos + 1 < ttsAllChunks.length) {
-                    var nextUrl = ttsBuildUrl(ttsAllChunks[ttsChunkPos + 1].text);
+                    var nextChunk = ttsAllChunks[ttsChunkPos + 1];
+                    var nextVoice = voices[nextChunk.itemIdx % 2];
+                    var nextUrl = ttsBuildUrl(nextChunk.text, nextVoice);
                     next.src = nextUrl;
                     next.load();
                 }
@@ -1995,7 +2001,15 @@
 
                     // Single tap = read or stop
                     ttsUnlocked = true;
-                    if (ttsIsReading) { ttsStop(); } else { readNewsNow(); }
+                    if (ttsIsReading) {
+                        ttsStop();
+                    } else {
+                        // Fetch tin mới trước khi đọc
+                        loadNews();
+                        loadTechNews();
+                        // Đợi 3s cho tin mới load, rồi đọc
+                        setTimeout(function () { readNewsNow(); }, 3000);
+                    }
                 };
             }
 
