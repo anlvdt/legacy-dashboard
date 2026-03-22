@@ -14,3 +14,7 @@ node_modules/
 _test_*
 test_*
 test-*.mp3
+
+# Video generator temp & output
+video-gen/temp/
+video-gen/output/
