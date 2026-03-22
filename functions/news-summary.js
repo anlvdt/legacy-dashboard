@@ -16,7 +16,7 @@ const SOURCES = [
 const ITEMS_PER_SOURCE = 3;
 const RSS_TIMEOUT      = 8000;
 const ARTICLE_TIMEOUT  = 8000;
-const AI_TIMEOUT       = 6000;
+const AI_TIMEOUT       = 8000;
 
 const BLOCKED_WORDS = [
     'tâm sự', 'phòng the', 'ái ân', 'ngoại tình', 'giường chiếu',
@@ -118,32 +118,34 @@ function extractArticleText(html) {
         .replace(/<figure[\s\S]*?<\/figure>/gi, '')
         .replace(/<aside[\s\S]*?<\/aside>/gi, '');
 
-    // Selectors phổ biến của báo VN (VnExpress, Tuổi Trẻ, Dân Trí, Thanh Niên, VietnamNet, GenK, Tinhte)
-    var containers = [
-        /class="[^"]*\bfck_detail\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\barticle-body\b[^"]*"[^>]*>([\s\S]*?)<\/(?:div|article)>/i,
-        /class="[^"]*\bdetail-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\bcontent-detail\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\bsingular-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\bentry-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\bpost-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\barticle__body\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\barticle-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\bdetail__content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\bdetail-text-body\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\bcontent-news-detail\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\bmaincontent\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /class="[^"]*\bmain-content\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
-        /<article[^>]*>([\s\S]*?)<\/article>/i
+    // Tìm vùng nội dung chính bằng class name phổ biến của báo VN
+    var containerNames = [
+        'fck_detail', 'article-body', 'detail-content', 'content-detail',
+        'singular-content', 'entry-content', 'post-content', 'article__body',
+        'article-content', 'detail__content', 'detail-text-body',
+        'content-news-detail', 'maincontent', 'main-content'
     ];
 
     var text = '';
-    for (var i = 0; i < containers.length; i++) {
-        var m = html.match(containers[i]);
-        if (m && m[1].length > 200) { text = m[1]; break; }
+    for (var i = 0; i < containerNames.length; i++) {
+        var startRe = new RegExp('class="[^"]*\\b' + containerNames[i] + '\\b[^"]*"', 'i');
+        var startIdx = html.search(startRe);
+        if (startIdx === -1) { continue; }
+        // Lấy từ vị trí tìm thấy đến hết, rồi extract <p> tags
+        var chunk = html.substring(startIdx, Math.min(startIdx + 50000, html.length));
+        text = chunk;
+        break;
     }
+
+    // Fallback: thử <article> tag
+    if (!text) {
+        var artMatch = html.match(/<article[^>]*>([\s\S]*)<\/article>/i);
+        if (artMatch && artMatch[1].length > 200) { text = artMatch[1]; }
+    }
+
     if (!text) { text = html; }
 
+    // Extract text từ tất cả <p> tags trong vùng nội dung
     var paragraphs = [];
     var pRe = /<p[^>]*>([\s\S]*?)<\/p>/gi;
     var pm;
@@ -154,7 +156,7 @@ function extractArticleText(html) {
     }
 
     var result = paragraphs.join(' ');
-    if (result.length > 6000) { result = result.substring(0, 6000); }
+    if (result.length > 8000) { result = result.substring(0, 8000); }
     return result;
 }
 
@@ -364,13 +366,14 @@ exports.handler = async function (event) {
                 link:         it.link,
                 source:       it.source,
                 pubDate:      it.pubDate,
-                aiSummarized: false
+                aiSummarized: false,
+                _articleLen:  articleTexts[idx].length
             };
         });
 
-        // 5. AI summarize, race với timeout 8s
+        // 5. AI summarize, race với timeout 9s
         if (useAI) {
-            var aiTimeout = new Promise(function (resolve) { setTimeout(resolve, 8000); });
+            var aiTimeout = new Promise(function (resolve) { setTimeout(resolve, 9000); });
             var aiWork = Promise.all(rawItems.map(function (it, idx) {
                 var summarize = GEMINI_API_KEY
                     ? geminiSummarize(GEMINI_API_KEY, it.title, articleTexts[idx])
