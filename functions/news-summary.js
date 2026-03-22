@@ -14,8 +14,8 @@ const SOURCES = [
 ];
 
 const ITEMS_PER_SOURCE = 3;
-const RSS_TIMEOUT      = 5000;
-const ARTICLE_TIMEOUT  = 5000;
+const RSS_TIMEOUT      = 8000;
+const ARTICLE_TIMEOUT  = 8000;
 const AI_TIMEOUT       = 6000;
 
 const BLOCKED_WORDS = [

@@ -771,59 +771,73 @@
                 var yy = y + 4800 - a;
                 var mm = m + 12 * a - 3;
                 var j = d + Math.floor((153 * mm + 2) / 5) + 365 * yy + Math.floor(yy / 4) - Math.floor(yy / 100) + Math.floor(yy / 400) - 32045;
+                if (j < 2299161) {
+                    j = d + Math.floor((153 * mm + 2) / 5) + 365 * yy + Math.floor(yy / 4) - 32083;
+                }
                 return j;
             }
 
             /**
-             * Sun longitude at julian day (simplified)
+             * New Moon JD (Ho Ngoc Duc / Meeus — chính xác)
              */
-            function sunLongitude(jd) {
-                var T = (jd - 2451545.0) / 36525.0;
-                var dr = Math.PI / 180;
-                var M = 357.5291 + 35999.0503 * T;
-                var L0 = 280.46645 + 36000.76983 * T;
-                var DL = (1.9146 - 0.004817 * T) * Math.sin(dr * M) + 0.019993 * Math.sin(dr * 2 * M);
-                var L = L0 + DL;
-                L = L - 360 * Math.floor(L / 360);
-                return L;
-            }
-
-            /**
-             * New moon calculation (simplified Meeus)
-             */
-            function newMoon(k) {
+            function newMoonJD(k) {
                 var T = k / 1236.85;
                 var T2 = T * T;
                 var T3 = T2 * T;
                 var dr = Math.PI / 180;
                 var Jd1 = 2415020.75933 + 29.53058868 * k + 0.0001178 * T2 - 0.000000155 * T3;
                 Jd1 = Jd1 + 0.00033 * Math.sin((166.56 + 132.87 * T - 0.009173 * T2) * dr);
-                var M = 359.2242 + 29.10535608 * k - 0.0000333 * T2;
-                var Mpr = 306.0253 + 385.81691806 * k + 0.0107306 * T2;
-                var F = 21.2964 + 390.67050646 * k - 0.0016528 * T2;
+                var M = 359.2242 + 29.10535608 * k - 0.0000333 * T2 - 0.00000347 * T3;
+                var Mpr = 306.0253 + 385.81691806 * k + 0.0107306 * T2 + 0.00001236 * T3;
+                var F = 21.2964 + 390.67050646 * k - 0.0016528 * T2 - 0.00000239 * T3;
                 var C1 = (0.1734 - 0.000393 * T) * Math.sin(M * dr) + 0.0021 * Math.sin(2 * dr * M);
                 C1 = C1 - 0.4068 * Math.sin(Mpr * dr) + 0.0161 * Math.sin(dr * 2 * Mpr);
                 C1 = C1 - 0.0004 * Math.sin(dr * 3 * Mpr);
                 C1 = C1 + 0.0104 * Math.sin(dr * 2 * F) - 0.0051 * Math.sin(dr * (M + Mpr));
                 C1 = C1 - 0.0074 * Math.sin(dr * (M - Mpr)) + 0.0004 * Math.sin(dr * (2 * F + M));
                 C1 = C1 - 0.0004 * Math.sin(dr * (2 * F - M)) - 0.0006 * Math.sin(dr * (2 * F + Mpr));
-                C1 = C1 + 0.001 * Math.sin(dr * (2 * F - Mpr)) + 0.0005 * Math.sin(dr * (2 * Mpr + M));
-                return Math.floor(Jd1 + C1 + 0.5);
+                C1 = C1 + 0.0010 * Math.sin(dr * (2 * F - Mpr)) + 0.0005 * Math.sin(dr * (2 * Mpr + M));
+                var JdNew;
+                if (T < -11) {
+                    JdNew = Jd1 + 0.000297 - 0.00011 * T - 0.000001 * T2 + C1;
+                } else {
+                    JdNew = Jd1 + C1;
+                }
+                return JdNew;
+            }
+
+            /**
+             * Sun longitude at JD (radians — Ho Ngoc Duc / Meeus)
+             */
+            function sunLongitude(jd) {
+                var T = (jd - 2451545.0) / 36525.0;
+                var T2 = T * T;
+                var dr = Math.PI / 180;
+                var M = 357.5291 + 35999.0503 * T - 0.0001559 * T2 - 0.00000048 * T * T2;
+                var L0 = 280.46645 + 36000.76983 * T + 0.0003032 * T2;
+                var DL = (1.9146 - 0.004817 * T - 0.000014 * T2) * Math.sin(dr * M);
+                DL = DL + (0.019993 - 0.000101 * T) * Math.sin(dr * 2 * M) + 0.00029 * Math.sin(dr * 3 * M);
+                var theta = L0 + DL;
+                var omega = 125.04 - 1934.136 * T;
+                var L = theta - 0.00569 - 0.00478 * Math.sin(omega * dr);
+                L = L * dr;
+                L = L - Math.PI * 2 * Math.floor(L / (Math.PI * 2));
+                return L;
             }
 
             function getNewMoonDay(k, timeZone) {
-                return newMoon(k) - Math.floor(timeZone / 24.0 - 0.5);
+                return Math.floor(newMoonJD(k) + 0.5 + timeZone / 24.0);
             }
 
             function getSunLon(jd, timeZone) {
-                return sunLongitude(jd - 0.5 - timeZone / 24.0);
+                return Math.floor(sunLongitude(jd - 0.5 - timeZone / 24.0) / Math.PI * 6);
             }
 
             function getLunarMonth11(yy, timeZone) {
                 var off = jdn(31, 12, yy) - 2415021;
                 var k = Math.floor(off / 29.530588853);
                 var nm = getNewMoonDay(k, timeZone);
-                var sl = Math.floor(getSunLon(nm, timeZone) / 30);
+                var sl = getSunLon(nm, timeZone);
                 if (sl >= 9) {
                     nm = getNewMoonDay(k - 1, timeZone);
                 }
@@ -834,11 +848,11 @@
                 var k = Math.floor((a11 - 2415021.076998695) / 29.530588853 + 0.5);
                 var last = 0;
                 var i = 1;
-                var arc = Math.floor(getSunLon(getNewMoonDay(k + i, timeZone), timeZone) / 30);
+                var arc = getSunLon(getNewMoonDay(k + i, timeZone), timeZone);
                 do {
                     last = arc;
                     i++;
-                    arc = Math.floor(getSunLon(getNewMoonDay(k + i, timeZone), timeZone) / 30);
+                    arc = getSunLon(getNewMoonDay(k + i, timeZone), timeZone);
                 } while (arc !== last && i < 14);
                 return i - 1;
             }
@@ -1657,15 +1671,6 @@
                 if (typeof console !== 'undefined' && console.log) {
                     console.log('[TTS-LITE] #' + idx + ' text:', text.substring(0, 80));
                 }
-                // Debug overlay — hiện text đang đọc trên màn hình (tạm thời)
-                var dbg = document.getElementById('tts-debug');
-                if (!dbg) {
-                    dbg = document.createElement('div');
-                    dbg.id = 'tts-debug';
-                    dbg.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.85);color:#0f0;font-size:11px;padding:4px 8px;z-index:99999;max-height:60px;overflow:hidden;font-family:monospace;';
-                    document.body.appendChild(dbg);
-                }
-                dbg.textContent = '#' + idx + ': ' + text.substring(0, 120);
                 var url = TTS_PROXY + '?q=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(ttsVoice) + '&rate=' + encodeURIComponent('-15%');
                 var ended = false;
                 function finish() {
@@ -1746,6 +1751,9 @@
                 // Tech news trước (summary từ AI), tin thường sau (desc từ RSS)
                 var combined = [];
                 var i;
+                if (typeof console !== 'undefined' && console.log) {
+                    console.log('[TTS-LITE] readNewsNow: tech=' + parsedTechItems.length + ', news=' + parsedNewsItems.length);
+                }
                 for (i = 0; i < parsedTechItems.length; i++) {
                     combined.push({ title: parsedTechItems[i].title || '', summary: parsedTechItems[i].summary || '' });
                 }

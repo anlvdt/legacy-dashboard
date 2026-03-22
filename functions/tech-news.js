@@ -19,8 +19,8 @@ const SOURCES = [
 ];
 
 const ITEMS_PER_SOURCE = 1; // 8 sources × 1 = 8 bài, đủ nhanh trong 10s Netlify free tier
-const RSS_TIMEOUT      = 5000;
-const ARTICLE_TIMEOUT  = 5000;
+const RSS_TIMEOUT      = 8000;
+const ARTICLE_TIMEOUT  = 8000;
 const AI_TIMEOUT       = 6000;
 
 // ─── Fetch ────────────────────────────────────────────────────────────────────
