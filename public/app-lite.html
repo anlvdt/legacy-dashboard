@@ -1421,15 +1421,16 @@
                 newsContentEl.className = 'top-news-content marquee-animated';
             }
 
-            function loadNews() {
+            function loadNews(onDone) {
                 xhrGet('/api/news-summary', function (err, data) {
-                    if (err || !data || !data.items || !data.items.length) {
+                    if (!err && data && data.items && data.items.length) {
+                        renderNews(data.items);
+                    } else {
                         if (newsContentEl && !parsedNewsItems.length) {
                             newsContentEl.innerHTML = '<span class="news-item">Không thể tải tin tức</span>';
                         }
-                        return;
                     }
-                    renderNews(data.items);
+                    if (onDone) { onDone(); }
                 }, 25000);
             }
             loadNews();
@@ -1956,11 +1957,13 @@
             }
 
             // ── TECH NEWS — merge vào marquee trên cùng ──
-            function loadTechNews() {
+            function loadTechNews(onDone) {
                 xhrGet('/api/tech-news', function (err, data) {
-                    if (err || !data || !data.items || !data.items.length) { return; }
-                    parsedTechItems = data.items;
-                    buildMarquee(); // rebuild marquee với tech news xen vào
+                    if (!err && data && data.items && data.items.length) {
+                        parsedTechItems = data.items;
+                        buildMarquee();
+                    }
+                    if (onDone) { onDone(); }
                 }, 20000);
             }
             loadTechNews();
@@ -1999,11 +2002,14 @@
                     if (ttsIsReading) {
                         ttsStop();
                     } else {
-                        // Fetch tin mới trước khi đọc
-                        loadNews();
-                        loadTechNews();
-                        // Đợi 3s cho tin mới load, rồi đọc
-                        setTimeout(function () { readNewsNow(); }, 3000);
+                        // Fetch tin mới, chờ cả 2 xong rồi đọc
+                        var done = 0;
+                        function onFetchDone() {
+                            done++;
+                            if (done >= 2) { readNewsNow(); }
+                        }
+                        loadNews(onFetchDone);
+                        loadTechNews(onFetchDone);
                     }
                 };
             }
