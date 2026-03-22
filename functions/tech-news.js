@@ -16,7 +16,6 @@ var SOURCES = [
     { name: 'Tinhte',       url: 'https://tinhte.vn/rss' },
     { name: 'GenK',         url: 'https://genk.vn/rss/home.rss' },
     { name: 'Techz',        url: 'https://www.techz.vn/rss/cong-nghe.rss' },
-    { name: 'VTV',          url: 'https://vtv.vn/rss/cong-nghe.rss' },
     { name: 'Soha',         url: 'https://soha.vn/rss/cong-nghe.rss' },
     { name: '24h',          url: 'https://cdn.24h.com.vn/upload/rss/congnghethongtin.rss' },
     { name: 'ZNews',        url: 'https://znews.vn/rss/cong-nghe.rss' },

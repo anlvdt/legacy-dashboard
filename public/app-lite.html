@@ -1542,7 +1542,6 @@
             // Vietnamese abbreviation dictionary
             // ── TTS Dictionary — đồng bộ với public/js/tts.js ──
             var ttsDict = [
-                // Nhà nước & địa danh
                 ['TP.HCM','Thành phố Hồ Chí Minh'],['TPHCM','Thành phố Hồ Chí Minh'],
                 ['TP HCM','Thành phố Hồ Chí Minh'],['UBND','Ủy ban nhân dân'],
                 ['HĐND','Hội đồng nhân dân'],['TTXVN','Thông tấn xã Việt Nam'],
@@ -1559,9 +1558,9 @@
                 ['NHNN','Ngân hàng Nhà nước'],['EVN','Tập đoàn Điện lực'],
                 ['PVN','Tập đoàn Dầu khí'],['TW','Trung ương'],['HN','Hà Nội'],
                 // Tổ chức quốc tế
-                ['ASEAN','a xê an'],['NATO','na tô'],['UNESCO','diu nét cô'],
-                ['UNICEF','diu ni xép'],['WHO','đáp liu hát ô'],['WTO','đáp liu ti ô'],
-                ['IMF','ai em ép'],['WB','đáp liu bi'],['EU','i diu'],['UN','diu en'],
+                ['ASEAN','a xê an'],['NATO','na tô'],['UNESCO','u nét cô'],
+                ['UNICEF','u ni xép'],['WHO','vê kép hát ô'],['WTO','vê kép tê ô'],
+                ['IMF','i em ép'],['WB','vê kép bê'],['EU','ê u'],['UN','u en'],
                 ['BRICS','bríc'],['OPEC','ô péc'],['G7','gờ bảy'],['G20','gờ hai mươi'],
                 // Model names & suffixes
                 ['Pro Max','prô mắc'],['Ultra','ân tra'],['Plus','plớt'],
@@ -1581,6 +1580,7 @@
                 // Google
                 ['Google Pixel','gú gồ pích xồ'],['Google Maps','gú gồ mép'],
                 ['Google Drive','gú gồ đrai'],['Google Meet','gú gồ mít'],
+                ['Google Docs','gú gồ đóc'],
                 ['Google','gú gồ'],['Gmail','gờ meo'],['YouTube','diu túp'],
                 ['Android','an đờ roi'],['Chrome','crôm'],['Gemini','gê mi ni'],['Bard','bát'],
                 // Elon Musk
@@ -1597,13 +1597,13 @@
                 ['Motorola','mô tô rô la'],['Nokia','nô kia'],['Sony','sô ni'],
                 ['LG','eo gờ'],['Asus','a xút'],['Lenovo','lê nô vô'],
                 ['Dell','đeo'],['HP','hát pê'],['Acer','ây xơ'],
-                ['MSI','em ét ai'],['Razer','rây dơ'],
+                ['MSI','em ét i'],['Razer','rây dơ'],
                 // Xe điện & ô tô
-                ['BYD','bi uai đi'],['CATL','xê ây ti eo'],
+                ['BYD','bê i-grét đê'],['CATL','xê a tê eo'],
                 ['Rivian','ri vi ần'],['Lucid','lu xít'],['NIO','ni ô'],
                 ['Hyundai','hiên đê'],['Kia','ki a'],['VinFast','vin phát'],
                 ['Land Cruiser','len cru dơ'],['Toyota','tô yô ta'],['Honda','hon đa'],
-                ['Mazda','mát đa'],['BMW','bi em đáp liu'],['Mercedes','mẹc xê đét'],
+                ['Mazda','mát đa'],['BMW','bê em vê kép'],['Mercedes','mẹc xê đét'],
                 ['Porsche','po sơ'],['Audi','ao đi'],['Lexus','lếch xớt'],
                 // Chip & phần cứng
                 ['Snapdragon 8 Elite','snép đờ ra gần tám ê lít'],
@@ -1613,21 +1613,21 @@
                 ['Dimensity','đi men xi ti'],['Exynos','éc xi nốt'],['Kirin','ki rin'],
                 ['MediaTek','mê đia tếch'],['Qualcomm','quân com'],
                 ['NVIDIA','en vi đia'],['GeForce','gờ phót'],['Radeon','ra đi ôn'],
-                ['Intel','in teo'],['AMD','ây em đi'],['ARM','a ờ em'],
-                ['TSMC','ti ét em xi'],
-                ['RAM','ram'],['ROM','rom'],['SSD','ét ét đi'],['HDD','hát đi đi'],
-                ['USB','diu ét bi'],['HDMI','hát đi em ai'],
-                ['GPU','gờ pờ diu'],['CPU','xê pờ diu'],['NPU','en pờ diu'],['TPU','tê pờ diu'],
+                ['Intel','in teo'],['AMD','a em đê'],['ARM','a e-rờ em'],
+                ['TSMC','tê ét em xê'],
+                ['RAM','ram'],['ROM','rom'],['SSD','ét ét đê'],['HDD','hát đê đê'],
+                ['USB','u ét bê'],['HDMI','hát đê em i'],
+                ['GPU','giê pê u'],['CPU','xê pê u'],['NPU','en pê u'],['TPU','tê pê u'],
                 ['SoC','ét ô xê'],['OLED','ô lét'],['AMOLED','a mô lét'],
                 ['MiniLED','mi ni lét'],['MicroLED','mai crô lét'],
-                ['LED','lét'],['LCD','eo xê đi'],['LiDAR','lai đa'],
-                ['eSIM','i sim'],['NVMe','en vi em i'],['PCIe','pê xê ai i'],
-                ['DDR5','đê đê a năm'],['DDR4','đê đê a bốn'],
+                ['LED','lét'],['LCD','eo xê đê'],['LiDAR','lai đa'],
+                ['eSIM','i sim'],['NVMe','en vê em ê'],['PCIe','pê xê i ê'],
+                ['DDR5','đê đê e-rờ năm'],['DDR4','đê đê e-rờ bốn'],
                 // Mạng
                 ['WiFi','uai fai'],['Wi-Fi','uai fai'],['Bluetooth','blú tút'],
                 ['5G','năm gờ'],['4G','bốn gờ'],['3G','ba gờ'],['6G','sáu gờ'],
                 ['NFC','en ép xê'],['VPN','vê pê en'],['DNS','đê en ét'],
-                ['IP','ai pê'],['LTE','eo ti i'],['LoRa','lô ra'],
+                ['IP','i pê'],['LTE','eo tê ê'],['LoRa','lô ra'],
                 // AI & phần mềm
                 ['ChatGPT','chát gờ pê tê'],['GPT-4o','gờ pê tê bốn ô'],
                 ['GPT-4','gờ pê tê bốn'],['GPT','gờ pê tê'],
@@ -1639,19 +1639,28 @@
                 ['Mistral','mít trồ'],['Gemma','gê ma'],['Phi-3','fai ba'],
                 ['Meta AI','mê ta ai'],['Meta','mê ta'],
                 ['Facebook','phây búc'],['Instagram','in xờ ta gram'],
-                ['TikTok','tíc tóc'],['Twitter','tuýt tơ'],['Zalo','da lô'],
+                ['TikTok','tíc tóc'],['Twitter','tuýt tơ'],['X.com','éc chấm com'],
+                ['LinkedIn','linh đin'],['Zalo','da lô'],
                 ['Telegram','tê lê gram'],['WhatsApp','uốt áp'],
+                ['Spotify','xờ pô ti fai'],['Netflix','nét phờ lích'],
+                ['Zoom','zum'],['Slack','xlắc'],
                 ['Reddit','rét đít'],['Threads','thrét'],['Discord','đít cót'],
-                ['Netflix','nét phờ lích'],['Spotify','xờ pô ti fai'],
+                ['Signal','xíc nồ'],['Pinterest','pin tơ rét'],['Twitch','tuých'],
                 ['Steam','xtim'],['PlayStation','plây xtây sần'],['Nintendo','nin ten đô'],
-                ['GitHub','gít hắp'],['Docker','đóc cơ'],['Linux','li nớt'],
+                ['GitHub','gít hắp'],['GitLab','gít láp'],['Docker','đóc cơ'],
+                ['Kubernetes','cu bơ nê tít'],['Linux','li nớt'],
+                ['Ubuntu','u bun tu'],['Debian','đê bi ần'],
                 ['Python','pai thần'],['JavaScript','gia va xcờ ríp'],
-                ['API','ây pê ai'],['SDK','ét đê kê'],['IDE','ai đê i'],
-                ['AWS','ây đáp liu ét'],['GCP','gờ xê pê'],
-                ['UI','diu ai'],['UX','diu éc'],
-                ['AI','ây ai'],['ML','em eo'],['LLM','eo eo em'],
-                ['AR','ây a'],['VR','vê a'],['XR','éc a'],
-                ['IoT','ai ô ti'],['NFT','en ép ti'],['Web3','uép ba'],
+                ['TypeScript','tai pờ xcờ ríp'],['React','ri ắc'],
+                ['Node.js','nốt gờ ét'],['Rust','rớt'],['Swift','xuýp'],
+                ['Flutter','phờ lắt tơ'],['Kotlin','cốt lin'],
+                ['npm','en pê em'],
+                ['API','a pê i'],['SDK','ét đê ca'],['IDE','i đê ê'],
+                ['AWS','a vê kép ét'],['GCP','gờ xê pê'],
+                ['UI','u i'],['UX','u ích'],
+                ['AI','a i'],['ML','em eo'],['LLM','eo eo em'],
+                ['AR','a e-rờ'],['VR','vê a'],['XR','éc a'],
+                ['IoT','i ô tê'],['NFT','en ép tê'],['Web3','uép ba'],
                 ['DeFi','đê fai'],['Blockchain','blóc chen'],['Bitcoin','bít coin'],
                 ['Ethereum','i thê ri ầm'],['crypto','cờ ríp tô'],['Crypto','cờ ríp tô'],
                 ['Pi Network','pai nét uốc'],
@@ -1715,10 +1724,77 @@
                 ['drone','đờ rôn'],['Drone','đờ rôn'],
                 ['robot','rô bốt'],['Robot','rô bốt'],
                 ['robotics','rô bốt tíc'],['Robotics','rô bốt tíc'],
-                ['PHEV','pê hát i vi'],['BEV','bi i vi'],['EV','i vi'],
+                // Viết tắt tin tức
+                ['CEO','xê i ô'],['CTO','xê ti ô'],['CFO','xê ép ô'],['COO','xê ô ô'],
+                ['IPO','i pê ô'],['M&A','em và a'],['GDP','gờ đê pê'],
+                ['FDI','ép đê i'],['ODA','ô đê a'],['ETF','ê tê ép'],
+                ['CPI','xê pê i'],['FED','phét'],['CAGR','xê a giê e-rờ'],
+                ['ROI','e-rờ ô i'],['P/E','pê trên ê'],
+                ['USD','đô la Mỹ'],['EUR','ơ rô'],['GBP','bảng Anh'],
+                ['JPY','yên Nhật'],['CNY','nhân dân tệ'],['VND','đồng'],
+                ['tỷ USD','tỷ đô la Mỹ'],['triệu USD','triệu đô la Mỹ'],
+                ['Q1','quý một'],['Q2','quý hai'],['Q3','quý ba'],['Q4','quý bốn'],
+                ['H1','nửa đầu năm'],['H2','nửa cuối năm'],
+                // Xe điện
+                ['PHEV','pê hát ê vê'],['BEV','bê ê vê'],['EV','ê vê'],
+                // Y tế
+                ['FDA','ép đê a'],['CDC','xê đê xê'],['PCR','pê xê a'],
+                ['ADN','a đê en'],['DNA','đê en a'],['RNA','e-rờ en a'],
+                ['HIV','hát i vê'],['AIDS','ết'],['ICU','i xê u'],
+                ['MRI','em e-rờ i'],['CT','xê tê'],['ECG','ê xê giê'],
+                ['BMI','bê em i'],
+                ['vaccine','vắc xin'],['Vaccine','vắc xin'],
+                ['virus','vi rút'],['Virus','vi rút'],
+                ['COVID','cô vít'],['Covid','cô vít'],
+                ['Omicron','ô mi crôn'],['Delta','đen ta'],
+                ['pandemic','đại dịch'],['Pandemic','đại dịch'],
+                // Pháp luật
+                ['BLHS','Bộ luật Hình sự'],['BLDS','Bộ luật Dân sự'],
+                ['BLTTDS','Bộ luật Tố tụng dân sự'],['BLTTHS','Bộ luật Tố tụng hình sự'],
+                ['NĐ-CP','Nghị định Chính phủ'],['NĐ','Nghị định'],
+                ['TT-BTC','Thông tư Bộ Tài chính'],['QĐ-TTg','Quyết định Thủ tướng'],
+                ['QĐ','Quyết định'],['TT','Thông tư'],
+                ['PCCC','Phòng cháy chữa cháy'],['ANTT','An ninh trật tự'],
+                ['ATGT','An toàn giao thông'],['TNGT','Tai nạn giao thông'],
+                ['ĐKKD','Đăng ký kinh doanh'],['GCNĐKKD','Giấy chứng nhận đăng ký kinh doanh'],
+                ['CMND','Chứng minh nhân dân'],['CCCD','Căn cước công dân'],
+                // Giáo dục
+                ['ĐH','Đại học'],['CĐ','Cao đẳng'],
+                ['THPT','Trung học phổ thông'],['THCS','Trung học cơ sở'],
+                ['GDTX','Giáo dục thường xuyên'],
+                ['IELTS','i eo tê ét'],['TOEFL','tô phồ'],['TOEIC','tô ích'],
+                ['GPA','giê pê a'],['SAT','ét a tê'],
+                ['PhD','tiến sĩ'],['MBA','em bê a'],
+                ['PGS','Phó Giáo sư'],['GS','Giáo sư'],['TS','Tiến sĩ'],
+                ['ThS','Thạc sĩ'],['CN','Cử nhân'],
+                // Quân sự
+                ['UAV','u a vê'],['ICBM','i xê bê em'],
+                ['S-400','ét bốn trăm'],['S-300','ét ba trăm'],
+                ['F-35','ép ba mươi lăm'],['F-16','ép mười sáu'],
+                ['Su-57','su năm mươi bảy'],['Su-35','su ba mươi lăm'],
+                ['MiG-29','mích hai mươi chín'],['B-52','bê năm mươi hai'],
+                ['AK-47','a ka bốn mươi bảy'],['RPG','e-rờ pê giê'],
+                ['IED','i ê đê'],['WMD','vê kép em đê'],
+                ['THAAD','thát'],['Patriot','pát tri ốt'],['Aegis','i gít'],
+                ['Shahed','sa hét'],['Houthi','hu thi'],['Hezbollah','hét bô la'],
+                ['Hamas','ha mát'],['Taliban','ta li ban'],
+                // Bất động sản
+                ['NƠXH','Nhà ở xã hội'],['NƠTM','Nhà ở thương mại'],
+                ['QSDĐ','Quyền sử dụng đất'],['GCNQSDĐ','Giấy chứng nhận quyền sử dụng đất'],
+                ['sổ đỏ','sổ đỏ'],
+                ['m2','mét vuông'],['m²','mét vuông'],['m³','mét khối'],
+                ['km2','ki lô mét vuông'],['km²','ki lô mét vuông'],['ha','héc ta'],
+                // Nông nghiệp & môi trường
+                ['ĐBSH','Đồng bằng sông Hồng'],
+                ['AQI','a cu i'],['PM2.5','pê em hai phẩy năm'],['PM10','pê em mười'],
+                ['CO2','xê ô hai'],['ESG','ê ét giê'],['COP','cóp'],['REDD','rét'],
+                // Giao thông
+                ['BOT','bê ô tê'],['BT','bê tê'],['PPP','pê pê pê'],
+                ['TOD','tê ô đê'],['BRT','bê e-rờ tê'],['MRT','em e-rờ tê'],
+                ['LRT','eo e-rờ tê'],['QL','Quốc lộ'],['TL','Tỉnh lộ'],
                 // Đơn vị
                 ['GHz','ghi ga hét'],['MHz','mê ga hét'],
-                ['GB','ghi ga bai'],['TB','tê ra bai'],['MB','mê ga bai'],
+                ['GB','ghi ga bai'],['TB','tê ra bai'],['MB','mê ga bai'],['KB','ki lô bai'],
                 ['Gbps','ghi ga bít mỗi giây'],['Mbps','mê ga bít mỗi giây'],
                 ['mAh','mi li am pe giờ'],
                 ['GW','ghi ga oát'],['MW','mê ga oát'],['kW','ki lô oát'],
@@ -1726,28 +1802,18 @@
                 ['W','oát'],['nm','na nô mét'],['fps','khung hình mỗi giây'],['Hz','hét'],
                 ['ms','mi li giây'],['PC','pê xê'],
                 // Công ty VN
-                ['Viettel','viết teo'],['VNPT','vê en pê tê'],['FPT','ép pê tê'],
-                ['VNG','vê en gờ'],['Vingroup','vin grúp'],
+                ['Viettel','viết teo'],['VNPT','vê en pê tê'],['MobiFone','mô bi phôn'],
+                ['Vietnamobile','việt nam mô bai'],['FPT','ép pê tê'],
+                ['VNG','vê en gờ'],['Vingroup','vin grúp'],['VinFast','vin phát'],
                 ['Momo','mô mô'],['ZaloPay','da lô pây'],['VNPay','vê en pây'],
                 ['Shopee','sô pi'],['Lazada','la da đa'],['Tiki','ti ki'],
-                ['Sendo','xen đô'],['Grab','gráp'],['Gojek','gô giéc'],
-                ['Tinhte','tinh tế'],['GenK','ghen kê'],['ICTNews','ai xê tê niu'],
+                ['Sendo','xen đô'],['Grab','gráp'],['Be','bi'],['Gojek','gô giéc'],
+                ['Tinhte','tinh tế'],['GenK','ghen kê'],['ICTNews','i xê tê niu'],
                 ['VnReview','vê en ri viu'],['Techz','tếch'],['CafeF','ca phê ép'],
                 ['VnExpress','vê en éc pờ rét'],['Zing','dinh'],
                 ['Kenh14','kênh mười bốn'],['Dantri','dân trí'],
                 ['Tuoitre','tuổi trẻ'],['Thanhnien','thanh niên'],
                 ['VietnamNet','việt nam nét'],['Baomoi','báo mới'],
-                // Tài chính & viết tắt
-                ['CEO','xê i ô'],['CTO','xê ti ô'],['CFO','xê ép ô'],['COO','xê ô ô'],
-                ['IPO','ai pê ô'],['M&A','em và ây'],['GDP','gờ đê pê'],
-                ['FDI','ép đê ai'],['ODA','ô đê ây'],['ETF','i ti ép'],
-                ['CPI','xê pê ai'],['FED','phét'],['ROI','a ô ai'],
-                ['P/E','pê trên i'],
-                ['USD','đô la Mỹ'],['EUR','ơ rô'],['GBP','bảng Anh'],
-                ['JPY','yên Nhật'],['CNY','nhân dân tệ'],['VND','đồng'],
-                ['tỷ USD','tỷ đô la Mỹ'],['triệu USD','triệu đô la Mỹ'],
-                ['Q1','quý một'],['Q2','quý hai'],['Q3','quý ba'],['Q4','quý bốn'],
-                ['H1','nửa đầu năm'],['H2','nửa cuối năm'],
                 ['vs.','so với'],['vs','so với'],
                 ['%',' phần trăm'],['&',' và ']
             ];
@@ -1755,7 +1821,6 @@
             function ttsNormalize(text) {
                 if (!text) { return ''; }
                 var str = text;
-                // Xóa URL trước
                 str = str.replace(/https?:\/\/\S+/g, '');
                 var i, key, val;
                 for (i = 0; i < ttsDict.length; i++) {
@@ -1768,6 +1833,43 @@
                     }
                 }
                 str = str.replace(/[_\[\]{}|\\^~`<>]/g, ' ');
+                // Context-aware: ngày tháng năm
+                str = str.replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/g, function(_, d, m, y) {
+                    return 'ngày ' + parseInt(d,10) + ' tháng ' + parseInt(m,10) + ' năm ' + y;
+                });
+                str = str.replace(/(\d{1,2})\/(\d{1,2})/g, function(_, d, m) {
+                    return 'ngày ' + parseInt(d,10) + ' tháng ' + parseInt(m,10);
+                });
+                // Giờ
+                str = str.replace(/(\d{1,2})[hH:](\d{2})/g, function(_, h, m) {
+                    return parseInt(h,10) + ' giờ ' + (parseInt(m,10) > 0 ? parseInt(m,10) + ' phút' : '');
+                });
+                // Số thập phân
+                str = str.replace(/(\d+),(\d{1,2})(?!\d)/g, function(_, a, b) {
+                    return a + ' phẩy ' + b;
+                });
+                // Số có dấu chấm ngăn cách hàng nghìn
+                str = str.replace(/(\d{1,3})\.(\d{3})\.(\d{3})\.(\d{3})/g, '$1$2$3$4');
+                str = str.replace(/(\d{1,3})\.(\d{3})\.(\d{3})/g, '$1$2$3');
+                str = str.replace(/(\d{1,3})\.(\d{3})/g, '$1$2');
+                // Viết tắt có dấu chấm
+                str = str.replace(/\bTP\./g, 'Thành phố');
+                str = str.replace(/\bPGS\.\s*/g, 'Phó Giáo sư ');
+                str = str.replace(/\bGS\.\s*/g, 'Giáo sư ');
+                str = str.replace(/\bTS\.\s*/g, 'Tiến sĩ ');
+                str = str.replace(/\bTh\.?S\.\s*/g, 'Thạc sĩ ');
+                str = str.replace(/\bBS\.\s*/g, 'Bác sĩ ');
+                str = str.replace(/\bKTS\.\s*/g, 'Kiến trúc sư ');
+                str = str.replace(/\bLS\.\s*/g, 'Luật sư ');
+                // Ký hiệu
+                str = str.replace(/≥/g, ' lớn hơn hoặc bằng ');
+                str = str.replace(/≤/g, ' nhỏ hơn hoặc bằng ');
+                str = str.replace(/±/g, ' cộng trừ ');
+                str = str.replace(/°C/g, ' độ xê');
+                str = str.replace(/°F/g, ' độ ép');
+                str = str.replace(/°/g, ' độ ');
+                // Dấu gạch ngang giữa 2 số = đến
+                str = str.replace(/(\d)\s*[-–]\s*(\d)/g, '$1 đến $2');
                 str = str.replace(/\s{2,}/g, ' ').replace(/^\s+|\s+$/g, '');
                 return str;
             }
