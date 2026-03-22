@@ -69,7 +69,7 @@ LF.tts._normalizeText = function (text) {
         ['BCH',      'Ban chấp hành'],
         ['BQP',      'Bộ Quốc phòng'],
         ['BCA',      'Bộ Công an'],
-        ['BTC',      'Bộ Tài chính'],
+        ['BTC',      'bê tê xê'],
         ['BCT',      'Bộ Công thương'],
         ['BĐS',      'Bất động sản'],
         ['ĐBQH',     'Đại biểu Quốc hội'],
