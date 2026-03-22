@@ -1575,6 +1575,15 @@
                 if (typeof console !== 'undefined' && console.log) {
                     console.log('[TTS-LITE] #' + idx + ' text:', text.substring(0, 80));
                 }
+                // Debug overlay — hiện text đang đọc trên màn hình (tạm thời)
+                var dbg = document.getElementById('tts-debug');
+                if (!dbg) {
+                    dbg = document.createElement('div');
+                    dbg.id = 'tts-debug';
+                    dbg.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.85);color:#0f0;font-size:11px;padding:4px 8px;z-index:99999;max-height:60px;overflow:hidden;font-family:monospace;';
+                    document.body.appendChild(dbg);
+                }
+                dbg.textContent = '#' + idx + ': ' + text.substring(0, 120);
                 var url = TTS_PROXY + '?q=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(ttsVoice) + '&rate=' + encodeURIComponent('-15%');
                 var ended = false;
                 function finish() {
