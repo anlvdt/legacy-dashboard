@@ -1525,40 +1525,85 @@
             } catch (e) { }
 
             // Vietnamese abbreviation dictionary
-            var ttsAbbrevDict = {
-                'UBND': 'Ủy ban nhân dân', 'HĐND': 'Hội đồng nhân dân',
-                'TP.HCM': 'Thành phố Hồ Chí Minh', 'TPHCM': 'Thành phố Hồ Chí Minh',
-                'TP HCM': 'Thành phố Hồ Chí Minh', 'HN': 'Hà Nội',
-                'CSGT': 'Cảnh sát giao thông', 'BĐS': 'Bất động sản',
-                'TTXVN': 'Thông tấn xã Việt Nam', 'BHXH': 'Bảo hiểm xã hội',
-                'BHYT': 'Bảo hiểm y tế', 'NXB': 'Nhà xuất bản',
-                'TW': 'Trung ương', 'BQP': 'Bộ quốc phòng',
-                'BCA': 'Bộ công an', 'BTC': 'Bộ tài chính',
-                'BCT': 'Bộ công thương', 'TAND': 'Tòa án nhân dân',
-                'VKSND': 'Viện kiểm sát nhân dân',
-                'TANDTC': 'Tòa án nhân dân tối cao',
-                'CSĐT': 'Cảnh sát điều tra', 'GTVT': 'Giao thông vận tải',
-                'GD-ĐT': 'Giáo dục và Đào tạo', 'BCH': 'Ban chấp hành'
-            };
+            // ── TTS Dictionary — đồng bộ với public/js/tts.js ──
+            var ttsDict = [
+                ['TP.HCM','Thành phố Hồ Chí Minh'],['TPHCM','Thành phố Hồ Chí Minh'],
+                ['TP HCM','Thành phố Hồ Chí Minh'],['UBND','Ủy ban nhân dân'],
+                ['HĐND','Hội đồng nhân dân'],['TTXVN','Thông tấn xã Việt Nam'],
+                ['TANDTC','Tòa án nhân dân tối cao'],['TAND','Tòa án nhân dân'],
+                ['VKSND','Viện kiểm sát nhân dân'],['CSĐT','Cảnh sát điều tra'],
+                ['CSGT','Cảnh sát giao thông'],['GD&ĐT','Giáo dục và Đào tạo'],
+                ['GD-ĐT','Giáo dục và Đào tạo'],['KH&CN','Khoa học và Công nghệ'],
+                ['GTVT','Giao thông vận tải'],['BHXH','Bảo hiểm xã hội'],
+                ['BHYT','Bảo hiểm y tế'],['NXB','Nhà xuất bản'],
+                ['BCH','Ban chấp hành'],['BQP','Bộ Quốc phòng'],
+                ['BCA','Bộ Công an'],['BTC','Bộ Tài chính'],
+                ['BCT','Bộ Công thương'],['BĐS','Bất động sản'],
+                ['TW','Trung ương'],['HN','Hà Nội'],
+                ['iPhone','ai phôn'],['iPad','ai pét'],['MacBook','mác buk'],
+                ['Apple Watch','áp pồ uốt'],['Apple TV','áp pồ ti vi'],
+                ['Apple Intelligence','áp pồ in tê li gần'],['App Store','áp sto'],
+                ['iOS','ai ô ét'],['macOS','mác ô ét'],['Apple','áp pồ'],
+                ['Google Pixel','gú gồ pích xồ'],['Google Maps','gú gồ mép'],
+                ['Google','gú gồ'],['Gmail','gờ meo'],['YouTube','diu túp'],
+                ['Android','an đờ roi'],['Chrome','crôm'],['Gemini','gê mi ni'],
+                ['Microsoft','mai cờ rô sốp'],['Windows','uyn đô'],
+                ['Copilot','cô pai lốt'],['Azure','a dua'],
+                ['Samsung','sam sung'],['Galaxy','ga lắc xi'],['Xiaomi','si ao mi'],
+                ['OPPO','ô pô'],['Huawei','hua uây'],['Intel','in teo'],
+                ['NVIDIA','en vi đia'],['Qualcomm','quân com'],['MediaTek','mê đia tếch'],
+                ['Snapdragon','snép đờ ra gần'],['AMD','ây em đi'],
+                ['TSMC','ti ét em xi'],['RAM','ram'],['ROM','rom'],
+                ['SSD','ét ét đi'],['USB','diu ét bi'],['GPU','gờ pờ diu'],
+                ['CPU','xê pờ diu'],['NPU','en pờ diu'],
+                ['WiFi','uai fai'],['Wi-Fi','uai fai'],['Bluetooth','blú tút'],
+                ['5G','năm gờ'],['4G','bốn gờ'],['NFC','en ép xê'],
+                ['VPN','vê pê en'],['ChatGPT','chát gờ pê tê'],
+                ['GPT-4o','gờ pê tê bốn ô'],['GPT-4','gờ pê tê bốn'],['GPT','gờ pê tê'],
+                ['OpenAI','ô pần ai'],['DeepSeek','đíp xíc'],['Meta AI','mê ta ai'],
+                ['Meta','mê ta'],['Facebook','phây búc'],['Instagram','in xờ ta gram'],
+                ['TikTok','tíc tóc'],['Twitter','tuýt tơ'],['Zalo','da lô'],
+                ['Telegram','tê lê gram'],['WhatsApp','uốt áp'],
+                ['Netflix','nét phờ lích'],['Spotify','xờ pô ti fai'],
+                ['GitHub','gít hắp'],['Docker','đóc cơ'],['Linux','li nớt'],
+                ['Python','pai thần'],['JavaScript','gia va xcờ ríp'],
+                ['API','ây pê ai'],['AI','ây ai'],['IoT','ai ô ti'],
+                ['Blockchain','blóc chen'],['Bitcoin','bít coin'],
+                ['GHz','ghi ga hét'],['MHz','mê ga hét'],
+                ['GB','ghi ga bai'],['TB','tê ra bai'],['MB','mê ga bai'],
+                ['Gbps','ghi ga bít mỗi giây'],['Mbps','mê ga bít mỗi giây'],
+                ['mAh','mi li am pe giờ'],['GW','ghi ga oát'],['MW','mê ga oát'],
+                ['kW','ki lô oát'],['W','oát'],['nm','na nô mét'],
+                ['fps','khung hình mỗi giây'],['Hz','hét'],
+                ['Viettel','viết teo'],['VNPT','vê en pê tê'],['FPT','ép pê tê'],
+                ['VinFast','vin phát'],['Shopee','sô pi'],['Grab','gráp'],
+                ['VnExpress','vê en éc pờ rét'],
+                ['CEO','xê i ô'],['CTO','xê ti ô'],['IPO','ai pê ô'],
+                ['M&A','em và ây'],['GDP','gờ đê pê'],
+                ['USD','đô la Mỹ'],['EUR','ơ rô'],['VND','đồng'],
+                ['tỷ USD','tỷ đô la Mỹ'],['triệu USD','triệu đô la Mỹ'],
+                ['Q1','quý một'],['Q2','quý hai'],['Q3','quý ba'],['Q4','quý bốn'],
+                ['vs.','so với'],['vs','so với'],
+                ['%',' phần trăm'],['&',' và ']
+            ];
 
             function ttsNormalize(text) {
                 if (!text) { return ''; }
                 var str = text;
-                for (var key in ttsAbbrevDict) {
-                    if (ttsAbbrevDict.hasOwnProperty(key)) {
-                        var idx = str.indexOf(key);
-                        while (idx !== -1) {
-                            var before = idx > 0 ? str.charAt(idx - 1) : ' ';
-                            var after = (idx + key.length < str.length) ? str.charAt(idx + key.length) : ' ';
-                            if (/[\s.,;:?!()"]/.test(before) && /[\s.,;:?!()"]/.test(after) || idx === 0) {
-                                str = str.substring(0, idx) + ttsAbbrevDict[key] + str.substring(idx + key.length);
-                                idx = str.indexOf(key, idx + ttsAbbrevDict[key].length);
-                            } else {
-                                idx = str.indexOf(key, idx + 1);
-                            }
-                        }
+                // Xóa URL trước
+                str = str.replace(/https?:\/\/\S+/g, '');
+                var i, key, val;
+                for (i = 0; i < ttsDict.length; i++) {
+                    key = ttsDict[i][0];
+                    val = ttsDict[i][1];
+                    if (key.length <= 3 && /^[A-Za-z0-9]+$/.test(key)) {
+                        str = str.replace(new RegExp('\\b' + key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'g'), val);
+                    } else {
+                        str = str.split(key).join(val);
                     }
                 }
+                str = str.replace(/[_\[\]{}|\\^~`<>]/g, ' ');
+                str = str.replace(/\s{2,}/g, ' ').replace(/^\s+|\s+$/g, '');
                 return str;
             }
 
