@@ -58,6 +58,29 @@ function fetchURL(url, timeout) {
     });
 }
 
+// Map named HTML entities → ký tự (bao gồm Vietnamese diacritics)
+var HTML_ENTITIES = {
+    'aacute':'á','agrave':'à','atilde':'ã','acirc':'â','aring':'å',
+    'eacute':'é','egrave':'è','ecirc':'ê','euml':'ë',
+    'iacute':'í','igrave':'ì','icirc':'î','iuml':'ï',
+    'oacute':'ó','ograve':'ò','otilde':'õ','ocirc':'ô','ouml':'ö',
+    'uacute':'ú','ugrave':'ù','ucirc':'û','uuml':'ü',
+    'yacute':'ý','Aacute':'Á','Agrave':'À','Atilde':'Ã','Acirc':'Â',
+    'Eacute':'É','Egrave':'È','Ecirc':'Ê','Iacute':'Í','Igrave':'Ì',
+    'Oacute':'Ó','Ograve':'Ò','Otilde':'Õ','Ocirc':'Ô',
+    'Uacute':'Ú','Ugrave':'Ù','Ucirc':'Û','Yacute':'Ý',
+    'ntilde':'ñ','Ntilde':'Ñ','ccedil':'ç','Ccedil':'Ç',
+    'szlig':'ß','eth':'ð','thorn':'þ',
+    'laquo':'«','raquo':'»','mdash':'—','ndash':'–',
+    'lsquo':'\u2018','rsquo':'\u2019','ldquo':'\u201C','rdquo':'\u201D',
+    'bull':'\u2022','hellip':'\u2026','trade':'\u2122',
+    'copy':'\u00A9','reg':'\u00AE','deg':'\u00B0',
+    'frac12':'\u00BD','frac14':'\u00BC','frac34':'\u00BE',
+    'times':'\u00D7','divide':'\u00F7','plusmn':'\u00B1',
+    'micro':'\u00B5','para':'\u00B6','sect':'\u00A7','euro':'\u20AC',
+    'pound':'\u00A3','yen':'\u00A5','cent':'\u00A2'
+};
+
 function decodeEntities(str) {
     return str
         .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
@@ -68,7 +91,9 @@ function decodeEntities(str) {
         .replace(/&#(\d+);/g, function (_, dec) {
             return String.fromCharCode(parseInt(dec, 10));
         })
-        .replace(/&[a-z]+;/g, ' ');
+        .replace(/&([a-zA-Z]+);/g, function (full, name) {
+            return HTML_ENTITIES[name] || ' ';
+        });
 }
 
 function cleanText(raw) {
