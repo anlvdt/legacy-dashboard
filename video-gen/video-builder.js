@@ -119,45 +119,90 @@ function wrapText(text, maxLen) {
     return lines;
 }
 
+/** Wrap title thành nhiều dòng, mỗi dòng tối đa maxChars ký tự */
+function wrapTitle(text, maxChars) {
+    var words = text.split(' ');
+    var lines = [];
+    var current = '';
+    for (var i = 0; i < words.length; i++) {
+        if (current.length + words[i].length + 1 > maxChars && current.length > 0) {
+            lines.push(current);
+            current = words[i];
+        } else {
+            current = current ? current + ' ' + words[i] : words[i];
+        }
+    }
+    if (current) lines.push(current);
+    // Tối đa 4 dòng
+    if (lines.length > 4) {
+        lines = lines.slice(0, 4);
+        lines[3] = lines[3].substring(0, Math.max(0, lines[3].length - 3)) + '...';
+    }
+    return lines;
+}
+
 /**
  * Tạo video segment cho 1 tin: ảnh + audio + text overlay
+ * Layout: gradient overlay ở giữa-dưới, title wrap nhiều dòng, badge số thứ tự
  */
 async function buildSegment(index, item, audioPath, imagePath, tempDir) {
     var duration = await getAudioDuration(audioPath);
     duration += 1; // thêm 1s padding
 
     var segmentPath = path.join(tempDir, 'segment_' + index + '.mp4');
-    var titleEsc = escapeFFText(item.title.substring(0, 80));
-    var sourceEsc = escapeFFText('Nguồn: ' + (item.source || ''));
+    var sourceEsc = escapeFFText(item.source || '');
     var fontBold = escapeFFPath(config.FONT_BOLD);
     var fontNormal = escapeFFPath(config.FONT_FILE);
 
+    // Wrap title thành nhiều dòng (~22 ký tự/dòng cho fontsize 56 trên 1080px, có padding)
+    var titleLines = wrapTitle(item.title, 24);
+    var titleFontSize = 56;
+    var lineHeight = Math.round(titleFontSize * 1.35);
+
+    // Tính vùng text: bắt đầu từ 38% chiều cao, mỗi dòng cách nhau lineHeight
+    var textStartY = 0.38;
+    var totalTextHeight = titleLines.length * lineHeight + 120; // +120 cho source + padding
+    var boxTop = Math.round(config.HEIGHT * textStartY) - 40;
+    var boxHeight = totalTextHeight + 80;
+
     // FFmpeg: ảnh loop + audio + text overlay
+    var vf = '';
+    // Scale ảnh về đúng kích thước video
+    vf += 'scale=' + config.WIDTH + ':' + config.HEIGHT + ':force_original_aspect_ratio=increase,'
+        + 'crop=' + config.WIDTH + ':' + config.HEIGHT + ',';
+    // Gradient overlay (2 lớp: trên mờ, dưới đậm)
+    vf += 'drawbox=x=0:y=' + boxTop + ':w=iw:h=' + boxHeight + ':color=black@0.6:t=fill,';
+    // Badge số thứ tự (hình tròn vàng + số)
+    vf += 'drawbox=x=30:y=30:w=80:h=80:color=0xFFCC00@0.9:t=fill,';
+    vf += 'drawtext=fontfile=' + fontBold
+        + ':text=' + "'" + (index + 1) + "'"
+        + ':fontcolor=0x1a1a2e:fontsize=48:x=70-text_w/2:y=70-text_h/2,';
+
+    // Tiêu đề tin — nhiều dòng
+    for (var i = 0; i < titleLines.length; i++) {
+        var lineEsc = escapeFFText(titleLines[i]);
+        var yPos = Math.round(config.HEIGHT * textStartY) + (i * lineHeight);
+        vf += 'drawtext=fontfile=' + fontBold
+            + ':text=' + "'" + lineEsc + "'"
+            + ':fontcolor=white:fontsize=' + titleFontSize
+            + ':x=(w-text_w)/2:y=' + yPos
+            + ':shadowcolor=black@0.8:shadowx=3:shadowy=3,';
+    }
+
+    // Nguồn tin (dưới title, căn giữa, có icon-like prefix)
+    var sourceY = Math.round(config.HEIGHT * textStartY) + (titleLines.length * lineHeight) + 20;
+    vf += 'drawtext=fontfile=' + fontNormal
+        + ':text=' + "'" + escapeFFText('📰 ' + sourceEsc) + "'"
+        + ':fontcolor=0xFFCC00:fontsize=32:x=(w-text_w)/2:y=' + sourceY
+        + ':shadowcolor=black@0.6:shadowx=1:shadowy=1';
+
     var cmd = 'ffmpeg -y'
         + ' -loop 1 -i "' + imagePath + '"'
         + ' -i "' + audioPath + '"'
         + ' -c:v libx264 -tune stillimage -pix_fmt yuv420p'
         + ' -c:a aac -b:a 128k -ar 44100'
         + ' -t ' + duration.toFixed(1)
-        + ' -vf "'
-        // Darken overlay cho dễ đọc chữ
-        + 'drawbox=x=0:y=ih*0.35:w=iw:h=ih*0.35:color=black@0.5:t=fill,'
-        // Tiêu đề tin
-        + 'drawtext=fontfile=' + fontBold
-        + ':text=' + "'" + titleEsc + "'"
-        + ':fontcolor=white:fontsize=42:x=(w-text_w)/2:y=h*0.40'
-        + ':shadowcolor=black:shadowx=2:shadowy=2,'
-        // Nguồn tin (góc dưới phải)
-        + 'drawtext=fontfile=' + fontNormal
-        + ':text=' + "'" + sourceEsc + "'"
-        + ':fontcolor=white@0.8:fontsize=28:x=w-text_w-30:y=h-60'
-        + ':shadowcolor=black:shadowx=1:shadowy=1,'
-        // Số thứ tự tin
-        + 'drawtext=fontfile=' + fontBold
-        + ':text=' + "'" + (index + 1) + "'"
-        + ':fontcolor=yellow:fontsize=52:x=40:y=40'
-        + ':shadowcolor=black:shadowx=2:shadowy=2'
-        + '"'
+        + ' -vf "' + vf + '"'
         + ' -shortest "' + segmentPath + '"';
 
     await exec(cmd);
@@ -165,13 +210,13 @@ async function buildSegment(index, item, audioPath, imagePath, tempDir) {
 }
 
 /**
- * Tạo intro slide (3 giây)
+ * Tạo intro slide (3 giây) — style đẹp hơn
  */
 async function buildIntro(tempDir) {
     var introPath = path.join(tempDir, 'intro.mp4');
     var now = new Date();
     var dateStr = pad2(now.getDate()) + '/' + pad2(now.getMonth() + 1) + '/' + now.getFullYear();
-    var dateEsc = escapeFFText('Ngày ' + dateStr);
+    var dateEsc = escapeFFText(dateStr);
     var fontBold = escapeFFPath(config.FONT_BOLD);
     var fontNormal = escapeFFPath(config.FONT_FILE);
 
@@ -180,12 +225,20 @@ async function buildIntro(tempDir) {
         + ' -f lavfi -i anullsrc=r=44100:cl=stereo -t 3'
         + ' -c:v libx264 -pix_fmt yuv420p -c:a aac'
         + ' -vf "'
+        // Accent line
+        + 'drawbox=x=' + Math.round(config.WIDTH * 0.3) + ':y=' + Math.round(config.HEIGHT * 0.34)
+        + ':w=' + Math.round(config.WIDTH * 0.4) + ':h=4:color=0xFFCC00:t=fill,'
+        // Title
         + 'drawtext=fontfile=' + fontBold
-        + ':text=' + "'" + escapeFFText('BẢN TIN TỔNG HỢP') + "'"
-        + ':fontcolor=white:fontsize=64:x=(w-text_w)/2:y=h*0.38,'
+        + ':text=' + "'" + escapeFFText('BẢN TIN') + "'"
+        + ':fontcolor=white:fontsize=80:x=(w-text_w)/2:y=h*0.38,'
+        + 'drawtext=fontfile=' + fontBold
+        + ':text=' + "'" + escapeFFText('TỔNG HỢP') + "'"
+        + ':fontcolor=0xFFCC00:fontsize=80:x=(w-text_w)/2:y=h*0.38+90,'
+        // Date
         + 'drawtext=fontfile=' + fontNormal
         + ':text=' + "'" + dateEsc + "'"
-        + ':fontcolor=yellow:fontsize=40:x=(w-text_w)/2:y=h*0.48'
+        + ':fontcolor=white@0.7:fontsize=40:x=(w-text_w)/2:y=h*0.38+200'
         + '"'
         + ' "' + introPath + '"';
 
@@ -194,7 +247,7 @@ async function buildIntro(tempDir) {
 }
 
 /**
- * Tạo credits slide cuối (4 giây)
+ * Tạo credits slide cuối (4 giây) — style đẹp hơn
  */
 async function buildCredits(items, tempDir) {
     var creditsPath = path.join(tempDir, 'credits.mp4');
@@ -202,7 +255,7 @@ async function buildCredits(items, tempDir) {
     items.forEach(function(item) {
         if (item.source && sources.indexOf(item.source) === -1) sources.push(item.source);
     });
-    var srcText = escapeFFText('Nguồn\\: ' + sources.join(', '));
+    var srcText = escapeFFText(sources.join(' • '));
     var fontBold = escapeFFPath(config.FONT_BOLD);
     var fontNormal = escapeFFPath(config.FONT_FILE);
 
@@ -211,12 +264,20 @@ async function buildCredits(items, tempDir) {
         + ' -f lavfi -i anullsrc=r=44100:cl=stereo -t 4'
         + ' -c:v libx264 -pix_fmt yuv420p -c:a aac'
         + ' -vf "'
+        // Accent line
+        + 'drawbox=x=' + Math.round(config.WIDTH * 0.3) + ':y=' + Math.round(config.HEIGHT * 0.34)
+        + ':w=' + Math.round(config.WIDTH * 0.4) + ':h=4:color=0xFFCC00:t=fill,'
+        // Thank you
         + 'drawtext=fontfile=' + fontBold
-        + ':text=' + "'" + escapeFFText('CẢM ƠN ĐÃ XEM') + "'"
-        + ':fontcolor=white:fontsize=56:x=(w-text_w)/2:y=h*0.38,'
+        + ':text=' + "'" + escapeFFText('CẢM ƠN') + "'"
+        + ':fontcolor=white:fontsize=76:x=(w-text_w)/2:y=h*0.38,'
+        + 'drawtext=fontfile=' + fontBold
+        + ':text=' + "'" + escapeFFText('ĐÃ XEM') + "'"
+        + ':fontcolor=0xFFCC00:fontsize=76:x=(w-text_w)/2:y=h*0.38+86,'
+        // Sources
         + 'drawtext=fontfile=' + fontNormal
         + ':text=' + "'" + srcText + "'"
-        + ':fontcolor=white@0.7:fontsize=28:x=(w-text_w)/2:y=h*0.50'
+        + ':fontcolor=white@0.5:fontsize=28:x=(w-text_w)/2:y=h*0.38+220'
         + '"'
         + ' "' + creditsPath + '"';
 
