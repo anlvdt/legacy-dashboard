@@ -1780,59 +1780,81 @@
             var ttsAudioEl = document.createElement('audio');
             ttsAudioEl.setAttribute('preload', 'auto');
 
-            // Chia text thành chunks (~400 ký tự) tại dấu câu
-            function ttsSplitText(text) {
-                var MAX_CHUNK = 400;
-                if (!text || text.length <= MAX_CHUNK) { return [text]; }
-                var chunks = [];
-                var remaining = text;
-                while (remaining.length > MAX_CHUNK) {
-                    var cut = remaining.substring(0, MAX_CHUNK);
-                    var lastDot = -1;
-                    var i;
-                    var breaks = ['. ', '! ', '? ', ', ', '; ', ': '];
-                    for (i = 0; i < breaks.length; i++) {
-                        var pos = cut.lastIndexOf(breaks[i]);
-                        if (pos > 100 && pos > lastDot) { lastDot = pos + 1; }
-                    }
-                    if (lastDot === -1) {
-                        lastDot = cut.lastIndexOf(' ');
-                        if (lastDot < 100) { lastDot = MAX_CHUNK; }
-                    }
-                    chunks.push(remaining.substring(0, lastDot).replace(/^\s+|\s+$/g, ''));
-                    remaining = remaining.substring(lastDot).replace(/^\s+/, '');
-                }
-                if (remaining.length > 0) { chunks.push(remaining); }
-                return chunks;
-            }
-
             function ttsBuildUrl(text, voiceOverride) {
                 var v = voiceOverride || ttsVoice;
+                if (text.length > 1400) { text = text.substring(0, 1400); }
                 return TTS_PROXY + '?q=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(v) + '&rate=' + encodeURIComponent('+0%');
             }
 
-            // Flatten all items into a single list of chunks
-            var ttsAllChunks = [];  // [{text, itemIdx}]
-            var ttsChunkPos = 0;
+            var ttsLoopUntil = 0;
 
-            function ttsBuildChunkList() {
-                ttsAllChunks = [];
-                for (var i = 0; i < ttsItems.length; i++) {
-                    var item = ttsItems[i];
-                    var parts = [];
-                    if (item.title) { parts.push(item.title + '.'); }
-                    var summary = item.summary || item.desc || '';
-                    if (summary && summary !== item.title) { parts.push(summary); }
-                    var fullText = ttsNormalize(parts.join(' '));
-                    var chunks = ttsSplitText(fullText);
-                    for (var j = 0; j < chunks.length; j++) {
-                        ttsAllChunks.push({ text: chunks[j], itemIdx: i });
+            function ttsStop() {
+                ttsIsReading = false;
+                ttsCurrentIndex = 0;
+                ttsLoopUntil = 0;
+                clearTimeout(ttsSafetyTimer);
+                ttsAudioEl.onended = null;
+                ttsAudioEl.onerror = null;
+                try { ttsAudioEl.pause(); ttsAudioEl.src = ''; } catch (e) { }
+                ttsUpdateBtn(false);
+            }
+
+            function ttsReadNext() {
+                if (!ttsIsReading) { return; }
+                var idx = ttsCurrentIndex;
+                if (idx >= ttsItems.length) {
+                    var now = new Date().getTime();
+                    if (ttsLoopUntil > 0 && now < ttsLoopUntil) {
+                        ttsCurrentIndex = 0;
+                        idx = 0;
+                    } else {
+                        ttsStop();
+                        return;
                     }
                 }
+                var item = ttsItems[idx];
+                var parts = [];
+                if (item.title) { parts.push(item.title + '.'); }
+                var summary = item.summary || item.desc || '';
+                if (summary && summary !== item.title) { parts.push(summary); }
+                var fullText = ttsNormalize(parts.join(' '));
+                var voices = ['vi-VN-HoaiMyNeural', 'vi-VN-NamMinhNeural'];
+                var voice = voices[idx % 2];
+                var url = ttsBuildUrl(fullText, voice);
+                if (typeof console !== 'undefined' && console.log) {
+                    console.log('[TTS-LITE] #' + (idx + 1) + '/' + ttsItems.length + ' (' + fullText.length + ' chars):', fullText.substring(0, 80));
+                }
+                var ended = false;
+                function next() {
+                    if (ended) { return; }
+                    ended = true;
+                    clearTimeout(ttsSafetyTimer);
+                    ttsAudioEl.onended = null;
+                    ttsAudioEl.onerror = null;
+                    if (!ttsIsReading) { return; }
+                    ttsCurrentIndex++;
+                    ttsReadNext();
+                }
+                clearTimeout(ttsSafetyTimer);
+                ttsSafetyTimer = setTimeout(next, 45000);
+                ttsAudioEl.onended = next;
+                ttsAudioEl.onerror = function() {
+                    if (typeof console !== 'undefined' && console.log) {
+                        console.log('[TTS-LITE] Audio error #' + idx);
+                    }
+                    next();
+                };
+                ttsAudioEl.src = url;
+                ttsAudioEl.load();
+                try {
+                    var playResult = ttsAudioEl.play();
+                    if (playResult && typeof playResult.then === 'function') {
+                        playResult.then(function () { }).catch(function () { next(); });
+                    }
+                } catch (e) { next(); }
             }
 
             function ttsPlayOne(text, idx, onEnd) {
-                // Legacy wrapper for speakText
                 if (!text) { if (onEnd) { onEnd(); } return; }
                 var url = ttsBuildUrl(text);
                 var ended = false;
@@ -1851,80 +1873,8 @@
                 } catch (e) { finish(); }
             }
 
-            function ttsPlayChunks() {
-                if (!ttsIsReading) { return; }
-                if (ttsChunkPos >= ttsAllChunks.length) {
-                    var now = new Date().getTime();
-                    if (ttsLoopUntil > 0 && now < ttsLoopUntil) {
-                        ttsChunkPos = 0;
-                    } else {
-                        ttsStop();
-                        return;
-                    }
-                }
-
-                var chunk = ttsAllChunks[ttsChunkPos];
-                // Luân phiên giọng nam/nữ theo item index
-                var voices = ['vi-VN-HoaiMyNeural', 'vi-VN-NamMinhNeural'];
-                var voice = voices[chunk.itemIdx % 2];
-                var url = ttsBuildUrl(chunk.text, voice);
-
-                if (typeof console !== 'undefined' && console.log) {
-                    console.log('[TTS-LITE] chunk ' + (ttsChunkPos + 1) + '/' + ttsAllChunks.length + ' item#' + chunk.itemIdx + ':', chunk.text.substring(0, 60));
-                }
-
-                var ended = false;
-                function finish() {
-                    if (ended) { return; }
-                    ended = true;
-                    clearTimeout(ttsSafetyTimer);
-                    ttsChunkPos++;
-                    ttsPlayChunks();
-                }
-
-                clearTimeout(ttsSafetyTimer);
-                ttsSafetyTimer = setTimeout(finish, 30000);
-                ttsAudioEl.onended = finish;
-                ttsAudioEl.onerror = function() {
-                    if (typeof console !== 'undefined' && console.log) {
-                        console.log('[TTS-LITE] Audio error chunk ' + ttsChunkPos);
-                    }
-                    finish();
-                };
-                ttsAudioEl.src = url;
-                ttsAudioEl.load();
-                try {
-                    var playResult = ttsAudioEl.play();
-                    if (playResult && typeof playResult.then === 'function') {
-                        playResult.then(function () { }).catch(function () { finish(); });
-                    }
-                } catch (e) { finish(); }
-                // Watchdog
-                setTimeout(function () {
-                    if (!ended && ttsAudioEl.paused && ttsAudioEl.currentTime === 0) { finish(); }
-                }, 5000);
-            }
-
-            // Loop control
-            var ttsLoopUntil = 0; // timestamp until which to keep looping
-
-            function ttsStop() {
-                ttsIsReading = false;
-                ttsCurrentIndex = 0;
-                ttsChunkPos = 0;
-                ttsLoopUntil = 0;
-                clearTimeout(ttsSafetyTimer);
-                try { ttsAudioEl.pause(); ttsAudioEl.src = ''; } catch (e) { }
-                ttsUpdateBtn(false);
-            }
-
-            function ttsReadNext() {
-                ttsPlayChunks();
-            }
-
             // loopMinutes: 0 = read once, N = keep looping for N minutes
             function readNewsNow(loopMinutes) {
-                // Tech news trước (summary từ AI), tin thường sau (desc từ RSS)
                 var combined = [];
                 var i;
                 if (typeof console !== 'undefined' && console.log) {
@@ -1939,13 +1889,11 @@
                 if (!combined.length) { return; }
                 ttsItems = combined;
                 ttsCurrentIndex = 0;
-                ttsChunkPos = 0;
                 ttsIsReading = true;
                 ttsLoopUntil = (loopMinutes && loopMinutes > 0)
                     ? new Date().getTime() + (loopMinutes * 60000) : 0;
-                ttsBuildChunkList();
                 ttsUpdateBtn(true);
-                ttsPlayChunks();
+                ttsReadNext();
             }
 
             function speakText(text) {

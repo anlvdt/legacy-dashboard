@@ -614,40 +614,7 @@ LF.tts._normalizeText = function (text) {
  * ================================================================ */
 
 /**
- * Chia text thành chunks (~1200 ký tự) tại dấu câu
- */
-LF.tts._splitText = function (text) {
-    var MAX_CHUNK = 1200;
-    if (!text || text.length <= MAX_CHUNK) { return [text]; }
-    var chunks = [];
-    var remaining = text;
-    while (remaining.length > MAX_CHUNK) {
-        var cut = remaining.substring(0, MAX_CHUNK);
-        var lastDot = -1;
-        var i;
-        var breaks = ['. ', '! ', '? ', ', ', '; ', ': '];
-        for (i = 0; i < breaks.length; i++) {
-            var pos = cut.lastIndexOf(breaks[i]);
-            if (pos > 200 && pos > lastDot) { lastDot = pos + 1; }
-        }
-        if (lastDot === -1) {
-            lastDot = cut.lastIndexOf(' ');
-            if (lastDot < 200) { lastDot = MAX_CHUNK; }
-        }
-        chunks.push(remaining.substring(0, lastDot).replace(/^\s+|\s+$/g, ''));
-        remaining = remaining.substring(lastDot).replace(/^\s+/, '');
-    }
-    if (remaining.length > 0) { chunks.push(remaining); }
-    return chunks;
-};
-
-/** Dual audio elements for gapless playback */
-LF.tts._audioA = null;
-LF.tts._audioB = null;
-LF.tts._currentAudioSlot = 'A';
-
-/**
- * Phát text qua Edge TTS proxy — dual-buffer gapless
+ * Phát text qua Edge TTS proxy — 1 request/tin, không chunking
  */
 LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
     if (!text) {
@@ -655,64 +622,36 @@ LF.tts._playEdge = function (text, voice, onEnd, onError, idx) {
         return;
     }
 
-    var chunks = LF.tts._splitText(text);
-    var chunkIdx = 0;
+    // Giới hạn 1400 ký tự để URL không quá dài
+    if (text.length > 1400) { text = text.substring(0, 1400); }
 
-    // Ensure dual audio elements exist
-    if (!LF.tts._audioA) { LF.tts._audioA = new Audio(); }
-    if (!LF.tts._audioB) { LF.tts._audioB = new Audio(); }
-
-    function buildUrl(t) {
-        return LF.tts.TTS_PROXY
-            + '?q=' + encodeURIComponent(t)
-            + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
-            + '&rate=' + encodeURIComponent('+0%');
+    var url = LF.tts.TTS_PROXY
+        + '?q=' + encodeURIComponent(text)
+        + '&voice=' + encodeURIComponent(voice || 'vi-VN-HoaiMyNeural')
+        + '&rate=' + encodeURIComponent('+0%');
+    if (typeof console !== 'undefined' && console.log) {
+        console.log('[TTS] #' + idx + ' (' + text.length + ' chars):', text.substring(0, 80));
     }
+    var audio = new Audio(url);
+    LF.tts._audio = audio;
 
-    function playChunk() {
-        if (!LF.tts._isReading) { if (onEnd) { onEnd(); } return; }
-        if (chunkIdx >= chunks.length) { if (onEnd) { onEnd(); } return; }
+    audio.onended = function () {
+        LF.tts._audio = null;
+        if (onEnd) { onEnd(); }
+    };
 
-        var chunk = chunks[chunkIdx];
-        var playing = (LF.tts._currentAudioSlot === 'A') ? LF.tts._audioA : LF.tts._audioB;
-        var next = (LF.tts._currentAudioSlot === 'A') ? LF.tts._audioB : LF.tts._audioA;
-        LF.tts._audio = playing;
+    audio.onerror = function () {
+        LF.tts._audio = null;
+        if (onError) { onError(); }
+    };
 
-        if (typeof console !== 'undefined' && console.log) {
-            console.log('[TTS] #' + idx + ' chunk ' + (chunkIdx + 1) + '/' + chunks.length + ':', chunk.substring(0, 60));
-        }
-
-        // Preload next chunk
-        if (chunkIdx + 1 < chunks.length) {
-            next.src = buildUrl(chunks[chunkIdx + 1]);
-            next.load();
-        }
-
-        var ended = false;
-        function finish() {
-            if (ended) { return; }
-            ended = true;
-            LF.tts._audio = null;
-            LF.tts._currentAudioSlot = (LF.tts._currentAudioSlot === 'A') ? 'B' : 'A';
-            chunkIdx++;
-            playChunk();
-        }
-
-        playing.onended = finish;
-        playing.onerror = finish;
-        playing.src = buildUrl(chunk);
-        playing.load();
-        try { playing.play(); } catch (e) { finish(); }
-    }
-
-    playChunk();
+    try { audio.play(); } catch (e) { if (onError) { onError(); } }
 };
 
 /**
- * Tải trước audio — tạm tắt khi dùng chunking
+ * Prefetch — disabled
  */
 LF.tts._prefetchEdge = function (text, voice, idx) {
-    // Chunking mode: không prefetch vì text sẽ được chia nhỏ
 };
 
 /**
@@ -751,12 +690,6 @@ LF.tts.stop = function () {
     if (LF.tts._audio) {
         try { LF.tts._audio.pause(); LF.tts._audio.src = ''; } catch (e) { }
         LF.tts._audio = null;
-    }
-    if (LF.tts._audioA) {
-        try { LF.tts._audioA.pause(); LF.tts._audioA.src = ''; } catch (e) { }
-    }
-    if (LF.tts._audioB) {
-        try { LF.tts._audioB.pause(); LF.tts._audioB.src = ''; } catch (e) { }
     }
 
     LF.tts._updateTTSButton(false);
