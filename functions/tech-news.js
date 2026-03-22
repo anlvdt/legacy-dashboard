@@ -24,7 +24,7 @@ const SOURCES = [
     { name: 'VTC News',     url: 'https://vtcnews.vn/rss/cong-nghe.rss' }
 ];
 
-const ITEMS_PER_SOURCE = 2;
+const ITEMS_PER_SOURCE = 3;
 const RSS_TIMEOUT      = 8000;
 const ARTICLE_TIMEOUT  = 8000;
 const AI_TIMEOUT       = 8000;
@@ -306,13 +306,50 @@ function cfAISummarize(accountId, apiToken, title, fullText) {
 
 // ─── Parse RSS ────────────────────────────────────────────────────────────────
 
+/**
+ * Parse pubDate linh hoạt — hỗ trợ nhiều format của báo VN:
+ * - RFC 2822: "Mon, 23 Mar 2026 10:30:00 +0700"
+ * - ISO 8601: "2026-03-23T10:30:00+07:00"
+ * - Báo VN dạng: "23/03/2026 10:30" hoặc "23-03-2026 10:30:00"
+ * - CDATA wrapped dates
+ * Trả về timestamp (ms) hoặc NaN nếu không parse được
+ */
+function parsePubDate(str) {
+    if (!str) { return NaN; }
+    str = str.replace(/<!\[CDATA\[/g, '').replace(/\]\]>/g, '').trim();
+
+    // 1. Thử native Date parse trước (RFC 2822, ISO 8601)
+    var t = new Date(str).getTime();
+    if (!isNaN(t)) { return t; }
+
+    // 2. Format "dd/mm/yyyy HH:MM" hoặc "dd-mm-yyyy HH:MM:SS"
+    var m = str.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+    if (m) {
+        var d = new Date(parseInt(m[3], 10), parseInt(m[2], 10) - 1, parseInt(m[1], 10),
+            parseInt(m[4], 10), parseInt(m[5], 10), m[6] ? parseInt(m[6], 10) : 0);
+        t = d.getTime();
+        if (!isNaN(t)) { return t; }
+    }
+
+    // 3. Format "yyyy-mm-dd HH:MM:SS" (không có T)
+    var m2 = str.match(/(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+    if (m2) {
+        var d2 = new Date(parseInt(m2[1], 10), parseInt(m2[2], 10) - 1, parseInt(m2[3], 10),
+            parseInt(m2[4], 10), parseInt(m2[5], 10), m2[6] ? parseInt(m2[6], 10) : 0);
+        t = d2.getTime();
+        if (!isNaN(t)) { return t; }
+    }
+
+    return NaN;
+}
+
 function parseRSS(xml, sourceName, limit) {
     var items = [];
     if (!xml) { return items; }
     var re = /<item>([\s\S]*?)<\/item>/gi;
     var m;
     var now = Date.now();
-    var MAX_AGE_MS = 12 * 3600 * 1000; // tin CN: lấy bài trong 12 giờ gần nhất
+    var MAX_AGE_MS = 48 * 3600 * 1000; // tin CN: lấy bài trong 48 giờ gần nhất
     while ((m = re.exec(xml)) !== null && items.length < limit) {
         var block = m[1];
         var titleM = block.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
@@ -329,10 +366,8 @@ function parseRSS(xml, sourceName, limit) {
 
         // Lọc bài cũ
         if (pubDate) {
-            try {
-                var pubTime = new Date(pubDate).getTime();
-                if (!isNaN(pubTime) && (now - pubTime) > MAX_AGE_MS) { continue; }
-            } catch (e) { /* nếu parse lỗi thì vẫn giữ bài */ }
+            var pubTime = parsePubDate(pubDate);
+            if (!isNaN(pubTime) && (now - pubTime) > MAX_AGE_MS) { continue; }
         }
 
         items.push({ title, desc, link, source: sourceName, pubDate });
