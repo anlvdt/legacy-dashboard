@@ -1813,7 +1813,19 @@
                     }
                 }
                 var item = ttsItems[idx];
-                var fullText = ttsNormalize(item.title || '');
+                var parts = [];
+                if (item.title) { parts.push(item.title + '.'); }
+                var summary = item.summary || item.desc || '';
+                if (summary && summary !== item.title) {
+                    // Giới hạn summary để tổng text không quá dài cho TTS
+                    if (summary.length > 300) {
+                        summary = summary.substring(0, 300);
+                        var lastDot = summary.lastIndexOf('.');
+                        if (lastDot > 150) { summary = summary.substring(0, lastDot + 1); }
+                    }
+                    parts.push(summary);
+                }
+                var fullText = ttsNormalize(parts.join(' '));
                 var voices = ['vi-VN-HoaiMyNeural', 'vi-VN-NamMinhNeural'];
                 var voice = voices[idx % 2];
                 var url = ttsBuildUrl(fullText, voice);
